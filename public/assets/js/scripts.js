@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 let apiUrl = window.location.origin;
-let token = localStorage.token ? "Bearer" + localStorage.token : null;
+let token = localStorage.token ? "Bearer " + localStorage.token : null;
 
 // post normal
 // let datanormal = { data1: "value1", data2: "value2", data3: "value3" };

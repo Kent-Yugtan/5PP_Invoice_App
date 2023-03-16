@@ -1,4 +1,4 @@
-@extends('public.layouts.private')
+@extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
   <h1 class="mt-4">Dashboard</h1>

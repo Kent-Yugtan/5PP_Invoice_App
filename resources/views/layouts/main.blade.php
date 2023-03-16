@@ -10,21 +10,17 @@
   <link rel="icon" href="{{ asset('images/invoices-logo.ico') }}" type="image/x-icon">
   <title>5Pints Productions</title>
 
-  @include('public.layouts.csslink')
+
+  @include('layouts.csslink')
 </head>
 
-<body id="sb-nav-fixed">
-  @include('public.layouts.admin.header')
-  <div id="layoutSidenav">
-    @include('public.layouts.admin.sidemenu')
-    <div id="layoutSidenav_content">
-      <main>
-        @yield('content-dashboard')
-      </main>
-      @include('public.layouts.footer')
-    </div>
-    @include('public.layouts.script')
+<body>
+  <div id="app">
+    <main class="py-5">
+      @yield('content')
+    </main>
   </div>
 </body>
+@include('layouts.script')
 
 </html>

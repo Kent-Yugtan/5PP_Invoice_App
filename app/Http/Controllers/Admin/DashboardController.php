@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
@@ -15,8 +16,11 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    //
-    // $data = ['LoggedUserInfo' => User::where('id', "=", session('LoggedUser'))->first()];
+    // $id = session('data');
+    // $data = User::where('id', "=", $id->id)->first();
+    // echo $data;
+    // $data = $request->session()->all();
+    // return view('myview')->with('user', $user);
     return view('private/admin/dashboard');
     // return "ADMIN DASHBOARD";
   }

@@ -43,11 +43,14 @@ class AuthController extends Controller
   public function logout(Request $request)
   {
     // Revoke all tokens...
-    Auth::user()->tokens()->delete();
-    Auth::guard('web')->logout();
+    // session()->flush();
+    // Auth::user()->tokens()->delete();
+    // Auth::logout();
     return response()->json([
       'success' => true,
       'message' => 'Logged Out Successfully.',
+
+      'asd' => Auth::user(),
     ]);
   }
 
@@ -61,8 +64,8 @@ class AuthController extends Controller
     if (auth()->attempt($data)) {
       $user = auth()->user();
       $profile_status = Profile::select('profile_status')->where('user_id', $user->id)->first();
-      $token = $user->createToken('csjInvoiceTokenLogin')->plainTextToken;
-
+      $token = $user->createToken('csjInvoiceTokenLogin')->accessToken;
+      session(['data' => $user]);
       $response = [
         'succcess' => true,
         'user' => $user,
@@ -84,8 +87,8 @@ class AuthController extends Controller
       if (auth()->attempt($data1)) {
         $user = auth()->user();
         $profile_status = Profile::select('profile_status')->where('user_id', $user->id)->first();
-        $token = $user->createToken('csjInvoiceTokenLogin')->plainTextToken;
-
+        $token = $user->createToken('csjInvoiceTokenLogin')->accessToken;
+        session(['data' => $user]);
         $response = [
           'succcess' => true,
           'user' => $user,

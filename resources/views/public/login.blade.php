@@ -1,4 +1,4 @@
-@extends('public.layouts.main')
+@extends('layouts.main')
 @section('content')
 <div class="container">
   <div class="row">
@@ -77,12 +77,14 @@
           },
         }).then(function(response) {
           let data = response.data;
-          console.log('then', data);
+
           if (!data.succcess) {
             $("#error_msg").html(data.message).show();
           } else {
             if (data.user.role === "Admin") {
               localStorage.token = data.token;
+              console.log("DATA", data)
+
               // localStorage.userdata = JSON.parse(data.user);
               window.location.replace(apiUrl + '/admin/dashboard');
             } else if (data.user.role !== "Admin" && data.profile_status.profile_status === "Inactive") {
@@ -99,4 +101,5 @@
     })
   });
 </script>
+
 @endsection

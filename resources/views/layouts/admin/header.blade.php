@@ -23,10 +23,11 @@
         </li>
 
         <li>
-          <a class=" dropdown-item fw-bold"> </a>
+          <a class=" dropdown-item fw-bold"> {{session('data')->first_name}} {{session('data')->last_name}} </a>
         </li>
+
         <li>
-          <a class=" dropdown-item"> </a>
+          <a class=" dropdown-item">{{session('data')->role}}</a>
         </li>
         <li>
           <hr class="dropdown-divider" />
@@ -44,7 +45,11 @@
 <script>
 $("#logout").on("click", function() {
   console.log('logout');
-  axios.post(apiUrl + '/api/logout', {})
+  axios.post(apiUrl + '/api/logout', {}, {
+      Headers: {
+        Authorization: token,
+      },
+    })
     .then(function(response) {
       console.log('then', response);
       let data = response.data;
