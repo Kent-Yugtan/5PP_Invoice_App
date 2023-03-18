@@ -2,7 +2,19 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\DeductionTypeController;
+use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\EmailConfigController;
+use App\Http\Controllers\Admin\InvoiceConfigController;
+use App\Http\Controllers\Admin\ProfileDeductionTypesController;
+use App\Models\EmailConfig;
+use App\Models\InvoiceConfig;
+use App\Models\User;
+use Carbon\Carbon as CarbonCarbon;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +27,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('resetPassword', [AuthController::class, 'resetPassword']);
+Route::post('password/reset', [AuthController::class, 'reset']);
 
 Route::middleware(['auth:api'])->group(function () {
-  Route::post('logout', [AuthController::class, 'logout']);
-
 
   Route::resource('admin/dashboard', DashboardController::class);
-
   Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
   Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
 
@@ -121,7 +134,7 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('reports/invoiceReport_click', [InvoiceController::class, 'invoiceReport_click']);
   Route::get('reports/deductionReport_load', [InvoiceController::class, 'deductionReport_load']);
   Route::get('reports/deductionReport_click', [InvoiceController::class, 'deductionReport_click']);
-  Route::post('reports/deductionDetails/{id}', [InvoiceController::class, 'deductionDetails']);
+  Route::get('reports/deductionDetails/{id}', [InvoiceController::class, 'deductionDetails']);
 
   // THIS LINE IS FOR USER
   // FOR DASHBOARD PAGE
@@ -157,10 +170,10 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('userReports/userInvoiceReport_click', [InvoiceController::class, 'userInvoiceReport_click']);
   Route::get('userReports/userDeductionReport_load', [InvoiceController::class, 'userDeductionReport_load']);
   Route::get('userReports/userDeductionReport_click', [InvoiceController::class, 'userDeductionReport_click']);
-  Route::post('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
+  Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
 });
 
-// TESTING EMAIL 
+// // TESTING EMAIL 
 // Route::get('testEmail', function () {
 //   $data = Invoice::with(['profile.user', 'deductions.profile_deduction_types.deduction_type', 'invoice_items'])
 //     ->orderBy('id', 'Desc')->first();
@@ -205,7 +218,7 @@ Route::middleware(['auth:api'])->group(function () {
 //         'quick_invoice'          => $data->quick_invoice,
 //       ];
 //     }
-//     setup_email_template($data_setup_email_template);
+//     echo setup_email_template($data_setup_email_template);
 //   }
 // });
 // function setup_email_template($data)
@@ -246,7 +259,7 @@ Route::middleware(['auth:api'])->group(function () {
 //   $to_email = !empty($data['admin_email']) ? $data['admin_email'] : "";
 //   $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
 //   $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
-//   $template = !empty($data['template']) ?  $data['template'] : 'admin.email.emailTemplate';
+//   $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
 //   $subject = "5 Pints Productions Invoice";
 
 //   if (!empty($data['subject'])) {
@@ -297,7 +310,59 @@ Route::middleware(['auth:api'])->group(function () {
 //       ],
 //     ]
 //   ];
+//   event(new \App\Events\SendMailEvent($data_email));
+//   return view($template, ['content' => $data_email['body_data']['content']]);
+// }
+
+// Route::get('forgot', function () {
+//   $users = User::where('email', 'kentoy113@gmail.coom')->first();
+
+//   $token = \Str::random(64);
+//   \DB::table('password_resets')->insert([
+//     'email' => 'kentoy113@gmail.coom',
+//     'token' => $token,
+//     'created_at' => Carbon::now(),
+//   ]);
+
+//   $data_setup_email_template = [
+//     'to'             =>  'kentoy113@gmail.com',
+//     'token'          =>  $token,
+//     'action_link'    =>  url('password/reset/'),
+//   ];
+//   echo setup_forgot_password($data_setup_email_template);
+// });
+
+// function setup_forgot_password($data)
+// {
+//   $to = !empty($data['to']) ? $data['to'] : "";
+//   $token = !empty($data['token']) ? $data['token'] : "";
+//   $action_link = !empty($data['action_link']) ? $data['action_link'] : "";
+
+//   $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
+//   $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+//   $template = !empty($data['template']) ?  $data['template'] : 'email.email-forgot';
+//   $subject = "Reset Password";
+
+//   if (!empty($data['subject'])) {
+//     $subject = $data['subject'];
+//   }
+
+//   $data_email = [
+//     'to_name'       => $to,
+//     'to_email'      => $to,
+//     'subject'       => $subject,
+//     'from_name'     => $from_name,
+//     'from_email'    => $from_email,
+//     'template'      => $template,
+//     'body_data'     => [
+//       "content" => [
+//         'to'              => $to,
+//         'token'           => $token,
+//         'action_link'     => $action_link,
+
+//       ],
+//     ]
+//   ];
 //   // event(new \App\Events\SendMailEvent($data_email));
-//   dispatch(new \App\Jobs\SendEmailJob($data_email));
-//   // return view($template, ['content' => $data_email['body_data']['content']]);
+//   return view($template, ['content' => $data_email['body_data']['content']]);
 // }

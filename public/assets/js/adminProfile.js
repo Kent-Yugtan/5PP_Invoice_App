@@ -21,6 +21,9 @@ imgDiv.addEventListener("mouseleave", function () {
     uploadBtn.style.display = "none";
 });
 
+if (window.matchMedia("(any-pointer: coarse)").matches) {
+    uploadBtn.style.display = "block";
+}
 //lets work for image showing functionality when we choose an image to upload
 //when we choose a foto to upload
 file.addEventListener("change", function () {

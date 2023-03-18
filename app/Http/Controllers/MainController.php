@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MainController extends Controller
 {
@@ -12,14 +13,13 @@ class MainController extends Controller
     return view('public.login');
   }
 
-  public function logout(Request $request)
+  public function forgotPassword(Request $request)
   {
-    // // Revoke all tokens...
-    // Auth::user()->tokens()->delete();
-    // Auth::guard('web')->logout();
-    // return response()->json([
-    //   'success' => true,
-    //   'message' => 'Logged Out Successfully.',
-    // ]);
+    return view('public.forgotPassword');
+  }
+
+  public function showResetForm(Request $request, $token = null)
+  {
+    return view('public.reset')->with(['token' => $token, 'email_address' => $request->email_address]);
   }
 }
