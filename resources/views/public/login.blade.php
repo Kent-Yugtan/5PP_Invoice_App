@@ -18,12 +18,6 @@
           {{ __('Enter your email and password below') }}
         </div>
 
-        @if (Session::get('info'))
-        <div class="alert alert-info">
-          {{ Session::get('info') }}
-        </div>
-        @endif
-
         <div class="card-body">
           <form id="form_login">
             <div id="error_msg" class="alert alert-danger text-center"></div>
@@ -31,8 +25,7 @@
             <div class="row">
               <div class="col-md-12" style="padding-top:10px">
                 <div class="form-floating mb-3">
-                  <input id="email" placeholder="Enter Email Address" type="text" class="form-control" name="email"
-                    required>
+                  <input id="email" placeholder="Enter Email Address" type="text" class="form-control" name="email">
                   <label class="form-label" for="email">Email Address</label>
                 </div>
               </div>
@@ -41,8 +34,7 @@
             <div class="row mb-3">
               <div class="col-md-12" style="padding-top:10px">
                 <div class="form-floating">
-                  <input id="password" placeholder="Enter password" type="password" class="form-control" name="password"
-                    required>
+                  <input id="password" placeholder="Enter password" type="password" class="form-control" name="password">
                   <label class="form-label" for="password">Password</label>
                 </div>
               </div>
@@ -50,8 +42,7 @@
 
             <div class="row mb-3">
               <div class="col-md-12">
-                <button type="submit" id="button-submit"
-                  style="width:100%; height:50px;color:white; background-color: #CF8029;" class="btn">
+                <button type="submit" style="width:100%; height:50px;color:white; background-color: #CF8029;" class="btn">
                   Login
                 </button>
               </div>
@@ -60,9 +51,6 @@
 
             <div class="row">
               <div class="col-md-12" style="text-align: center">
-                <!-- <label class="input-color">{{ __('Don\'t have an account?') }} </label> -->
-                <a style="text-decoration:none;" class="input-color" href="{{ url('forgotPassword') }}">Forgot
-                  password</a>
               </div>
             </div>
           </form>
@@ -72,83 +60,46 @@
   </div>
 </div>
 <script type="text/javascript">
-$("#error_msg").hide();
-$(document).ready(function() {
-  $('#form_login').submit(function(e) {
-    e.preventDefault();
-    $("#error_msg").hide();
-    let email = $("#email").val();
-    let password = $("#password").val();
-    let data = {
-      email,
-      password
-    };
+  $("#error_msg").hide();
+  $(document).ready(function() {
+    $('#form_login').submit(function(e) {
+      e.preventDefault();
+      $("#error_msg").hide();
+      let email = $("#email").val();
+      let password = $("#password").val();
+      let data = {
+        email,
+        password
+      };
+      axios.post(apiUrl + '/api/login', data, {
+          Headers: {
+            Authorization: token,
+          },
+        }).then(function(response) {
+          let data = response.data;
 
-    var originalText = $('#button-submit').html();
-    // add spinner to button
-    $('#button-submit').html(
-      `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
-    );
-
-    axios.post(apiUrl + '/api/login', data, {
-        headers: {
-          Authorization: token,
-        },
-      }).then(function(response) {
-        let data = response.data;
-
-        if (!data.succcess) {
-          setTimeout(function() {
-            $('#button-submit').html(originalText);
+          if (!data.succcess) {
             $("#error_msg").html(data.message).show();
-            $('#form_login').trigger('reset');
-          }, 2000);
-        } else {
-          if (data.user.role === "Admin") {
-            setTimeout(function() {
-              $('#button-submit').html(originalText);
-              localStorage.token = data.token;
-              window.location.replace(apiUrl + '/admin/dashboard');
-            }, 2000);
-            // localStorage.userdata = JSON.parse(data.user);
-          } else if (data.user.role !== "Admin" && data.profile_status.profile_status === "Inactive") {
-            axios.post(apiUrl + '/api/logout', {}, {
-                headers: {
-                  Authorization: token,
-                },
-              })
-              .then(function(response) {
-                let data = response.data;
-                console.log('data', data);
-                if (data.success) {
-                  setTimeout(function() {
-                    $('#button-submit').html(originalText);
-                    localStorage.removeItem('token');
-                    $("#error_msg").html(
-                        "This profile is inactive. Please contact the system administrator.")
-                      .show();
-                    $('#form_login').trigger('reset');
-                  }, 2000);
-                }
-              })
-              .catch(function(error) {
-                console.log('catch', error);
-              });
           } else {
+            if (data.user.role === "Admin") {
+              localStorage.token = data.token;
+              console.log("DATA", data)
 
-            setTimeout(function() {
-              $('#button-submit').html(originalText);
+              // localStorage.userdata = JSON.parse(data.user);
+              window.location.replace(apiUrl + '/admin/dashboard');
+            } else if (data.user.role !== "Admin" && data.profile_status.profile_status === "Inactive") {
+              $("#error_msg").html("This profile is inactive. Please contact the system administrator.").show();
+            } else {
               localStorage.token = data.token;
               window.location.replace(apiUrl + '/user/dashboard');
-            }, 2000);
+            }
           }
-        }
-      })
-      .catch(function(error) {
-        console.log('catch', error);
-      });
-  })
-});
+        })
+        .catch(function(error) {
+          console.log('catch', error);
+        });
+    })
+  });
 </script>
 
 @endsection
