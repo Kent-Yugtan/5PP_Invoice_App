@@ -155,8 +155,8 @@ class AuthController extends Controller
     if (!$check_token) {
       return response()->json([
         'success' => false,
-        'message' => 'Fail, Invalid Token',
-      ], 400);
+        'message' => 'Invalid Credentials',
+      ], 200);
     } else {
 
       $user = User::where('email', $request->email_address)->first();
