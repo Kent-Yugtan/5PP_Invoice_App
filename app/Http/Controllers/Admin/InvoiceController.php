@@ -146,11 +146,11 @@ class InvoiceController extends Controller
 
   public function userReports_invoice()
   {
-    return view('private.userReports.invoice');
+    return view('userReports.invoice');
   }
   public function userReports_deduction()
   {
-    return view('private.useRreports.deduction');
+    return view('useRreports.deduction');
   }
 
   public function current()
@@ -168,7 +168,7 @@ class InvoiceController extends Controller
   }
   public function inactive_profile()
   {
-    return view('private.admin.inactive');
+    return view('admin.inactive');
   }
   public function add_invoice()
   {
@@ -180,22 +180,22 @@ class InvoiceController extends Controller
   }
   public function edit_userInvoice()
   {
-    return view('private.user.editInvoice');
+    return view('user.editInvoice');
   }
 
   public function user_addInvoice()
   {
-    return view('private.user.UserAddInvoice');
+    return view('user.UserAddInvoice');
   }
 
   public function user_currentActiveInvoice()
   {
-    return view('private.user.currentActiveInvoice');
+    return view('user.currentActiveInvoice');
   }
 
   public function user_currentInactiveInvoice()
   {
-    return view('private.user.currentInactiveInvoice');
+    return view('user.currentInactiveInvoice');
   }
 
 
