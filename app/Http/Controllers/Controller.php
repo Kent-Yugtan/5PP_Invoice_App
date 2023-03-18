@@ -421,38 +421,4 @@ class Controller extends BaseController
     event(new \App\Events\SendMailEvent($data_email));
     // dispatch(new \App\Jobs\SendEmailJob($data_email));
   }
-
-  function setup_forgot_password($data)
-  {
-    $to = !empty($data['to']) ? $data['to'] : "";
-    $token = !empty($data['token']) ? $data['token'] : "";
-    $action_link = !empty($data['action_link']) ? $data['action_link'] : "";
-
-    $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
-    $template = !empty($data['template']) ?  $data['template'] : 'email.email-forgot';
-    $subject = "Reset Password";
-
-    if (!empty($data['subject'])) {
-      $subject = $data['subject'];
-    }
-
-    $data_email = [
-      'to_name'       => $to,
-      'to_email'      => $to,
-      'subject'       => $subject,
-      'from_name'     => $from_name,
-      'from_email'    => $from_email,
-      'template'      => $template,
-      'body_data'     => [
-        "content" => [
-          'to'              => $to,
-          'token'           => $token,
-          'action_link'     => $action_link,
-
-        ],
-      ]
-    ];
-    event(new \App\Events\SendMailEvent($data_email));
-  }
 }

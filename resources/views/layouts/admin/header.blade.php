@@ -12,7 +12,8 @@
   </div>
   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+        aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
         <li>
           <a class="dropdown-item">
@@ -42,23 +43,26 @@
 </nav>
 
 <script>
-  $("#logout").on("click", function() {
-    axios.post(apiUrl + '/api/logout', {}, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(function(response) {
-        let data = response.data;
-        console.log('data', data);
-        if (data.success) {
-          localStorage.removeItem('token');
-          // localStorage.userdata = JSON.parse(data.user);
-          window.location.replace(apiUrl + '/');
-        }
-      })
-      .catch(function(error) {
-        console.log('catch', error);
-      });
-  })
+$("#logout").on("click", function() {
+  console.log('logout');
+  axios.post(apiUrl + '/api/logout', {}, {
+      Headers: {
+        Authorization: token,
+      },
+    })
+    .then(function(response) {
+      console.log('then', response);
+      let data = response.data;
+      console.log('then data', data);
+
+      if (data.success) {
+        localStorage.removeItem('token');
+        // localStorage.userdata = JSON.parse(data.user);
+        window.location.replace(apiUrl + '/auth/login');
+      }
+    })
+    .catch(function(error) {
+      console.log('catch', error);
+    });
+})
 </script>
