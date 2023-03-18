@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 use App\Jobs\SendForgotPasswordEmail;
@@ -117,8 +118,8 @@ class AuthController extends Controller
 
     $users = User::where('email', $request->email_address)->first();
     if ($users) {
-      $token = \Str::random(64);
-      \DB::table('password_resets')->insert([
+      $token = Str::random(64);
+      DB::table('password_resets')->insert([
         'email' => $request->email_address,
         'token' => $token,
         'created_at' => Carbon::now(),
@@ -151,7 +152,7 @@ class AuthController extends Controller
       'password' => 'required',
     ]);
 
-    $check_token = \DB::table('password_resets')->where([
+    $check_token = DB::table('password_resets')->where([
       'email' => $request->email_address,
       'token' => $request->token,
     ])->first();
