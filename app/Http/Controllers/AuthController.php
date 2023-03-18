@@ -7,16 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use Carbon\Carbon;
-use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-
-use App\Jobs\SendForgotPasswordEmail;
-use App\Mail\ForgotPassword;
 
 class AuthController extends Controller
 {
