@@ -1,4 +1,4 @@
-@extends('layouts.private')
+@extends('layouts.user')
 @section('content-dashboard')
 
 <div class="container-fluid px-4" id="loader_load">

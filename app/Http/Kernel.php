@@ -31,7 +31,6 @@ class Kernel extends HttpKernel
    */
   protected $middlewareGroups = [
     'web' => [
-      \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
       \Illuminate\Session\Middleware\StartSession::class,
       \App\Http\Middleware\EncryptCookies::class,
       \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -58,8 +57,6 @@ class Kernel extends HttpKernel
    */
   protected $routeMiddleware = [
     'auth' => \App\Http\Middleware\Authenticate::class,
-    'isPrivateCheck' => \App\Http\Middleware\isPrivateCheck::class,
-    'isPublicCheck' => \App\Http\Middleware\isPublicCheck::class,
     'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
     'can' => \Illuminate\Auth\Middleware\Authorize::class,

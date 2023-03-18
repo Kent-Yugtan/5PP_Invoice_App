@@ -28,7 +28,7 @@ class ProfileController extends Controller
   }
   public function userindex()
   {
-    return view('private.user.userprofile');
+    return view('user.userprofile');
   }
 
   /**
