@@ -151,7 +151,6 @@ class AuthController extends Controller
       'password' => 'required',
     ]);
 
-
     $check_token = \DB::table('password_resets')->where([
       'email' => $request->email_address,
       'token' => $request->token,
