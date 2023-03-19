@@ -16,11 +16,7 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    // $id = session('data');
-    // $data = User::where('id', "=", $id->id)->first();
-    // echo $data;
-    // $data = $request->session()->all();
-    // return view('myview')->with('user', $user);
+
     return view('private/admin/dashboard');
     // return "ADMIN DASHBOARD";
   }
@@ -93,6 +89,6 @@ class DashboardController extends Controller
 
   public function userindex()
   {
-    return view('user/Userdashboard');
+    return view('private.user.Userdashboard');
   }
 }

@@ -139,7 +139,7 @@ class DeductionTypeController extends Controller
 
   public function view_userdeductiontype()
   {
-    return view('user.userdeductiontype');
+    return view('private.user.userdeductiontype');
   }
 
   public function show_edit(Request $request, $id)

@@ -7,8 +7,6 @@
         <i class="fas fa-bars"></i>
     </button>
     <!-- Navbar Search-->
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <!-- Navbar Search-->
     </div>
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
@@ -45,21 +43,18 @@
 
 <script>
 $("#logout").on("click", function() {
-    console.log('logout');
     axios.post(apiUrl + '/api/logout', {}, {
             headers: {
                 Authorization: token,
             },
         })
         .then(function(response) {
-            console.log('then', response);
             let data = response.data;
-            console.log('then data', data);
-
+            console.log('data', data);
             if (data.success) {
                 localStorage.removeItem('token');
                 // localStorage.userdata = JSON.parse(data.user);
-                window.location.replace(apiUrl + '/auth/login');
+                window.location.replace(apiUrl + '/');
             }
         })
         .catch(function(error) {

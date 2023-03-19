@@ -6,9 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -43,16 +45,11 @@ class AuthController extends Controller
   public function logout(Request $request)
   {
     // Revoke all tokens...
-    // Auth::logout();
     $request->session()->invalidate();
-    session()->flush();
-
-    // $request->user()->token()->revoke();
+    session()->forget('data');
     return response()->json([
       'success' => true,
       'message' => 'Logged Out Successfully.',
-
-      // 'asd' => Auth::user(),
     ]);
   }
 
@@ -102,6 +99,83 @@ class AuthController extends Controller
         return response()->json([
           'success' => false,
           'message' => 'Unrecognized Credentials.',
+        ], 200);
+      }
+    }
+  }
+
+  public function resetPassword(Request $request)
+  {
+    $request->validate([
+      'email_address' => 'required|email|exists:users,email'
+    ]);
+
+    $users = User::where('email', $request->email_address)->first();
+    if ($users) {
+      $token = Str::random(64);
+      DB::table('password_resets')->insert([
+        'email' => $request->email_address,
+        'token' => $token,
+        'created_at' => Carbon::now(),
+      ]);
+
+      // SETUP EMAIl FOR FORGOT PASSWORD
+      $data_setup_email_template = [
+        'to'             =>  $request->email_address,
+        'token'          =>  $token,
+        'action_link'    =>  url('password/reset/'),
+      ];
+      $this->setup_forgot_password($data_setup_email_template);
+
+
+      return response()->json([
+        'success' => true,
+        'message' => 'Success, We have e-mailed your password reset link!',
+      ], 200);
+    } else {
+      return response()->json([
+        'success' => false,
+        'message' => 'Unrecognized Credentials.',
+      ], 200);
+    }
+  }
+  public function reset(Request $request)
+  {
+    $request->validate([
+      'email_address' => 'required|email|exists:users,email',
+      'password' => 'required',
+    ]);
+
+    $check_token = DB::table('password_resets')->where([
+      'email' => $request->email_address,
+      'token' => $request->token,
+    ])->first();
+
+
+    if (!$check_token) {
+      return response()->json([
+        'success' => false,
+        'message' => 'Invalid Credentials',
+      ], 200);
+    } else {
+
+      $user = User::where('email', $request->email_address)->first();
+
+      if ($request->password) {
+        $hashedPassword = Hash::make($request->password);
+
+        DB::table('users')
+          ->where('id', $user->id)
+          ->update(['password' => $hashedPassword]);
+
+        DB::table('password_resets')
+          ->where([
+            'email' => $request->email_address
+          ])->delete();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Your password has been successfully reset.',
         ], 200);
       }
     }
