@@ -785,9 +785,7 @@ $(document).ready(function() {
   $('#cancel_edit_profile').addClass('d-none');
   show_data();
   $(window).on('load', function() {
-    $('html,body').animate({
-      scrollTop: $('#loader_load').offset().top
-    }, 'slow');
+
     $("div.spanner").addClass("show");
 
     setTimeout(function() {

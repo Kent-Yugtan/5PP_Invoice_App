@@ -15,7 +15,7 @@
               <div class="col-12">
                 <div class="form-floating mb-3">
                   <input id="fullname" name="fullname" type="text" class="form-control" placeholder="Fullname">
-                  <label for="fullname" style=" color: #A4A6B3;">Complete Name</label>
+                  <label for="fullname" style=" color: #A4A6B3;">Fullname</label>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@
           <div class="table-responsive">
             <table style="color: #A4A6B3;" class="table table-hover table-responsive" id="table_emailconfigs">
               <thead>
-                <th>Complete Name</th>
+                <th>Fullname</th>
                 <th>Email Address</th>
                 <th>Title</th>
                 <th>Status</th>
@@ -227,11 +227,7 @@
   $(document).ready(function() {
 
     $(window).on('load', function() {
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'slow');
       $('div.spanner').addClass('show');
-
       setTimeout(function() {
         $('div.spanner').removeClass('show');
         show_data();

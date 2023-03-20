@@ -771,9 +771,7 @@ $(document).ready(function() {
   show_data();
   $(window).on('load', function() {
     $("div.spanner").addClass("show");
-    $('html, body').animate({
-      scrollTop: $('#loader_load').offset().top
-    }, 'slow');
+
     setTimeout(function() {
       $("div.spanner").removeClass("show");
       date_hired();

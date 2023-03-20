@@ -16,7 +16,11 @@
 </head>
 
 <body id="sb-nav-fixed">
-  @include('layouts.admin.header')
+  @if(session('data')->role == 'Admin')
+  @include('layouts.employee.header')
+  @else
+  @include('layouts.employee.header')
+  @endif
   <div id="layoutSidenav">
     @if(session('data')->role == 'Admin')
     @include('layouts.admin.sidemenu')

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Carbon\Carbon as CarbonCarbon;
+use PDF;
 
 class Controller extends BaseController
 {
@@ -370,11 +371,15 @@ class Controller extends BaseController
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
     $subject = "5 Pints Productions Invoice - Profile";
 
+    if (!empty($data['attachment'])) {
+      $attachment = $data['attachment'];
+    }
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
     }
 
     $data_email = [
+      'attachment'    => $attachment,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
@@ -449,7 +454,6 @@ class Controller extends BaseController
           'to'              => $to,
           'token'           => $token,
           'action_link'     => $action_link,
-
         ],
       ]
     ];

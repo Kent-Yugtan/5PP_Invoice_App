@@ -11,12 +11,14 @@ use App\Models\InvoiceItems;
 use App\Models\Profile;
 use App\Models\ProfileDeductionTypes;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Exception;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class InvoiceController extends Controller
 {
@@ -1460,9 +1462,7 @@ class InvoiceController extends Controller
     $data = Invoice::with(['profile.user', 'deductions.profile_deduction_types.deduction_type', 'invoice_items'])
       ->orderBy('id', 'Desc')->first();
     $data1 = InvoiceConfig::orderBy('id', 'Desc')->first();
-
     if ($data && $data1) {
-
       $data_setup_email_template = [
         'invoice_logo'           => $data1->invoice_logo, // VARIABLE FOR UPLOADING INTO WEB
         // 'invoice_logo'           => 'https://shamcey.5ppsite.com/logo.png', // DEFAULT FOR LOCAL
@@ -1499,6 +1499,7 @@ class InvoiceController extends Controller
 
       $this->setup_email_template_profile($data_setup_email_template);
       $dataObject = array_merge($data->toArray(), $data1->toArray());
+      $data['data'] = $dataObject;
       return response()->json([
         'success' => true,
         'Message' => 'Please configure the email settings.',

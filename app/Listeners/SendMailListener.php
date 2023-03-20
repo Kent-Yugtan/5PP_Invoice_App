@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class SendMailListener implements ShouldQueue
 {
@@ -35,9 +36,6 @@ class SendMailListener implements ShouldQueue
     $sendmail = Mail::send($mail_data['template'], $mail_data['body_data'], function ($message) use ($mail_data) {
       $message->to($mail_data['to_email'], $mail_data['to_name'])->subject($mail_data['subject']);;
 
-      // if(!empty($mail_data['bcc_name'])) {
-      //     $message->bcc($mail_data['bcc_email'],$mail_data['bcc_name']);
-      // }
       if (array_key_exists('attachment', $mail_data)) {
         $message->attach($mail_data['attachment']['url'], ['as' => $mail_data['attachment']['as']]);
       }
