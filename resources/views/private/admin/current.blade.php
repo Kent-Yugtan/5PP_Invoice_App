@@ -193,12 +193,14 @@ $(document).ready(function() {
               let tr = '<tr style="vertical-align:middle;">';
               if (item.file_path) {
                 tr +=
-                  '<td>  <img style="width:40px;" class="rounded-pill" src ="' +
+                  '<td> <img style="width:40px;" class="rounded-pill " src ="' +
                   item
                   .file_path + '"> ' + item.full_name + ' </td>';
               } else {
+
+
                 tr +=
-                  '<td>  <img style="width:40px;" class="rounded-pill" src ="/images/default.png"> ' +
+                  '<td> <img style="width:40px;" class="rounded-pill" src ="/images/default.png"> ' +
                   item.full_name + ' </td>';
               }
               tr += '<td>' + item.profile_status + '</td>';
