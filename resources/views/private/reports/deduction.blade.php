@@ -356,7 +356,7 @@ $(document).ready(function() {
     var invoice_id = $('#deductionReports').DataTable().row(this).data()[1];
     console.log("INVOICE", invoice_id);
 
-    axios.get(apiUrl + '/api/reports/deductionDetails/' + invoice_id, {}, {
+    axios.get(apiUrl + '/api/reports/deductionDetails/' + invoice_id, {
       headers: {
         Authorization: token,
       }
@@ -475,7 +475,7 @@ $(document).ready(function() {
       toDate: to,
       ...filters
     }
-    axios.get(`${apiUrl}/api/reports/deductionReport_click?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/reports/deductionReport_click?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -561,7 +561,7 @@ $(document).ready(function() {
   }
 
   function show_data_load() {
-    axios.get(apiUrl + '/api/reports/deductionReport_load', {}, {
+    axios.get(apiUrl + '/api/reports/deductionReport_load', {
       headers: {
         Authorization: token,
       },

@@ -1168,7 +1168,7 @@ $(document).ready(function() {
       let invoice_id = urlSplit[3]
       $('#update_invoice_id').val(invoice_id)
 
-      axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {}, {
+      axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {
         headers: {
           Authorization: token
         },
@@ -1664,7 +1664,7 @@ $(document).ready(function() {
 
 
   function show_invoice_config() {
-    axios.get(apiUrl + '/api/get_invoice_config', {}, {
+    axios.get(apiUrl + '/api/get_invoice_config', {
       headers: {
         Authorization: token,
       },
@@ -2061,7 +2061,7 @@ $(document).ready(function() {
     if (urlSplit.length === 4) {
       let invoice_id = urlSplit[3];
       console.log("INVICEOI", invoice_id);
-      axios.post(apiUrl + '/api/delete_invoice/' + invoice_id, {}, {
+      axios.post(apiUrl + '/api/delete_invoice/' + invoice_id, {
         headers: {
           Authorization: token,
 
