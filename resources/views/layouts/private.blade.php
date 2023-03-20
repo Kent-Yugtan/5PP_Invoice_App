@@ -7,7 +7,7 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{ asset('images/invoices-logo.ico') }}" type="image/x-icon">
+  <link rel="icon" href="https://shamcey.5ppsite.com/logo.png" type="image/x-icon">
   <title>5Pints Productions</title>
 
   @include('layouts.csslink')
