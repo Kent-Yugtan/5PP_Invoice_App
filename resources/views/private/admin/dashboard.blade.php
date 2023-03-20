@@ -238,8 +238,6 @@ $(document).ready(function() {
   const api = "https://api.exchangerate-api.com/v4/latest/USD";
   $("div.spanner").addClass("show");
   $(window).on('load', function() {
-
-
     setTimeout(function() {
       $("div.spanner").removeClass("show");
       selectProfile();

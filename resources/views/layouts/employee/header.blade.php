@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
   <img class="img-team" src="{{ URL('images/Invoices-logo.png')}}" style="width: 60px; padding:10px" /></img>
   <!-- Navbar Brand-->
-  <a class="navbar-brand" style=width:165px href="{{url('admin/dashboard')}}">Invoicing App</a>
+  <a class="navbar-brand" style=width:165px href="{{url('user/dashboard')}}">Invoicing App</a>
   <!-- Sidebar Toggle-->
   <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
     <i class="fas fa-bars"></i>
@@ -12,8 +12,7 @@
   </div>
   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-        aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
         <li>
           <a class="dropdown-item">
@@ -43,23 +42,23 @@
 </nav>
 
 <script>
-$("#logout").on("click", function() {
-  axios.post(apiUrl + '/api/logout', {}, {
-      headers: {
-        Authorization: token,
-      },
-    })
-    .then(function(response) {
-      let data = response.data;
-      console.log('data', data);
-      if (data.success) {
-        localStorage.removeItem('token');
-        // localStorage.userdata = JSON.parse(data.user);
-        window.location.replace(apiUrl + '/');
-      }
-    })
-    .catch(function(error) {
-      console.log('catch', error);
-    });
-})
+  $("#logout").on("click", function() {
+    axios.post(apiUrl + '/api/logout', {}, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(function(response) {
+        let data = response.data;
+        console.log('data', data);
+        if (data.success) {
+          localStorage.removeItem('token');
+          // localStorage.userdata = JSON.parse(data.user);
+          window.location.replace(apiUrl + '/');
+        }
+      })
+      .catch(function(error) {
+        console.log('catch', error);
+      });
+  })
 </script>

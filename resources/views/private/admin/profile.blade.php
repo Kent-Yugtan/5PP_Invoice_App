@@ -198,9 +198,8 @@
     </div>
   </div>
 </div>
-</div>
 
-<div style="position: fixed; top: 60px; right: 20px;">
+<div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <div><i class="fa fa-newspaper-o"> </i></div>
@@ -219,7 +218,6 @@
 
 <!-- LOADER SPINNER -->
 <div class="spanner">
-  </a>
   <div class="loader"></div>
 </div>
 
@@ -233,6 +231,13 @@ $(document).ready(function() {
     decimal: '.',
     separator: ','
   });
+
+  $(window).on('load', function() {
+    $("div.spanner").addClass("show");
+    setTimeout(function() {
+      $("div.spanner").removeClass("show");
+    }, 1500)
+  })
 
   // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
   // Get the input field
@@ -250,16 +255,6 @@ $(document).ready(function() {
   dateInput.val(currentDate);
   // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
 
-
-  $(window).on('load', function() {
-    $('html,body').animate({
-      scrollTop: $('#loader_load').offset().top
-    }, 'slow');
-    $("div.spanner").addClass("show");
-    setTimeout(function() {
-      $("div.spanner").removeClass("show");
-    }, 1500)
-  })
   let toast1 = $('.toast1');
   toast1.toast({
     delay: 3000,

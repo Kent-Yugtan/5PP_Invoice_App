@@ -710,9 +710,7 @@ const api = "https://api.exchangerate-api.com/v4/latest/USD";
 $(document).ready(function() {
 
   $(window).on('load', function() {
-    $('html,body').animate({
-      scrollTop: $('#loader_load').offset().top
-    }, 'slow');
+
     $("div.spanner").addClass("show");
 
     setTimeout(function() {
