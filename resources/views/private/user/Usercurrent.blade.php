@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.private')
 @section('content-dashboard')
 @inject('profile', 'App\Http\Controllers\user\ProfileController')
 <div class="container-fluid px-4">

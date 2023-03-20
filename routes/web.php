@@ -48,11 +48,8 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('settings/invoiceconfig', [InvoiceConfigController::class, 'invoice_config']);
 
   // PRIVATE FOLDER USER
-  Route::get(
-    'user/dashboard',
-    [DashboardController::class, 'userindex']
-  );
-  Route::get('user/profile', [ProfileController::class, 'userindex']);
+  Route::get('user/dashboard', [DashboardController::class, 'userindex']);
+  Route::get('user/profile', [ProfileController::class, 'userprofile']);
   Route::get('user/activeProfile/{id}/{profile_id}', [ProfileController::class, 'userviewProfile']);
   Route::get('user/inactive', [ProfileController::class, 'userinactive']);
   Route::get('user/editInvoice/{id}', [InvoiceController::class, 'edit_userInvoice']);
@@ -64,8 +61,6 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   // FOR USER REPORTS
   Route::get('/userReports/invoice', [InvoiceController::class, 'userReports_invoice']);
   Route::get('/userReports/deduction', [InvoiceController::class, 'userReports_deduction']);
-
-
 });
 
 Route::middleware(['isPublicCheck'])->group(function () {
