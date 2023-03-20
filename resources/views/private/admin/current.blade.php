@@ -193,15 +193,14 @@ $(document).ready(function() {
               let tr = '<tr style="vertical-align:middle;">';
               if (item.file_path) {
                 tr +=
-                  '<td> <img style="width:40px;" class="rounded-pill " src ="' +
+                  '<td><div class="profile-pic-div_adminProfile-wrapper"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                   item
-                  .file_path + '"> ' + item.full_name + ' </td>';
+                  .file_path + '">&nbsp;' + item.full_name + '</div></td>';
               } else {
 
-
                 tr +=
-                  '<td> <img style="width:40px;" class="rounded-pill" src ="/images/default.png"> ' +
-                  item.full_name + ' </td>';
+                  '<td><div class="profile-pic-div_adminProfile-wrapper"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                  item.full_name + '</div></td>';
               }
               tr += '<td>' + item.profile_status + '</td>';
               tr += '<td>' + item.phone_number + '</td>';
