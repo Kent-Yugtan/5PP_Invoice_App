@@ -18,12 +18,6 @@
           {{ __('Enter your email and password below') }}
         </div>
 
-        @if (Session::get('info'))
-        <div class="alert alert-info">
-          {{ Session::get('info') }}
-        </div>
-        @endif
-
         <div class="card-body">
           <form id="form_login">
             <div id="error_msg" class="alert alert-danger text-center"></div>
@@ -135,7 +129,6 @@ $(document).ready(function() {
                 console.log('catch', error);
               });
           } else {
-
             setTimeout(function() {
               $('#button-submit').html(originalText);
               localStorage.token = data.token;

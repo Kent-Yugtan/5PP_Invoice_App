@@ -916,7 +916,7 @@ $(document).ready(function() {
     // let invoice_status = $('#select_invoice_status').val();
     // console.log("INVOICE NO", invoice_no + " " + invoice_status);
 
-    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {
+    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {}, {
       headers: {
         Authorization: token,
       },
@@ -990,7 +990,7 @@ $(document).ready(function() {
 
   function show_edit() {
     let user_id = $('#user_id').val();
-    axios.get(apiUrl + '/api/admin/show_edit/' + user_id, {
+    axios.get(apiUrl + '/api/admin/show_edit/' + user_id, {}, {
         headers: {
           Authorization: token,
         },
@@ -1120,7 +1120,7 @@ $(document).ready(function() {
       }
       // console.log("page", page);
       $('#dataTable_invoice tbody').empty();
-      axios.get(`${apiUrl}/api/admin/show_invoice?${new URLSearchParams(filter)}`, {
+      axios.get(`${apiUrl}/api/admin/show_invoice?${new URLSearchParams(filter)}`, {}, {
         headers: {
           Authorization: token,
         },
@@ -1240,7 +1240,7 @@ $(document).ready(function() {
 
   // CHECK PENDING INVOICES
   function check_InactivependingInvoicesStatus(filters) {
-    axios.get(`${apiUrl}/api/admin/check_InactivependingInvoicesStatus?${new URLSearchParams(filters)}`, {
+    axios.get(`${apiUrl}/api/admin/check_InactivependingInvoicesStatus?${new URLSearchParams(filters)}`, {}, {
       headers: {
         Authorization: token,
       },
@@ -1456,7 +1456,7 @@ $(document).ready(function() {
 
     let id = $('#profilededuction_id').html();
     axios.post(apiUrl + '/api/deleteProfileDeductionTypes/' +
-      id, {
+      id, {}, {
         headers: {
           Authorization: token
         },
@@ -1529,7 +1529,7 @@ $(document).ready(function() {
     console.log("EDIT FOR UPATE", profileDeductionType_id);
 
     axios.post(apiUrl + '/api/showProfileDeductionTypes/' +
-      profileDeductionType_id, {
+      profileDeductionType_id, {}, {
         headers: {
           Authorization: token
         },
@@ -2212,7 +2212,7 @@ $(document).ready(function() {
     if (urlSplit.length === 5) {
       let profile_id = urlSplit[4];
       $('#createDeduction_profile_id').val(profile_id);
-      axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
+      axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {}, {
         headers: {
           Authorization: token,
         },
@@ -2256,7 +2256,7 @@ $(document).ready(function() {
     let deduction_id = $(this).val();
     console.log("SELECT", deduction_id);
     if (deduction_id) {
-      axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
+      axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {}, {
         headers: {
           Authorization: token,
         },
@@ -2296,7 +2296,7 @@ $(document).ready(function() {
 
       $('#dataTable_deduction tbody').empty();
       axios.get(
-          `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
+          `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {}, {
             headers: {
               Authorization: token,
             },
@@ -2399,7 +2399,7 @@ $(document).ready(function() {
       let profile_id = urlSplit[4];
       // console.log("profile_id", profile_id);
       $("#deductionButton").empty();
-      axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {
+      axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {}, {
           headers: {
             Authorization: token,
           },

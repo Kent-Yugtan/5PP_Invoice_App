@@ -446,7 +446,7 @@ $(document).ready(function() {
       ...filters,
     }
     $('#table_invoiceconfig tbody').empty();
-    axios.get(`${apiUrl}/api/show_invoiceConfig_data?${new URLSearchParams(filter)}`, {
+    axios.get(`${apiUrl}/api/show_invoiceConfig_data?${new URLSearchParams(filter)}`, {}, {
       headers: {
         Authorization: token
       },
@@ -535,7 +535,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     let invoiceConfig_id = $('#invoiceConfig_id').html();
-    axios.post(apiUrl + '/api/invoiceConfig_delete/' + invoiceConfig_id, {
+    axios.post(apiUrl + '/api/invoiceConfig_delete/' + invoiceConfig_id, {}, {
       headers: {
         Authorization: token,
       },

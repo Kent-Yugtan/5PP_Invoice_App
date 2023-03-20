@@ -754,7 +754,7 @@ class InvoiceController extends Controller
     $profile_id = $request->profile_id;
     if ($profile_id) {
 
-      $deductions = Deduction::with(['invoice'])
+      $deductions = Deduction::with('invoice')
         ->where('profile_id', $profile_id)->whereHas('invoice', function ($query) {
           $query->where('status', 'Active');
         });

@@ -113,7 +113,7 @@ $(document).ready(function() {
 
 
   function active_count_paid() {
-    axios.get(apiUrl + '/api/active_paid_invoice_count', {
+    axios.get(apiUrl + '/api/active_paid_invoice_count', {}, {
       headers: {
         Authorization: token,
       },
@@ -129,7 +129,7 @@ $(document).ready(function() {
   }
 
   function active_count_pending() {
-    axios.get(apiUrl + '/api/active_pending_invoice_count', {
+    axios.get(apiUrl + '/api/active_pending_invoice_count', {}, {
       headers: {
         Authorization: token,
       },
