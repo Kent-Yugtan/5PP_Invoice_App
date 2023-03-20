@@ -150,7 +150,7 @@ class InvoiceController extends Controller
   }
   public function userReports_deduction()
   {
-    return view('private.useRreports.deduction');
+    return view('private.userReports.deduction');
   }
 
   public function current()

@@ -1,9 +1,5 @@
 <div id="layoutSidenav_nav">
-  <div class="sb-sidenav-dark">
-    <img class="img-team" src="{{ URL('images/Invoices-logo.png')}}" style="width: 60px; padding:10px" />
-    <!-- Navbar Brand-->
-    <a class="navbar-brand text-muted" style="width:165px" href="{{url('user/dashboard')}}">Invoicing App</a>
-  </div>
+
   <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 
     <div class="sb-sidenav-menu">
@@ -16,8 +12,7 @@
           Dashboard
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
-          aria-expanded="false" aria-controls="collapseLayouts">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
           <div class="sb-nav-link-icon">
             <i class="fas fa-users"></i>
           </div>
@@ -33,8 +28,7 @@
             <a class="nav-link" href="{{url('user/inactive')}}">Inactive Profiles</a> -->
           </nav>
         </div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
-          aria-expanded="false" aria-controls="collapseLayouts2">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
           <div class="sb-nav-link-icon">
             <i class="fas fa-file-invoice"></i>
           </div>
@@ -58,8 +52,7 @@
           Deductions
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"
-          aria-expanded="false" aria-controls="collapseLayouts3">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
           <div class="sb-nav-link-icon">
             <i class="fas fa-table"></i>
           </div>

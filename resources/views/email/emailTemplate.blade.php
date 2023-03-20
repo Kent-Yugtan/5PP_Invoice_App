@@ -142,7 +142,7 @@
   <div class="email">
     <div class="email-head">
       <div class="head-img">
-        <img style="width:50px; max-width:100%;" src="{{$content['invoice_logo']}}">
+        <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{$content['invoice_logo']}}">
       </div>
     </div>
 
