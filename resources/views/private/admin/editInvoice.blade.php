@@ -931,145 +931,6 @@
 
     }
 
-    // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
-    // function getResults_Converted() {
-    //     fetch(`${api}`)
-    //         .then(currency => {
-    //             return currency.json();
-    //         }).then(displayResults);
-    // }
-
-
-    // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
-    // $(document).on('click', '.remove_items', function(e) {
-    //   e.preventDefault();
-    //   let parent = $(this).closest('.row');
-    //   let invoiceItems_id = parent.find('.item_id').val();
-    //   let sub_total = parent.find('.subtotal').val();
-    //   let row_item = $(this).parent().parent().parent();
-    //   $(row_item).remove();
-
-    //   displayResults();
-    //   Additems_total();
-    //   subtotal();
-    //   DeductionItems_total();
-    //   x--;
-
-    //   let due_date = $('#due_date').val();
-    //   let invoice_id = $('#update_invoice_id').val();
-    //   let invoice_description = $('#invoice_description').val();
-    //   let invoice_subtotal = $('#subtotal').val().replaceAll(',', '');
-    //   let peso_rate = $('#edit_peso_rate').val().replaceAll(',', '')
-    //   let invoice_converted_amount = $('#converted_amount').val().replaceAll(',', '');
-    //   let invoice_discount_type = $('#discount_type:checked').val();
-    //   let invoice_discount_amount = $('#discount_amount').val().replaceAll(',', '');
-    //   let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
-    //   let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
-    //   let invoice_notes = $('textarea#notes').val();
-
-    //   let invoiceItem = [];
-    //   $('#show_items .row').each(function() {
-    //     let item_invoice_id = $(this).find('.item_id').val();
-    //     let item_description = $(this).find('.item_description').val() ? $(this).find(
-    //       '.item_description').val() : "";
-    //     let item_rate = $(this).find('.rate').val().replaceAll(',', '') ? $(this).find(
-    //       '.rate').val().replaceAll(',', '') : 0;
-    //     let item_qty = $(this).find('.quantity').val() ? $(this)
-    //       .find('.quantity').val() : 0;
-    //     let item_total_amount = $(this).find('.amount').val().replaceAll(',', '') ? $(
-    //         this).find('.amount')
-    //       .val().replaceAll(',', '') : 0;
-
-    //     invoiceItem.push({
-    //       item_invoice_id,
-    //       item_description,
-    //       item_rate,
-    //       item_qty,
-    //       item_total_amount,
-    //     })
-    //   });
-
-    //   // DEDUCTIONS TABLE
-    //   let Deductions = [];
-    //   $('#show_deduction_items .row').each(function() {
-    //     let deduction_id = $(this).find('.deduction_id').val();
-    //     let profile_deduction_type_id = $(this).find('.profile_deduction_type').val() ?
-    //       $(this)
-    //       .find(
-    //         '.profile_deduction_type').val() : 0;
-    //     let deduction_amount = $(this).find('.deduction_amount').val().replaceAll(',',
-    //       '') ? $(this).find(
-    //       '.deduction_amount').val().replaceAll(',', '') : 0;
-
-    //     Deductions.push({
-    //       deduction_id,
-    //       profile_deduction_type_id,
-    //       deduction_amount,
-    //     })
-    //   });
-    //   let data = {
-    //     due_date: due_date,
-    //     invoice_id: invoice_id,
-    //     description: invoice_description,
-    //     sub_total: invoice_subtotal ? invoice_subtotal : 0,
-    //     peso_rate: peso_rate,
-    //     converted_amount: invoice_converted_amount,
-    //     discount_type: invoice_discount_type,
-    //     discount_amount: invoice_discount_amount,
-    //     discount_total: invoice_discount_total,
-    //     grand_total_amount: invoice_total_amount,
-    //     notes: invoice_notes,
-    //     invoiceItems_id: invoiceItems_id,
-    //     invoiceItem,
-    //     Deductions,
-    //   }
-
-    //   console.log("data removed", data);
-    //   axios.post(apiUrl + '/api/createinvoice/', data, {
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   }).then(function(response) {
-    //     let data = response.data
-    //     if (data.success) {
-
-    //       $('.toast1 .toast-title').html('Delete Invoice Items');
-    //       $('.toast1 .toast-body').html(response.data.message);
-    //       toast1.toast('show');
-
-    //       if ($('#show_items > .row').length === 1) {
-    //         $('#show_items > .row').find('.col-remove-item').removeClass('d-none')
-    //           .addClass(
-    //             'd-none');
-    //       }
-
-    //       // $('#updateModal').modal('hide');
-    //       // getResults_Converted();
-    //       // $("#update").attr("data-bs-dismiss", "modal");
-    //     }
-    //   }).catch(function(error) {
-    //     if (error.response.data.errors) {
-    //       let errors = error.response.data.errors;
-    //       let fieldnames = Object.keys(errors);
-    //       Object.values(errors).map((item, index) => {
-    //         fieldname = fieldnames[0].split('_');
-    //         fieldname.map((item2, index2) => {
-    //           fieldname['key'] = capitalize(
-    //             item2);
-    //           return ""
-    //         });
-    //         fieldname = fieldname.join(" ");
-    //         $('.toast1 .toast-title').html(fieldname);
-    //         $('.toast1 .toast-body').html(Object.values(
-    //             errors)[0]
-    //           .join(
-    //             "\n\r"));
-    //       })
-    //       toast1.toast('show');
-    //     }
-    //   })
-    // });
-
     $(document).on('click', '.remove_items', function(e) {
       e.preventDefault();
       let parent = $(this).closest('.row');
@@ -1267,7 +1128,7 @@
         let invoice_id = urlSplit[3]
         $('#update_invoice_id').val(invoice_id)
 
-        axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {
+        axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {}, {
           headers: {
             Authorization: token
           },
@@ -1762,7 +1623,7 @@
 
 
     function show_invoice_config() {
-      axios.get(apiUrl + '/api/get_invoice_config', {
+      axios.get(apiUrl + '/api/get_invoice_config', {}, {
         headers: {
           Authorization: token,
         },
