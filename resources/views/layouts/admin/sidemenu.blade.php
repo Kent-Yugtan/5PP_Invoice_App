@@ -13,7 +13,8 @@
           Dashboard
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+          aria-expanded="false" aria-controls="collapseLayouts">
           <div class="sb-nav-link-icon">
             <i class="fas fa-users"></i>
           </div>
@@ -29,7 +30,8 @@
             <a class="nav-link" href="{{url('admin/inactive')}}">Inactive Profiles</a>
           </nav>
         </div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
+          aria-expanded="false" aria-controls="collapseLayouts2">
           <div class="sb-nav-link-icon">
             <i class="fas fa-file-invoice"></i>
           </div>
@@ -54,7 +56,8 @@
           Deductions
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"
+          aria-expanded="false" aria-controls="collapseLayouts3">
           <div class="sb-nav-link-icon">
             <i class="fas fa-table"></i>
           </div>
@@ -70,7 +73,8 @@
           </nav>
         </div>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4"
+          aria-expanded="false" aria-controls="collapseLayouts4">
           <div class="sb-nav-link-icon">
             <i class="fas fa-cogs"></i>
           </div>
