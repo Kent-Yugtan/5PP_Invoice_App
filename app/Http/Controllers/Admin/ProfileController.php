@@ -26,9 +26,9 @@ class ProfileController extends Controller
   {
     return view('private.admin.profile');
   }
-  public function userindex()
+  public function userprofile()
   {
-    return view('private.user.userprofile');
+    return view('private.user.Userprofile');
   }
 
   /**
