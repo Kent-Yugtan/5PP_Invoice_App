@@ -379,7 +379,6 @@ class Controller extends BaseController
     }
 
     $data_email = [
-      'attachment'    => $attachment,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
