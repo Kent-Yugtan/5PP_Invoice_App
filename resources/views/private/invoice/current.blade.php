@@ -191,7 +191,7 @@ $(document).ready(function() {
   $("#success_msg").hide();
 
   function active_count_paid() {
-    axios.get(apiUrl + '/api/active_paid_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_paid_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -221,7 +221,7 @@ $(document).ready(function() {
   // })
 
   function active_count_pending() {
-    axios.get(apiUrl + '/api/active_pending_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_pending_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -247,7 +247,7 @@ $(document).ready(function() {
     }
     // console.log("page", page);
     $('#dataTable_invoice tbody').empty();
-    axios.get(`${apiUrl}/api/admin/search_statusActive_invoice?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/search_statusActive_invoice?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -418,7 +418,7 @@ $(document).ready(function() {
 
   // CHECK PENDING INVOICES
   function check_pendingInvoicesStatus(filters) {
-    axios.get(`${apiUrl}/api/admin/check_ActivependingInvoices?${new URLSearchParams(filters)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/check_ActivependingInvoices?${new URLSearchParams(filters)}`, {
       headers: {
         Authorization: token,
       },
@@ -500,7 +500,7 @@ $(document).ready(function() {
     }
     // console.log("page", page);
     $('#dataTable_invoice tbody').empty();
-    axios.get(`${apiUrl}/api/admin/show_invoice?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/show_invoice?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -657,7 +657,7 @@ $(document).ready(function() {
     $('#updateStatus_invoiceNo').val(invoice_no);
     console.log("INVOICE NO", invoice_no);
 
-    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {}, {
+    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {
       headers: {
         Authorization: token,
       },

@@ -193,7 +193,7 @@ $(document).ready(function() {
   $("#success_msg").hide();
 
   function active_inactiveCount_paid() {
-    axios.get(apiUrl + '/api/statusInactive_paid_invoice_count', {}, {
+    axios.get(apiUrl + '/api/statusInactive_paid_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -209,7 +209,7 @@ $(document).ready(function() {
   }
 
   function active_inactiveCount_pending() {
-    axios.get(apiUrl + '/api/statusInactive_pending_invoice_count', {}, {
+    axios.get(apiUrl + '/api/statusInactive_pending_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -234,7 +234,7 @@ $(document).ready(function() {
     }
     // console.log("page", page);
     $('#dataTable_invoice tbody').empty();
-    axios.get(`${apiUrl}/api/user/search_userstatusInactive_invoice?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/user/search_userstatusInactive_invoice?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -414,7 +414,7 @@ $(document).ready(function() {
     }
     // console.log("page", page);
     $('#dataTable_invoice tbody').empty();
-    axios.get(`${apiUrl}/api/user/show_userstatusInactiveinvoice?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/user/show_userstatusInactiveinvoice?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -618,7 +618,7 @@ $(document).ready(function() {
     $('#updateStatus_invoiceNo').val(invoice_no);
     console.log("INVOICE NO", invoice_no);
 
-    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {}, {
+    axios.get(apiUrl + '/api/getInvoiceStatus/' + invoice_no, {
       headers: {
         Authorization: token,
       },

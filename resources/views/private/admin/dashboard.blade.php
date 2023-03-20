@@ -291,7 +291,7 @@ $(document).ready(function() {
 
   // COUNT PAID INVOICES
   function active_count_paid() {
-    axios.get(apiUrl + '/api/active_paid_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_paid_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -308,7 +308,7 @@ $(document).ready(function() {
 
   // COUNT PENDING INVOICES
   function active_count_pending() {
-    axios.get(apiUrl + '/api/active_pending_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_pending_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -325,7 +325,7 @@ $(document).ready(function() {
 
   // COUNT OVERDUE INVOICES
   function active_count_overdue() {
-    axios.get(apiUrl + '/api/active_overdue_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_overdue_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -341,7 +341,7 @@ $(document).ready(function() {
 
   // COUNT CANCELLED INVOICES
   function active_count_cancelled() {
-    axios.get(apiUrl + '/api/active_cancelled_invoice_count', {}, {
+    axios.get(apiUrl + '/api/active_cancelled_invoice_count', {
       headers: {
         Authorization: token,
       },
@@ -385,7 +385,7 @@ $(document).ready(function() {
 
   // CHECK PENDING INVOICES
   function check_ActivependingInvoices(filters) {
-    axios.get(`${apiUrl}/api/admin/check_ActivependingInvoices?${new URLSearchParams(filters)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/check_ActivependingInvoices?${new URLSearchParams(filters)}`, {
       headers: {
         Authorization: token,
       },
@@ -439,7 +439,7 @@ $(document).ready(function() {
     }
     $('#pendingInvoices tbody').empty();
 
-    axios.get(`${apiUrl}/api/admin/show_pendingInvoices?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/show_pendingInvoices?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -523,7 +523,7 @@ $(document).ready(function() {
     }
     $('#overdueInvoices tbody').empty();
 
-    axios.get(`${apiUrl}/api/admin/show_overdueInvoices?${new URLSearchParams(filter)}`, {}, {
+    axios.get(`${apiUrl}/api/admin/show_overdueInvoices?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
       },
@@ -595,7 +595,7 @@ $(document).ready(function() {
 
 
   function selectProfile() {
-    axios.get(apiUrl + '/api/show_profile', {}, {
+    axios.get(apiUrl + '/api/show_profile', {
       headers: {
         Authorization: token,
       },
@@ -638,7 +638,7 @@ $(document).ready(function() {
   $('#selectProfile').on('change', function() {
     let profile_id = $('#selectProfile').val();
     console.log("PROFILE", profile_id);
-    axios.get(apiUrl + '/api/get_quickInvoice_PDT/' + profile_id, {}, {
+    axios.get(apiUrl + '/api/get_quickInvoice_PDT/' + profile_id, {
       headers: {
         Authorization: token,
       },
