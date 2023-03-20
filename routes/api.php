@@ -15,7 +15,6 @@ use App\Models\InvoiceConfig;
 use App\Models\User;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Carbon;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,7 +25,6 @@ use Illuminate\Support\Carbon;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
