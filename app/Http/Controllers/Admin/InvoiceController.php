@@ -1495,6 +1495,7 @@ class InvoiceController extends Controller
         'notes'                  => $data->notes,
         'grand_total_amount'     => number_format($data->grand_total_amount, 2),
         'quick_invoice'          => $data->quick_invoice,
+
       ];
 
       $this->setup_email_template_profile($data_setup_email_template);
