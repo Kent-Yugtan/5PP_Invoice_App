@@ -13,6 +13,9 @@
   @include('layouts.csslink')
   <!-- JQUERY UI -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
+  <!-- CDN FOR JQUERY CONFIRM -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
 </head>
 
 <body>
@@ -23,9 +26,13 @@
   </div>
 </body>
 @include('layouts.script')
+
+
 <!-- JQUERY UI -->
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- CDN FOR JQUERY CONFIRM -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 </html>
