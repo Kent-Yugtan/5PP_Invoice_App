@@ -736,12 +736,7 @@ $(document).ready(function() {
     }).then(function(response) {
       let data = response.data;
       if (data.success) {
-        console.log("SUCCES", data.success);
-        $('html,body').animate({
-          scrollTop: $('#loader_load').offset().top
-        }, 'slow');
         $("div.spanner").addClass("show");
-
         setTimeout(function() {
           $("div.spanner").removeClass("show");
           $('#quick_invoice').trigger('reset');
@@ -755,7 +750,6 @@ $(document).ready(function() {
           overdueInvoices();
           getResults_Converted();
           // location.reload(true); // refresh the page
-
           toast1.toast('show');
         }, 1500)
       }
