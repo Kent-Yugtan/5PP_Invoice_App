@@ -142,8 +142,21 @@
   <div class="email">
     <div class="email-head">
       <div class="head-img">
-        <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{$content['invoice_logo']}}">
-        <p>{{$content['invoice_logo']}}</p>
+        <?php
+        // Retrieve the image file from the URL
+        $image_url = 'https://invoice.5ppsite.com' . $content['invoice_logo'];
+        $image_data = file_get_contents($image_url);
+
+        // Convert the image file into a base64-encoded string
+        $base64_image = base64_encode($image_data);
+
+        // Update the <img> tag with the base64-encoded string
+        $img_tag = '<img style="width:50px; max-width:100%;" src="data:image/png;base64,' . $base64_image . '">';
+
+        // Output the updated <img> tag
+        echo $img_tag;
+        ?>
+        <!-- <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{$content['invoice_logo']}}"> -->
       </div>
     </div>
 
