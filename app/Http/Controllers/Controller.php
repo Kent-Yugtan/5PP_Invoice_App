@@ -150,6 +150,10 @@ class Controller extends BaseController
     $pdf->render();
 
     $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    $directory = storage_path('/app/public/pdf/Invoice-Admin');
+    if (!is_dir($directory)) {
+      mkdir($directory, 0777, true);
+    }
     file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
 
     if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf')) {
@@ -260,6 +264,10 @@ class Controller extends BaseController
     $pdf->render();
 
     $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    $directory = storage_path('/app/public/pdf/Invoice-Admin');
+    if (!is_dir($directory)) {
+      mkdir($directory, 0777, true);
+    }
     file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
 
     if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf')) {
@@ -370,8 +378,11 @@ class Controller extends BaseController
     $pdf->render();
 
     $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    $directory = storage_path('/app/public/pdf/Invoice-Admin');
+    if (!is_dir($directory)) {
+      mkdir($directory, 0777, true);
+    }
     file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-    // dd(storage_path());
     if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf')) {
       // set the file permissions
       $data_email += [
