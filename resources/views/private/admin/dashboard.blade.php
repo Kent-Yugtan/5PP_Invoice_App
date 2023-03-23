@@ -1,74 +1,88 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-  <h1 class="mt-4">Dashboard</h1>
-  <ol class="breadcrumb mb-4"></ol>
 
   <div class="row">
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="paid_invoices">
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="pending_invoices">
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Overdue</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="overdue_invoices">
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Cancelled</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="cancelled_invoices">
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
+    <div class="col-xl-12">
+      <div class="card shadow p-2 mb-1 bg-white rounded">
+        <div class="card-header">
+          <h1 class="mt-0"> <i style="color:#CF8029" class="fas fa-chart-line"></i> Dashboard</h1>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-xl-6">
-      <div class="card shadow p-2 mb-4 bg-white rounded">
-        <div class="card mb-4">
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
+        <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid</div>
+        <div>
+          <div class="row text-center py-3">
+            <Label class="fs-1" id="paid_invoices">
+              0
+            </Label>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
+        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+        <div>
+          <div class="row text-center py-3">
+            <Label class="fs-1" id="pending_invoices">
+              0
+            </Label>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
+        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Overdue</div>
+        <div>
+          <div class="row text-center py-3">
+            <Label class="fs-1" id="overdue_invoices">
+              0
+            </Label>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
+        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Cancelled</div>
+        <div>
+          <div class="row text-center py-3">
+            <Label class="fs-1" id="cancelled_invoices">
+              0
+            </Label>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 mb-1">
+      <div class="card shadow mb-1 p-2 bg-white rounded h-100">
+        <div class="card">
           <div class="card-header">
             <h5>
-              <i class="fa-sharp fa-solid fa-file-invoice-dollar"></i>
+              <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i>
               Quick Invoice
             </h5>
           </div>
@@ -76,40 +90,34 @@
             <form id="quick_invoice">
               <div class="row">
                 <div class="col-xl-6">
-                  <div class="form-floating mb-3">
-                    <select class="form-select" id="selectProfile">
-                      <option value="" selected disabled>Select Profile</option>
-                    </select>
-                    <label for="selectProfile" style="color: #A4A6B3;">Profile</label>
-                  </div>
+                  <select class="form-select" name="selectProfile" id="profile_id">
+                    <option value="" selected disabled style="color: #A4A6B3;">Select Profile</option>
+                  </select>
+                  <label for="profile_id" style="color: #A4A6B3;"></label>
                 </div>
                 <div class="col-xl-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date" name="due_date"
-                      class="form-control">
-                    <label for="due_date" style="color: #A4A6B3;">Due Date</label>
-                  </div>
+                  <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date" name="due_date"
+                    class="form-control">
+                  <label for="due_date" style="color: #A4A6B3;"></label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="description" placeholder="Description">
-                    <label for="description" style="color: #A4A6B3;">Description</label>
-                  </div>
-
+                  <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+                  <label for="description" style="color: #A4A6B3;"></label>
                 </div>
                 <div class="col-xl-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control" id="sub_total"
-                      placeholder="SubTotal">
-                    <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
-                  </div>
+                  <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control"
+                    id="sub_total" placeholder="Subtotal ($)">
+                  <label for="sub_total" style="color: #A4A6B3; "></label>
                 </div>
               </div>
-
-              <button type="submit" style="width:100%; height:50px;color:white; background-color: #CF8029;" class="btn"
-                class="btn">Create Invoice</button>
+              <div class="row">
+                <div class="col-xl-12">
+                  <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn"
+                    class="btn">Create Invoice</button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -117,13 +125,13 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-xl-6">
-      <div class="card shadow mb-4 p-2" style="height:100%" id="pendingInvoices_card">
-        <div class="card">
+  <div class="row mb-1">
+    <div class="col-xl-6 mb-1">
+      <div class="card shadow mb-1 p-2 bg-white rounded h-100">
+        <div class="card h-100">
           <div class="card-header">
             <h5>
-              <i class="fas fa-clock"></i>
+              <i style="color:#CF8029" class="fas fa-clock"></i>
               Pending Invoices
             </h5>
           </div>
@@ -142,9 +150,9 @@
               </tbody>
             </table>
           </div>
-          <div class="row mx-3">
+          <div class="row mx-1">
             <div class="col-xl-6">
-              <div class="page_showing" id="tbl_showing_pendingInvoice"></div>
+              <div class="page_showing" style="padding-top: 8px;" id="tbl_showing_pendingInvoice"></div>
             </div>
             <div class="col-xl-6">
               <ul style="float:right" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_pendingInvoice">
@@ -155,19 +163,16 @@
       </div>
     </div>
 
-    <div class="col-xl-6">
-      <div class="card shadow mb-4 p-2" style="height:100%" id="overdueInvoices_card">
-        <div class="card">
+    <div class="col-xl-6 mb-1">
+      <div class="card shadow p-2 mb-1 bg-white rounded h-100">
+        <div class="card h-100">
           <div class="card-header">
             <h5>
-              <i class="fas fa-clock"></i>
+              <i style="color:#CF8029" class="fas fa-clock"></i>
               Overdue Invoices
             </h5>
           </div>
           <div class="card-body">
-            <!-- <div class="text-end">
-              <label mb-2 style="color: #A4A6B3;text-align: right;">View All</label>
-            </div> -->
             <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover table-responsive"
               id="overdueInvoices">
               <thead>
@@ -182,12 +187,13 @@
               </tbody>
             </table>
           </div>
-          <div class="row mx-3">
+          <div class="row mx-1">
             <div class="col-xl-6">
-              <div class="page_showing" id="tbl_showing_overdueInvoice"></div>
+              <div class="page_showing" style="padding-top: 8px;" id="tbl_showing_overdueInvoice"
+                style="display:flex;align-items:center"></div>
             </div>
             <div class="col-xl-6">
-              <ul style="float:right" class=" pagination pagination-sm flex-sm-wrap" id="tbl_pagination_overdueInvoice">
+              <ul style="float:right" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_overdueInvoice">
               </ul>
             </div>
           </div>
@@ -200,7 +206,7 @@
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div><i style="color:#CF8029" class="fa fa-newspaper-o"> </i></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -219,7 +225,6 @@
   <div class="loader"></div>
 </div>
 
-
 <script type="text/javascript">
 const PHP = value => currency(value, {
   symbol: '',
@@ -227,6 +232,7 @@ const PHP = value => currency(value, {
   separator: ','
 });
 $(document).ready(function() {
+
   let Deductions = [];
   let dollar_rate = 0;
   let peso_rate = 0;
@@ -240,7 +246,7 @@ $(document).ready(function() {
   $(window).on('load', function() {
     setTimeout(function() {
       $("div.spanner").removeClass("show");
-      selectProfile();
+      profile_id();
       check_ActivependingInvoices();
       pendingInvoices();
       overdueInvoices();
@@ -430,13 +436,13 @@ $(document).ready(function() {
   // View Pending Invoices
   function pendingInvoices(filters) {
     let page = $("#tbl_pagination_pendingInvoice .page-item.active .page-link").html();
+
     let filter = {
       page_size: 5,
       page: page ? page : 1,
       ...filters,
     }
     $('#pendingInvoices tbody').empty();
-
     axios.get(`${apiUrl}/api/admin/show_pendingInvoices?${new URLSearchParams(filter)}`, {
       headers: {
         Authorization: token,
@@ -483,16 +489,54 @@ $(document).ready(function() {
             return ""
           })
 
+          const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
+          console.log("data.data.links", data.data.links);
+          // Check if the "next" link item is disabled
+          if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
+            // Disable the "next" button in the UI
+            $('#tbl_pagination_pendingInvoice').empty()
+            let dataLink = []
+            dataLink = data.data.links.pop();
+            data.data.links.map(item => {
+              let li =
+                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+              <a class="page-link" data-url="${item.url}">${item.label}</a>
+              </li>`
+              $('#tbl_pagination_pendingInvoice').append(li)
+              return ""
+            })
+          }
+
+          const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
+          console.log("data.data.links", data.data.links);
+          // Check if the "next" link item is disabled
+          if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
+            // Disable the "next" button in the UI
+            $('#tbl_pagination_pendingInvoice').empty()
+            let dataLink = []
+            dataLink = data.data.links.shift();
+            data.data.links.map(item => {
+              let li =
+                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+              <a class="page-link" data-url="${item.url}">${item.label}</a>
+              </li>`
+              $('#tbl_pagination_pendingInvoice').append(li)
+              return ""
+            })
+          }
+
           $("#tbl_pagination_pendingInvoice .page-item .page-link").on('click', function() {
             $("#tbl_pagination_pendingInvoice .page-item").removeClass(
               'active');
             let url = $(this).data('url')
+
             $.urlParam = function(name) {
               let results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
                 url
               );
               return results !== null ? results[1] || 0 : 0;
             };
+            console.log($.urlParam('page'));
             pendingInvoices({
               page: $.urlParam('page')
             });
@@ -562,6 +606,42 @@ $(document).ready(function() {
             return ""
           })
 
+          const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
+          console.log("data.data.links", data.data.links);
+          // Check if the "next" link item is disabled
+          if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
+            // Disable the "next" button in the UI
+            $('#tbl_pagination_overdueInvoice').empty()
+            let dataLink = []
+            dataLink = data.data.links.pop();
+            data.data.links.map(item => {
+              let li =
+                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+              <a class="page-link" data-url="${item.url}">${item.label}</a>
+              </li>`
+              $('#tbl_pagination_overdueInvoice').append(li)
+              return ""
+            })
+          }
+
+          const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
+          console.log("data.data.links", data.data.links);
+          // Check if the "next" link item is disabled
+          if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
+            // Disable the "next" button in the UI
+            $('#tbl_pagination_overdueInvoice').empty()
+            let dataLink = []
+            dataLink = data.data.links.shift();
+            data.data.links.map(item => {
+              let li =
+                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+              <a class="page-link" data-url="${item.url}">${item.label}</a>
+              </li>`
+              $('#tbl_pagination_overdueInvoice').append(li)
+              return ""
+            })
+          }
+
           $("#tbl_pagination_overdueInvoice .page-item .page-link").on('click', function() {
             $("#tbl_pagination_overdueInvoice .page-item").removeClass(
               'active');
@@ -592,7 +672,7 @@ $(document).ready(function() {
   }
 
 
-  function selectProfile() {
+  function profile_id() {
     axios.get(apiUrl + '/api/show_profile', {
       headers: {
         Authorization: token,
@@ -606,7 +686,7 @@ $(document).ready(function() {
             let option = '';
             option += '<option value=' + item.profile.id + ' >' + item.full_name +
               '</option>';
-            $('#selectProfile').append(option);
+            $('#profile_id').append(option);
           })
         }
       }
@@ -633,8 +713,8 @@ $(document).ready(function() {
     // console.log("converted_amount", converted_amount);
   }
 
-  $('#selectProfile').on('change', function() {
-    let profile_id = $('#selectProfile').val();
+  $('#profile_id').on('change', function() {
+    let profile_id = $('#profile_id').val();
     console.log("PROFILE", profile_id);
     axios.get(apiUrl + '/api/get_quickInvoice_PDT/' + profile_id, {
       headers: {
@@ -686,11 +766,30 @@ $(document).ready(function() {
     }
   })
 
-
   $('#quick_invoice').submit(function(e) {
     e.preventDefault();
 
-    let profile_id = $('#selectProfile').val();
+    $('#quick_invoice').validate({
+      rules: {
+        selectProfile: {
+          required: true,
+        },
+        due_date: {
+          required: true,
+        },
+        description: {
+          required: true,
+          maxlength: 20,
+        },
+        sub_total: {
+          required: true,
+          maxlength: 10,
+        },
+      },
+      errorClass: 'is-invalid',
+    });
+
+    let profile_id = $('#profile_id').val();
     let description = $('#description').val();
     let sub_total = $('#sub_total').val().replaceAll(',', '');
     let due_date = $('#due_date').val();
@@ -729,18 +828,20 @@ $(document).ready(function() {
       Deductions,
     };
     console.log("DATA", data);
+
     axios.post(apiUrl + "/api/add_invoices", data, {
       headers: {
         Authorization: token,
       },
     }).then(function(response) {
       let data = response.data;
+      console.log("DATA", response)
       if (data.success) {
         $("div.spanner").addClass("show");
         setTimeout(function() {
           $("div.spanner").removeClass("show");
           $('#quick_invoice').trigger('reset');
-          $('.toast1 .toast-title').html('Create Invoices');
+          $('.toast1 .toast-title').html('Create Invoice');
           $('.toast1 .toast-body').html(response.data.message);
           active_count_paid();
           active_count_pending();
@@ -754,30 +855,29 @@ $(document).ready(function() {
         }, 1500)
       }
     }).catch(function(error) {
-      console.log("ERROR", error);
-      if (error.response.data.errors) {
-        let errors = error.response.data.errors;
-        console.log("errors", errors);
-        let fieldnames = Object.keys(errors);
+      let errors = error.response.data.errors;
+      console.log(errors);
+      // if (error.response.data.errors) {
+      // let fieldnames = Object.keys(errors);
+      // // console.log(fieldnames);
+      // $('#' + fieldnames).addClass('is-invalid');
+      // Object.values(errors).map((item, index) => {
+      //   console.log('ITEM', item);
+      // });
 
-        Object.values(errors).map((item, index) => {
-          fieldname = fieldnames[0].split('_');
-          fieldname.map((item2, index2) => {
-            fieldname['key'] = capitalize(item2);
-            return ""
-          });
-          fieldname = fieldname.join(" ");
-
-          $('.toast1 .toast-title').html(fieldname);
-          $('.toast1 .toast-body').html(Object.values(errors)[
-            0].join(
-            "\n\r"));
-        })
-        setTimeout(function() {
-          $('div.spanner').removeClass('show');
-          toast1.toast('show');
-        }, 1500);
-      }
+      // Object.values(errors).map((item, index) => {
+      //   fieldname = fieldnames[0].split('_');
+      //   fieldname.map((item2, index2) => {
+      //     fieldname['key'] = capitalize(item2);
+      //     return ""
+      //   });
+      //   fieldname = fieldname.join(" ");
+      //   $('.toast1 .toast-title').html(capitalize(fieldname));
+      //   $('.toast1 .toast-body').html(Object.values(errors)[0].join(
+      //     "\n\r"));
+      // })
+      // toast1.toast('show');
+      // }
     });
   })
 

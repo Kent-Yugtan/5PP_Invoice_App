@@ -356,8 +356,6 @@ class InvoiceController extends Controller
           // );
         }
       }
-      $this->sendEmail_admin();
-      $this->sendEmail_profile();
       return response()->json(
         [
           'success' => true,
@@ -366,6 +364,8 @@ class InvoiceController extends Controller
         ],
         200
       );
+      $this->sendEmail_admin();
+      $this->sendEmail_profile();
     }
   }
 
@@ -433,13 +433,14 @@ class InvoiceController extends Controller
         }
         // SEND EMAIL
         // MAO NI ANG FUNCTION NGA TAWAGON SA BUTTON
-        $this->sendEmail_admin();
-        $this->sendEmail_profile();
+
         return response()->json([
           'success' => true,
           'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
           'data' => $store_data,
         ], 200);
+        $this->sendEmail_admin();
+        $this->sendEmail_profile();
       }
 
       // DELETE INVOICE ITEMS DELETE WHEN CLICK SUBMIT

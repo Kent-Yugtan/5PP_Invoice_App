@@ -111,7 +111,7 @@ Route::middleware(['auth:api'])->group(function () {
   // POST PROFILE DEDUCTION TYPES TABLE
   Route::post('saveProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
   Route::post('editProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
-  Route::post('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
+  Route::get('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
   Route::get('settings/show_profileDeductionType_Button/{profile_id}', [ProfileDeductionTypesController::class, 'show_profileDeductionType_Button']);
   Route::get('settings/show_deduction_data/{profile_id}', [ProfileDeductionTypesController::class, 'show_deduction_data']);
   Route::get('settings/get_deduction/{id}', [ProfileDeductionTypesController::class, 'get_deduction']);
