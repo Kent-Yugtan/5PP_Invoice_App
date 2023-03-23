@@ -1442,7 +1442,7 @@ $(document).ready(function() {
     $('#profileDeductionType_id').val($(this).val());
     let profileDeductionType_id = $('#profileDeductionType_id').val();
 
-    axios.post(apiUrl + '/api/showProfileDeductionTypes/' +
+    axios.get(apiUrl + '/api/showProfileDeductionTypes/' +
       profileDeductionType_id, {
         headers: {
           Authorization: token
@@ -1552,7 +1552,7 @@ $(document).ready(function() {
     e.preventDefault();
     let id = $('#profilededuction_id').html();
     axios.post(apiUrl + '/api/deleteProfileDeductionTypes/' +
-      id, {
+      id, {}, {
         headers: {
           Authorization: token
         },

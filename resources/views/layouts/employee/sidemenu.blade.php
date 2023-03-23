@@ -7,7 +7,7 @@
 
         <a class="nav-link" href="{{url('user/dashboard')}}">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-chart-line"></i>
+            <i style="color:#CF8029" class="fas fa-chart-line"></i>
           </div>
           Dashboard
         </a>
@@ -15,7 +15,7 @@
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
           aria-expanded="false" aria-controls="collapseLayouts">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-users"></i>
+            <i style="color:#CF8029" class="fas fa-users"></i>
           </div>
           Profiles
           <div class="sb-sidenav-collapse-arrow">
@@ -32,7 +32,7 @@
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
           aria-expanded="false" aria-controls="collapseLayouts2">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-file-invoice"></i>
+            <i style="color:#CF8029" class="fas fa-file-invoice"></i>
           </div>
           Invoices
           <div class="sb-sidenav-collapse-arrow">
@@ -49,7 +49,7 @@
 
         <a class="nav-link" href="{{url('user/userdeductiontype')}}">
           <div class="sb-nav-link-icon">
-            <i class="fa-solid fa-plus-minus"></i>
+            <i style="color:#CF8029" class="fa-solid fa-plus-minus"></i>
           </div>
           Deductions
         </a>
@@ -57,7 +57,7 @@
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"
           aria-expanded="false" aria-controls="collapseLayouts3">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-table"></i>
+            <i style="color:#CF8029" class="fas fa-table"></i>
           </div>
           Reports
           <div class="sb-sidenav-collapse-arrow">

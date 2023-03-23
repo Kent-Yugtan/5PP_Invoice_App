@@ -3573,13 +3573,15 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-    color: #0d6efd;
-    border-color: #0d6efd;
+    /* color: #0d6efd;
+    border-color: #0d6efd;*/
+    color: #cf8029;
+    border-color: #cf8029;
 }
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #cf8029;
+    border-color: #cf8029;
 }
 .btn-check:focus + .btn-outline-primary,
 .btn-outline-primary:focus {
@@ -4971,7 +4973,8 @@ fieldset:disabled .btn {
 }
 
 .card-header {
-    padding: 0.5rem 1rem;
+    padding-left: 18px !important;
+    padding-top: 5px !important;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -5215,7 +5218,7 @@ fieldset:disabled .btn {
 .dataTable-pagination a {
     position: relative;
     display: block;
-    color: #0d6efd;
+    color: #cf8029;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #dee2e6;
@@ -5231,14 +5234,14 @@ fieldset:disabled .btn {
 .page-link:hover,
 .dataTable-pagination a:hover {
     z-index: 2;
-    color: #0a58ca;
+    color: #a4a6b3;
     background-color: #e9ecef;
     border-color: #dee2e6;
 }
 .page-link:focus,
 .dataTable-pagination a:focus {
     z-index: 3;
-    color: #0a58ca;
+    color: #a4a6b3;
     background-color: #e9ecef;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
@@ -5258,8 +5261,8 @@ fieldset:disabled .btn {
 .dataTable-pagination li.active a {
     z-index: 3;
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #cf8029;
+    border-color: #cf8029;
 }
 .page-item.disabled .page-link,
 .page-item.disabled .dataTable-pagination a,
@@ -12907,7 +12910,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-            height: 150px;
+        height: 150px;
         width: 150px;
     }
 }
@@ -12938,7 +12941,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {
     .profile-pic-div_InactiveProfile {
-   height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -12961,7 +12964,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for Tablets, Ipads and below  */
 @media (max-width: 768px) {
     .profile-pic-div_InactiveProfile {
-     height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -12976,7 +12979,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-       height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -12992,7 +12995,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for low resolution  Tablets, Ipads */
 @media (min-width: 576px) and (max-width: 767px) {
     .profile-pic-div_InactiveProfile {
-    height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13007,7 +13010,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-         height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13023,7 +13026,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for Mobile Devices */
 @media (max-width: 576px) {
     .profile-pic-div_InactiveProfile {
-    height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13041,7 +13044,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-         height: 200px;
+        height: 200px;
         width: 200px;
     }
     .row_email_adminActiveProfile {
@@ -13051,7 +13054,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 @media (min-width: 500px) and (max-width: 575px) {
     .profile-pic-div_InactiveProfile {
-         height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13073,14 +13076,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-       height: 200px;
+        height: 200px;
         width: 200px;
     }
 }
 
 @media (max-width: 500px) {
     .profile-pic-div_InactiveProfile {
-          height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13097,14 +13100,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-   height: 200px;
+        height: 200px;
         width: 200px;
     }
 }
 
 @media (max-width: 480px) {
     .profile-pic-div_InactiveProfile {
-          height: 200px;
+        height: 200px;
         width: 200px;
     }
 
@@ -13126,7 +13129,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-      height: 200px;
+        height: 200px;
         width: 200px;
     }
 }
@@ -13189,7 +13192,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .profile-pic-div_userMyProfile {
-       height: 200px;
+        height: 200px;
         width: 200px;
     }
+}
+.is-invalid {
+    /* border: 1px solid red; */
+    color: red;
 }
