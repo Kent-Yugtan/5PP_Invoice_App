@@ -1,207 +1,205 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-
+  <!-- <div class="col-xl-12">
+      <div class="card shadow p-2 bg-white"> -->
+  <!-- <div class="card-header"> -->
   <div class="row">
-    <div class="col-xl-12">
-      <div class="card shadow p-2 mb-1 bg-white rounded">
-        <div class="card-header">
-          <h1 class="mt-0"> <i style="color:#CF8029" class="fas fa-chart-line"></i> Dashboard</h1>
-        </div>
-      </div>
+    <div class="col-xl-12 col-md-12 py-4">
+      <span class="fs-3 fw-bold">Dashboard</span>
     </div>
   </div>
+  <!-- </div> -->
+  <!-- </div>
+    </div> -->
 
   <div class="row">
-
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="paid_invoices">
-              0
-            </Label>
+    <div class="col-xl-3 col-md-3 pb-4">
+      <div class="card-hover shadow card p-2 bg-white" style="max-width: 40rem;">
+        <div class="text-center " style="border-bottom: none;color: #A4A6B3; ">
+          <span class="text">Paid</span>
+          <div class="py-2 fs-1" id="paid_invoices" style="color:black">
+            0
           </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="pending_invoices">
-              0
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Overdue</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="overdue_invoices">
-              0
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card-hover card shadow p-2 mb-1 bg-white rounded" style="max-width: 40rem;">
-        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Cancelled</div>
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="cancelled_invoices">
-              0
-            </Label>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between">
         </div>
       </div>
     </div>
 
-  </div>
-
-  <div class="row">
-    <div class="col-xl-6 mb-1">
-      <div class="card shadow mb-1 p-2 bg-white rounded h-100">
-        <div class="card">
-          <div class="card-header">
-            <h5>
-              <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i>
-              Quick Invoice
-            </h5>
+    <div class="col-xl-3 col-md-3 pb-4">
+      <div class="card-hover shadow card p-2  bg-white rounde-2" style="max-width: 40rem;">
+        <div class="text-center " style="border-bottom: none;color: #A4A6B3; ">
+          <span class="text">Pending</span>
+          <div class="py-2 fs-1" id="pending_invoices" style="color:black">
+            0
           </div>
-          <div class="card-body">
-            <form id="quick_invoice">
-              <div class="row">
-                <div class="col-xl-6">
-                  <select class="form-select" name="selectProfile" id="profile_id">
-                    <option value="" selected disabled style="color: #A4A6B3;">Select Profile</option>
-                  </select>
-                  <label for="profile_id" style="color: #A4A6B3;"></label>
-                </div>
-                <div class="col-xl-6">
-                  <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date" name="due_date"
-                    class="form-control">
-                  <label for="due_date" style="color: #A4A6B3;"></label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-6">
-                  <input type="text" class="form-control" name="description" id="description" placeholder="Description">
-                  <label for="description" style="color: #A4A6B3;"></label>
-                </div>
-                <div class="col-xl-6">
-                  <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control"
-                    id="sub_total" placeholder="Subtotal ($)">
-                  <label for="sub_total" style="color: #A4A6B3; "></label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-12">
-                  <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn"
-                    class="btn">Create Invoice</button>
-                </div>
-              </div>
-            </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 pb-4">
+      <div class="card-hover shadow card p-2 bg-white rounde-2" style="max-width: 40rem;">
+        <div class="text-center " style="border-bottom: none;color: #A4A6B3; ">
+          <span class="text">Overdue</span>
+          <div class="py-2 fs-1" id="overdue_invoices" style="color:black">
+            0
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 pb-4">
+      <div class="card-hover shadow card p-2 bg-white rounde-2" style="max-width: 40rem;">
+        <div class="text-center " style="border-bottom: none;color: #A4A6B3; ">
+          <span class="text">Cancelled</span>
+          <div class="py-2 fs-1" id="cancelled_invoices" style="color:black">
+            0
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mb-1">
-    <div class="col-xl-6 mb-1">
-      <div class="card shadow mb-1 p-2 bg-white rounded h-100">
-        <div class="card h-100">
-          <div class="card-header">
-            <h5>
-              <i style="color:#CF8029" class="fas fa-clock"></i>
-              Pending Invoices
-            </h5>
-          </div>
-          <div class="card-body ">
-            <table style="color: #A4A6B3;font-size: 14px;" class="table-responsive table table-hover"
-              id="pendingInvoices">
-              <thead>
-                <tr>
-                  <th>Invoice #</th>
-                  <th>Profile Name</th>
-                  <th>Due Date</th>
-                  <th class="text-center w-5">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-          <div class="row mx-1">
-            <div class="col-xl-6">
-              <div class="page_showing" style="padding-top: 8px;" id="tbl_showing_pendingInvoice"></div>
+  <div class="row ">
+    <div class="col-xl-6 pb-4">
+      <div class="card-border shadow mb-1 p-2 bg-white h-100">
+        <!-- <div class="card"> -->
+        <!-- <div class="card-header"> -->
+
+        <div class="header fs-3 fw-bold mb-2">
+          <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+          <label> Quick Invoice</label>
+        </div>
+        <!-- <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i> -->
+        <!-- </div> -->
+        <div class="card-body">
+          <form id="quick_invoice">
+            <div class="row">
+              <div class="col-xl-6">
+                <label for="profile_id" style="color: #A4A6B3;">Profile</label>
+                <select class="form-select" name="selectProfile" id="profile_id">
+                  <option value="" selected disabled style="color: #A4A6B3;">Select Profile</option>
+                </select>
+                <label for="profile_id" style="color: #A4A6B3;"></label>
+              </div>
+              <div class="col-xl-6  ">
+                <label for="due_date" style="color: #A4A6B3;">Due Date</label>
+                <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date" name="due_date"
+                  class="form-control">
+                <label for="due_date" style="color: #A4A6B3;"></label>
+              </div>
             </div>
-            <div class="col-xl-6">
-              <ul style="float:right" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_pendingInvoice">
-              </ul>
+            <div class="row">
+              <div class="col-xl-6  ">
+                <label for="description" style="color: #A4A6B3;">Description</label>
+                <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+                <label for="description" style="color: #A4A6B3;"></label>
+              </div>
+
+              <div class="col-xl-6">
+                <label for="sub_total" style="color: #A4A6B3; ">Amount</label>
+                <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control"
+                  id="sub_total" placeholder="Subtotal ($)">
+                <label for="sub_total" style="color: #A4A6B3;"></label>
+              </div>
+            </div>
+            <div class="row pb-4">
+              <div class="col-xl-12">
+                <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn"
+                  class="btn">Create Invoice</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row pb-4">
+    <div class="col-xl-6">
+      <div class="card-border shadow mb-1 p-2 bg-white h-100">
+        <!-- <div class="card h-100"> -->
+        <!-- <div class="card-header"> -->
+
+        <div class="header fs-3 fw-bold">
+          <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+          <label> Pending Invoices</label>
+        </div>
+        <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+
+        <!-- </div> -->
+        <div class="card-body">
+          <table style="color: #A4A6B3;font-size: 14px;" class="table-responsive table table-hover"
+            id="pendingInvoices">
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Profile Name</th>
+                <th>Due Date</th>
+                <th class="text-center w-5">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="row mx-3">
+          <div class="col">
+            <div class="page_showing" id="tbl_showing_pendingInvoice" style="margin-left: -12px;">
             </div>
           </div>
         </div>
+        <div class="row mx-1">
+          <div class="col">
+            <ul style="display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap"
+              id="tbl_pagination_pendingInvoice">
+            </ul>
+          </div>
+        </div>
+        <!-- </div> -->
       </div>
     </div>
 
-    <div class="col-xl-6 mb-1">
-      <div class="card shadow p-2 mb-1 bg-white rounded h-100">
-        <div class="card h-100">
-          <div class="card-header">
-            <h5>
-              <i style="color:#CF8029" class="fas fa-clock"></i>
-              Overdue Invoices
-            </h5>
+    <div class="col-xl-6 ">
+      <div class="card-border shadow p-2 mb-1 bg-white h-100">
+        <!-- <div class="card h-100"> -->
+        <div class="header fs-3 fw-bold">
+          <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+          <label> Overdue Invoices</label>
+        </div>
+        <div class="card-body">
+          <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover table-responsive"
+            id="overdueInvoices">
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Profile Name</th>
+                <th>Due Date</th>
+                <th class="text-center w-5">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="row mx-3">
+          <div class="col">
+            <div style="margin-left: -12px;" class="page_showing" id="tbl_showing_overdueInvoice"></div>
           </div>
-          <div class="card-body">
-            <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover table-responsive"
-              id="overdueInvoices">
-              <thead>
-                <tr>
-                  <th>Invoice #</th>
-                  <th>Profile Name</th>
-                  <th>Due Date</th>
-                  <th class="text-center w-5">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-          <div class="row mx-1">
-            <div class="col-xl-6">
-              <div class="page_showing" style="padding-top: 8px;" id="tbl_showing_overdueInvoice"
-                style="display:flex;align-items:center"></div>
-            </div>
-            <div class="col-xl-6">
-              <ul style="float:right" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_overdueInvoice">
-              </ul>
-            </div>
+        </div>
+        <div class="row mx-1">
+          <div class="col">
+            <ul style="display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap"
+              id="tbl_pagination_overdueInvoice">
+            </ul>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </div>
 </div>
+
 
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
@@ -232,6 +230,12 @@ const PHP = value => currency(value, {
   separator: ','
 });
 $(document).ready(function() {
+  // Get the current page's URL path
+  var path = window.location.pathname;
+  // Highlight the corresponding menu item
+  var segments = path.split('/');
+
+  $('#' + segments[1] + segments[2]).addClass('active');
 
   let Deductions = [];
   let dollar_rate = 0;
@@ -489,45 +493,51 @@ $(document).ready(function() {
             return ""
           })
 
-          const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
-          console.log("data.data.links", data.data.links);
-          // Check if the "next" link item is disabled
-          if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
-            // Disable the "next" button in the UI
-            $('#tbl_pagination_pendingInvoice').empty()
-            let dataLink = []
-            dataLink = data.data.links.pop();
-            data.data.links.map(item => {
-              let li =
-                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-              <a class="page-link" data-url="${item.url}">${item.label}</a>
-              </li>`
-              $('#tbl_pagination_pendingInvoice').append(li)
-              return ""
-            })
-          }
+          // const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
+          // // console.log("data.data.links", data.data.links);
+          // // Check if the "next" link item is disabled
+          // if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
+          //   // Disable the "next" button in the UI
+          //   $('#tbl_pagination_pendingInvoice').empty()
+          //   let dataLink = []
+          //   // dataLink = data.data.links.pop();
+          //   data.data.links.map(item => {
+          //     let li =
+          //       `<li class="page-item cursor-pointer ${item.active ? 'active' : 'inactive'}">
+          //     <a class="page-link" data-url="${item.url}">${item.label}</a>
+          //     </li>`
+          //     $('#tbl_pagination_pendingInvoice').append(li)
+          //     return ""
+          //   })
+          // }
 
-          const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
-          console.log("data.data.links", data.data.links);
-          // Check if the "next" link item is disabled
-          if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
-            // Disable the "next" button in the UI
-            $('#tbl_pagination_pendingInvoice').empty()
-            let dataLink = []
-            dataLink = data.data.links.shift();
-            data.data.links.map(item => {
-              let li =
-                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-              <a class="page-link" data-url="${item.url}">${item.label}</a>
-              </li>`
-              $('#tbl_pagination_pendingInvoice').append(li)
-              return ""
-            })
+          // const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
+          // // console.log("data.data.links", data.data.links);
+          // // Check if the "next" link item is disabled
+          // if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
+          //   // Disable the "next" button in the UI
+          //   $('#tbl_pagination_pendingInvoice').empty()
+          //   let dataLink = []
+          //   dataLink = data.data.links.shift();
+          //   data.data.links.map(item => {
+          //     let li =
+          //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+          //   <a class="page-link" data-url="${item.url}">${item.label}</a>
+          //   </li>`
+          //     $('#tbl_pagination_pendingInvoice').append(li)
+          //     return ""
+          //   })
+          // }
+
+          if (data.data.links.length) {
+            let lastPage = data.data.links[data.data.links.length - 1];
+            if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+              $('#tbl_pagination_pendingInvoice .page-item:last-child').addClass('disabled');
+            }
           }
 
           $("#tbl_pagination_pendingInvoice .page-item .page-link").on('click', function() {
-            $("#tbl_pagination_pendingInvoice .page-item").removeClass(
-              'active');
+            $("#tbl_pagination_pendingInvoice .page-item").removeClass('active');
             let url = $(this).data('url')
 
             $.urlParam = function(name) {
@@ -536,7 +546,8 @@ $(document).ready(function() {
               );
               return results !== null ? results[1] || 0 : 0;
             };
-            console.log($.urlParam('page'));
+            console.log(" $.urlParam('page')", $.urlParam('page'));
+
             pendingInvoices({
               page: $.urlParam('page')
             });
@@ -549,6 +560,7 @@ $(document).ready(function() {
           $("#pendingInvoices tbody").append(
             '<tr><td colspan="4" class="text-center">No data</td></tr>'
           );
+
         }
       }
     }).catch(function(error) {
@@ -606,40 +618,48 @@ $(document).ready(function() {
             return ""
           })
 
-          const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
-          console.log("data.data.links", data.data.links);
-          // Check if the "next" link item is disabled
-          if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
-            // Disable the "next" button in the UI
-            $('#tbl_pagination_overdueInvoice').empty()
-            let dataLink = []
-            dataLink = data.data.links.pop();
-            data.data.links.map(item => {
-              let li =
-                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-              <a class="page-link" data-url="${item.url}">${item.label}</a>
-              </li>`
-              $('#tbl_pagination_overdueInvoice').append(li)
-              return ""
-            })
-          }
+          // const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
+          // // console.log("data.data.links", data.data.links);
+          // // Check if the "next" link item is disabled
+          // if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
+          //   // Disable the "next" button in the UI
+          //   $('#tbl_pagination_overdueInvoice').empty()
+          //   let dataLink = []
+          //   dataLink = data.data.links.pop();
+          //   data.data.links.map(item => {
+          //     let li =
+          //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+          //   <a class="page-link" data-url="${item.url}">${item.label}</a>
+          //   </li>`
+          //     $('#tbl_pagination_overdueInvoice').append(li)
+          //     return ""
+          //   })
+          // }
 
-          const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
-          console.log("data.data.links", data.data.links);
-          // Check if the "next" link item is disabled
-          if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
-            // Disable the "next" button in the UI
-            $('#tbl_pagination_overdueInvoice').empty()
-            let dataLink = []
-            dataLink = data.data.links.shift();
-            data.data.links.map(item => {
-              let li =
-                `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-              <a class="page-link" data-url="${item.url}">${item.label}</a>
-              </li>`
-              $('#tbl_pagination_overdueInvoice').append(li)
-              return ""
-            })
+          // const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
+          // // console.log("data.data.links", data.data.links);
+          // // Check if the "next" link item is disabled
+          // if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
+          //   // Disable the "next" button in the UI
+          //   $('#tbl_pagination_overdueInvoice').empty()
+          //   let dataLink = []
+          //   dataLink = data.data.links.shift();
+          //   data.data.links.map(item => {
+          //     let li =
+          //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+          //   <a class="page-link" data-url="${item.url}">${item.label}</a>
+          //   </li>`
+          //     $('#tbl_pagination_overdueInvoice').append(li)
+          //     return ""
+          //   })
+          // }
+
+
+          if (data.data.links.length) {
+            let lastPage = data.data.links[data.data.links.length - 1];
+            if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+              $('#tbl_pagination_overdueInvoice .page-item:last-child').addClass('disabled');
+            }
           }
 
           $("#tbl_pagination_overdueInvoice .page-item .page-link").on('click', function() {
@@ -766,28 +786,28 @@ $(document).ready(function() {
     }
   })
 
+  $('#quick_invoice').validate({
+    rules: {
+      selectProfile: {
+        required: true,
+      },
+      due_date: {
+        required: true,
+      },
+      description: {
+        required: true,
+        maxlength: 20,
+      },
+      sub_total: {
+        required: true,
+        maxlength: 10,
+      },
+    },
+    errorClass: 'is-invalid',
+  });
   $('#quick_invoice').submit(function(e) {
     e.preventDefault();
 
-    $('#quick_invoice').validate({
-      rules: {
-        selectProfile: {
-          required: true,
-        },
-        due_date: {
-          required: true,
-        },
-        description: {
-          required: true,
-          maxlength: 20,
-        },
-        sub_total: {
-          required: true,
-          maxlength: 10,
-        },
-      },
-      errorClass: 'is-invalid',
-    });
 
     let profile_id = $('#profile_id').val();
     let description = $('#description').val();

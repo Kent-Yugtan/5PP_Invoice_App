@@ -323,10 +323,10 @@
                           <div class="col-12">
                             <div class="row mt-5">
                               <div class="col mb-5">
-                                <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                               </div>
                               <div class="col">
-                                <button type="submit" class="btn btn-secondary w-100" style=" color:White; background-color:#CF8029; " data-bs-dismiss="modal">Save</button>
+                                <button type="submit" class="btn  w-100" style=" color:White; background-color:#CF8029; " data-bs-dismiss="modal">Save</button>
                               </div>
                             </div>
                           </div>

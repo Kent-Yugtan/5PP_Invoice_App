@@ -34,6 +34,7 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('admin/activeProfile/{id}/{profile_id}', [ProfileController::class, 'activeProfile']);
   Route::get('admin/inactiveProfile/{id}/{profile_id}', [ProfileController::class, 'inactiveProfile']);
   Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'edit_invoice']);
+  Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'edit_inactiveInvoice']);
   // PRIVATE FOLDER INVOICE
   Route::get('invoice/addInvoice', [InvoiceController::class, 'add_invoice']);
   Route::get('invoice/current', [InvoiceController::class, 'current']);
