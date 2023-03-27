@@ -686,4 +686,20 @@ class ProfileController extends Controller
       }
     }
   }
+
+  public function user_data()
+  {
+    $userId = auth()->user()->id;
+    $findProfile = Profile::where('user_id', $userId)->first();
+    if (!$findProfile) {
+      return response()->json([
+        'success' => false,
+      ], 400);
+    } else {
+      return response()->json([
+        'success' => true,
+        'data' => $findProfile,
+      ], 200);
+    }
+  }
 }

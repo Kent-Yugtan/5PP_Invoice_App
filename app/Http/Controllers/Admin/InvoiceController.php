@@ -176,6 +176,10 @@ class InvoiceController extends Controller
   {
     return view('private.invoice.addInvoice');
   }
+  public function edit_inactiveInvoice()
+  {
+    return view('private.admin.editInactiveInvoice');
+  }
   public function edit_invoice()
   {
     return view('private.admin.editInvoice');
@@ -975,6 +979,7 @@ class InvoiceController extends Controller
       if ($request->page_size) {
         $invoices = $invoices->limit($request->page_size)
           ->paginate($request->page_size, ['*'], 'page', $request->page)
+          ->onEachSide(2)
           ->toArray();
       } else {
         $invoices = $invoices->get();
@@ -1088,6 +1093,7 @@ class InvoiceController extends Controller
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
+        ->onEachSide(2)
         ->toArray();
     } else {
       $invoices = $invoices->get();
@@ -1113,6 +1119,7 @@ class InvoiceController extends Controller
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
+        ->onEachSide(2)
         ->toArray();
     } else {
       $invoices = $invoices->get();

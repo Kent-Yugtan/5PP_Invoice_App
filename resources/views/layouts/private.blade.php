@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="https://shamcey.5ppsite.com/logo.png" type="image/x-icon">
   <title>5Pints Productions</title>
-
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   @include('layouts.csslink')
   <!-- JQUERY UI -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
@@ -18,7 +18,7 @@
 
 </head>
 
-<body id="sb-nav-fixed">
+<body id="sb-nav-fixed" style="background-color: #f8f9fa;">
   @if(session('data')->role == 'Admin')
   @include('layouts.admin.header')
   @else

@@ -330,7 +330,7 @@
                           <div class="col-4 md-2 w-100">
                             <div class="form-group">
                               </br>
-                              <button class="btn btn-secondary" style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
+                              <button class="btn " style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
                                 Item</button>
                             </div>
                           </div>
@@ -460,12 +460,12 @@
 
                       <div class="col-6 mb-3">
                         <div class="pb-3">
-                          <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                         </div>
                       </div>
                       <div class="col-6 mb-3">
                         <div class="pb-3">
-                          <button type="submit" id="save" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029;">Save</button>
+                          <button type="submit" id="save" class="btn  w-100" style="color:White; background-color:#CF8029;">Save</button>
                         </div>
                       </div>
 
@@ -522,10 +522,10 @@
 
                   <div class="row mt-3">
                     <div class="col">
-                      <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                     </div>
                     <div class="col">
-                      <button type="submit" id="user_createDeduction_button" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029;">Save</button>
+                      <button type="submit" id="user_createDeduction_button" class="btn  w-100" style="color:White; background-color:#CF8029;">Save</button>
                     </div>
                   </div>
                 </div>
@@ -561,10 +561,10 @@
 
                   <div class="row mt-3">
                     <div class="col">
-                      <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                     </div>
                     <div class="col">
-                      <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
+                      <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
                     </div>
                   </div>
                 </div>
@@ -600,10 +600,10 @@
 
                   <div class="row mt-3">
                     <div class="col">
-                      <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                     </div>
                     <div class="col">
-                      <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
+                      <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
                     </div>
                   </div>
                 </div>
@@ -641,10 +641,10 @@
 
                 <div class="row mt-3">
                   <div class="col">
-                    <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                   </div>
                   <div class="col">
-                    <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
+                    <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029; " data-bs-dismiss="modal">Update</button>
                   </div>
                 </div>
               </form>

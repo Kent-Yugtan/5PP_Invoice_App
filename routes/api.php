@@ -77,6 +77,7 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('admin/search_statusActive_invoice', [InvoiceController::class, 'search_statusActive_invoice']);
   Route::get('admin/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
   Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
+  Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
   Route::get('invoiceConfig', [InvoiceController::class, 'invoiceConfig']); // INVOICE CONFIGS DATA
   Route::get('getInvoiceStatus/{id}', [InvoiceController::class, 'getInvoiceStatus']);
   Route::get('admin/show_Profilededuction_Table_Active', [InvoiceController::class, 'show_Profilededuction_Table_Active']);
@@ -169,6 +170,8 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('userReports/userDeductionReport_load', [InvoiceController::class, 'userDeductionReport_load']);
   Route::get('userReports/userDeductionReport_click', [InvoiceController::class, 'userDeductionReport_click']);
   Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
+
+  Route::get('user_data', [ProfileController::class, 'user_data']);
 });
 
 // // TESTING EMAIL 
