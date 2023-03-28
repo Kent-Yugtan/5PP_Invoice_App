@@ -35,6 +35,7 @@ Route::middleware(['auth:api'])->group(function () {
 
   Route::resource('admin/dashboard', DashboardController::class);
   Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
+  Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
   Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
 
   // FOR PROFILE TABLE

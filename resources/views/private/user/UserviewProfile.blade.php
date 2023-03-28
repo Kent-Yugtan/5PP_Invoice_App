@@ -141,7 +141,7 @@
 
             <div class="mb-3">
               <label mb-2 style="color: #A4A6B3;">Bank Location</label>
-              <input id="user_bank_location" name="bank_location" type="text" class="form-control @error('bank_location') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address" disabled="true">
+              <input id="user_bank_address" name="bank_address" type="text" class="form-control @error('bank_address') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address" disabled="true">
             </div>
 
             <div class="mb-3">
@@ -341,7 +341,7 @@
                         <div class="row">
                           <div class="col" style="display: flex;flex-direction: column-reverse;align-items: center;">
                             <div class="form-group">
-                              <label class="formGroupExampleInput2">Discount
+                              <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                                 Type</label>
                               <br>
                               <input class="form-check-input" type="radio" name="discount_type" id="user_discount_type" value="fixed">

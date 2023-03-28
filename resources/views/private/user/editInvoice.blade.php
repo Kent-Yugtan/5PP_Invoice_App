@@ -525,7 +525,7 @@
                       <div class="row">
                         <div class="col" style="display: flex;align-items: start;">
                           <div class="form-group">
-                            <label class="formGroupExampleInput2">Discount
+                            <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                               Type</label>
                             <br>
                             <input class="form-check-input" type="radio" name="discount_type" id="discount_type" value="Fixed">

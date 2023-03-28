@@ -1,10 +1,23 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4 pb-4" id="loader_load">
-  <h1 class="mt-0">Deductions</h1>
-  <ol class="breadcrumb mb-3"></ol>
   <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+      <!-- <div class="card shadow p-2 mb-1 bg-white rounded">  -->
+      <!-- <div class="card-header"> -->
+      <!-- <i style="color:#CF8029" class="fas fa-users"></i>  -->
+      <div class="row">
+        <div class="col-xl-12 col-md-12 py-4">
+          <span class="fs-3 fw-bold ">Deductions</span>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- </div> -->
+    </div>
+  </div>
 
+
+  <div class="row">
     <div class="col-xs-5 col-sm-12 col-md-12 col-lg-6 px-2">
       <div class="row">
         <div class="col-sm-12">
@@ -202,6 +215,12 @@
     separator: ','
   });
   $(document).ready(function() {
+    // Get the current page's URL path
+    var path = window.location.pathname;
+    // Highlight the corresponding menu item
+    var segments = path.split('/');
+    $('#' + segments[1] + segments[2]).addClass('active');
+    console.log("SEGMENT", segments[1] + segments[2]);
 
     $(window).on('load', function() {
       $('div.spanner').addClass('show');

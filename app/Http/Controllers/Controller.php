@@ -164,8 +164,8 @@ class Controller extends BaseController
           'as' => '5PP-Invoice.pdf',
         ],
       ];
-      event(new \App\Events\SendMailEvent($data_email));
     }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_status_profile($data)
@@ -278,8 +278,8 @@ class Controller extends BaseController
           'as' => '5PP-Invoice.pdf',
         ],
       ];
-      event(new \App\Events\SendMailEvent($data_email));
     }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_admin($data)
@@ -391,8 +391,8 @@ class Controller extends BaseController
           'as' => '5PP-Invoice.pdf',
         ],
       ];
-      event(new \App\Events\SendMailEvent($data_email));
     }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_profile($data)
@@ -510,8 +510,8 @@ class Controller extends BaseController
           'as' => '5PP-Invoice.pdf',
         ],
       ];
-      event(new \App\Events\SendMailEvent($data_email));
     }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   function setup_forgot_password($data)

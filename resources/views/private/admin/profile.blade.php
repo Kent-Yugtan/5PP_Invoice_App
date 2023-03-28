@@ -19,14 +19,14 @@
 
   <div class="row pb-3">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
-      <div class="card-border shadow mb-1 p-2 bg-white h-100">
+      <div class="card-border shadow p-2 bg-white h-100">
         <!-- <div class="card"> -->
         <!-- <div class="card-header"> -->
         <!-- <i style="color:#CF8029" class="fa-solid fa-circle-info"></i> -->
         <!-- </div> -->
         <div class="card-body">
           <div class="row">
-            <div class="col-xl-12 col-md-12">
+            <div class="col-xl-12 col-md-12 mt-3">
               <span class="fs-3 ">Profile Information</span>
             </div>
           </div>
@@ -44,7 +44,7 @@
                 </div>
               </div>
 
-              <div class="col-md-7 pt-3">
+              <div class="col-md-7 pt-3 mb-3">
                 <div class="row">
                   <div class="col mb-3">
                     <input style="color:#CF8029" class="form-check-input" type="checkbox" id="profile_status" name="profile_status" checked>
@@ -57,7 +57,7 @@
                 <div class="row">
                   <div class="col mb-3">
                     <label style="color: #A4A6B3;" for="first_name">*Firstname</label>
-                    <input id="first_name" name="first_name" type="text" class="form-control" placeholder="First Name">
+                    <input id="first_name" name="first_name" type="text" class="form-control" placeholder="Firstname">
                   </div>
                 </div>
 
@@ -65,7 +65,7 @@
                 <div class="row">
                   <div class="col">
                     <label for="last_name" style="color: #A4A6B3;">*Lastname</label>
-                    <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Last Name">
+                    <input id="last_name" name="last_name" type="text" class="form-control" placeholder="Lastname">
                   </div>
                 </div>
               </div>
@@ -89,12 +89,12 @@
 
                 <div class="row">
                   <div class="col-12 mb-3">
-                    <label id="password" style="color: #A4A6B3;">Password</label>
+                    <label for="password" style="color: #A4A6B3;">Password</label>
                     <div class="form-group has-toggle">
                       <div class="input-group" id="show_hide_password">
-                        <input class="form-control" name="password" type="password" placeholder="Password">
+                        <input class="form-control" id="password" name="password" type="password" placeholder="Password">
                         <div class="form-control-feedback" id="toggle_password">
-                          <a href="#" style="color:#CF8029">
+                          <a href="#" id="eye" class="" style="color:#CF8029">
                             <i class="fa fa-eye-slash" id="show"></i>
                             <i class="fa fa-eye d-none" id="hide"></i>
                           </a>
@@ -172,7 +172,7 @@
                 <div class="row">
                   <div class="col-12 mb-3">
                     <label for="bank_name" style="color: #A4A6B3;">*Bank Name</label>
-                    <select class="form-select" id="bank_name" name="bank_name" aria-label="Default select example">
+                    <select class="form-select" id="bank_name" name="bank_name">
                       <option selected disabled value="">Please Select Bank Name</option>
                       <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
                       <option value="Land Bank of the Philippines">Land Bank of the Philippines (LANDBANK)
@@ -210,8 +210,8 @@
 
                 <div class="row">
                   <div class="col-12 mb-3">
-                    <label for="city" style="color: #A4A6B3;">Bank Location</label>
-                    <input id="bank_location" name="bank_location" type="text" class="form-control" placeholder="Bank Address">
+                    <label for="city" style="color: #A4A6B3;">Bank Address</label>
+                    <input id="bank_address" name="bank_address" type="text" class="form-control" placeholder="Bank Address">
                   </div>
                 </div>
 
@@ -237,8 +237,8 @@
                   </div>
                 </div>
 
-                <div class="row pt-2 pb-4">
-                  <div class="col-12">
+                <div class="row ">
+                  <div class="col-12 mt-3 mb-3">
                     <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn ">Add
                       Profile</button>
                   </div>
@@ -246,6 +246,7 @@
               </div>
             </div>
           </form>
+          <div id="error-container"></div>
         </div>
         <!-- </div> -->
       </div>
@@ -356,39 +357,6 @@
       toast1.toast('hide');
     })
 
-    $('#ProfileStore').validate({
-      rules: {
-        first_name: {
-          required: true,
-        },
-        last_name: {
-          required: true,
-        },
-        email: {
-          required: true,
-          email: true // this will validate that the email address is properly formatted
-        },
-        username: {
-          required: true,
-          maxlength: 10,
-        },
-
-        acct_no: {
-          required: true,
-        },
-        acct_name: {
-          required: true,
-        },
-        bank_name: {
-          required: true,
-        },
-        gcash_no: {
-          required: true,
-        },
-      },
-      errorClass: 'is-invalid',
-    });
-
     $('#ProfileStore').submit(function(e) {
       e.preventDefault();
       $('html,body').animate({
@@ -410,7 +378,7 @@
       let acct_no = $("#acct_no").val();
       let acct_name = $("#acct_name").val();
       let bank_name = $("#bank_name").val();
-      let bank_location = $("#bank_location").val();
+      let bank_address = $("#bank_address").val();
       let gcash_no = $("#gcash_no").val();
       let date_hired = $("#date_hired").val();
       let deduction_type_id = $('#select2Multiple').val();
@@ -435,7 +403,7 @@
       formData.append('acct_no', acct_no);
       formData.append('acct_name', acct_name);
       formData.append('bank_name', bank_name ?? "");
-      formData.append('bank_location', bank_location);
+      formData.append('bank_address', bank_address);
       formData.append('gcash_no', gcash_no);
       formData.append('date_hired', date_hired);
       formData.append('deduction_type_id', JSON.stringify(deduction_type_id));
@@ -459,6 +427,9 @@
           let data = response.data;
           console.log("SUCCESS", response);
           if (data.success === true) {
+            $('input').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            $('input, select').removeClass('is-invalid');
             $("#first_name").val("");
             $("#last_name").val("");
             $("#email").val("");
@@ -474,7 +445,7 @@
             $("#acct_no").val("");
             $("#acct_name").val("");
             $("#bank_name").val("");
-            $("#bank_location").val("");
+            $("#bank_address").val("");
             $("#gcash_no").val("");
             $("#date_hired").val("");
             $("#photo").attr("src", "/images/default.png");
@@ -491,8 +462,36 @@
           }
         })
         .catch(function(error) {
-          let errors = error.response.data.errors;
-          console.log(errors);
+          console.log("error.response.data.errors", error);
+          if (error.response.data.errors) {
+            $('input').removeClass('is-invalid');
+            $('input, select').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            var errors = error.response.data.errors;
+            var errorContainer = $('#error-container');
+            errorContainer.empty();
+            console.log("errors", errors)
+
+            if ("password" in errors) {
+              $('#eye').addClass('me-3');
+              // Do something
+            } else {
+              $('#eye').removeClass('me-3');
+            }
+            for (var key in errors) {
+              var inputName = key.replace('_', ' ');
+              inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+              var errorMsg = errors[key][0];
+              $('#' + key).addClass('is-invalid');
+              $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+            }
+          } else {
+            $('input').removeClass('is-invalid');
+            $('input, select').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+          }
+          // let errors = error.response.data.errors;
+          // console.log(errors);
           // if (error.response.data.errors) {
           //   let errors = error.response.data.errors;
           //   let fieldnames = Object.keys(errors);
@@ -504,11 +503,11 @@
           //       return ""
           //     });
           //     fieldname = fieldname.join(" ");
-          //     $('.toast1 .toast-title').html(fieldname);
-          //     $('.toast1 .toast-body').html(Object.values(errors)[0].join(
+          //     // $('.toast1 .toast-title').html(fieldname);
+          //     $('#error_email').html(Object.values(errors)[0].join(
           //       "\n\r"));
           //   })
-          //   toast1.toast('show');
+          //   // toast1.toast('show');
           // }
         });
     })

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Exception;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use League\OAuth2\Server\RequestEvent;
 
 class InvoiceController extends Controller
 {
@@ -176,13 +177,21 @@ class InvoiceController extends Controller
   {
     return view('private.invoice.addInvoice');
   }
+  public function edit_invoice()
+  {
+    return view('private.admin.editInvoice');
+  }
   public function edit_inactiveInvoice()
   {
     return view('private.admin.editInactiveInvoice');
   }
-  public function edit_invoice()
+  public function edit_Invoiceinvoice()
   {
-    return view('private.admin.editInvoice');
+    return view('private.invoice.editInvoice');
+  }
+  public function edit_inactiveInvoiceinvoice()
+  {
+    return view('private.invoice.editInactiveInvoice');
   }
   public function edit_userInvoice()
   {
@@ -281,7 +290,6 @@ class InvoiceController extends Controller
       ])->save();
     }
 
-
     return response()->json([
       'success' => true,
       'message' => "Invoice status has been successfully sent to your email and successfully updated to the database.",
@@ -346,18 +354,9 @@ class InvoiceController extends Controller
               $store_data->deductions()->create($dataDeductions);
             }
           }
-          //  SEND EMAIL
-          // MAO NI ANG FUNCTION NGA TAWAGON SA BUTTON
-          // $this->sendEmail_admin();
-          // $this->sendEmail_profile();
-          // return response()->json(
-          //   [
-          //     'success' => true,
-          //     'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
-          //     'data' => $store_data,
-          //   ],
-          //   200
-          // );
+
+          $this->sendEmail_admin();
+          $this->sendEmail_profile();
         }
       }
       return response()->json(
@@ -368,8 +367,6 @@ class InvoiceController extends Controller
         ],
         200
       );
-      $this->sendEmail_admin();
-      $this->sendEmail_profile();
     }
   }
 
@@ -384,10 +381,10 @@ class InvoiceController extends Controller
     $deductions = $request->Deductions;
     if ($error === false) {
       // STORE
+
       if ($profile_id) {
         $incoming_data = $request->validate(
           [
-
             'profile_id' => '',
             'due_date' => 'required',
             'description' => 'required',
@@ -407,6 +404,7 @@ class InvoiceController extends Controller
           'status' => 'Active',
           'quick_invoice' => '0',
           'invoice_no' => $this->generate_invoice(),
+
         ];
         $store_data = Invoice::create($incoming_data);
 
@@ -437,15 +435,15 @@ class InvoiceController extends Controller
         }
         // SEND EMAIL
         // MAO NI ANG FUNCTION NGA TAWAGON SA BUTTON
-
+        $this->sendEmail_admin();
+        $this->sendEmail_profile();
         return response()->json([
           'success' => true,
           'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
           'data' => $store_data,
         ], 200);
-        $this->sendEmail_admin();
-        $this->sendEmail_profile();
       }
+
 
       // DELETE INVOICE ITEMS DELETE WHEN CLICK SUBMIT
       $invoiceItem_ids = [];
@@ -654,6 +652,71 @@ class InvoiceController extends Controller
             'success' => true,
             'message' => "Invoice has been successfully updated to the database.",
             'data' => $invoice_update_data,
+          ], 200);
+        }
+      }
+    }
+  }
+
+  public function create_invoice2(Request $request)
+  {
+    $error = false;
+    $profile_id = $request->profile_id;
+    $invoiceItems = $request->invoiceItems;
+    $deductions = $request->deduction;
+
+    if ($error == false) {
+      $incoming_data = $request->validate([
+        'profile_id' => 'required',
+        'due_date' => 'required',
+        'description' => 'required',
+        'sub_total' => 'required',
+      ]);
+      if ($profile_id) {
+        $incoming_data += [
+          'peso_rate' => $request->peso_rate,
+          'converted_amount' => $request->converted_amount,
+          'discount_type' => $request->discount_type,
+          'discount_amount' => $request->discount_amount,
+          'discount_total' => $request->discount_total,
+          'grand_total_amount' => $request->grand_total_amount,
+          'notes' => $request->notes,
+          'invoice_status' => 'Pending',
+          'status' => 'Active',
+          'quick_invoice' => '0',
+          'invoice_no' => $this->generate_invoice(),
+        ];
+        $store_data = Invoice::create($incoming_data);
+        if ($store_data) {
+          if ($request->invoiceItem) {
+            foreach ($request->invoiceItem as $key => $value) {
+              $datainvoiceitem = [
+                'item_description' => $value['item_description'],
+                'quantity' => $value['item_qty'],
+                'rate' => $value['item_rate'],
+                'total_amount' => $value['item_total_amount'],
+              ];
+              $store_data->invoice_items()->create($datainvoiceitem);
+            }
+          }
+
+          if ($request->Deductions) {
+            foreach ($request->Deductions as $key => $value) {
+              $dataDeductions = [
+                'profile_id' => $request->profile_id,
+                'profile_deduction_type_id' => $value['profile_deduction_type_id'],
+                'deduction_type_name' => $value['deduction_type_name'],
+                'amount' => $value['deduction_amount'],
+              ];
+              $store_data->deductions()->create($dataDeductions);
+            }
+          }
+          $this->sendEmail_admin();
+          $this->sendEmail_profile();
+          return response()->json([
+            'success' => true,
+            'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
+            'data' => $store_data,
           ], 200);
         }
       }

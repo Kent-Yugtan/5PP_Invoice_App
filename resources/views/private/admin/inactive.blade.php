@@ -43,7 +43,7 @@
 
   <div class="row mb-3">
     <div class="col ">
-      <div class="form-group input-group has-search mb-3">
+      <div class="form-group input-group has-search ">
         <span class="fa fa-search form-control-feedback"></span>
         <input id="search" name="search" type="text" class="form-control form-check-inline" style="border-radius: 0.25em;" placeholder="Search">
         <span class="input-group-button"><button class="btn" style="margin-left: 10px;color:white; background-color: #CF8029;width: 350px;" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button></span>
@@ -188,12 +188,12 @@
 
                 if (item.file_path) {
                   tr +=
-                    '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                     item
                     .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 } else {
                   tr +=
-                    '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                     item.full_name + '</div></td>';
                 }
 
@@ -232,15 +232,15 @@
                     "#tbl_user tbody").append(tr);
 
                 } else {
-                  let tr = '<tr style="vertical-align:sub;">';
+                  let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
                     tr +=
-                      '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                       item
                       .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   } else {
                     tr +=
-                      '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                       item.full_name + '</div></td>';
                   }
 
@@ -276,6 +276,14 @@
                 $('#tbl_user_pagination').append(li)
                 return ""
               })
+
+
+              if (res.data.links.length) {
+                let lastPage = res.data.links[res.data.links.length - 1];
+                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                  $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
+                }
+              }
 
               $("#tbl_user_pagination .page-item .page-link").on('click', function() {
                 let url = $(this).data('url')
