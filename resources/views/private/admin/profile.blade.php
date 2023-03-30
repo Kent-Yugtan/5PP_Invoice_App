@@ -1,5 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
+
 <div class="container-fluid px-4" id="loader_load">
 
   <div class="row">
@@ -34,6 +35,17 @@
           <form id="ProfileStore">
             <div class="row pt-3">
               @csrf
+              <!-- <div class="image-editor">
+                <input type="file" class="cropit-image-input">
+                <div class="cropit-preview"></div>
+                <div class="image-size-label">
+                  Resize image
+                </div>
+                <input type="range" class="cropit-image-zoom-input">
+                <input type="hidden" name="image-data" class="hidden-image-data" />
+                <button type="submit">Submit</button>
+              </div> -->
+
               <div class="col-md-5 ">
                 <div class="profile-pic-div_adminProfile-wrapper mb-3">
                   <div class="profile-pic-div_adminProfile">
@@ -47,6 +59,8 @@
               <div class="col-md-7 pt-3 mb-3">
                 <div class="row">
                   <div class="col mb-3">
+
+
                     <input style="color:#CF8029" class="form-check-input" type="checkbox" id="profile_status" name="profile_status" checked>
                     <label class="form-check-label" for="status">
                       Active
@@ -273,17 +287,18 @@
 
 <!-- LOADER SPINNER -->
 <div class="spanner">
-  <div class="loader"></div>
+  <div class="loader" style="margin:540px;position:unset"></div>
 </div>
 
 <!-- <button type="button" class="btn " id="showtoast">Show Toast</button> -->
 <script src="{{ asset('/assets/js/adminProfile.js') }}"></script>
 
+
 <script type="text/javascript">
   $(document).ready(function() {
+
     $("#show_hide_password a").on('click', function(e) {
       e.preventDefault();
-      console.log("qweqw");
       if ($('#show_hide_password input').attr("type") == "text") {
         $('#show_hide_password input').attr('type', 'password');
         $('#hide').addClass("d-none");
@@ -415,7 +430,7 @@
 
       // CODE FOR FORMDATA SEE TO CONSOLE.LOG
       // for (const [key, value] of formData.entries()) {
-      //   console.log(`${key}: ${value}`);
+      // console.log(`${key}: ${value}`);
       // }
       axios.post(apiUrl + '/api/saveprofile', formData, {
           headers: {
@@ -493,21 +508,21 @@
           // let errors = error.response.data.errors;
           // console.log(errors);
           // if (error.response.data.errors) {
-          //   let errors = error.response.data.errors;
-          //   let fieldnames = Object.keys(errors);
-          //   $('#' + fieldnames[0]).addClass('is-invalid');
-          //   Object.values(errors).map((item, index) => {
-          //     fieldname = fieldnames[0].split('_');
-          //     fieldname.map((item2, index2) => {
-          //       fieldname['key'] = capitalize(item2);
-          //       return ""
-          //     });
-          //     fieldname = fieldname.join(" ");
-          //     // $('.toast1 .toast-title').html(fieldname);
-          //     $('#error_email').html(Object.values(errors)[0].join(
-          //       "\n\r"));
-          //   })
-          //   // toast1.toast('show');
+          // let errors = error.response.data.errors;
+          // let fieldnames = Object.keys(errors);
+          // $('#' + fieldnames[0]).addClass('is-invalid');
+          // Object.values(errors).map((item, index) => {
+          // fieldname = fieldnames[0].split('_');
+          // fieldname.map((item2, index2) => {
+          // fieldname['key'] = capitalize(item2);
+          // return ""
+          // });
+          // fieldname = fieldname.join(" ");
+          // // $('.toast1 .toast-title').html(fieldname);
+          // $('#error_email').html(Object.values(errors)[0].join(
+          // "\n\r"));
+          // })
+          // // toast1.toast('show');
           // }
         });
     })
@@ -530,7 +545,7 @@
             if (response.data.length > 0) {
               response.data.map((item) => {
                 let option = '<option>';
-                option += "<option value=" + item.id + ">" + item.deduction_name +
+                option += "<option value = " + item.id + " > " + item.deduction_name +
                   " - " + PHP(item.deduction_amount).format() +
                   "</option>"
                 $("#select2Multiple").append(option);

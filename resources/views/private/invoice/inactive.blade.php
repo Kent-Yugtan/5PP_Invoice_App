@@ -47,28 +47,32 @@
   </div>
 
   <div class="row mb-3">
-    <div class="input-group has-search">
-      <div class="col-4">
-        <div class="form-group form-check-inline has-search" style="width:95%">
-          <span class=" fa fa-search form-control-feedback"></span>
-          <input id="search" name="search" type="text" class="form-control form-check-inline" placeholder="Search">
+    <div class="col-4">
+      <div class="input-group">
+        <div class="w-100">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="height:38px;background-color: white;color: #CF8029;border-right:none"><i class="fas fa-search"></i></span>
+            </div>
+            <input id="search" name="search" type="text" class="form-control form-check-inline" style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-4">
-        <div class="form-group form-check-inline has-search" style="width:95%">
-          <select class="form-select form-check-inline" id="filter_invoices">
-            <option value="All">All</option>
-            <option value="Paid">Paid</option>
-            <option value="Pending">Pending</option>
-            <option value="Overdue">Overdue</option>
-          </select>
-        </div>
+    <div class="col-4">
+      <div class="form-check-inline w-100">
+        <select class="form-select form-check-inline" id="filter_invoices">
+          <option value="All">All</option>
+          <option value="Paid">Paid</option>
+          <option value="Pending">Pending</option>
+          <option value="Overdue">Overdue</option>
+        </select>
       </div>
+    </div>
 
-      <div class="col-4">
-        <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-      </div>
+    <div class="col-4">
+      <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>
 
@@ -405,6 +409,10 @@
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
               }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_invoice .page-item:first-child').addClass('disabled');
+              }
             }
 
             $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {
@@ -589,6 +597,10 @@
               let lastPage = data.data.links[data.data.links.length - 1];
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
+              }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_invoice .page-item:first-child').addClass('disabled');
               }
             }
 

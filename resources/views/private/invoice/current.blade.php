@@ -47,29 +47,33 @@
   </div>
 
   <div class="row mb-3">
-    <div class="input-group has-search">
-      <div class="col-4">
-        <div class="form-group form-check-inline has-search" style="width:95%">
-          <span class="fa fa-search form-control-feedback"></span>
-          <input id="search" name="search" type="text" class="form-control form-check-inline" placeholder="Search">
+    <div class="col-4">
+      <div class="input-group">
+        <div class="w-100">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="height:38px;background-color: white;color: #CF8029;border-right:none"><i class="fas fa-search"></i></span>
+            </div>
+            <input id="search" name="search" type="text" class="form-control form-check-inline" style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-4">
-        <div class="form-group form-check-inline has-search" style="width:95%">
-          <select class="form-select form-check-inline" id="filter_invoices">
-            <option value="All">All</option>
-            <option value="Cancelled">Cancelled</option>
-            <option value="Paid">Paid</option>
-            <option value="Pending">Pending</option>
-            <option value="Overdue">Overdue</option>
-          </select>
-        </div>
+    <div class="col-4">
+      <div class="w-100 form-check-inline ">
+        <select class="form-select form-check-inline" id="filter_invoices">
+          <option value="All">All</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Paid">Paid</option>
+          <option value="Pending">Pending</option>
+          <option value="Overdue">Overdue</option>
+        </select>
       </div>
+    </div>
 
-      <div class="col-4">
-        <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-      </div>
+    <div class="col-4">
+      <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>
 
@@ -80,29 +84,35 @@
           <i class="fas fa-table me-1"></i>
           Current Invoices
         </div> -->
-        <div class="card-body table-responsive">
-          <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
-            <thead>
-              <tr>
-                <th class="fit">Invoice #</th>
-                <th class="fit">Profile Name</th>
-                <th class="fit text-center">Payment Status</th>
-                <th class="fit text-center">Invoice Status</th>
-                <th class="fit text-end">Total Amount</th>
-                <th class="fit text-end">Date Created</th>
-                <th class="fit text-end">Due Date</th>
-                <th class="text-center fit">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-        <div class="row mx-3">
-          <div class="col" style="display: flex; align-content: stretch; justify-content: space-between; align-items: center;">
-            <div style="margin-top: 15px;" class="page_showing" id="tbl_showing_invoice"></div>
-            <ul style="display:flex;justify-content:flex-end;" class="pagination pagination-sm flex-sm-wrap pt-4" id="tbl_pagination_invoice">
-            </ul>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
+                  <thead>
+                    <tr>
+                      <th class="fit">Invoice #</th>
+                      <th class="fit">Profile Name</th>
+                      <th class="fit text-center">Payment Status</th>
+                      <th class="fit text-center">Invoice Status</th>
+                      <th class="fit text-end">Total Amount</th>
+                      <th class="fit text-end">Date Created</th>
+                      <th class="fit text-end">Due Date</th>
+                      <th class="text-center fit">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
+              <div class="page_showing" id="tbl_showing_invoice"></div>
+              <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -422,6 +432,10 @@
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
               }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_invoice .page-item:first-child').addClass('disabled');
+              }
             }
 
             $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {
@@ -452,6 +466,9 @@
             $("#dataTable_invoice tbody").append(
               '<tr><td colspan="8" class="text-center">No data</td></tr>'
             );
+            let tbl_showing_invoice =
+              `Showing 0 to 0 of 0 entries`;
+            $('#tbl_showing_invoice').html(tbl_showing_invoice);
           }
         }
       }).catch(function(error) {
@@ -633,6 +650,10 @@
               let lastPage = data.data.links[data.data.links.length - 1];
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
+              }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_invoice .page-item:first-child').addClass('disabled');
               }
             }
             $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {

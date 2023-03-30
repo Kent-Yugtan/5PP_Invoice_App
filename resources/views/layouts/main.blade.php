@@ -29,7 +29,6 @@
 </body>
 @include('layouts.script')
 
-
 <!-- JQUERY UI -->
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -39,5 +38,7 @@
 
 <!-- CDN FOR FORM VALIDATION -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+
 
 </html>

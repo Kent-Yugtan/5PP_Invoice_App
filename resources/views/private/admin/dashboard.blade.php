@@ -96,8 +96,8 @@
                 <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control" id="sub_total" placeholder="Subtotal ($)">
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-12 mb-3">
                 <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn" class="btn">Create Invoice</button>
               </div>
             </div>
@@ -108,8 +108,8 @@
     </div>
   </div>
 
-  <div class="row pb-4">
-    <div class="col-xl-6">
+  <div class="row">
+    <div class="col-xl-6 pb-4">
       <div class="card-border shadow p-2 bg-white h-100">
         <!-- <div class="card h-100"> -->
         <!-- <div class="card-header"> -->
@@ -151,7 +151,7 @@
       </div>
     </div>
 
-    <div class="col-xl-6 ">
+    <div class="col-xl-6 pb-4">
       <div class="card-border shadow p-2  bg-white h-100">
         <!-- <div class="card h-100"> -->
         <div class="header fs-3 fw-bold mb-3">
@@ -482,46 +482,15 @@
               return ""
             })
 
-            // const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
-            // // console.log("data.data.links", data.data.links);
-            // // Check if the "next" link item is disabled
-            // if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
-            //   // Disable the "next" button in the UI
-            //   $('#tbl_pagination_pendingInvoice').empty()
-            //   let dataLink = []
-            //   // dataLink = data.data.links.pop();
-            //   data.data.links.map(item => {
-            //     let li =
-            //       `<li class="page-item cursor-pointer ${item.active ? 'active' : 'inactive'}">
-            //     <a class="page-link" data-url="${item.url}">${item.label}</a>
-            //     </li>`
-            //     $('#tbl_pagination_pendingInvoice').append(li)
-            //     return ""
-            //   })
-            // }
-
-            // const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
-            // // console.log("data.data.links", data.data.links);
-            // // Check if the "next" link item is disabled
-            // if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
-            //   // Disable the "next" button in the UI
-            //   $('#tbl_pagination_pendingInvoice').empty()
-            //   let dataLink = []
-            //   dataLink = data.data.links.shift();
-            //   data.data.links.map(item => {
-            //     let li =
-            //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-            //   <a class="page-link" data-url="${item.url}">${item.label}</a>
-            //   </li>`
-            //     $('#tbl_pagination_pendingInvoice').append(li)
-            //     return ""
-            //   })
-            // }
-
+            // console.log("data.data.links.length", data.data.links)
             if (data.data.links.length) {
               let lastPage = data.data.links[data.data.links.length - 1];
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_pendingInvoice .page-item:last-child').addClass('disabled');
+              }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_pendingInvoice .page-item:first-child').addClass('disabled');
               }
             }
 
@@ -643,11 +612,14 @@
             //   })
             // }
 
-
             if (data.data.links.length) {
               let lastPage = data.data.links[data.data.links.length - 1];
               if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                 $('#tbl_pagination_overdueInvoice .page-item:last-child').addClass('disabled');
+              }
+              let PreviousPage = data.data.links[0];
+              if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                $('#tbl_pagination_overdueInvoice .page-item:first-child').addClass('disabled');
               }
             }
 
@@ -861,7 +833,8 @@
             inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
             var errorMsg = errors[key][0];
             $('#' + key).addClass('is-invalid');
-            $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+            $('#' + key).parent().append('<span class="invalid-feedback">This field is required.</span>');
+            // $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
           }
         } else {
           $('input').removeClass('is-invalid');
