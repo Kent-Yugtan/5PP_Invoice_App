@@ -28,7 +28,7 @@ class RenameColumnInProfiles extends Migration
   {
     Schema::table('profiles', function (Blueprint $table) {
       //
-      $table->dropColumn('bank_bank_address', 'bank_address')->nullable();
+      $table->dropColumn('bank_bank_address');
     });
   }
 }
