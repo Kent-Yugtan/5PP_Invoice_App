@@ -9,11 +9,11 @@
   </div>
 
   <div class="row pb-3">
-    <div class="col-md-12 col-lg-12 col-xl-5 pb-4">
+    <div class="col-md-12 col-lg-12 col-xl-5">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
         <div class="card-body">
           <div class="row">
-            <div class="col-xl-12 col-md-12">
+            <div class="col-xl-12 col-md-12 mt-3">
               <span class="fs-3 ">Profile Information</span>
             </div>
           </div>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="row row_email_InactiveProfile">
-              <div class="col-md-12 mb-3">
+              <div class="col-md-12">
                 <div class="row">
                   <div class="col-12 mb-3">
                     <label for="email" style="color: #A4A6B3;">*Email Address</label>
@@ -179,8 +179,8 @@
 
                 <div class="row">
                   <div class="col-12 mb-3">
-                    <label for="bank_location" style="color: #A4A6B3;">Bank Location</label>
-                    <input id="bank_location" name="bank_location" type="text" class="form-control @error('bank_location') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address" disabled="true">
+                    <label for="bank_address" style="color: #A4A6B3;">Bank Location</label>
+                    <input id="bank_address" name="bank_address" type="text" class="form-control @error('bank_address') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address" disabled="true">
                   </div>
                 </div>
 
@@ -197,30 +197,30 @@
                     <input id="date_hired" name="date_hired" type="text" onblur="(this.type='text')" class="form-control @error('date_hired') is-invalid @enderror" placeholder="Date Hired" disabled="true">
                   </div>
                 </div>
+                <div class="row my-3">
+                  <div class="col-6">
+                    <button type="button" id="edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn">Edit
+                      Profile</button>
+                    <button type="button" id="cancel_edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn d-none">Cancel</button>
+                  </div>
+                  <div class="col-6">
+                    <button type="submit" style="width:100%; color:white; background-color: #CF8029;" class="btn ">Update Profile</button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="row pb-4">
-              <div class="col-6">
-                <button type="button" id="edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn">Edit
-                  Profile</button>
-                <button type="button" id="cancel_edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn d-none">Cancel</button>
-              </div>
-              <div class="col-6">
-                <button type="submit" style="width:100%; color:white; background-color: #CF8029;" class="btn ">Update Profile</button>
-              </div>
-            </div>
           </form>
         </div>
       </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-7 pb-4">
+    <div class="col-md-12 col-lg-12 col-xl-7">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
         <!-- <div class="card-header">Profile Information</div> -->
         <div class="row">
           <div class="col">
-            <ul class="nav nav-pills mb-3" style="padding-left: 20px;padding-right: 20px;" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills mb-3" style="padding-top:16px;padding-left: 20px;padding-right: 20px;" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation" style="width:50%">
                 <a href="#pills-invoice" data-bs-toggle="pill" data-bs-target="#pills-invoice" class="nav-link active text-center" data-toggle="tab">Invoices</a>
               </li>
@@ -236,7 +236,7 @@
         <div class="form-group has-search">
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel" aria-labelledby="pills-invoice-tab">
-              <div class="row mx-2">
+              <div class="row mx-2 mb-3">
                 <div class="col-4">
                   <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" id="button-addon2" name="button-addon2" class="btn form-check-inline pe-3 w-100" disabled><i class="fa fa-plus pe-1"></i>Add
                     Invoice</button>
@@ -283,7 +283,7 @@
 
               <div class="row mx-2">
                 <div class="col">
-                  <div style="margin-left: -4px;" class="page_showing" style="color:black !important;" id="tbl_showing_invoice"></div>
+                  <div style="margin-top: 10px;margin-left: 0px;" class="page_showing" style="color:black !important;" id="tbl_showing_invoice"></div>
                 </div>
               </div>
 
@@ -313,6 +313,7 @@
               </div>
               <div class="row">
                 <div class="col-12 pt-3 px-4">
+                  <label for="date_hired" style="color: #A4A6B3;margin-left:7px">Deduction Types</label>
                   <div id="deductionButton" style="word-wrap: break-word;">
                   </div>
                 </div>
@@ -337,7 +338,8 @@
                   </div>
                   <div class="row mx-2">
                     <div class="col">
-                      <div style="margin-left: 3px;" class="page_showing" id="tbl_showing_deduction"></div>
+                      <div style="margin-top:19px;margin-left: 5px;" class="page_showing" id="tbl_showing_deduction">
+                      </div>
                     </div>
                   </div>
                   <div class="row mx-2">
@@ -421,7 +423,7 @@
                       <div class="row">
                         <div class="col" style="display: flex;flex-direction: column-reverse;align-items: center;">
                           <div class="form-group">
-                            <label class="formGroupExampleInput2">Discount
+                            <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                               Type</label>
                             <br>
                             <input class="form-check-input" type="radio" name="discount_type" id="discount_type" value="Fixed">
@@ -918,7 +920,7 @@
         $("#acct_no").prop('disabled', false);
         $("#bank_name").prop('disabled', false);
         $("#acct_name").prop('disabled', false);
-        $("#bank_location").prop('disabled', false);
+        $("#bank_address").prop('disabled', false);
         $("#gcash_no").prop('disabled', false);
         $("#date_hired").prop('disabled', false);
       }, 1500);
@@ -1041,7 +1043,7 @@
             $('#acct_no').val(data.data.profile.acct_no);
             $('#acct_name').val(data.data.profile.acct_name);
             $('#bank_name').val(data.data.profile.bank_name);
-            $('#bank_location').val(data.data.profile.bank_location);
+            $('#bank_address').val(data.data.profile.bank_address);
             $('#gcash_no').val(data.data.profile.gcash_no);
             $('#date_hired').val(data.data.profile.date_hired);
             $("#photo").attr("src", data.data.profile.file_path);
@@ -1130,7 +1132,7 @@
         // console.log("sddsadsa", urlSplit.length);
         let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
         let filter = {
-          page_size: 10,
+          page_size: 30,
           page: page ? page : 1,
           user_id: urlSplit[3],
           search: $('#search_invoice').val(),
@@ -1205,7 +1207,7 @@
                   apiUrl +
                   '/admin/editInactiveInvoice/' +
                   item.id +
-                  '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                  '"style="color: #cf8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                 tr += '</tr>';
                 $("#dataTable_invoice tbody").append(tr);
                 return ''
@@ -1222,6 +1224,10 @@
                 let lastPage = data.data.links[data.data.links.length - 1];
                 if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                   $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
+                }
+                let PreviousPage = data.data.links[0];
+                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                  $('#tbl_pagination_invoice .page-item:first-child').addClass('disabled');
                 }
               }
 
@@ -1370,7 +1376,7 @@
         let acct_no = $("#acct_no").val();
         let acct_name = $("#acct_name").val();
         let bank_name = $("#bank_name").val();
-        let bank_location = $("#bank_location").val();
+        let bank_address = $("#bank_address").val();
         let gcash_no = $("#gcash_no").val();
         let date_hired = $("#date_hired").val();
         let deduction_type_id = $('#select2Multiple').val();
@@ -1396,7 +1402,7 @@
         formData.append('acct_no', acct_no);
         formData.append('acct_name', acct_name);
         formData.append('bank_name', bank_name ?? "");
-        formData.append('bank_location', bank_location);
+        formData.append('bank_address', bank_address);
         formData.append('gcash_no', gcash_no);
         formData.append('date_hired', date_hired);
         // SENDING ARRAY IN API
@@ -1432,7 +1438,7 @@
               $("#acct_no").val("");
               $("#acct_name").val("");
               $("#bank_name").val("");
-              $("#bank_location").val("");
+              $("#bank_address").val("");
               $("#gcash_no").val("");
               $("#date_hired").val("");
               $("#photo").attr("src", "/images/default.png");
@@ -1456,25 +1462,54 @@
             }
           })
           .catch(function(error) {
+            console.log("ERROR", error)
+            console.log("error.response.data.errors", error);
             if (error.response.data.errors) {
-              let errors = error.response.data.errors;
-              let fieldnames = Object.keys(errors);
-              Object.values(errors).map((item, index) => {
-                fieldname = fieldnames[0].split('_');
-                fieldname.map((item2, index2) => {
-                  fieldname['key'] = capitalize(
-                    item2);
-                  return ""
-                });
-                fieldname = fieldname.join(" ");
-                $('.toast1 .toast-title').html(fieldname);
-                $('.toast1 .toast-body').html(Object.values(
-                    errors)[0]
-                  .join(
-                    "\n\r"));
-              })
-              toast1.toast('show');
+              $('input').removeClass('is-invalid');
+              $('input, select').removeClass('is-invalid');
+              $('.invalid-feedback').remove();
+              var errors = error.response.data.errors;
+              var errorContainer = $('#error-container');
+              errorContainer.empty();
+              console.log("errors", errors)
+
+              if ("password" in errors) {
+                $('#eye').addClass('me-3');
+                // Do something
+              } else {
+                $('#eye').removeClass('me-3');
+              }
+              for (var key in errors) {
+                var inputName = key.replace('_', ' ');
+                inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+                var errorMsg = errors[key][0];
+                $('#' + key).addClass('is-invalid');
+                $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+              }
+            } else {
+              $('input').removeClass('is-invalid');
+              $('input, select').removeClass('is-invalid');
+              $('.invalid-feedback').remove();
             }
+            // if (error.response.data.errors) {
+            //   let errors = error.response.data.errors;
+            //   let fieldnames = Object.keys(errors);
+            //   Object.values(errors).map((item, index) => {
+            //     fieldname = fieldnames[0].split('_');
+            //     fieldname.map((item2, index2) => {
+            //       fieldname['key'] = capitalize(
+            //         item2);
+            //       return ""
+            //     });
+            //     fieldname = fieldname.join(" ");
+            //     $('.toast1 .toast-title').html(fieldname);
+            //     $('.toast1 .toast-body').html(Object.values(
+            //         errors)[0]
+            //       .join(
+            //         "\n\r"));
+            //   })
+            //   toast1.toast('show');
+            // }
           });
       }
 
@@ -2135,41 +2170,65 @@
           setTimeout(function() {
             $("div.spanner").removeClass("show");
             toast1.toast('show');
+            $('.toast1 .toast-title').html('Create Invoices');
+            $('.toast1 .toast-body').html(response.data.message);
 
-
+            $('#exampleModal input').val('');
+            $('#show_deduction_items').empty();
+            $('textarea').val('');
+            $('#dataTable_deduction tbody').empty();
+            $('#dataTable_deduction tbody').html(
+              show_Profilededuction_Table_Active());
+            $('input').removeClass('is-invalid');
+            $('input, select').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            due_date();
           }, 1500)
-          $('.toast1 .toast-title').html('Create Invoices');
-          $('.toast1 .toast-body').html(response.data.message);
-
-          $('#exampleModal input').val('');
-          $('#show_deduction_items').empty();
-          $('textarea').val('');
-          $('#dataTable_deduction tbody').empty();
-          $('#dataTable_deduction tbody').html(
-            show_Profilededuction_Table_Active());
 
         }
       }).catch(function(error) {
+        console.log("error.response.data.errors", error.response.data.errors);
         if (error.response.data.errors) {
-          let errors = error.response.data.errors;
-          console.log("errors", errors);
-          let fieldnames = Object.keys(errors);
+          $('input').removeClass('is-invalid');
+          $('input, select').removeClass('is-invalid');
+          $('.invalid-feedback').remove();
+          var errors = error.response.data.errors;
+          var errorContainer = $('#error-container');
+          errorContainer.empty();
+          console.log("errors", errors)
 
-          Object.values(errors).map((item, index) => {
-            fieldname = fieldnames[0].split('_');
-            fieldname.map((item2, index2) => {
-              fieldname['key'] = capitalize(item2);
-              return ""
-            });
-            fieldname = fieldname.join(" ");
-
-            $('.toast1 .toast-title').html(fieldname);
-            $('.toast1 .toast-body').html(Object.values(errors)[
-              0].join(
-              "\n\r"));
-          })
-          toast1.toast('show');
+          for (var key in errors) {
+            var inputName = key.replace('_', ' ');
+            inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+            var errorMsg = errors[key][0];
+            $('#' + key).addClass('is-invalid');
+            $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+          }
+        } else {
+          $('input').removeClass('is-invalid');
+          $('input, select').removeClass('is-invalid');
+          $('.invalid-feedback').remove();
         }
+        // if (error.response.data.errors) {
+        //   let errors = error.response.data.errors;
+        //   console.log("errors", errors);
+        //   let fieldnames = Object.keys(errors);
+
+        //   Object.values(errors).map((item, index) => {
+        //     fieldname = fieldnames[0].split('_');
+        //     fieldname.map((item2, index2) => {
+        //       fieldname['key'] = capitalize(item2);
+        //       return ""
+        //     });
+        //     fieldname = fieldname.join(" ");
+
+        //     $('.toast1 .toast-title').html(fieldname);
+        //     $('.toast1 .toast-body').html(Object.values(errors)[
+        //       0].join(
+        //       "\n\r"));
+        //   })
+        //   toast1.toast('show');
+        // }
       });
 
     });
@@ -2315,7 +2374,7 @@
         let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
 
         let filter = {
-          page_size: 10,
+          page_size: 28,
           page: page ? page : 1,
           profile_id: urlSplit[4],
           search: $('#search_deduction').val(),
@@ -2388,6 +2447,10 @@
                   if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                     $('#tbl_pagination_deduction .page-item:last-child').addClass('disabled');
                   }
+                  let PreviousPage = data.data.links[0];
+                  if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                    $('#tbl_pagination_deduction .page-item:first-child').addClass('disabled');
+                  }
                 }
                 $("#tbl_pagination_deduction .page-item .page-link").on('click',
                   function() {
@@ -2451,7 +2514,7 @@
                 data.data.profile_deduction_types.map((item) => {
                   let label = '<label>';
                   label +=
-                    "<button type='button' data-bs-toggle='modal'  style='width:150px;background-color:#CF8029;color:white;' data-bs-target='#ProfileDeductioneditModal' id='editProfileDeduction' class='editProfileDeduction btn my-2 mx-2' value=" +
+                    "<button type='button' data-bs-toggle='modal'  style='background-color:#CF8029;color:white;' data-bs-target='#ProfileDeductioneditModal' id='editProfileDeduction' class='editProfileDeduction btn btn-sm my-2 mx-2' value=" +
                     item.id + ">" + item.deduction_type_name +
                     "</button>";
                   // <button type='button' data-bs-toggle='modal' data-bs-target='#deleteModal' class='deleteProfileDeduction profile-close' aria-hidden='true'><span style='color:black;' value=" +

@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 "sb|sidebar-toggle",
                 document.body.classList.contains("sb-sidenav-toggled")
             );
+            document.body.classList.toggle("hide-brand"); // Add or remove the class to show/hide the brand
         });
     }
 });

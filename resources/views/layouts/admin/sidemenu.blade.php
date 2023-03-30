@@ -49,7 +49,7 @@
         </div>
 
 
-        <a class="nav-link" href="{{url('settings/deductiontype')}}">
+        <a class="nav-link" id="settingsdeductiontype" href="{{url('settings/deductiontype')}}">
           <div class="sb-nav-link-icon">
             <i style="color:#CF8029" class="fa-solid fa-plus-minus"></i>
           </div>
@@ -72,7 +72,7 @@
             <a class="nav-link" href="{{url('reports/invoice')}}">Invoice Reports</a>
           </nav>
         </div>
-
+        <hr>
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4"
           aria-expanded="false" aria-controls="collapseLayouts4">
           <div class="sb-nav-link-icon">
@@ -90,7 +90,7 @@
             <a class="nav-link" href="{{url('settings/invoiceconfig')}}">Invoice Configuration</a>
           </nav>
         </div>
-        <hr>
+
       </div>
     </div>
   </nav>

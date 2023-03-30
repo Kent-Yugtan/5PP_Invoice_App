@@ -143,29 +143,29 @@ class Controller extends BaseController
         ],
       ]
     ];
-    $pdf = new Dompdf();
-    $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    $pdf->loadHtml($html);
-    $pdf->setPaper('A4', 'portrait');
-    $pdf->render();
+    // $pdf = new Dompdf();
+    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
+    // $pdf->loadHtml($html);
+    // $pdf->setPaper('A4', 'portrait');
+    // $pdf->render();
 
-    $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    $directory = storage_path('/app/public/pdf/Status-Admin');
-    if (!is_dir($directory)) {
-      mkdir($directory, 0777, true);
-    }
-    file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
+    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    // $directory = storage_path('/app/public/pdf/Status-Admin');
+    // if (!is_dir($directory)) {
+    //   mkdir($directory, 0777, true);
+    // }
+    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
 
-    if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf')) {
-      // set the file permissions
-      $data_email += [
-        'attachment' => [
-          'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf',
-          'as' => '5PP-Invoice.pdf',
-        ],
-      ];
-      event(new \App\Events\SendMailEvent($data_email));
-    }
+    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf')) {
+    //   // set the file permissions
+    //   $data_email += [
+    //     'attachment' => [
+    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf',
+    //       'as' => '5PP-Invoice.pdf',
+    //     ],
+    //   ];
+    // }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_status_profile($data)
@@ -257,29 +257,29 @@ class Controller extends BaseController
         ],
       ]
     ];
-    $pdf = new Dompdf();
-    $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    $pdf->loadHtml($html);
-    $pdf->setPaper('A4', 'portrait');
-    $pdf->render();
+    // $pdf = new Dompdf();
+    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
+    // $pdf->loadHtml($html);
+    // $pdf->setPaper('A4', 'portrait');
+    // $pdf->render();
 
-    $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    $directory = storage_path('/app/public/pdf/Status-Staff');
-    if (!is_dir($directory)) {
-      mkdir($directory, 0777, true);
-    }
-    file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
+    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    // $directory = storage_path('/app/public/pdf/Status-Staff');
+    // if (!is_dir($directory)) {
+    //   mkdir($directory, 0777, true);
+    // }
+    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
 
-    if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf')) {
-      // set the file permissions
-      $data_email += [
-        'attachment' => [
-          'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf',
-          'as' => '5PP-Invoice.pdf',
-        ],
-      ];
-      event(new \App\Events\SendMailEvent($data_email));
-    }
+    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf')) {
+    //   // set the file permissions
+    //   $data_email += [
+    //     'attachment' => [
+    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf',
+    //       'as' => '5PP-Invoice.pdf',
+    //     ],
+    //   ];
+    // }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_admin($data)
@@ -371,28 +371,28 @@ class Controller extends BaseController
         ],
       ]
     ];
-    $pdf = new Dompdf();
-    $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    $pdf->loadHtml($html);
-    $pdf->setPaper('A4', 'portrait');
-    $pdf->render();
+    // $pdf = new Dompdf();
+    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
+    // $pdf->loadHtml($html);
+    // $pdf->setPaper('A4', 'portrait');
+    // $pdf->render();
 
-    $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    $directory = storage_path('/app/public/pdf/Invoice-Admin');
-    if (!is_dir($directory)) {
-      mkdir($directory, 0777, true);
-    }
-    file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-    if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf')) {
-      // set the file permissions
-      $data_email += [
-        'attachment' => [
-          'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf',
-          'as' => '5PP-Invoice.pdf',
-        ],
-      ];
-      event(new \App\Events\SendMailEvent($data_email));
-    }
+    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    // $directory = storage_path('/app/public/pdf/Invoice-Admin');
+    // if (!is_dir($directory)) {
+    //   mkdir($directory, 0777, true);
+    // }
+    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
+    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf')) {
+    //   // set the file permissions
+    //   $data_email += [
+    //     'attachment' => [
+    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf',
+    //       'as' => '5PP-Invoice.pdf',
+    //     ],
+    //   ];
+    // }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_profile($data)
@@ -483,35 +483,32 @@ class Controller extends BaseController
           'notes'               => $notes,
           'grand_total_amount'  => $grand_total_amount,
           'quick_invoice'       => $quick_invoice,
-
         ],
       ]
-
     ];
+    // $pdf = new Dompdf();
+    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
+    // $pdf->loadHtml($html);
+    // $pdf->setPaper('A4', 'portrait');
+    // $pdf->render();
 
-    $pdf = new Dompdf();
-    $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    $pdf->loadHtml($html);
-    $pdf->setPaper('A4', 'portrait');
-    $pdf->render();
+    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
+    // $directory = storage_path('/app/public/pdf/Invoice-Staff');
+    // if (!is_dir($directory)) {
+    //   mkdir($directory, 0777, true);
+    // }
+    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
 
-    $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    $directory = storage_path('/app/public/pdf/Invoice-Staff');
-    if (!is_dir($directory)) {
-      mkdir($directory, 0777, true);
-    }
-    file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-
-    if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf')) {
-      // set the file permissions
-      $data_email += [
-        'attachment' => [
-          'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf',
-          'as' => '5PP-Invoice.pdf',
-        ],
-      ];
-      event(new \App\Events\SendMailEvent($data_email));
-    }
+    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf')) {
+    //   // set the file permissions
+    //   $data_email += [
+    //     'attachment' => [
+    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf',
+    //       'as' => '5PP-Invoice.pdf',
+    //     ],
+    //   ];
+    // }
+    event(new \App\Events\SendMailEvent($data_email));
   }
 
   function setup_forgot_password($data)

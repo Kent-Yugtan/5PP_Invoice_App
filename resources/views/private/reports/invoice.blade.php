@@ -9,8 +9,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="row pb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
         <div class="input-group">
           <div class="form-floating me-3" style="width:20%">
@@ -147,7 +147,7 @@
       responsive: true,
       // dom: 'Bfrtip',
       dom: 'lBfrtip',
-      pagingType: 'full_numbers',
+      // pagingType: 'full_numbers',
       buttons: [{
           extend: 'csvHtml5',
           filename: 'CSV-' + new Date().toLocaleDateString(),

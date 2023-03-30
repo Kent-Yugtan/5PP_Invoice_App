@@ -37,6 +37,8 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'edit_inactiveInvoice']);
   // PRIVATE FOLDER INVOICE
   Route::get('invoice/addInvoice', [InvoiceController::class, 'add_invoice']);
+  Route::get('invoice/editInvoice/{id}', [InvoiceController::class, 'edit_Invoiceinvoice']);
+  Route::get('invoice/editInactiveInvoice/{id}', [InvoiceController::class, 'edit_inactiveInvoiceinvoice']);
   Route::get('invoice/current', [InvoiceController::class, 'current']);
   Route::get('invoice/inactive', [InvoiceController::class, 'inactive']);
   // PRIVATE FOLDER DEDUCTION TYPE

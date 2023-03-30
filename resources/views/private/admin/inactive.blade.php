@@ -42,39 +42,47 @@
   </div>
 
   <div class="row mb-3">
-    <div class="col ">
-      <div class="form-group input-group has-search mb-3">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input id="search" name="search" type="text" class="form-control form-check-inline" style="border-radius: 0.25em;" placeholder="Search">
-        <span class="input-group-button"><button class="btn" style="margin-left: 10px;color:white; background-color: #CF8029;width: 350px;" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button></span>
+    <div class="col-8">
+      <div class="w-100">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="height:38px;background-color: white;color: #CF8029;border-right:none"><i class="fas fa-search"></i></span>
+          </div>
+          <input id="search" name="search" type="text" class="form-control form-check-inline" style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+        </div>
       </div>
+    </div>
+    <div class="col-4">
+      <button class="btn w-100" style="color:white; background-color: #CF8029" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>
 
   <div class="row pb-4">
     <div class="col-12">
-      <div class="card-border shadow mb-1 p-2 bg-white h-100">
-        <div id="tbl_user_wrapper" class="card-body table-responsive">
-          <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Status</th>
-                <th>Phone Number</th>
-                <th>Position</th>
-                <th>Latest Invoice</th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+      <div class="card-border shadow p-2 bg-white h-100">
+        <div class="card-body">
 
-        </div>
-        <div class="row mx-3">
-          <div class="col" style="display: flex; align-content: stretch; justify-content: space-between; align-items: center;">
-            <div style="margin-top: 15px;" class="page_showing" id="tbl_user_showing"></div>
-            <ul style="display:flex;justify-content:flex-end;" class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
-            </ul>
+          <div id="tbl_user_wrapper" class="table-responsive">
+            <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Status</th>
+                  <th>Phone Number</th>
+                  <th>Position</th>
+                  <th>Latest Invoice</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
+              <div class="page_showing" id="tbl_user_showing"></div>
+              <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +178,6 @@
         ...filters,
       }
       $('#tbl_user tbody').empty();
-
       axios
         .get(`${apiUrl}/api/admin/show_data_inactive?${new URLSearchParams(filter)}`, {
           headers: {
@@ -178,7 +185,6 @@
           },
         })
         .then(function(res) {
-          $('#tbl_user_pagination').empty();
           res = res.data;
           console.log('res', res);
           if (res.success) {
@@ -188,12 +194,12 @@
 
                 if (item.file_path) {
                   tr +=
-                    '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                     item
                     .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 } else {
                   tr +=
-                    '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                     item.full_name + '</div></td>';
                 }
 
@@ -232,15 +238,15 @@
                     "#tbl_user tbody").append(tr);
 
                 } else {
-                  let tr = '<tr style="vertical-align:sub;">';
+                  let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
                     tr +=
-                      '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                       item
                       .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   } else {
                     tr +=
-                      '<td><div class=""> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                       item.full_name + '</div></td>';
                   }
 
@@ -262,12 +268,6 @@
                 return ''
               })
 
-              if (res.data.links.length) {
-                let lastPage = res.data.links[res.data.links.length - 1];
-                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
-                  $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
-                }
-              }
 
 
               res.data.links.map(item => {
@@ -276,6 +276,17 @@
                 $('#tbl_user_pagination').append(li)
                 return ""
               })
+
+              if (res.data.links.length) {
+                let lastPage = res.data.links[res.data.links.length - 1];
+                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                  $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
+                }
+                let PreviousPage = res.data.links[0];
+                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                  $('#tbl_user_pagination .page-item:first-child').addClass('disabled');
+                }
+              }
 
               $("#tbl_user_pagination .page-item .page-link").on('click', function() {
                 let url = $(this).data('url')
@@ -306,7 +317,7 @@
           }
         })
         .catch(function(error) {
-          // console.log("catch error");
+          console.log("catch error", error);
         });
     }
 
