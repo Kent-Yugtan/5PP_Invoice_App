@@ -13412,3 +13412,8 @@ button.dt-button{
   border-color:inherit; 
   border-radius: 0.25rem;
 }
+
+button.dt-button:hover{
+  border-color:#CF8029 !important; 
+}
+
