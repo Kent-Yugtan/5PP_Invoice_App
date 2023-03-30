@@ -56,7 +56,7 @@
               <div class="row">
                 <div class="col-4 md-2 w-100">
                   <div class="form-group">
-                    <button class="btn btn-secondary" style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
+                    <button class="btn " style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
                       Item</button>
                   </div>
                 </div>
@@ -67,7 +67,7 @@
               <div class="row">
                 <div class="col" style="display: flex;align-items: start;">
                   <div class="form-group">
-                    <label class="formGroupExampleInput2">Discount
+                    <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                       Type</label>
                     <br>
                     <input class="form-check-input" type="radio" name="discount_type" id="discount_type" value="Fixed">
@@ -172,10 +172,10 @@
 
           <div class="row px-4">
             <div class="col-6 ">
-              <button type="button" id="close_back" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; ">Close</button>
+              <button type="button" id="close_back" class="btn  w-100" style=" color:#CF8029; background-color:white; ">Close</button>
             </div>
             <div class="col-6">
-              <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029;">Save</button>
+              <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029;">Save</button>
             </div>
           </div>
         </div>
@@ -220,10 +220,6 @@
   $(document).ready(function() {
     const api = "https://api.exchangerate-api.com/v4/latest/USD";
     $(window).on('load', function() {
-      $('html, body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'slow');
-
       $('div.spanner').addClass('show');
       setTimeout(function() {
         $('div.spanner').removeClass('show');

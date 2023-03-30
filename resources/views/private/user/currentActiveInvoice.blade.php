@@ -1,6 +1,5 @@
 @extends('layouts.private')
 @section('content-dashboard')
-
 <div class="container-fluid px-4" id="loader_load">
   <h1 class="mt-4">Current Invoices</h1>
   <ol class="breadcrumb mb-4"></ol>
@@ -121,10 +120,10 @@
               </div>
               <div class="row mt-3">
                 <div class="col">
-                  <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="col">
-                  <button type="submit" id="update" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; ">Update</button>
+                  <button type="submit" id="update" class="btn  w-100" style="color:White; background-color:#CF8029; ">Update</button>
                 </div>
               </div>
             </form>
@@ -161,9 +160,6 @@
   $(document).ready(function() {
     show_data();
     $(window).on('load', function() {
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'slow');
       $('div.spanner').addClass('show');
       setTimeout(function() {
         $('div.spanner').removeClass('show');

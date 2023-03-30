@@ -15,7 +15,6 @@ use App\Models\InvoiceConfig;
 use App\Models\User;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Carbon;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,7 +26,6 @@ use Illuminate\Support\Carbon;
 |
 */
 
-
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('resetPassword', [AuthController::class, 'resetPassword']);
@@ -37,6 +35,7 @@ Route::middleware(['auth:api'])->group(function () {
 
   Route::resource('admin/dashboard', DashboardController::class);
   Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
+  Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
   Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
 
   // FOR PROFILE TABLE
@@ -79,6 +78,7 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('admin/search_statusActive_invoice', [InvoiceController::class, 'search_statusActive_invoice']);
   Route::get('admin/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
   Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
+  Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
   Route::get('invoiceConfig', [InvoiceController::class, 'invoiceConfig']); // INVOICE CONFIGS DATA
   Route::get('getInvoiceStatus/{id}', [InvoiceController::class, 'getInvoiceStatus']);
   Route::get('admin/show_Profilededuction_Table_Active', [InvoiceController::class, 'show_Profilededuction_Table_Active']);
@@ -113,7 +113,7 @@ Route::middleware(['auth:api'])->group(function () {
   // POST PROFILE DEDUCTION TYPES TABLE
   Route::post('saveProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
   Route::post('editProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
-  Route::post('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
+  Route::get('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
   Route::get('settings/show_profileDeductionType_Button/{profile_id}', [ProfileDeductionTypesController::class, 'show_profileDeductionType_Button']);
   Route::get('settings/show_deduction_data/{profile_id}', [ProfileDeductionTypesController::class, 'show_deduction_data']);
   Route::get('settings/get_deduction/{id}', [ProfileDeductionTypesController::class, 'get_deduction']);
@@ -171,6 +171,8 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('userReports/userDeductionReport_load', [InvoiceController::class, 'userDeductionReport_load']);
   Route::get('userReports/userDeductionReport_click', [InvoiceController::class, 'userDeductionReport_click']);
   Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
+
+  Route::get('user_data', [ProfileController::class, 'user_data']);
 });
 
 // // TESTING EMAIL 

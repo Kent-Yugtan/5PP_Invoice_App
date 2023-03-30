@@ -14,12 +14,12 @@
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
         <div class="input-group">
-          <div class="form-floating me-3" style="width:23vh">
+          <div class="form-floating me-3" style="width:20%">
             <input type="text" onblur="(this.type='text')" class="form-control" id="from" placeholder="Date Filter From">
             <label for="from">Date Filter From</label>
           </div>
 
-          <div class="form-floating me-3" style="width:23vh">
+          <div class="form-floating me-3" style="width:20%">
             <input type="text" onblur="(this.type='text')" class="form-control" id="to" placeholder="Date Filter To">
             <label for="to">Date Filter To</label>
           </div>
@@ -154,7 +154,7 @@
           extend: 'csvHtml5',
           filename: 'CSV-' + new Date().toLocaleDateString(),
           text: "CSV",
-          className: 'btn btn-primary ms-2',
+          className: 'btn  ms-2',
           exportOptions: {
             modifier: {
               page: 'current',
@@ -168,7 +168,7 @@
           extend: 'excelHtml5',
           filename: 'Excel-' + new Date().toLocaleDateString(),
           text: "EXCEL",
-          className: 'btn btn-secondary ',
+          className: 'btn  ',
           messageTop: 'Invoice Report',
           title: '',
           exportOptions: {
@@ -321,11 +321,6 @@
 
     $(window).on('load', function() {
       $('div.spanner').addClass('show');
-
-      $('html, body').animate({
-        scrollTop: $('#loader_load').offset.top
-      }, 'smooth');
-
       setTimeout(function() {
         $('div.spanner').removeClass('show');
         show_data_load()

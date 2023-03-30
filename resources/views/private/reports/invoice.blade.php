@@ -9,20 +9,20 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="row pb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
         <div class="input-group">
-          <div class="form-floating me-3" style="width:23vh">
+          <div class="form-floating me-3" style="width:20%">
             <input type="text" onblur="(this.type='text')" class="form-control" id="from" placeholder="Date Filter From">
             <label for="from">Date Filter From</label>
           </div>
 
-          <div class="form-floating me-3" style="width:23vh">
+          <div class="form-floating me-3" style="width:20%">
             <input type="text" onblur="(this.type='text')" class="form-control" id="to" placeholder="Date Filter To">
             <label for="to">Date Filter To</label>
           </div>
-          <button type="button" class="btn" style=" color:white; background-color: #CF8029;width:24vh" id="button-submit">Filter</button>
+          <button type="button" class="btn" style=" color:white; background-color: #CF8029;width:20%" id="button-submit">Filter</button>
         </div>
       </div>
     </div>
@@ -147,12 +147,12 @@
       responsive: true,
       // dom: 'Bfrtip',
       dom: 'lBfrtip',
-      pagingType: 'full_numbers',
+      // pagingType: 'full_numbers',
       buttons: [{
           extend: 'csvHtml5',
           filename: 'CSV-' + new Date().toLocaleDateString(),
           text: "CSV",
-          className: 'btn btn-primary ms-2',
+          className: 'btn  ms-2',
           exportOptions: {
             modifier: {
               page: 'current',
@@ -166,7 +166,7 @@
           extend: 'excelHtml5',
           filename: 'Excel-' + new Date().toLocaleDateString(),
           text: "EXCEL",
-          className: 'btn btn-secondary  ',
+          className: 'btn   ',
           messageTop: 'Invoice Report',
           title: '',
           exportOptions: {

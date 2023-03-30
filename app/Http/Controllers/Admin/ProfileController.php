@@ -11,6 +11,7 @@ use App\Models\DeductionType;
 use App\Models\ProfileDeductionTypes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
 class ProfileController extends Controller
@@ -26,9 +27,9 @@ class ProfileController extends Controller
   {
     return view('private.admin.profile');
   }
-  public function userindex()
+  public function userprofile()
   {
-    return view('private.user.userprofile');
+    return view('private.user.Userprofile');
   }
 
   /**
@@ -63,54 +64,51 @@ class ProfileController extends Controller
         'acct_no' => 'required|unique:profiles',
         'acct_name' => 'required|unique:profiles',
         'gcash_no' => 'required|unique:profiles',
+
       ]);
       // return "NO USER ID";
 
     } else {
       if ($findUser) {
         if ($findUser->profile) {
+          if ($findUser->first_name != $request->first_name) {
+            $request->validate([
+              'first_name' => 'required',
+            ]);
+          }
+          if ($findUser->last_name != $request->last_name) {
+            $request->validate([
+              'last_name' => 'required',
+            ]);
+          }
+          if ($findUser->email != $request->email) {
+            $request->validate([
+              'email' => 'required|unique:users',
+            ]);
+          }
+          if ($findUser->username != $request->username) {
+            $request->validate([
+              'username' => 'required|unique:users',
+            ]);
+          }
           if ($findUser->profile->acct_no != $request->acct_no) {
             $request->validate([
               'acct_no' => 'required|unique:profiles',
             ]);
           }
-
           if ($findUser->profile->acct_name != $request->acct_name) {
             $request->validate([
               'acct_name' => 'required|unique:profiles',
             ]);
           }
-
           if ($findUser->profile->gcash_no != $request->gcash_no) {
             $request->validate([
               'gcash_no' => 'required|unique:profiles',
             ]);
           }
         }
-
-        if ($findUser->email != $request->email) {
-          $request->validate([
-            'email' => 'required|unique:users',
-          ]);
-        }
-        if ($findUser->username != $request->username) {
-          $request->validate([
-            'username' => 'required|unique:users',
-          ]);
-        }
-        if ($findUser->first_name != $request->first_name) {
-          $request->validate([
-            'first_name' => 'required',
-          ]);
-        }
-        if ($findUser->last_name != $request->last_name) {
-          $request->validate([
-            'last_name' => 'required',
-          ]);
-        }
       }
     }
-
     if ($error === false) {
       $incoming_data = $request->validate(
         [
@@ -122,9 +120,8 @@ class ProfileController extends Controller
           'city' => 'required',
           'zip_code' => 'required',
           'bank_name' => 'required',
-          'bank_location' => 'required',
+          'bank_address' => 'required',
           'date_hired' => 'required',
-
         ]
       );
 
@@ -345,7 +342,7 @@ class ProfileController extends Controller
         'acct_no',
         'acct_name',
         'bank_name',
-        'bank_location',
+        'bank_address',
         'gcash_no',
         'date_hired',
         'file_name',
@@ -396,7 +393,7 @@ class ProfileController extends Controller
         'acct_no',
         'acct_name',
         'bank_name',
-        'bank_location',
+        'bank_address',
         'gcash_no',
         'date_hired',
         'file_name',
@@ -571,7 +568,7 @@ class ProfileController extends Controller
           'city' => 'required',
           'zip_code' => 'required',
           'bank_name' => 'required',
-          'bank_location' => 'required',
+          'bank_address' => 'required',
           'date_hired' => 'required',
 
         ]
@@ -684,6 +681,22 @@ class ProfileController extends Controller
           'data' => $userCreate,
         ], 200);
       }
+    }
+  }
+
+  public function user_data()
+  {
+    $userId = auth()->user()->id;
+    $findProfile = Profile::where('user_id', $userId)->first();
+    if (!$findProfile) {
+      return response()->json([
+        'success' => false,
+      ], 400);
+    } else {
+      return response()->json([
+        'success' => true,
+        'data' => $findProfile,
+      ], 200);
     }
   }
 }

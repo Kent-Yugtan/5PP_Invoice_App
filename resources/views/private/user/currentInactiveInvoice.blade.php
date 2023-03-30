@@ -122,10 +122,10 @@
 
               <div class="row mt-3">
                 <div class="col">
-                  <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="col">
-                  <button type="submit" id="update" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; ">Update</button>
+                  <button type="submit" id="update" class="btn  w-100" style="color:White; background-color:#CF8029; ">Update</button>
                 </div>
               </div>
             </form>
@@ -162,9 +162,7 @@
   $(document).ready(function() {
     // check_userInactiveStatusInvoice();
     $(window).on('load', function() {
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'slow');
+
       $('div.spanner').addClass('show');
       setTimeout(function() {
         $('div.spanner').removeClass('show');
@@ -218,78 +216,6 @@
         console.log("ERROR", error);
       })
     }
-
-    // function check_userInactiveStatusInvoice(filters) {
-    //   axios.get(`${apiUrl}/api/user/check_userInactiveStatusInvoice?${new URLSearchParams(filters)}`, {
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   }).then(function(response) {
-    //     let data = response.data;
-    //     if (data.success) {
-    //       if (data.data.length > 0) {
-    //         data.data.map((item) => {
-    //           var date_now = (new Date()).toISOString().split('T')[0];
-
-    //           if (item.invoice_status === "Pending") {
-    //             if (item.due_date < date_now) {
-    //               console.log("due_dateStatus", item.due_date);
-    //               console.log("date_now", date_now);
-    //               let invoice_id = item.id;
-    //               let data = {
-    //                 id: invoice_id,
-    //                 invoice_status: "Overdue",
-    //               }
-    //               axios.post(apiUrl + '/api/update_status', data, {
-    //                 headers: {
-    //                   Authorization: token
-    //                 },
-    //               }).then(function(response) {
-    //                 let data = response.data
-    //                 if (data.success) {
-    //                   console.log("SUCCESS Overdue", data);
-    //                 }
-    //               }).catch(function(error) {
-    //                 console.log("ERROR", error);
-    //               })
-    //               setTimeout(function() {
-    //                 window.location.reload
-    //               }, 3500);
-    //             }
-    //           }
-
-    //           if (item.invoice_status === "Cancelled") {
-    //             if (item.due_date < date_now) {
-    //               console.log("due_dateStatus", item.due_date);
-    //               console.log("date_now", date_now);
-    //               let invoice_id = item.id;
-    //               let data = {
-    //                 id: invoice_id,
-    //                 invoice_status: "Cancelled",
-    //               }
-    //               axios.post(apiUrl + '/api/update_status', data, {
-    //                 headers: {
-    //                   Authorization: token
-    //                 },
-    //               }).then(function(response) {
-    //                 let data = response.data
-    //                 if (data.success) {
-    //                   console.log("SUCCESS Cancelled", data);
-    //                 }
-    //               }).catch(function(error) {
-    //                 console.log("ERROR", error);
-    //               })
-    //             }
-    //           }
-
-    //         })
-
-    //       }
-    //     }
-    //   }).catch(function(error) {
-    //     console.log("ERROR", error);
-    //   })
-    // }
 
     function search_statusInactive_invoice(filters) {
       let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();

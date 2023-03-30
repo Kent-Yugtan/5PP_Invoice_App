@@ -34,8 +34,11 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('admin/activeProfile/{id}/{profile_id}', [ProfileController::class, 'activeProfile']);
   Route::get('admin/inactiveProfile/{id}/{profile_id}', [ProfileController::class, 'inactiveProfile']);
   Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'edit_invoice']);
+  Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'edit_inactiveInvoice']);
   // PRIVATE FOLDER INVOICE
   Route::get('invoice/addInvoice', [InvoiceController::class, 'add_invoice']);
+  Route::get('invoice/editInvoice/{id}', [InvoiceController::class, 'edit_Invoiceinvoice']);
+  Route::get('invoice/editInactiveInvoice/{id}', [InvoiceController::class, 'edit_inactiveInvoiceinvoice']);
   Route::get('invoice/current', [InvoiceController::class, 'current']);
   Route::get('invoice/inactive', [InvoiceController::class, 'inactive']);
   // PRIVATE FOLDER DEDUCTION TYPE
@@ -48,11 +51,8 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('settings/invoiceconfig', [InvoiceConfigController::class, 'invoice_config']);
 
   // PRIVATE FOLDER USER
-  Route::get(
-    'user/dashboard',
-    [DashboardController::class, 'userindex']
-  );
-  Route::get('user/profile', [ProfileController::class, 'userindex']);
+  Route::get('user/dashboard', [DashboardController::class, 'userindex']);
+  Route::get('user/profile', [ProfileController::class, 'userprofile']);
   Route::get('user/activeProfile/{id}/{profile_id}', [ProfileController::class, 'userviewProfile']);
   Route::get('user/inactive', [ProfileController::class, 'userinactive']);
   Route::get('user/editInvoice/{id}', [InvoiceController::class, 'edit_userInvoice']);
@@ -64,8 +64,6 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   // FOR USER REPORTS
   Route::get('/userReports/invoice', [InvoiceController::class, 'userReports_invoice']);
   Route::get('/userReports/deduction', [InvoiceController::class, 'userReports_deduction']);
-
-
 });
 
 Route::middleware(['isPublicCheck'])->group(function () {

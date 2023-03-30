@@ -153,7 +153,7 @@
 
             <div class="mb-3">
               <label mb-2 style="color: #A4A6B3;">Bank Location</label>
-              <input id="bank_location" name="bank_location" type="text" class="form-control @error('bank_location') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address">
+              <input id="bank_address" name="bank_address" type="text" class="form-control @error('bank_address') is-invalid @enderror" id="formGroupExampleInput2" placeholder="Bank Address">
 
             </div>
 
@@ -252,7 +252,7 @@
                             <div class="row">
                               <div class="col" style="display: flex;flex-direction: column-reverse;align-items: center;">
                                 <div class="form-group">
-                                  <label class="formGroupExampleInput2">Discount
+                                  <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                                     Type</label>
                                   <br>
                                   <input class="form-check-input" type="radio" name="discount_type" id="discount_type" value="fixed">
@@ -323,10 +323,10 @@
                           <div class="col-12">
                             <div class="row mt-5">
                               <div class="col mb-5">
-                                <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                               </div>
                               <div class="col">
-                                <button type="submit" class="btn btn-secondary w-100" style=" color:White; background-color:#CF8029; " data-bs-dismiss="modal">Save</button>
+                                <button type="submit" class="btn  w-100" style=" color:White; background-color:#CF8029; " data-bs-dismiss="modal">Save</button>
                               </div>
                             </div>
                           </div>
@@ -514,7 +514,7 @@
             $('#acct_no').val(data.data.profile.acct_no);
             $('#acct_name').val(data.data.profile.acct_name);
             $('#bank_name').val(data.data.profile.bank_name);
-            $('#bank_location').val(data.data.profile.bank_location);
+            $('#bank_address').val(data.data.profile.bank_address);
             $('#gcash_no').val(data.data.profile.gcash_no);
             $('#date_hired').val(data.data.profile.date_hired);
             // $("#photo").attr("src", data.data.profile.file_path);
@@ -572,7 +572,7 @@
       let acct_no = $("#acct_no").val();
       let acct_name = $("#acct_name").val();
       let bank_name = $("#bank_name").val();
-      let bank_location = $("#bank_location").val();
+      let bank_address = $("#bank_address").val();
       let gcash_no = $("#gcash_no").val();
       let date_hired = $("#date_hired").val();
       let deduction_type_id = $('#select2Multiple').val();
@@ -598,7 +598,7 @@
       formData.append('acct_no', acct_no);
       formData.append('acct_name', acct_name);
       formData.append('bank_name', bank_name ?? "");
-      formData.append('bank_location', bank_location);
+      formData.append('bank_address', bank_address);
       formData.append('gcash_no', gcash_no);
       formData.append('date_hired', date_hired);
       formData.append('deduction_type_id', JSON.stringify(deduction_type_id));
@@ -630,7 +630,7 @@
             $("#acct_no").val("");
             $("#acct_name").val("");
             $("#bank_name").val("");
-            $("#bank_location").val("");
+            $("#bank_address").val("");
             $("#gcash_no").val("");
             $("#date_hired").val("");
             $("#photo").attr("src", "/images/default.png");
@@ -865,7 +865,7 @@
       let acct_no = $("#acct_no").val();
       let acct_name = $("#acct_name").val();
       let bank_name = $("#bank_name").val();
-      let bank_location = $("#bank_location").val();
+      let bank_address = $("#bank_address").val();
       let gcash_no = $("#gcash_no").val();
       let date_hired = $("#date_hired").val();
       let deduction_type_id = $('#select2Multiple').val();
@@ -891,7 +891,7 @@
       formData.append('acct_no', acct_no);
       formData.append('acct_name', acct_name);
       formData.append('bank_name', bank_name ?? "");
-      formData.append('bank_location', bank_location);
+      formData.append('bank_address', bank_address);
       formData.append('gcash_no', gcash_no);
       formData.append('date_hired', date_hired);
       formData.append('deduction_type_id', JSON.stringify(deduction_type_id));
@@ -923,7 +923,7 @@
             $("#acct_no").val("");
             $("#acct_name").val("");
             $("#bank_name").val("");
-            $("#bank_location").val("");
+            $("#bank_address").val("");
             $("#gcash_no").val("");
             $("#date_hired").val("");
             $("#photo").attr("src", "/images/default.png");

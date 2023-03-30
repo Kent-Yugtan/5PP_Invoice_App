@@ -6,32 +6,34 @@
     </div>
     <div class="sb-sidenav-menu">
       <div class="nav">
-        <a class="nav-link" href="{{url('admin/dashboard')}}">
+        <a class="nav-link" id="admindashboard" href="{{url('admin/dashboard')}}">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-chart-line"></i>
+            <i style="color:#CF8029" class="fas fa-chart-line"></i>
           </div>
           Dashboard
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+          aria-expanded="false" aria-controls="collapseLayouts">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-users"></i>
+            <i style="color:#CF8029" class="fas fa-users"></i>
           </div>
           Profiles
           <div class="sb-sidenav-collapse-arrow">
             <i class="fas fa-angle-down"></i>
           </div>
         </a>
-        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+        <div class="collapse " id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="{{url('admin/profile')}}">Add Profile</a>
             <a class="nav-link" href="{{url('admin/current')}}">Current Profiles</a>
             <a class="nav-link" href="{{url('admin/inactive')}}">Inactive Profiles</a>
           </nav>
         </div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
+          aria-expanded="false" aria-controls="collapseLayouts2">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-file-invoice"></i>
+            <i style="color:#CF8029" class="fas fa-file-invoice"></i>
           </div>
           Invoices
           <div class="sb-sidenav-collapse-arrow">
@@ -47,16 +49,17 @@
         </div>
 
 
-        <a class="nav-link" href="{{url('settings/deductiontype')}}">
+        <a class="nav-link" id="settingsdeductiontype" href="{{url('settings/deductiontype')}}">
           <div class="sb-nav-link-icon">
-            <i class="fa-solid fa-plus-minus"></i>
+            <i style="color:#CF8029" class="fa-solid fa-plus-minus"></i>
           </div>
           Deductions
         </a>
 
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"
+          aria-expanded="false" aria-controls="collapseLayouts3">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-table"></i>
+            <i style="color:#CF8029" class="fas fa-table"></i>
           </div>
           Reports
           <div class="sb-sidenav-collapse-arrow">
@@ -65,14 +68,15 @@
         </a>
         <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
           <nav class="sb-sidenav-menu-nested nav">
-            <a class="nav-link" href="{{url('reports/invoice')}}">Invoice Reports</a>
             <a class="nav-link" href="{{url('reports/deduction')}}">Deduction Reports</a>
+            <a class="nav-link" href="{{url('reports/invoice')}}">Invoice Reports</a>
           </nav>
         </div>
-
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+        <hr>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4"
+          aria-expanded="false" aria-controls="collapseLayouts4">
           <div class="sb-nav-link-icon">
-            <i class="fas fa-cogs"></i>
+            <i style="color:#CF8029" class="fas fa-cogs"></i>
           </div>
           Settings
           <div class="sb-sidenav-collapse-arrow">
@@ -86,7 +90,7 @@
             <a class="nav-link" href="{{url('settings/invoiceconfig')}}">Invoice Configuration</a>
           </nav>
         </div>
-        <hr>
+
       </div>
     </div>
   </nav>

@@ -77,10 +77,10 @@
 
               <div class="row mt-3">
                 <div class="col">
-                  <button type="button" id="close" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                  <button type="button" id="close" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="col">
-                  <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; ">Save</button>
+                  <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029; ">Save</button>
                 </div>
               </div>
             </form>
@@ -116,10 +116,10 @@
 
               <div class="row mt-3">
                 <div class="col">
-                  <button type="button" class="btn btn-secondary w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn  w-100" style=" color:#CF8029; background-color:white; " data-bs-dismiss="modal">Close</button>
                 </div>
                 <div class="col">
-                  <button type="submit" class="btn btn-secondary w-100" style="color:White; background-color:#CF8029; ">Update</button>
+                  <button type="submit" class="btn  w-100" style="color:White; background-color:#CF8029; ">Update</button>
                 </div>
               </div>
             </form>
@@ -181,7 +181,7 @@
 
         <div class="row pt-3 pb-3 px-3">
           <div class="col-6">
-            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn  w-100" data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
             <button type="button" id="deductionType_delete" class="btn btn-danger w-100">Delete</button>

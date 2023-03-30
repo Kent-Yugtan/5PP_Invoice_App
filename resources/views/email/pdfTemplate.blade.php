@@ -9,132 +9,132 @@
   <title>Send Email</title>
 
   <style>
-  .email {
-    max-height: 800em;
-    max-width: 750px;
-    margin: 1rem auto;
-    border-radius: 10px;
-    border-top: #d74034 2px solid;
-    border-bottom: #d74034 2px solid;
-    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
-    padding: 1.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+    .email {
+      max-height: 800em;
+      max-width: 750px;
+      margin: 1rem auto;
+      border-radius: 10px;
+      border-top: #d74034 2px solid;
+      border-bottom: #d74034 2px solid;
+      box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  .email .email-head {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 1rem;
-  }
+    .email .email-head {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 1rem;
+    }
 
-  .email .email-head .head-img {
-    max-width: 50px;
-    display: block;
-    margin: 0 auto;
-  }
+    .email .email-head .head-img {
+      max-width: 50px;
+      display: block;
+      margin: 0 auto;
+    }
 
-  .email-body .body-text {
-    padding: 2rem 0 1rem;
-    text-align: center;
-    font-size: 1.15rem;
-  }
+    .email-body .body-text {
+      padding: 2rem 0 1rem;
+      text-align: center;
+      font-size: 1.15rem;
+    }
 
-  .email-body .body-text.bottom-text {
-    /* padding: 2rem 0 1rem; */
-    text-align: center;
-    font-size: 0.8rem;
-  }
+    .email-body .body-text.bottom-text {
+      /* padding: 2rem 0 1rem; */
+      text-align: center;
+      font-size: 0.8rem;
+    }
 
-  .email-body .body-text .body-greeting {
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
+    .email-body .body-text .body-greeting {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
 
-  .email-body .body-table {
-    text-align: left;
-  }
+    .email-body .body-table {
+      text-align: left;
+    }
 
-  .email-body .body-table table {
-    width: 100%;
-    font-size: 1.1rem;
-  }
+    .email-body .body-table table {
+      width: 100%;
+      font-size: 1.1rem;
+    }
 
-  .email-body .body-table table .total {
-    background-color: hsla(4, 67%, 52%, 0.12);
-    border-radius: 8px;
-    padding: 20px;
-    color: #d74034;
-  }
+    .email-body .body-table table .total {
+      background-color: hsla(4, 67%, 52%, 0.12);
+      border-radius: 8px;
+      padding: 20px;
+      color: #d74034;
+    }
 
-  .email-body .body-table table .item {
-    border-radius: 8px;
-    /* border: 1px solid #006; */
-    color: black;
-  }
+    .email-body .body-table table .item {
+      border-radius: 8px;
+      /* border: 1px solid #006; */
+      color: black;
+    }
 
-  .email-body .body-table table th,
-  .email-body .body-table table td {
-    padding: 3px;
-    /* border: 1px solid #006; */
-    /* TABLE TD BORDER */
-  }
+    .email-body .body-table table th,
+    .email-body .body-table table td {
+      padding: 3px;
+      /* border: 1px solid #006; */
+      /* TABLE TD BORDER */
+    }
 
-  .email-body .body-table table tr td:last-child {
-    text-align: right;
-  }
+    .email-body .body-table table tr td:last-child {
+      text-align: right;
+    }
 
-  .email-body .body-table table tr th:last-child {
-    text-align: right;
-  }
+    .email-body .body-table table tr th:last-child {
+      text-align: right;
+    }
 
-  .email-body .body-table table tr:last-child th:first-child {
-    border-radius: 8px 0 0 8px;
-  }
+    .email-body .body-table table tr:last-child th:first-child {
+      border-radius: 8px 0 0 8px;
+    }
 
-  .email-body .body-table table tr:last-child th:last-child {
-    border-radius: 0 8px 8px 0;
-  }
+    .email-body .body-table table tr:last-child th:last-child {
+      border-radius: 0 8px 8px 0;
+    }
 
-  .email-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-  }
+    .email-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
 
-  .email-footer .footer-text {
-    font-size: 0.8rem;
-    text-align: center;
-    padding-top: 1rem;
-  }
+    .email-footer .footer-text {
+      font-size: 0.8rem;
+      text-align: center;
+      padding-top: 1rem;
+    }
 
-  .email-footer .footer-text a {
-    color: #d74034;
-  }
+    .email-footer .footer-text a {
+      color: #d74034;
+    }
 
-  .left-radius {
-    border-radius: 0px 10px 10px 0px;
-    border-radius: 10px 0 0 10px;
-    /* border-radius: 8px 0px 0px 8px; */
-  }
+    .left-radius {
+      border-radius: 0px 10px 10px 0px;
+      border-radius: 10px 0 0 10px;
+      /* border-radius: 8px 0px 0px 8px; */
+    }
 
-  .right-radius {
-    border-radius: 10px 0px 0px 10px;
-    border-radius: 0px 10px 10px 0px;
-    /* border-radius: 8px 0px 0px 8px; */
-  }
+    .right-radius {
+      border-radius: 10px 0px 0px 10px;
+      border-radius: 0px 10px 10px 0px;
+      /* border-radius: 8px 0px 0px 8px; */
+    }
 
-  .email .email-body .body-text .body-table .table3 {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 1rem;
-  }
+    .email .email-body .body-text .body-table .table3 {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 1rem;
+    }
 
-  /* .email .email-body .body-text .body-table .table2, */
-  .email .email-body .body-text .body-table .table2 tbody tr td {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 1rem;
-  }
+    /* .email .email-body .body-text .body-table .table2, */
+    .email .email-body .body-text .body-table .table2 tbody tr td {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 1rem;
+    }
 
-  .email-body .body-text .body-table table tbody tr td a {
-    color: black;
-    text-decoration: none !important;
-  }
+    .email-body .body-text .body-table table tbody tr td a {
+      color: black;
+      text-decoration: none !important;
+    }
   </style>
 </head>
 
@@ -142,8 +142,36 @@
   <div class="email">
     <div class="email-head">
       <div class="head-img">
+        <?php
+        // Retrieve the image file from the URL
+        $image_url = 'https://invoice.5ppsite.com' . $content['invoice_logo'];
+        // Check if $image_url is not empty
+        if (!empty($image_url)) {
+          $headers = get_headers($image_url);
 
-        <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{$content['invoice_logo']}}">
+          // Check if the URL returns a 404 error
+          if (strpos($headers[0], '404') !== false) {
+            $image_data = null;
+          } else {
+            $image_data = file_get_contents($image_url);
+          }
+        } else {
+          $image_data = null; // Set $image_data to null if $image_url is empty
+        }
+
+
+        // Update the <img> tag with the base64-encoded string
+        // Convert the image file into a base64-encoded string
+        $base64_image = base64_encode($image_data);
+        $img_tag = '<img style="width:50px; max-width:100%;" src="data:image/png;base64,' . $base64_image . '">';
+
+        // Output the updated <img> tag
+        if ($base64_image) {
+
+          echo $img_tag;
+        }
+        ?>
+        <!-- <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{$content['invoice_logo']}}"> -->
       </div>
     </div>
 
@@ -152,7 +180,9 @@
         <div class="body-table">
           <table style="table-layout: fixed; width: 100%">
             <tr class="item">
-              <th colspan="2" style="word-wrap: break-word;vertical-align: bottom;">{{$content['full_name']}}</th>
+              <th colspan="2" style="text-align:left;word-wrap: break-word;vertical-align: bottom;">
+                {{$content['full_name']}}
+              </th>
               <th></th>
               <th style="vertical-align: bottom;">
                 <h1 style="text-align: end;vertical-align: bottom;"><strong>INVOICE</strong></h1>
@@ -184,7 +214,7 @@
               </tr>
 
               <tr>
-                <th colspan="2" style="word-wrap: break-word">{{$content['invoice_title']}}</th>
+                <th colspan="2" style="text-align: left;word-wrap: break-word">{{$content['invoice_title']}}</th>
                 <td>Due Date:</td>
                 <td style="text-align: end;">{{$content['due_date']}}</td>
               </tr>
@@ -235,18 +265,18 @@
           <br>
           <table class="table2" style="table-layout: fixed; width: 100%">
             <tr style="background-color:darkgrey;">
-              <th style="width: 295px;" class="left-radius">Description</th>
-              <th style="width: 100px;text-align: end;">Quantity</th>
-              <th style="width: 100px;text-align: end;">Rate</th>
-              <th class="right-radius" style="width: 100px;text-align: end;">Amount</th>
+              <th style="width: 295px;text-align: left;" class="left-radius">Description</th>
+              <th style="width: 100px;text-align: right;">Quantity</th>
+              <th style="width: 100px;text-align: right;">Rate</th>
+              <th class="right-radius" style="width: 100px;text-align: right;">Amount</th>
             </tr>
             <tbody>
               @foreach($content['invoice_items'] as $items)
               <tr>
-                <td class="scope" style="word-wrap: break-word">{{$items->item_description}}</td>
-                <td class="scope" style="text-align:end;">{{$items->quantity}}</td>
-                <td class="scope" style="text-align:end;">${{number_format($items->rate,2)}}</td>
-                <td class="scope" style="text-align:end;">${{number_format($items->total_amount,2)}}</td>
+                <td class="scope" style="text-align:left;word-wrap: break-word">{{$items->item_description}}</td>
+                <td class="scope" style="text-align:right;">{{$items->quantity}}</td>
+                <td class="scope" style="text-align:right;">${{number_format($items->rate,2)}}</td>
+                <td class="scope" style="text-align:right;">${{number_format($items->total_amount,2)}}</td>
               </tr>
               @endforeach
             </tbody>
@@ -294,14 +324,14 @@
               </tr>
 
               <tr>
-                <td><strong>Converted Amount: ₱{{$content['peso_rate']}}</strong></td>
-                <td style="text-align: end;"><strong>₱{{$content['converted_amount']}}</strong></td>
+                <td style="width:100%"><strong>Converted Amount: P{{$content['peso_rate']}}</strong></td>
+                <td style="text-align: end;"><strong>P{{$content['converted_amount']}}</strong></td>
               </tr>
 
               @if(!empty($content['deductions']))
               <tr>
                 <td style="padding-top:15px"></td>
-                <td style="text-align:start;padding-top:15px" colspan="2"><strong>Deductions</strong></td>
+                <td style="text-align:left;padding-top:15px" colspan="2"><strong>Deductions</strong></td>
               </tr>
 
               @php
@@ -312,7 +342,7 @@
               <tr>
                 <td></td>
                 <td style="word-wrap: break-word;">{{$deduction->profile_deduction_types->deduction_type_name}}</td>
-                <td style="text-align: end;color:red;">₱{{number_format($deduction->amount,2)}}</td>
+                <td style="text-align: end;color:red;">P{{number_format($deduction->amount,2)}}</td>
               </tr>
               @php
               $total_deduction += $deduction->amount;
@@ -323,7 +353,7 @@
               <tr>
                 <td></td>
                 <td><strong>Total Deductions<strong></td>
-                <td style="text-align:end;color:red;"><strong>₱{{number_format($total_deduction,2)}}<strong></td>
+                <td style="text-align:end;color:red;"><strong>P{{number_format($total_deduction,2)}}<strong></td>
               </tr>
 
               @endif
@@ -332,10 +362,10 @@
                 <td style="padding-top:15px">
                   <strong>Grand Total:</strong>
                 </td>
-                <td style="text-align: end;padding-top:15px"><strong>₱{{$content['grand_total_amount']}}</strong></td>
+                <td style="text-align: end;padding-top:15px"><strong>P{{$content['grand_total_amount']}}</strong></td>
               </tr>
               <tr>
-                <td style="text-align:start" colspan="3"><strong>Notes:</strong></td>
+                <td style="text-align:left" colspan="3"><strong>Notes:</strong></td>
               </tr>
               <tr>
                 <td colspan="3" style="text-align: start;word-wrap: break-word">{{$content['notes']}}</td>

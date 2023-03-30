@@ -1,79 +1,91 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-  <h1 class="mt-4">Inactive Profiles</h1>
-  <ol class="breadcrumb mb-4"></ol>
-
   <div class="row">
-    <div class="col-12 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded">
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="paid_invoices">
-            </Label>
-          </div>
-          <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid</div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+      <!-- <div class="card shadow p-2 mb-1 bg-white rounded">  -->
+      <!-- <div class="card-header"> -->
+      <!-- <i style="color:#CF8029" class="fas fa-users"></i>  -->
+      <div class="row">
+        <div class="col-xl-12 col-md-12 py-4">
+          <span class="fs-3 fw-bold ">Inactive Profile</span>
         </div>
-        <div class="d-flex align-items-center justify-content-between"></div>
       </div>
-    </div>
-    <div class="col-12 col-md-6">
-      <div class="card-hover card shadow p-2 mb-4 bg-white rounded">
-        <div>
-          <div class="row text-center py-3">
-            <Label class="fs-1" id="pending_invoices">
-            </Label>
-          </div>
-          <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between"></div>
-      </div>
+      <!-- </div> -->
+      <!-- </div> -->
     </div>
   </div>
 
-  <div class="row">
-    <div class="col ">
-      <div class="input-group ">
-        <input id="search" name="search" type="text" class="form-control form-check-inline" placeholder="Search">
-        <button class="btn" style=" color:white; background-color: #CF8029;width:30%" id="button-submit">Search</button>
+  <div class="row mb-3">
+    <div class="col-12 col-md-6 column1">
+      <div>
+        <div class="row text-center py-3">
+          <Label class="fs-1" id="paid_invoices">
+            0
+          </Label>
+        </div>
+        <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid</div>
       </div>
+    </div>
+
+    <div class="col-12 col-md-6 column2">
+      <div>
+        <div class="row text-center py-3">
+          <Label class="fs-1" id="pending_invoices">
+            0
+          </Label>
+        </div>
+        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between"></div>
     </div>
   </div>
 
-  <div class="row pt-3">
-    <div class="col">
-      <div class="card mb-5">
-        <div class="card-header">
-          <i class="fas fa-table me-1"></i>
-          Inactive Profile
-        </div>
-        <div id="tbl_user_wrapper" class="card-body table-responsive">
-          <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Status</th>
-                <th>Phone Number</th>
-                <th>Position</th>
-                <th>Latest Invoice</th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-
-        </div>
-        <div class="row mx-3">
-          <div class="col-xl-6">
-            <div class="page_showing" id="tbl_user_showing"></div>
+  <div class="row mb-3">
+    <div class="col-8">
+      <div class="w-100">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="height:38px;background-color: white;color: #CF8029;border-right:none"><i class="fas fa-search"></i></span>
           </div>
-          <div class="col-xl-6">
-            <ul style="float:right" class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
-            </ul>
+          <input id="search" name="search" type="text" class="form-control form-check-inline" style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <button class="btn w-100" style="color:white; background-color: #CF8029" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+  </div>
+
+  <div class="row pb-4">
+    <div class="col-12">
+      <div class="card-border shadow p-2 bg-white h-100">
+        <div class="card-body">
+
+          <div id="tbl_user_wrapper" class="table-responsive">
+            <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Status</th>
+                  <th>Phone Number</th>
+                  <th>Position</th>
+                  <th>Latest Invoice</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
+              <div class="page_showing" id="tbl_user_showing"></div>
+              <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -85,6 +97,20 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
+    var currentPage = window.location.href;
+    $('#collapseLayouts a').each(function() {
+      // Compare the href attribute of the link to the current page URL
+      if (currentPage.indexOf($(this).attr('href')) !== -1) {
+        // If there is a match, add the "active" class to the link
+        $(this).addClass('active');
+
+        // Trigger a click event on the parent link to expand the collapsed section
+        $(this).parent().parent().addClass("show");
+        $(this).parent().parent().addClass("active");
+        $('[data-bs-target="#collapseLayouts"]').addClass('active');
+      }
+    });
 
     $(window).on('load', function() {
       $("div.spanner").addClass("show");
@@ -152,7 +178,6 @@
         ...filters,
       }
       $('#tbl_user tbody').empty();
-
       axios
         .get(`${apiUrl}/api/admin/show_data_inactive?${new URLSearchParams(filter)}`, {
           headers: {
@@ -165,17 +190,17 @@
           if (res.success) {
             if (res.data.data.length > 0) {
               res.data.data.map((item) => {
-                let tr = '<tr>';
+                let tr = '<tr style="vertical-align:middle;">';
 
                 if (item.file_path) {
                   tr +=
-                    '<td>  <img style="width:40px;" class="rounded-pill" src ="' +
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                     item
-                    .file_path + '"> ' + item.full_name + ' </td>';
+                    .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 } else {
                   tr +=
-                    '<td>  <img style="width:40px;" class="rounded-pill" src ="/images/default.png"> ' +
-                    item.full_name + ' </td>';
+                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                    item.full_name + '</div></td>';
                 }
 
                 tr += '<td>' + item.profile_status + '</td>';
@@ -213,16 +238,16 @@
                     "#tbl_user tbody").append(tr);
 
                 } else {
-                  let tr = '<tr style="vertical-align:sub;">';
+                  let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
                     tr +=
-                      '<td>  <img style="width:40px;" class="rounded-pill" src ="' +
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
                       item
-                      .file_path + '"> ' + item.full_name + ' </td>';
+                      .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   } else {
                     tr +=
-                      '<td>  <img style="width:40px;" class="rounded-pill" src ="/images/default.png"> ' +
-                      item.full_name + ' </td>';
+                      '<td><div style="height:33px> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                      item.full_name + '</div></td>';
                   }
 
                   tr += '<td>' + item.profile_status + '</td>';
@@ -243,13 +268,25 @@
                 return ''
               })
 
-              $('#tbl_user_pagination').empty();
+
+
               res.data.links.map(item => {
                 let li =
                   `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
                 $('#tbl_user_pagination').append(li)
                 return ""
               })
+
+              if (res.data.links.length) {
+                let lastPage = res.data.links[res.data.links.length - 1];
+                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                  $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
+                }
+                let PreviousPage = res.data.links[0];
+                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                  $('#tbl_user_pagination .page-item:first-child').addClass('disabled');
+                }
+              }
 
               $("#tbl_user_pagination .page-item .page-link").on('click', function() {
                 let url = $(this).data('url')
@@ -273,11 +310,14 @@
             } else {
               $("#tbl_user tbody").append(
                 '<tr><td colspan="6" class="text-center">No data</td></tr>');
+              let tbl_user_showing =
+                `Showing 0 to 0 of 0 entries`;
+              $('#tbl_user_showing').html(tbl_user_showing);
             }
           }
         })
         .catch(function(error) {
-          // console.log("catch error");
+          console.log("catch error", error);
         });
     }
 

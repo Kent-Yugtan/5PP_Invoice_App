@@ -236,9 +236,6 @@
     $(window).on("load", function() {
       setTimeout(function() {
         $("div.spanner").removeClass("show");
-        $('html,body').animate({
-          scrollTop: $('#loader_load').offset().top
-        }, 'slow');
         selectUserProfile();
         check_userActivependingInvoices();
         pendingInvoices();
