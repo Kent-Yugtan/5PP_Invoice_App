@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -48,10 +50,43 @@ class ProfileController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
+
+  public function imagePreview(Request $request)
+  {
+
+    $imageData = $request->input('image');
+
+    // Decode the base64 data
+    $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageData));
+    // Create the directory if it does not exist
+    if (!file_exists(public_path('storage/images'))) {
+      mkdir(public_path('storage/images'), 0777, true);
+    }
+
+    $filename = uniqid() . '.png';
+    $filepath = public_path('storage/images/' . $filename);
+
+    // Save the file to public/storage/images directory
+    if (file_put_contents($filepath, $imageData) !== false) {
+      $imageSize = getimagesize($filepath);
+    } else {
+      return response()->json([
+        'success' => false,
+        'message' => 'Failed to save image.'
+      ]);
+    }
+
+    return response()->json([
+      'success' => true,
+      'image' => $filename,
+      'path' => '/storage/images/' . $filename,
+      'size' => $imageSize
+    ]);
+  }
   public function store(Request $request)
   {
     $error = false;
-    $user_id = $request->id;
+    $user_id = $request->user_id;
     $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
     // return $findUser;
     if (!$user_id) {
@@ -63,9 +98,11 @@ class ProfileController extends Controller
         'password' => 'required',
         'acct_no' => 'required|unique:profiles',
         'acct_name' => 'required|unique:profiles',
-        'gcash_no' => 'required|unique:profiles',
+        'gcash_no' => 'required|unique:profiles|numeric',
 
       ]);
+
+
       // return "NO USER ID";
 
     } else {
@@ -125,24 +162,30 @@ class ProfileController extends Controller
         ]
       );
 
-      if ($request->file('profile_picture')) {
-        $userImageFile = $request->file('profile_picture');
-        $userImageFileName = $userImageFile->getClientOriginalName();
-        $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
-        $filename =  $userImageFilePath;
-        $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
+      // if ($request->file('profile_picture')) {
+      //   $userImageFile = $request->file('profile_picture');
+      //   $userImageFileName = $userImageFile->getClientOriginalName();
+      //   $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
+      //   $filename =  $userImageFilePath;
+      //   $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
+      //   $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
+      //   // $path = $userImageFilePath;
+      //   $path = '/storage/' . $userImageFilePath;
+      // $incoming_data += [
+      //   'file_original_name' => $userImageFileName,
+      //   'file_name' => $userImageFilePath,
+      //   'file_path' => $path,
+      //   'file_size' => $userImageFileSize,
+      // ];
+      // }
 
-        $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
-        // $path = $userImageFilePath;
-        $path = '/storage/' . $userImageFilePath;
+      $incoming_data += [
+        'file_original_name' => $request->file_original_name,
+        'file_name' => $request->file_name,
+        'file_path' => $request->file_path,
+        // 'file_size' => $request->userImageFileSize,
+      ];
 
-        $incoming_data += [
-          'file_original_name' => $userImageFileName,
-          'file_name' => $userImageFilePath,
-          'file_path' => $path,
-          'file_size' => $userImageFileSize,
-        ];
-      }
 
       if (!$user_id) {
         $incoming_data += $request->validate([

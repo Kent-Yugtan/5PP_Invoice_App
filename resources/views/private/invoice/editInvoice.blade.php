@@ -267,7 +267,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -309,7 +309,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -351,7 +351,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -394,7 +394,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Info.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -437,7 +437,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -655,10 +655,7 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
+
 
 <script type="text/javascript">
   let total_deduction_amount = 0
@@ -682,6 +679,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         due_date();
         show_invoice();
         show_invoice_config();
@@ -971,7 +970,7 @@
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
           title: 'Are you sure?',
-          content: '<div class="row"><div class="col text-center"><img class="img-team" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+          content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
           autoClose: 'Cancel|5000',
           buttons: {
             removeDeductions: {
@@ -1015,7 +1014,7 @@
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
           title: 'Are you sure?',
-          content: '<div class="row"><div class="col text-center"><img class="img-team" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+          content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
           autoClose: 'Cancel|5000',
           buttons: {
             removeDeductions: {
@@ -1054,7 +1053,7 @@
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
           title: 'Are you sure?',
-          content: '<div class="row"><div class="col text-center"><img class="img-team" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+          content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
           autoClose: 'Cancel|5000',
           buttons: {
             removeDeductions: {
@@ -1824,6 +1823,8 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
+
+
               $('#activeModal').modal('hide');
               $('.toast1 .toast-title').html('Successfully Updated');
               $('.toast1 .toast-body').html(response.data.message);
@@ -1887,6 +1888,8 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
+
+
               $('#inactiveModal').modal('hide');
               $('.toast1 .toast-title').html('Successfully Updated');
               $('.toast1 .toast-body').html(response.data.message);
@@ -1955,6 +1958,8 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
+
+
               $('#paidModal').modal('hide');
               $('.toast1 .toast-title').html('Successfully Updated');
               $('.toast1 .toast-body').html(response.data.message);
@@ -2022,6 +2027,8 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
+
+
               $('#cancelModal').modal('hide');
               $('.toast1 .toast-title').html('Successfully Updated');
               $('.toast1 .toast-body').html(response.data.message);
@@ -2081,6 +2088,8 @@
 
             setInterval(function() {
               $("div.spanner").removeClass("show");
+
+
               toast1.toast('show');
               $('.toast1 .toast-title').html('Successfully Updated');
               $('.toast1 .toast-body').html(response.data.message);

@@ -1,5 +1,5 @@
 <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
-  <img class="img-team" src="{{ URL('images/Invoices-logo.png')}}" style="width: 60px; padding:10px" /></img>
+  <img class="" src="{{ URL('images/Invoices-logo.png')}}" style="width: 60px; padding:10px" /></img>
   <!-- Navbar Brand-->
   <a class="navbar-brand" href="{{url('admin/dashboard')}}">Invoicing App</a>
   <!-- Sidebar Toggle-->

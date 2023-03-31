@@ -53,7 +53,7 @@
         <div class="col-sm-12">
           <div class="card-border shadow mb-1 p-2 bg-white h-100">
             <div class="card-body table-responsive">
-              <table style="color: #A4A6B3;" class="table" id="table_deduction">
+              <table style="color: #A4A6B3;" class="table table-hover table-responsive" id="table_deduction">
                 <thead>
                   <th style="width:100px">Deduction Name</th>
                   <th style="width:100px" class="text-end">Amount</th>
@@ -170,7 +170,7 @@
 
                 <div class="row mt-3">
                   <div class="col">
-                    <button type="button" class="btn  w-100" style=" color:white; background-color:#A4A6B3; "
+                    <button type="button" class="btn  w-100" style="color:white; background-color:#A4A6B3;"
                       data-bs-dismiss="modal">Close</button>
                   </div>
                   <div class="col">
@@ -191,7 +191,7 @@
 <div style="position: fixed; top: 60px; right: 20px; z-index:9999;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div id='notifyIcon'></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -218,7 +218,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -239,7 +239,8 @@
 
         <div class="row pt-3 pb-3 px-3">
           <div class="col-6">
-            <button type="button" class="btn  w-100" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn  w-100" data-bs-dismiss="modal"
+              style="color:white; background-color:#A4A6B3;">Cancel</button>
           </div>
           <div class="col-6">
             <button type="button" id="deductionType_delete" class="btn btn-danger w-100">Delete</button>
@@ -250,9 +251,10 @@
   </div>
 </div>
 
-<div class="spanner" style="z-index: 9999;">
+<div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
   <div class="loader"></div>
 </div>
+
 <script type="text/javascript">
 const PHP = value => currency(value, {
   symbol: '',
@@ -265,24 +267,23 @@ $(document).ready(function() {
   // Highlight the corresponding menu item
   var segments = path.split('/');
   $('#' + segments[1] + segments[2]).addClass('active');
-  console.log("SEGMENT", segments[1] + segments[2]);
+  // console.log("SEGMENT", segments[1] + segments[2]);
 
   $(window).on('load', function() {
-    $('div.spanner').addClass('show');
+    $("div.spanner").addClass("show");
     setTimeout(function() {
-      $('div.spanner').removeClass('show');
+      $("div.spanner").removeClass("show");
       show_data();
     }, 1500);
   })
 
-
   $(document).on('click', '#button_search', function() {
     $('html,body').animate({
-      scrollTop: $('#loader_load').offset().top
+      scrollTop: $('#sb-nav-fixed').offset().top
     }, 'slow');
     $('div.spanner').addClass('show');
     setTimeout(function() {
-      $('div.spanner').removeClass('show');
+      $("div.spanner").removeClass("show");
       $('#tbl_pagination').empty();
       let search = $('#search').val() ? $('#search').val() : '';
 
@@ -400,19 +401,12 @@ $(document).ready(function() {
     $('#addModal').modal('hide');
   })
 
-  $("#addModal").on('hide.bs.modal', function() {
-    // window.location.reload();
-    // // show_data();
-    $("div.spanner").addClass("show");
-    setTimeout(function() {
-      $("div.spanner").removeClass("show");
-    }, 1500)
-  });
-
   $("#editModal").on('hide.bs.modal', function() {
     $("div.spanner").addClass("show");
     setTimeout(function() {
       $("div.spanner").removeClass("show");
+
+
     }, 1500)
   });
 
@@ -434,18 +428,20 @@ $(document).ready(function() {
       .then(function(response) {
         let data = response.data;
         if (data.success) {
+          $('#addModal').modal('hide');
           $('div.spanner').addClass('show');
           setTimeout(function() {
-            $('#addModal').modal('hide');
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
             $('#deduction_name').val('');
             $('#deduction_amount').val('');
             $('input').removeClass('is-invalid');
             $('.invalid-feedback').remove();
             show_data();
-            // $('.toast1 .toast-title').html('Deduction Types');
-            // $('.toast1 .toast-body').html(response.data.message);
-            // toast1.toast('show');
+
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
+            $('.toast1 .toast-body').html(response.data.message);
+            toast1.toast('show');
           }, 1500)
         }
       })
@@ -492,7 +488,6 @@ $(document).ready(function() {
         //   }, 1500);
         // }
       });
-
 
   })
 
@@ -560,14 +555,13 @@ $(document).ready(function() {
         let data = response.data;
         if (data.success) {
           $('#editModal').modal('hide');
-          $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
-          }, 'slow');
           $('#edit_deduction_name').val('');
           $('#edit_deduction_amount').val('');
           $('div.spanner').addClass('show');
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
             $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(response.data.message);
             toast1.toast('show');
@@ -587,6 +581,7 @@ $(document).ready(function() {
               return ""
             });
             fieldname = fieldname.join(" ");
+            $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
             $('.toast1 .toast-title').html("Error");
             $('.toast1 .toast-body').html(Object.values(errors)[0].join(
               "\n\r"));
@@ -623,11 +618,13 @@ $(document).ready(function() {
       if (data.success) {
         $('#deleteModal').modal('hide');
         $('html,body').animate({
-          scrollTop: $('#loader_load').offset().top
+          scrollTop: $('#sb-nav-fixed').offset().top
         }, 'smooth');
         $('div.spanner').addClass('show');
         setTimeout(function() {
-          $('div.spanner').removeClass('show');
+          $("div.spanner").removeClass("show");
+
+          $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
           $('.toast1 .toast-title').html('Success');
           $('.toast1 .toast-body').html(response.data.message);
           toast1.toast('show');

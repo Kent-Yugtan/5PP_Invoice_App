@@ -29,7 +29,8 @@
                 <div class="profile-pic-div_adminProfile-wrapper mb-3">
                   <div class="profile-pic-div_adminActiveProfile">
                     <img src="/images/default.png" id="photo">
-                    <input name="file" type="file" id="file" disabled="true">
+                    <!-- id="file" ORIGINAL ID -->
+                    <!-- <input name="file" type="file" id="file" disabled="true"> -->
                     <label for="file" id="uploadBtn">Choose Photo</label>
                   </div>
                 </div>
@@ -541,7 +542,7 @@
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div id="notifyIcon"></i></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -725,7 +726,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -757,12 +758,54 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="hide-content">
+      <div class="modal-body">
+        <div class="card-border shadow p-2 bg-white h-100">
+          <div class="row px-4 py-4 " id="header">
+            <div class="col-md-12 w-100">
+              <div class="row ">
+                <div class="col" style="margin-bottom:15px">
+                  <span class="fs-3 fw-bold"> Update Profile Image</span>
+                </div>
+              </div>
+              <div class="row d-none" id="imageRow">
+                <div class="col" style="margin-top:15px">
+                  <div id="image_demo"></div>
+                  <div id="uploaded_image" style="width: 350px;"></div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col" style="display: flex;justify-content: center;">
+                  <label class="label">
+                    <input type="file" name="upload_image" id="upload_image" />
+                    <span>Select a file</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6" style="margin-top:15px">
+
+                  <button type="button" class="btn w-100" style="background-color: #A4A6B3; color: white;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-6" style="margin-top:15px">
+                  <button type="button" id="imageCrop" class="btn" style="width: 100%; background-color: #CF8029; color: white;">Crop</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script src="{{ asset('/assets/js/activeProfile.js') }}"></script>
+
+
+<!-- <script src="{{ asset('/assets/js/activeProfile.js') }}"></script> -->
 
 <script type="text/javascript">
   let total_deduction_amount = 0
@@ -776,14 +819,97 @@
 
   // INVOICE SEARCH AND DISPLAY
   $(document).ready(function() {
+
+    // const $imgDiv = $(".profile-pic-div_adminActiveProfile");
+    // $imgDiv.off("mouseenter");
+
+    // const $uploadBtn = $("#uploadBtn");
+    // $uploadBtn.css("display", "none");
+
+    // START CODE FOR CROPING IMAGE
+    $('#uploadBtn').on('click', function() {
+      $('#previewModal').modal('show');
+    })
+
+    $("#previewModal").on('hide.bs.modal', function() {
+
+      document.getElementById("upload_image").value = "";
+      $('#imageRow').addClass('d-none')
+    });
+
+    $('#upload_image').on('change', function() {
+
+      $('#imageRow').removeClass('d-none')
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        $uploadCrop.croppie('bind', {
+          url: event.target.result
+        })
+      }
+      reader.readAsDataURL(this.files[0]);
+    })
+
+    $uploadCrop = $('#image_demo').croppie({
+      viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+      },
+      boundary: {
+        width: $('#container').width(),
+        height: 300
+      }
+    });
+
+    let old_file_original_name;
+    let old_file_name;
+    let old_file_path;
+
+    let file_original_name;
+    let file_name;
+    let file_path;
+
+    $('#imageCrop').on('click', function() {
+      $uploadCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+      }).then(function(response) {
+        let formData = new FormData();
+        formData.append('image', response);
+
+        axios.post(apiUrl + "/api/imagePreview", formData, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data",
+          },
+        }).then(function(response) {
+          let data = response.data;
+          if (data.success) {
+            $('#previewModal').modal('hide');
+            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+            // console.log("data.image", data);
+            file_original_name = data.image;
+            file_name = data.image;
+            file_path = data.path;
+            file_size = data.size;
+
+            document.getElementById("upload_image").value = "";
+            $('#imageRow').addClass('d-none')
+          }
+        }).catch(function(error) {
+          console.log("ERROR", error);
+        });
+      })
+    });
+    // END CODE FOR CROPING IMAGE
+
+
     $('#cancel_edit_profile').addClass('d-none');
     // REFRESH WHEN THIS PAGE IS LOAD
     show_data();
     due_datee();
     $(window).on('load', function() {
-      $("div.spanner").addClass("show");
       setTimeout(function() {
-        $("div.spanner").removeClass("show");
         display_item_rows();
         date_hired();
         check_ActivependingInvoices();
@@ -863,26 +989,39 @@
 
     $('#cancel_edit_profile').on('click', function(e) {
       e.preventDefault();
-      $('#cancel_edit_profile').addClass('d-none');
-      $('#edit_profile').removeClass('d-none');
+      $('html, body').animate({
+        scrollTop: $('#sb-nav-fixed').offset().top
+      }, 'slow');
 
       $(window).scrollTop(0); // scroll to the top
       setTimeout(function() {
         location.reload(true); // refresh the page
-      }, 1000);
+      }, 1500);
+      $('#cancel_edit_profile').addClass('d-none');
+      $('#edit_profile').removeClass('d-none');
+
     })
 
 
     $('#edit_profile').on('click', function(e) {
       e.preventDefault();
-      $('#edit_profile').addClass('d-none');
-      $('#cancel_edit_profile').removeClass('d-none');
-      $('div.spanner').addClass("show");
       $('html, body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
+
+      $('div.spanner').addClass("show");
       setTimeout(function() {
         $('div.spanner').removeClass("show");
+        const imgDiv = document.querySelector(".profile-pic-div_adminActiveProfile");
+        //if user hover on img div
+        imgDiv.addEventListener("mouseenter", function() {
+          uploadBtn.style.display = "block";
+        });
+
+        //if we hover out from img div
+        imgDiv.addEventListener("mouseleave", function() {
+          uploadBtn.style.display = "none";
+        });
         $('#file').prop('disabled', false);
         $('#profile_status').prop('disabled', false);
         $('#first_name').prop('disabled', false);
@@ -903,6 +1042,8 @@
         $("#bank_address").prop('disabled', false);
         $("#gcash_no").prop('disabled', false);
         $("#date_hired").prop('disabled', false);
+        $('#edit_profile').addClass('d-none');
+        $('#cancel_edit_profile').removeClass('d-none');
       }, 1500);
     })
 
@@ -937,7 +1078,7 @@
 
       $('div.spanner').addClass('show');
       $().animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'smooth');
 
       var start = performance.now(); // Get the current timestamp
@@ -961,9 +1102,10 @@
         if (data.success) {
           $('#invoice_status').modal('hide');
           $("div.spanner").addClass("show");
-
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Update Status');
             $('.toast1 .toast-body').html(response.data.message);
             // show_data();
@@ -1014,7 +1156,7 @@
           if (data.success) {
             // console.log("SUCCESS");
             // console.log("GENERAL", data.data.email);
-            // console.log("PROFILE SHOW EDIT", data.data.profile);
+            console.log("PROFILE SHOW EDIT", data.data.profile);
             if (data.data.profile.profile_status === "Active") {
               $('#profile_status').prop('checked', true);
             } else {
@@ -1044,6 +1186,9 @@
             } else {
               $("#photo").attr("src", "/images/default.png");
             }
+            old_file_original_name = data.data.profile.file_original_name;
+            old_file_name = data.data.profile.file_name;
+            old_file_path = data.data.profile.file_path;
             // console.log('profile_deduction_types', data);
           }
         })
@@ -1054,11 +1199,13 @@
 
     $('#search_invoice').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1066,11 +1213,13 @@
 
     $('#search_deduction').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_deduction').empty();
         show_Profilededuction_Table_Active();
       }, 1500);
@@ -1078,33 +1227,34 @@
 
     // $("#tbl_pagination_invoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
-
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
     //     $("div.spanner").removeClass("show")
     //   }, 1500);
     // })
-
     // $("#tbl_pagination_deduction").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
-
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //   }, 1500);
     // })
 
     $('#filter_all_invoices').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1337,18 +1487,24 @@
         toast1.toast('show');
       } else {
         let user_id = $("#user_id").val();
-        let profile_id = $("#profile_id").val();
+        let profile_id = $("#profile_id_show").val();
         let first_name = $("#first_name").val();
         let last_name = $("#last_name").val();
         let email = $("#email").val();
-        let position = $("#position").val();
-        // let password = $("#password").val();
         let username = $("#username").val();
+        // let password = $("#password").val();
+        let position = $("#position").val();
         let phone_number = $("#phone_number").val();
         let address = $("#address").val();
         let province = $("#province").val();
         let city = $("#city").val();
         let zip_code = $("#zip_code").val();
+        if ($('#profile_status').is(':checked')) {
+          $('#profile_status').val('Active');
+        } else {
+          $('#profile_status').val('Inactive');
+        }
+        console.log($('#profile_status').val());
         let profile_status = $("#profile_status").val();
         let acct_no = $("#acct_no").val();
         let acct_name = $("#acct_name").val();
@@ -1357,40 +1513,67 @@
         let gcash_no = $("#gcash_no").val();
         let date_hired = $("#date_hired").val();
         let deduction_type_id = $('#select2Multiple').val();
-        let formData = new FormData();
-        formData.append('id', user_id);
-        formData.append('profile_id', profile_id);
-        formData.append('first_name', first_name);
-        formData.append('last_name', last_name);
-        formData.append('email', email);
-        formData.append('username', username);
-        // formData.append('password', "");
-        formData.append('position', position ?? "");
-        formData.append('phone_number', phone_number);
-        formData.append('address', address);
-        formData.append('province', province);
-        formData.append('city', city);
-        formData.append('zip_code', zip_code);
-        if (document.getElementById('profile_status').checked == true) {
-          formData.append('profile_status', 'Active');
-        } else {
-          formData.append('profile_status', 'Inactive');
+
+        // let formData = new FormData();
+        // formData.append('id', user_id);
+        // formData.append('profile_id', profile_id);
+        // formData.append('first_name', first_name);
+        // formData.append('last_name', last_name);
+        // formData.append('email', email);
+        // formData.append('username', username);
+        // // formData.append('password', "");
+        // formData.append('position', position ?? "");
+        // formData.append('phone_number', phone_number);
+        // formData.append('address', address);
+        // formData.append('province', province);
+        // formData.append('city', city);
+        // formData.append('zip_code', zip_code);
+        // if (document.getElementById('profile_status').checked == true) {
+        //   formData.append('profile_status', 'Active');
+        // } else {
+        //   formData.append('profile_status', 'Inactive');
+        // }
+        // formData.append('acct_no', acct_no);
+        // formData.append('acct_name', acct_name);
+        // formData.append('bank_name', bank_name ?? "");
+        // formData.append('bank_address', bank_address);
+        // formData.append('gcash_no', gcash_no);
+        // formData.append('date_hired', date_hired);
+        // // SENDING ARRAY IN API
+        // if (document.getElementById('file').files.length > 0) {
+        //   formData.append('profile_picture', document.getElementById('file')
+        //     .files[0],
+        //     document.getElementById('file').files[0].name);
+        // }
+        let data = {
+          user_id: user_id,
+          profile_id: profile_id,
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          username: username,
+          password: "",
+          position: position,
+          phone_number: phone_number,
+          address: address,
+          province: province,
+          city: city,
+          zip_code: zip_code,
+          profile_status: profile_status,
+          acct_no: acct_no,
+          acct_name: acct_name,
+          bank_name: bank_name,
+          bank_address: bank_address,
+          gcash_no: gcash_no,
+          date_hired: date_hired,
+          deduction_type_id: JSON.stringify(deduction_type_id),
+          file_original_name: file_original_name ? "" : old_file_original_name,
+          file_name: file_name ? "" : old_file_name,
+          file_path: file_path ? "" : old_file_path,
         }
-        formData.append('acct_no', acct_no);
-        formData.append('acct_name', acct_name);
-        formData.append('bank_name', bank_name ?? "");
-        formData.append('bank_address', bank_address);
-        formData.append('gcash_no', gcash_no);
-        formData.append('date_hired', date_hired);
-        // SENDING ARRAY IN API
-        if (document.getElementById('file').files.length > 0) {
-          formData.append('profile_picture', document.getElementById('file')
-            .files[0],
-            document.getElementById('file').files[0].name);
-        }
-        // console.log("PICTURE", document.getElementById('file').files[0],
-        // document.getElementById('file').files[0].name);
-        axios.post(apiUrl + '/api/saveprofile', formData, {
+        // console.log("DATA", data);
+
+        axios.post(apiUrl + '/api/saveprofile', data, {
             headers: {
               Authorization: token,
               "Content-Type": "multipart/form-data",
@@ -1400,6 +1583,11 @@
             let data = response.data;
             // console.log("SUCCESS", data);
             if (data.success == true) {
+              $('html,body').animate({
+                scrollTop: $('#sb-nav-fixed').offset().top
+              }, 'slow');
+              $("div.spanner").addClass("show");
+
               $('input').removeClass('is-invalid');
               $('input, select').removeClass('is-invalid');
               $('.invalid-feedback').remove();
@@ -1420,17 +1608,11 @@
               $("#bank_address").val("");
               $("#gcash_no").val("");
               $("#date_hired").val("");
-              $("#photo").attr("src", "/images/default.png");
-
+              // $("#photo").attr("src", "/images/default.png");
               // select2Multiple
-              $('.toast1 .toast-title').html('Profile');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(data.message);
-
-
-              $('html,body').animate({
-                scrollTop: $('#loader_load').offset().top
-              }, 'slow');
-              $("div.spanner").addClass("show");
 
               setTimeout(function() {
                 $("div.spanner").removeClass("show");
@@ -1817,7 +1999,7 @@
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
           title: 'Are you sure?',
-          content: '<div class="row"><div class="col text-center"><img class="img-team" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+          content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
           autoClose: 'Cancel|5000',
           buttons: {
             removeDeductions: {
@@ -1859,7 +2041,7 @@
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
           title: 'Are you sure?',
-          content: '<div class="row"><div class="col text-center"><img class="img-team" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+          content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset("images/Delete.png") }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
           autoClose: 'Cancel|5000',
           buttons: {
             removeDeductions: {
@@ -1966,11 +2148,13 @@
     // CHECK IF THE USER HAVE THE PROFILE
     $("#exampleModal").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#invoice_items').trigger('reset'); // reset the form
         show_data();
       }, 1500)
@@ -1981,12 +2165,14 @@
 
     $("#modal-create-deduction").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#deductionButton').empty();
         $('#deductionButton').html(
           show_profileDeductionType_Button());
@@ -1995,22 +2181,26 @@
 
     $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
     });
 
     $("#invoice_status").on('hide.bs.modal', function() {
       // window.location.reload();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -2205,6 +2395,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Create Invoices');
             $('.toast1 .toast-body').html(response.data.message);
             $('#invoice_items').trigger('reset'); // reset the form
@@ -2300,21 +2492,17 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
-            $('#modal-create-deduction').modal('hide');
-            $('html.body').animate({
-              scrollTop: $('#loader_load').offset().top
-            }, 'slow');
             $("div.spanner").addClass("show");
             setTimeout(function() {
+              $('#modal-create-deduction').modal('hide');
               $("div.spanner").removeClass("show");
+
+
+              $('.toast1 .toast-title').html('Profile Deduction');
+              $('.toast1 .toast-body').html(data.message);
+              toast1.toast('show');
             }, 1500)
-            $('.toast1 .toast-title').html('Profile Deduction');
-            $('.toast1 .toast-body').html(data.message);
-            toast1.toast('show');
           }
-
-
-
         }).catch(function(error) {
           let errors = error.response.data.errors;
           console.log(errors);
@@ -2566,7 +2754,7 @@
         if (data.success) {
           $('#deleteModal').modal('hide');
           $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'smooth');
           $('div.spanner').addClass('show');
           setTimeout(function() {
@@ -2658,6 +2846,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
 
             show_profileDeductionType_Button();
             show_Profilededuction_Table_Active();

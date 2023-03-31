@@ -33,6 +33,8 @@ Route::post('password/reset', [AuthController::class, 'reset']);
 
 Route::middleware(['auth:api'])->group(function () {
 
+
+
   Route::resource('admin/dashboard', DashboardController::class);
   Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
   Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
@@ -173,6 +175,8 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
 
   Route::get('user_data', [ProfileController::class, 'user_data']);
+
+  Route::post('imagePreview', [ProfileController::class, 'imagePreview']);
 });
 
 // // TESTING EMAIL 

@@ -190,10 +190,7 @@
   </div>
 </div>
 
-<div class="spanner">
-  <div class="loader">
-  </div>
-</div>
+
 <script type="text/javascript">
   $(document).ready(function() {
     show_data();
@@ -254,14 +251,16 @@
 
     // $("#tbl_pagination_invoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
 
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
-    //       scrollTop: $('#loader_load').offset().top
+    //       scrollTop: $('#sb-nav-fixed').offset().top
     //     }, 'slow');
     //   }, 1500);
     // })
@@ -696,7 +695,7 @@
     $('#filter_invoices').on('change', function() {
       let filter = $('#filter_invoices').val();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $('div.spanner').addClass('show');
       setTimeout(function() {
@@ -704,7 +703,7 @@
         $('#tbl_pagination_invoice').empty();
         show_data();
         $('html,body').animate({
-          scrollTop: $('#loader_load').offset().top
+          scrollTop: $('#sb-nav-fixed').offset().top
         }, 'slow');
       }, 1500)
     })
@@ -715,6 +714,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -747,7 +748,7 @@
 
       $('div.spanner').addClass('show');
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'smooth');
 
       var start = performance.now(); // Get the current timestamp
@@ -773,6 +774,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
 
             $('.toast1 .toast-title').html('Update Status');
             $('.toast1 .toast-body').html(response.data.message);
@@ -811,11 +814,13 @@
     $('#button-submit').on('click', function(e) {
       e.preventDefault();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         search_statusActive_invoice();
       }, 1500)

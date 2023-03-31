@@ -194,7 +194,7 @@
   <div style="position: fixed; top: 60px; right: 20px;z-index:9999;">
     <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        <div><i class="fa fa-newspaper-o"> </i></div>
+        <div id='notifyIcon'></div>
         <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
         <div>
           <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -209,10 +209,7 @@
   </div>
 
 
-  <!-- <button type="button" class="btn " id="showtoast">Show Toast</button> -->
-  <div class="spanner">
-    <div class="loader"></div>
-  </div>
+
 
   <!-- Modal FOR DELETE INVOICE -->
   <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -226,7 +223,7 @@
           <div class="row">
             <div class="col">
               <span>
-                <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+                <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
               </span>
             </div>
           </div>
@@ -263,7 +260,7 @@
       $(window).on('load', function() {
         $('div.spanner').addClass('show');
         setTimeout(function() {
-          $('div.spanner').removeClass('show');
+          $("div.spanner").removeClass("show");
           show_data();
         }, 1500)
       })
@@ -287,7 +284,6 @@
       $('#close').on('click', function(e) {
         e.preventDefault();
         $("div.spanner").addClass("show");
-
         setTimeout(function() {
           $("div.spanner").removeClass("show");
           $('#emailconfigs_store').trigger("reset");
@@ -297,7 +293,7 @@
       $('#editModal').on('hide.bs.modal', function() {
         $('div.spanner').addClass("show");
         setTimeout(function() {
-          $('div.spanner').removeClass("show");
+          $("div.spanner").removeClass("show");
           show_data();
         }, 1500)
       })
@@ -307,9 +303,9 @@
         $("div.spanner").addClass('show');
 
         setTimeout(function() {
-          $("div.spanner").removeClass('show');
+          $("div.spanner").removeClass("show");
           $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'slow');
           let search = $('#search').val();
           show_data({
@@ -487,7 +483,9 @@
               $('#deleteModal').modal('hide');
               $('div.spanner').addClass('show');
               setTimeout(function() {
-                $('div.spanner').removeClass('show');
+                $("div.spanner").removeClass("show");
+
+                $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
                 $('.toast1 .toast-title').html('Email Configuration');
                 $('.toast1 .toast-body').html(response.data.message);
                 toast1.toast('show');
@@ -526,7 +524,9 @@
               $('#emailconfigs_store').trigger('reset'); // reset the form
               $('div.spanner').addClass('show');
               setTimeout(function() {
-                $('div.spanner').removeClass('show');
+                $("div.spanner").removeClass("show");
+
+                $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
                 $('.toast1 .toast-title').html('Email Configuration');
                 $('.toast1 .toast-body').html(response.data.message);
                 toast1.toast('show');
@@ -547,6 +547,7 @@
                   return ""
                 });
                 fieldname = fieldname.join(" ");
+                $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
                 $('.toast1 .toast-title').html("Error");
                 $('.toast1 .toast-body').html(Object.values(errors)[0].join(
                   "\n\r"));
@@ -603,11 +604,12 @@
           }).then(function(response) {
             let data = response.data;
             if (data.success) {
-              // console.log('success', data);
+              $('#editModal').modal('hide');
               $('div.spanner').addClass('show');
               setTimeout(function() {
-                $('#editModal').modal('hide');
-                $('div.spanner').removeClass('show');
+                $("div.spanner").removeClass("show");
+
+                $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
                 $('.toast1 .toast-title').html('Success');
                 $('.toast1 .toast-body').html(response.data.message);
                 toast1.toast('show');
@@ -627,6 +629,7 @@
                   return ""
                 });
                 fieldname = fieldname.join(" ");
+                $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
                 $('.toast1 .toast-title').html("Error");
                 $('.toast1 .toast-body').html(Object.values(errors)[0].join(
                   "\n\r"));

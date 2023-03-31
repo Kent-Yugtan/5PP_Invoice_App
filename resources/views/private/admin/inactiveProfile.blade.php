@@ -740,7 +740,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -772,10 +772,6 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
 
 <script src="{{ asset('/assets/js/InactiveProfile.js') }}"></script>
 
@@ -800,6 +796,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         date_hired();
         due_date();
         check_InactivependingInvoicesStatus();
@@ -895,7 +893,7 @@
     $('#edit_profile').on('click', function(e) {
       e.preventDefault();
       $('html, body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $('#edit_profile').addClass('d-none');
       $('#cancel_edit_profile').removeClass('d-none');
@@ -975,6 +973,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
 
             toast1.toast('show');
           }, 1500);
@@ -1063,11 +1063,13 @@
 
     $('#search_invoice').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1075,11 +1077,13 @@
 
     $('#search_deduction').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_deduction').empty();
         show_Profilededuction_Table_Active();
       }, 1500);
@@ -1087,37 +1091,43 @@
 
     // $("#tbl_pagination_invoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
-    //       scrollTop: $('#loader_load').offset().top
+    //       scrollTop: $('#sb-nav-fixed').offset().top
     //     }, 'slow');
     //   }, 1500);
     // })
 
     // $("#tbl_pagination_deduction").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
-    //       scrollTop: $('#loader_load').offset().top
+    //       scrollTop: $('#sb-nav-fixed').offset().top
     //     }, 'slow');
     //   }, 1500);
     // })
 
     $('#filter_all_invoices').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1449,12 +1459,14 @@
 
 
               $('html,body').animate({
-                scrollTop: $('#loader_load').offset().top
+                scrollTop: $('#sb-nav-fixed').offset().top
               }, 'slow');
               $("div.spanner").addClass("show");
 
               setTimeout(function() {
                 $("div.spanner").removeClass("show");
+
+
                 location.href = apiUrl + "/admin/inactive"
               }, 1500)
 
@@ -1942,6 +1954,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
 
@@ -1955,6 +1969,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#deductionButton').empty();
         $('#deductionButton').html(
           show_profileDeductionType_Button());
@@ -1965,6 +1981,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
     });
 
@@ -1974,6 +1992,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -2169,6 +2189,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
             $('.toast1 .toast-title').html('Create Invoices');
             $('.toast1 .toast-body').html(response.data.message);
@@ -2264,6 +2286,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
           }, 1500)
           $('.toast1 .toast-title').html('Profile Deduction');
@@ -2562,6 +2586,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Deduction Types');
             $('.toast1 .toast-body').html(response.data.message);
             $('#deductionButton').empty();

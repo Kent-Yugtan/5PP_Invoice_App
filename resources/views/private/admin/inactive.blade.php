@@ -90,10 +90,7 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
+
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -116,6 +113,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         inactive_count_paid();
         inactive_count_pending();
         show_data();
@@ -157,7 +156,7 @@
     $('#button-submit').on('click', function(e) {
       e.preventDefault();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
@@ -165,6 +164,8 @@
         $('#tbl_user_pagination').empty();
         show_data();
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
 
 

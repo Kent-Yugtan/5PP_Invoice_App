@@ -154,10 +154,7 @@
   </div>
 </div>
 
-<div class="spanner">
-  <div class="loader">
-  </div>
-</div>
+
 <script type="text/javascript">
   $(document).ready(function() {
     // check_userInactiveStatusInvoice();
@@ -165,7 +162,9 @@
 
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         active_inactiveCount_paid();
         active_inactiveCount_pending();
         show_userstatusInactiveinvoice();
@@ -581,15 +580,17 @@
     $('#filter_invoices').on('change', function() {
       let filter = $('#filter_invoices').val();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_userstatusInactiveinvoice();
         $('html,body').animate({
-          scrollTop: $('#loader_load').offset().top
+          scrollTop: $('#sb-nav-fixed').offset().top
         }, 'slow');
       }, 1500)
     })
@@ -600,6 +601,8 @@
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_userstatusInactiveinvoice();
       }, 1500)
     });
@@ -630,10 +633,6 @@
     $('#update_invoice_status').submit(function(e) {
       e.preventDefault();
 
-      $('div.spanner').addClass('show');
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'smooth');
 
       var start = performance.now(); // Get the current timestamp
       // Do your processing here
@@ -657,6 +656,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
             $('.toast1 .toast-title').html('Update Status');
             $('.toast1 .toast-body').html(response.data.message);
@@ -684,7 +685,11 @@
               "\n\r"));
           })
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $('div.spanner').addClass('show');
+            $('html,body').animate({
+              scrollTop: $('#sb-nav-fixed').offset().top
+            }, 'smooth');
+
             toast1.toast('show');
           }, 1500);
         }
@@ -695,7 +700,7 @@
     $('#button-submit').on('click', function(e) {
       e.preventDefault();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
@@ -704,6 +709,8 @@
         $('#tbl_pagination_invoice').empty();
         search_statusInactive_invoice();
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
 
     })

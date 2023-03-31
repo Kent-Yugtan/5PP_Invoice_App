@@ -160,7 +160,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -207,7 +207,9 @@
     $(window).on('load', function() {
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500);
     })
@@ -215,11 +217,13 @@
 
     $(document).on('click', '#button_search', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination').empty();
         let search = $('#search').val() ? $('#search').val() : '';
 
@@ -335,6 +339,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -345,6 +351,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -371,7 +379,7 @@
             console.log('success', data.data.message);
             $('#addModal').modal('hide');
             $('html,body').animate({
-              scrollTop: $('#loader_load').offset().top
+              scrollTop: $('#sb-nav-fixed').offset().top
             }, 'smooth');
             $('div.spanner').addClass('show');
             setTimeout(function() {
@@ -401,7 +409,9 @@
                 "\n\r"));
             })
             setTimeout(function() {
-              $('div.spanner').removeClass('show');
+              $("div.spanner").removeClass("show");
+
+
               toast1.toast('show');
             }, 1500);
           }
@@ -477,13 +487,15 @@
           if (data.success) {
             $('#editModal').modal('hide');
             $('html,body').animate({
-              scrollTop: $('#loader_load').offset().top
+              scrollTop: $('#sb-nav-fixed').offset().top
             }, 'slow');
             $('#edit_deduction_name').val('');
             $('#edit_deduction_amount').val('');
             $('div.spanner').addClass('show');
             setTimeout(function() {
-              $('div.spanner').removeClass('show');
+              $("div.spanner").removeClass("show");
+
+
               $('.toast1 .toast-title').html('Deduction Types');
               $('.toast1 .toast-body').html(response.data.message);
               toast1.toast('show');
@@ -538,11 +550,13 @@
         if (data.success) {
           $('#deleteModal').modal('hide');
           $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'smooth');
           $('div.spanner').addClass('show');
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Invoice Configuration');
             $('.toast1 .toast-body').html(response.data.message);
             toast1.toast('show');

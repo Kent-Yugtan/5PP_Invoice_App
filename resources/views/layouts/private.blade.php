@@ -15,10 +15,15 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
   <!-- CDN FOR JQUERY CONFIRM -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
 
 </head>
 
 <body id="sb-nav-fixed" style="background-color: #f8f9fa;">
+  <!-- LOADER SPINNER -->
+  <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+    <div class="loader"></div>
+  </div>
   @if(session('data')->role == 'Admin')
   @include('layouts.admin.header')
   @else
@@ -40,11 +45,22 @@
 
   </div>
 </body>
+<script>
+$(document).ready(function() {
+  $("div.spanner").addClass("show");
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    document.body.style.overflow = 'auto';
+    $("div.spanner").removeClass("show");
+  }, 1500)
+})
+</script>
 @include('layouts.script')
 
 
 <!-- JQUERY UI -->
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- CDN FOR JQUERY CONFIRM -->
