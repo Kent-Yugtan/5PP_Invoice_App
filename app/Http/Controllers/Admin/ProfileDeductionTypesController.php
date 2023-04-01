@@ -60,12 +60,12 @@ class ProfileDeductionTypesController extends Controller
       } else {
         // $data = ProfileDeductionTypes::find($profileDeductionTypes_id);
         $request->validate([
-          'deduction_type_name' => 'required|unique:profile_deduction_types',
           'amount' => 'required',
         ]);
         $store_data = ProfileDeductionTypes::where('id', $profileDeductionTypes_id)->update(
           [
             'amount' => $request->amount,
+            'deduction_type_name' => $request->deduction_type_name,
           ]
         );
         return response()->json([

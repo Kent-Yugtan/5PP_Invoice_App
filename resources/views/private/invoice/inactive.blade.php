@@ -76,36 +76,38 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
+  <div class="row pb-4">
+    <div class="col-12">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
-        <!-- <div class="card-header">
-          <i class="fas fa-table me-1"></i>
-          Inactive Invoices
-        </div> -->
-        <div class="card-body table-responsive">
-          <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
-            <thead>
-              <tr>
-                <th class="fit">Invoice #</th>
-                <th class="fit">Profile Name</th>
-                <th class="fit text-center">Payment Status</th>
-                <th class="fit text-center">Invoice Status</th>
-                <th class="fit text-end">Total Amount</th>
-                <th class="fit text-end">Date Created</th>
-                <th class="fit text-end">Due Date</th>
-                <th class="text-center fit">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-        <div class="row mx-3">
-          <div class="col" style="display: flex; align-content: stretch; justify-content: space-between; align-items: center;">
-            <div style="margin-top: 15px;" class="page_showing" id="tbl_showing_invoice"></div>
-            <ul style="display:flex;justify-content:flex-end;" class="pagination pagination-sm flex-sm-wrap pt-4" id="tbl_pagination_invoice">
-            </ul>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
+                  <thead>
+                    <tr>
+                      <th class="fit">Invoice #</th>
+                      <th class="fit">Profile Name</th>
+                      <th class="fit text-center">Payment Status</th>
+                      <th class="fit text-center">Invoice Status</th>
+                      <th class="fit text-end">Total Amount</th>
+                      <th class="fit text-end">Date Created</th>
+                      <th class="fit text-end">Due Date</th>
+                      <th class="text-center fit">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+                  <div style="margin-top: 10px;" class="page_showing" id="tbl_showing_invoice"></div>
+                  <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

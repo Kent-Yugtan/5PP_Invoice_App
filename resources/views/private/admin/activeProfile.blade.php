@@ -256,7 +256,7 @@
 
                 <div class="col-4">
                   <div class="form-group has-search">
-                    <span class="fa fa-search form-control-feedback"></span>
+                    <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_invoice" placeholder="Search">
                   </div>
                 </div>
@@ -305,7 +305,7 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group has-search">
-                    <span class="fa fa-search form-control-feedback"></span>
+                    <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_deduction" placeholder="Search">
                   </div>
                 </div>
@@ -339,14 +339,16 @@
               </div>
               <div class="row mx-2">
                 <div class="col">
-                  <div style="margin-left: 5px;" class="page_showing" id="tbl_showing_deduction"></div>
+                  <div class="page_showing" id="tbl_showing_deduction">
+                  </div>
                 </div>
               </div>
               <div class="row mx-2">
                 <div class="col">
-                  <ul style="margin-left: 6px;display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction"></ul>
+                  <ul style="display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction"></ul>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -639,7 +641,7 @@
 
                   <div class="row pt-3">
                     <div class="col">
-                      <button type="button" class="btn w-100" style=" color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn  w-100" data-bs-dismiss="modal" style="color:white; background-color:#A4A6B3;">Cancel</button>
                     </div>
                     <div class="col">
                       <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" id="deleteProfileDeduction" class="btn btn-danger w-100" style="color:White; background-color:#dc3545;">Delete</button>
@@ -674,7 +676,7 @@
 
                   <div class="row">
                     <div class="col mb-3">
-                      <span class="fs-3 fw-bold">Update Invoice Status</span>
+                      <span class="fs-3 fw-bold">Update Payment Status</span>
                     </div>
                   </div>
                   <input type="text" id="updateStatus_invoiceNo" hidden>
@@ -747,10 +749,10 @@
 
         <div class="row pt-3 pb-3 px-3">
           <div class="col-6">
-            <button type="button" class="btn w-100" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn  w-100" data-bs-dismiss="modal" style="color:white; background-color:#A4A6B3;">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="profilededuction_delete" class="btn btn-danger w-100">Delete</button>
+            <button type="button" id="profilededuction_delete" class="btn btn-danger w-100">Confirm</button>
           </div>
         </div>
       </div>
@@ -805,6 +807,9 @@
 
 
 
+<div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+  <div class="loader"></div>
+</div>
 <!-- <script src="{{ asset('/assets/js/activeProfile.js') }}"></script> -->
 
 <script type="text/javascript">
@@ -819,12 +824,6 @@
 
   // INVOICE SEARCH AND DISPLAY
   $(document).ready(function() {
-
-    // const $imgDiv = $(".profile-pic-div_adminActiveProfile");
-    // $imgDiv.off("mouseenter");
-
-    // const $uploadBtn = $("#uploadBtn");
-    // $uploadBtn.css("display", "none");
 
     // START CODE FOR CROPING IMAGE
     $('#uploadBtn').on('click', function() {
@@ -861,13 +860,13 @@
       }
     });
 
-    let old_file_original_name;
-    let old_file_name;
-    let old_file_path;
+    let old_file_original_name = "";
+    let old_file_name = "";
+    let old_file_path = "";
 
-    let file_original_name;
-    let file_name;
-    let file_path;
+    let file_original_name = "";
+    let file_name = "";
+    let file_path = "";
 
     $('#imageCrop').on('click', function() {
       $uploadCrop.croppie('result', {
@@ -888,10 +887,9 @@
             $('#previewModal').modal('hide');
             $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
             // console.log("data.image", data);
-            file_original_name = data.image;
-            file_name = data.image;
-            file_path = data.path;
-            file_size = data.size;
+            file_original_name = data.image ? data.image : "";
+            file_name = data.image ? data.image : "";;
+            file_path = data.path ? data.path : "";
 
             document.getElementById("upload_image").value = "";
             $('#imageRow').addClass('d-none')
@@ -1025,7 +1023,6 @@
         $('#file').prop('disabled', false);
         $('#profile_status').prop('disabled', false);
         $('#first_name').prop('disabled', false);
-        $("#first_name").prop('disabled', false);
         $("#last_name").prop('disabled', false);
         $("#email").prop('disabled', false);
         $("#position").prop('disabled', false);
@@ -1105,8 +1102,8 @@
           setTimeout(function() {
             $("div.spanner").removeClass("show");
 
-
-            $('.toast1 .toast-title').html('Update Status');
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(response.data.message);
             // show_data();
             $('#dataTable_deduction tbody').empty();
@@ -1129,8 +1126,8 @@
               return ""
             });
             fieldname = fieldname.join(" ");
-
-            $('.toast1 .toast-title').html(fieldname);
+            $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+            $('.toast1 .toast-title').html("Error");
             $('.toast1 .toast-body').html(Object.values(errors)[
               0].join(
               "\n\r"));
@@ -1161,6 +1158,7 @@
               $('#profile_status').prop('checked', true);
             } else {
               $('#profile_status').prop('checked', false);
+              location.href = apiUrl + "/admin/current"
             }
             $('#profile_id_show').val(data.data.profile.id);
             $('#first_name').val(data.data.first_name);
@@ -1186,10 +1184,10 @@
             } else {
               $("#photo").attr("src", "/images/default.png");
             }
-            old_file_original_name = data.data.profile.file_original_name;
-            old_file_name = data.data.profile.file_name;
-            old_file_path = data.data.profile.file_path;
-            // console.log('profile_deduction_types', data);
+            old_file_original_name = data.data.profile.file_original_name ? data.data.profile.file_original_name : "";
+            old_file_name = data.data.profile.file_name ? data.data.profile.file_name : "";
+            old_file_path = data.data.profile.file_path ? data.data.profile.file_path : "";
+
           }
         })
         .catch(function(error) {
@@ -1482,7 +1480,8 @@
     $('#ProfileUpdate').submit(function(e) {
       e.preventDefault();
       if (document.getElementById("profile_status").disabled) {
-        $('.toast1 .toast-title').html("View Profile");
+        $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+        $('.toast1 .toast-title').html("Error");
         $('.toast1 .toast-body').html("Please click edit profile to update.");
         toast1.toast('show');
       } else {
@@ -1545,6 +1544,7 @@
         //     .files[0],
         //     document.getElementById('file').files[0].name);
         // }
+
         let data = {
           user_id: user_id,
           profile_id: profile_id,
@@ -1567,13 +1567,30 @@
           gcash_no: gcash_no,
           date_hired: date_hired,
           deduction_type_id: JSON.stringify(deduction_type_id),
-          file_original_name: file_original_name ? "" : old_file_original_name,
-          file_name: file_name ? "" : old_file_name,
-          file_path: file_path ? "" : old_file_path,
         }
-        // console.log("DATA", data);
 
-        axios.post(apiUrl + '/api/saveprofile', data, {
+        let data2 = {};
+
+        if (file_original_name == "" && file_name == "" && file_path == "") {
+          data2 = {
+            file_original_name: old_file_original_name,
+            file_name: old_file_name,
+            file_path: old_file_path,
+          }
+        } else {
+          data2 = {
+            file_original_name: file_original_name,
+            file_name: file_name,
+            file_path: file_path,
+          }
+        }
+
+        let result = Object.assign({}, data, data2);
+        // console.log("DATA", result);
+
+
+
+        axios.post(apiUrl + '/api/saveprofile', result, {
             headers: {
               Authorization: token,
               "Content-Type": "multipart/form-data",
@@ -1618,8 +1635,7 @@
                 $("div.spanner").removeClass("show");
                 // location.href = apiUrl + "/admin/current"
                 window.location.reload();
-              }, 1500)
-
+              }, 3000)
               toast1.toast('show');
             }
           })
@@ -1677,11 +1693,10 @@
 
     })
 
-    $('#deleteProfileDeduction').on('click', function(
-      e) {
+    $('#deleteProfileDeduction').on('click', function(e) {
+      e.preventDefault();
       let profileDeductionType_id = $('#profileDeductionType_id').val();
       $("#profilededuction_id").html(profileDeductionType_id);
-      console.log("delete", profileDeductionType_id);
 
     })
 
@@ -1716,8 +1731,6 @@
 
     //  For creating invoice codes
     const api = "https://api.exchangerate-api.com/v4/latest/USD";
-
-
 
     $("#discount_amount").addClass('d-none');
     $("#discount_total").addClass('d-none');
@@ -1815,7 +1828,8 @@
 
           setTimeout(function() {
             $('div.spanner').removeClass("show");
-            $('.toast1 .toast-title').html('Deleted Successfully');
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(data.message);
 
             // PROFILE DEDUCTION BUTTON
@@ -1845,7 +1859,8 @@
               return ""
             });
             fieldname = fieldname.join(" ");
-            $('.toast1 .toast-title').html(fieldname);
+            $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+            $('.toast1 .toast-title').html("Error");
             $('.toast1 .toast-body').html(Object.values(errors)[
                 0]
               .join(
@@ -2193,20 +2208,15 @@
 
     $("#invoice_status").on('hide.bs.modal', function() {
       // window.location.reload();
-      $('html,body').animate({
-        scrollTop: $('#sb-nav-fixed').offset().top
-      }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
-
-
         show_data();
       }, 1500)
     });
 
     $("#button-addon2").click(function(e) {
-      // due_datee();
+      due_datee();
 
       let toast1 = $('.toast1');
       let id = $('#user_id').val();
@@ -2395,9 +2405,9 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
 
-
-            $('.toast1 .toast-title').html('Create Invoices');
+            $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(response.data.message);
             $('#invoice_items').trigger('reset'); // reset the form
             $('#show_deduction_items').empty();
@@ -2492,13 +2502,13 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
+            $('#modal-create-deduction').modal('hide');
             $("div.spanner").addClass("show");
             setTimeout(function() {
-              $('#modal-create-deduction').modal('hide');
               $("div.spanner").removeClass("show");
 
-
-              $('.toast1 .toast-title').html('Profile Deduction');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(data.message);
               toast1.toast('show');
             }, 1500)
@@ -2517,7 +2527,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname.charAt(0).toUpperCase() + fieldname.slice(1));
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html('Error');
               $('.toast1 .toast-body').html(Object.values(errors)[
                   0]
                 .join(
@@ -2851,9 +2862,8 @@
 
             show_profileDeductionType_Button();
             show_Profilededuction_Table_Active();
-            // $('.toast1 .toast-title').html('Deduction Types');
-            // $('.toast1 .toast-body').html(response.data.message);
-            $('.toast1 .toast-title').html('Successfully Updated');
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(data.message);
             toast1.toast('show');
           }, 1500)
@@ -2871,7 +2881,8 @@
               return ""
             });
             fieldname = fieldname.join(" ");
-            $('.toast1 .toast-title').html(fieldname.charAt(0).toUpperCase() + fieldname.slice(1));
+            $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+            $('.toast1 .toast-title').html("Error");
             $('.toast1 .toast-body').html(Object.values(errors)[
                 0]
               .join(

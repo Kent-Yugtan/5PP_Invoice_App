@@ -3,13 +3,13 @@
 <div class="container-fluid px-4" id="loader_load">
 
   <div class="row">
-    <div class="col-xl-12 col-md-12 py-4">
+    <div class="col-xl-12 col-md-12" style="padding-top:1.5rem;padding-bottom:1rem">
       <span class="fs-3 fw-bold">View Profile</span>
     </div>
   </div>
 
   <div class="row pb-3">
-    <div class="col-md-12 col-lg-12 col-xl-5">
+    <div class="col-md-12 col-lg-12 col-xl-5 mt-3">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
         <div class="card-body">
           <div class="row">
@@ -25,10 +25,11 @@
               <input type="text" id="profile_id_show" hidden>
 
               <div class="col-md-5 col-lg-5">
-                <div class="profile-pic-div_adminProfile-wrapper">
-                  <div class="profile-pic-div_InactiveProfile">
+                <div class="profile-pic-div_adminProfile-wrapper mb-3">
+                  <div class="profile-pic-div_adminActiveProfile">
                     <img src="/images/default.png" id="photo">
-                    <input name="file" type="file" id="file" disabled="true">
+                    <!-- id="file" ORIGINAL ID -->
+                    <!-- <input name="file" type="file" id="file" disabled="true"> -->
                     <label for="file" id="uploadBtn">Choose Photo</label>
                   </div>
                 </div>
@@ -215,7 +216,7 @@
       </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-7">
+    <div class="col-md-12 col-lg-12 col-xl-7 mt-3">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
         <!-- <div class="card-header">Profile Information</div> -->
         <div class="row">
@@ -254,7 +255,7 @@
 
                 <div class="col-4">
                   <div class="form-group has-search">
-                    <span class="fa fa-search form-control-feedback"></span>
+                    <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_invoice" placeholder="Search">
                   </div>
                 </div>
@@ -283,7 +284,7 @@
 
               <div class="row mx-2">
                 <div class="col">
-                  <div style="margin-top: 10px;margin-left: 0px;" class="page_showing" style="color:black !important;" id="tbl_showing_invoice"></div>
+                  <div style="margin-left: 0px;" class="page_showing" style="color:black !important;" id="tbl_showing_invoice"></div>
                 </div>
               </div>
 
@@ -292,6 +293,7 @@
                   <ul style="display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap" id="tbl_pagination_invoice">
                 </div>
               </div>
+
             </div>
             <div class="tab-pane fade" id="pills-deduction" role="tabpanel" aria-labelledby="pills-deduction-tab">
               <div class="row mx-2">
@@ -305,7 +307,7 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group has-search">
-                    <span class="fa fa-search form-control-feedback"></span>
+                    <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_deduction" placeholder="Search">
                   </div>
                 </div>
@@ -338,13 +340,13 @@
                   </div>
                   <div class="row mx-2">
                     <div class="col">
-                      <div style="margin-top:19px;margin-left: 5px;" class="page_showing" id="tbl_showing_deduction">
+                      <div class="page_showing" id="tbl_showing_deduction">
                       </div>
                     </div>
                   </div>
                   <div class="row mx-2">
                     <div class="col">
-                      <ul style="margin-left: 6px;display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction"></ul>
+                      <ul style="display:flex;justify-content:flex-start;" class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction"></ul>
                     </div>
                   </div>
                 </div>
@@ -565,7 +567,7 @@
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div id="notifyIcon"></i></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -772,8 +774,55 @@
   </div>
 </div>
 
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="hide-content">
+      <div class="modal-body">
+        <div class="card-border shadow p-2 bg-white h-100">
+          <div class="row px-4 py-4 " id="header">
+            <div class="col-md-12 w-100">
+              <div class="row ">
+                <div class="col" style="margin-bottom:15px">
+                  <span class="fs-3 fw-bold"> Update Profile Image</span>
+                </div>
+              </div>
+              <div class="row d-none" id="imageRow">
+                <div class="col" style="margin-top:15px">
+                  <div id="image_demo"></div>
+                  <div id="uploaded_image" style="width: 350px;"></div>
+                </div>
+              </div>
 
-<script src="{{ asset('/assets/js/InactiveProfile.js') }}"></script>
+              <div class="row">
+                <div class="col" style="display: flex;justify-content: center;">
+                  <label class="label">
+                    <input type="file" name="upload_image" id="upload_image" />
+                    <span>Select a file</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6" style="margin-top:15px">
+
+                  <button type="button" class="btn w-100" style="background-color: #A4A6B3; color: white;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-6" style="margin-top:15px">
+                  <button type="button" id="imageCrop" class="btn" style="width: 100%; background-color: #CF8029; color: white;">Crop</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+  <div class="loader"></div>
+</div>
+<!-- <script src="{{ asset('/assets/js/InactiveProfile.js') }}"></script> -->
 
 <script type="text/javascript">
   let total_deduction_amount = 0
@@ -787,6 +836,86 @@
 
   // INVOICE SEARCH AND DISPLAY
   $(document).ready(function() {
+
+    // START CODE FOR CROPING IMAGE
+    $('#uploadBtn').on('click', function() {
+      $('#previewModal').modal('show');
+    })
+
+    $("#previewModal").on('hide.bs.modal', function() {
+
+      document.getElementById("upload_image").value = "";
+      $('#imageRow').addClass('d-none')
+    });
+
+    $('#upload_image').on('change', function() {
+
+      $('#imageRow').removeClass('d-none')
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        $uploadCrop.croppie('bind', {
+          url: event.target.result
+        })
+      }
+      reader.readAsDataURL(this.files[0]);
+    })
+
+    $uploadCrop = $('#image_demo').croppie({
+      viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+      },
+      boundary: {
+        width: $('#container').width(),
+        height: 300
+      }
+    });
+
+    let old_file_original_name = "";
+    let old_file_name = "";
+    let old_file_path = "";
+
+    let file_original_name = "";
+    let file_name = "";
+    let file_path = "";
+
+    $('#imageCrop').on('click', function() {
+      $uploadCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+      }).then(function(response) {
+        let formData = new FormData();
+        formData.append('image', response);
+
+        axios.post(apiUrl + "/api/imagePreview", formData, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data",
+          },
+        }).then(function(response) {
+          let data = response.data;
+          if (data.success) {
+            $('#previewModal').modal('hide');
+            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+            // console.log("data.image", data);
+            file_original_name = data.image;
+            file_name = data.image;
+            file_path = data.path;
+            file_size = data.size;
+
+            document.getElementById("upload_image").value = "";
+            $('#imageRow').addClass('d-none')
+          }
+        }).catch(function(error) {
+          console.log("ERROR", error);
+        });
+      })
+    });
+    // END CODE FOR CROPING IMAGE
+
+
+
     // REFRESH WHEN THIS PAGE IS LOAD
     $('#cancel_edit_profile').addClass('d-none');
     show_data();
@@ -890,17 +1019,57 @@
     // };
 
 
+    // $('#edit_profile').on('click', function(e) {
+    //   e.preventDefault();
+    //   $('html, body').animate({
+    //     scrollTop: $('#sb-nav-fixed').offset().top
+    //   }, 'slow');
+    //   $('#edit_profile').addClass('d-none');
+    //   $('#cancel_edit_profile').removeClass('d-none');
+    //   $('div.spanner').addClass("show");
+    //   setTimeout(function() {
+    //     $('div.spanner').removeClass("show");
+
+    //     $('#file').prop('disabled', false);
+    //     $('#profile_status').prop('disabled', false);
+    //     $('#first_name').prop('disabled', false);
+    //     $("#first_name").prop('disabled', false);
+    //     $("#last_name").prop('disabled', false);
+    //     $("#email").prop('disabled', false);
+    //     $("#position").prop('disabled', false);
+    //     $("#username").prop('disabled', false);
+    //     $("#phone_number").prop('disabled', false);
+    //     $("#address").prop('disabled', false);
+    //     $("#province").prop('disabled', false);
+    //     $("#city").prop('disabled', false);
+    //     $("#zip_code").prop('disabled', false);
+    //     $("#profile_status").prop('disabled', false);
+    //     $("#acct_no").prop('disabled', false);
+    //     $("#bank_name").prop('disabled', false);
+    //     $("#acct_name").prop('disabled', false);
+    //     $("#bank_address").prop('disabled', false);
+    //     $("#gcash_no").prop('disabled', false);
+    //     $("#date_hired").prop('disabled', false);
+    //   }, 1500);
+    // })
+
     $('#edit_profile').on('click', function(e) {
       e.preventDefault();
       $('html, body').animate({
         scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
-      $('#edit_profile').addClass('d-none');
-      $('#cancel_edit_profile').removeClass('d-none');
       $('div.spanner').addClass("show");
       setTimeout(function() {
         $('div.spanner').removeClass("show");
-
+        const imgDiv = document.querySelector(".profile-pic-div_adminActiveProfile");
+        //if user hover on img div
+        imgDiv.addEventListener("mouseenter", function() {
+          uploadBtn.style.display = "block";
+        });
+        //if we hover out from img div
+        imgDiv.addEventListener("mouseleave", function() {
+          uploadBtn.style.display = "none";
+        });
         $('#file').prop('disabled', false);
         $('#profile_status').prop('disabled', false);
         $('#first_name').prop('disabled', false);
@@ -921,6 +1090,8 @@
         $("#bank_address").prop('disabled', false);
         $("#gcash_no").prop('disabled', false);
         $("#date_hired").prop('disabled', false);
+        $('#edit_profile').addClass('d-none');
+        $('#cancel_edit_profile').removeClass('d-none');
       }, 1500);
     })
 
@@ -1010,6 +1181,57 @@
 
     })
 
+    // function show_edit() {
+    //   let user_id = $('#user_id').val();
+    //   axios.get(apiUrl + '/api/admin/show_edit/' + user_id, {
+    //       headers: {
+    //         Authorization: token,
+    //       },
+    //     })
+    //     .then(function(response) {
+    //       let data = response.data;
+    //       if (data.success) {
+    //         // console.log("SUCCESS");
+    //         // console.log("GENERAL", data.data.email);
+    //         // console.log("PROFILE SHOW EDIT", data.data.profile);
+    //         if (data.data.profile.profile_status === "Active") {
+    //           $('#profile_status').prop('checked', true);
+    //         } else {
+    //           $('#profile_status').prop('checked', false);
+    //         }
+    //         $('#profile_id_show').val(data.data.profile.id);
+    //         $('#first_name').val(data.data.first_name);
+    //         $('#last_name').val(data.data.last_name);
+    //         $('#email').val(data.data.email);
+    //         $('#username').val(data.data.username);
+    //         // $('#password').val(data.data.password);
+    //         $('#position').val(data.data.profile.position);
+    //         $('#phone_number').val(data.data.profile.phone_number);
+    //         $('#address').val(data.data.profile.address);
+    //         $('#province').val(data.data.profile.province);
+    //         $('#city').val(data.data.profile.city);
+    //         $('#zip_code').val(data.data.profile.zip_code);
+    //         $('#acct_no').val(data.data.profile.acct_no);
+    //         $('#acct_name').val(data.data.profile.acct_name);
+    //         $('#bank_name').val(data.data.profile.bank_name);
+    //         $('#bank_address').val(data.data.profile.bank_address);
+    //         $('#gcash_no').val(data.data.profile.gcash_no);
+    //         $('#date_hired').val(data.data.profile.date_hired);
+    //         $("#photo").attr("src", data.data.profile.file_path);
+    //         if (data.data.profile.file_path) {
+    //           $('#photo').val(data.data.profile.file_path);
+    //         } else {
+    //           $("#photo").attr("src", "/images/default.png");
+    //         }
+    //         // console.log('profile_deduction_types', data);
+    //       }
+
+    //     })
+    //     .catch(function(error) {
+    //       console.log("ERROR", error);
+    //     });
+    // }
+
     function show_edit() {
       let user_id = $('#user_id').val();
       axios.get(apiUrl + '/api/admin/show_edit/' + user_id, {
@@ -1025,6 +1247,7 @@
             // console.log("PROFILE SHOW EDIT", data.data.profile);
             if (data.data.profile.profile_status === "Active") {
               $('#profile_status').prop('checked', true);
+              location.href = apiUrl + "/admin/inactive"
             } else {
               $('#profile_status').prop('checked', false);
             }
@@ -1052,9 +1275,11 @@
             } else {
               $("#photo").attr("src", "/images/default.png");
             }
+            old_file_original_name = data.data.profile.file_original_name;
+            old_file_name = data.data.profile.file_name;
+            old_file_path = data.data.profile.file_path;
             // console.log('profile_deduction_types', data);
           }
-
         })
         .catch(function(error) {
           console.log("ERROR", error);
@@ -1360,28 +1585,33 @@
       })
     }
 
-
-
     $('#ProfileUpdate').submit(function(e) {
       e.preventDefault();
       if (document.getElementById("profile_status").disabled) {
-        $('.toast1 .toast-title').html("View Profile");
+        $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+        $('.toast1 .toast-title').html("Error");
         $('.toast1 .toast-body').html("Please click edit profile to update.");
         toast1.toast('show');
       } else {
         let user_id = $("#user_id").val();
-        let profile_id = $("#profile_id").val();
+        let profile_id = $("#profile_id_show").val();
         let first_name = $("#first_name").val();
         let last_name = $("#last_name").val();
         let email = $("#email").val();
-        let position = $("#position").val();
-        // let password = $("#password").val();
         let username = $("#username").val();
+        // let password = $("#password").val();
+        let position = $("#position").val();
         let phone_number = $("#phone_number").val();
         let address = $("#address").val();
         let province = $("#province").val();
         let city = $("#city").val();
         let zip_code = $("#zip_code").val();
+        if ($('#profile_status').is(':checked')) {
+          $('#profile_status').val('Active');
+        } else {
+          $('#profile_status').val('Inactive');
+        }
+        console.log($('#profile_status').val());
         let profile_status = $("#profile_status").val();
         let acct_no = $("#acct_no").val();
         let acct_name = $("#acct_name").val();
@@ -1390,40 +1620,81 @@
         let gcash_no = $("#gcash_no").val();
         let date_hired = $("#date_hired").val();
         let deduction_type_id = $('#select2Multiple').val();
-        let formData = new FormData();
-        formData.append('id', user_id);
-        formData.append('profile_id', profile_id);
-        formData.append('first_name', first_name);
-        formData.append('last_name', last_name);
-        formData.append('email', email);
-        formData.append('username', username);
-        // formData.append('password', "");
-        formData.append('position', position ?? "");
-        formData.append('phone_number', phone_number);
-        formData.append('address', address);
-        formData.append('province', province);
-        formData.append('city', city);
-        formData.append('zip_code', zip_code);
-        if (document.getElementById('profile_status').checked == true) {
-          formData.append('profile_status', 'Active');
+
+        // let formData = new FormData();
+        // formData.append('id', user_id);
+        // formData.append('profile_id', profile_id);
+        // formData.append('first_name', first_name);
+        // formData.append('last_name', last_name);
+        // formData.append('email', email);
+        // formData.append('username', username);
+        // // formData.append('password', "");
+        // formData.append('position', position ?? "");
+        // formData.append('phone_number', phone_number);
+        // formData.append('address', address);
+        // formData.append('province', province);
+        // formData.append('city', city);
+        // formData.append('zip_code', zip_code);
+        // if (document.getElementById('profile_status').checked == true) {
+        //   formData.append('profile_status', 'Active');
+        // } else {
+        //   formData.append('profile_status', 'Inactive');
+        // }
+        // formData.append('acct_no', acct_no);
+        // formData.append('acct_name', acct_name);
+        // formData.append('bank_name', bank_name ?? "");
+        // formData.append('bank_address', bank_address);
+        // formData.append('gcash_no', gcash_no);
+        // formData.append('date_hired', date_hired);
+        // // SENDING ARRAY IN API
+        // if (document.getElementById('file').files.length > 0) {
+        //   formData.append('profile_picture', document.getElementById('file')
+        //     .files[0],
+        //     document.getElementById('file').files[0].name);
+        // }
+        let data = {
+          user_id: user_id,
+          profile_id: profile_id,
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          username: username,
+          password: "",
+          position: position,
+          phone_number: phone_number,
+          address: address,
+          province: province,
+          city: city,
+          zip_code: zip_code,
+          profile_status: profile_status,
+          acct_no: acct_no,
+          acct_name: acct_name,
+          bank_name: bank_name,
+          bank_address: bank_address,
+          gcash_no: gcash_no,
+          date_hired: date_hired,
+          deduction_type_id: JSON.stringify(deduction_type_id),
+        }
+
+        let data2 = {};
+
+        if (file_original_name == "" && file_name == "" && file_path == "") {
+          data2 = {
+            file_original_name: old_file_original_name,
+            file_name: old_file_name,
+            file_path: old_file_path,
+          }
         } else {
-          formData.append('profile_status', 'Inactive');
+          data2 = {
+            file_original_name: file_original_name,
+            file_name: file_name,
+            file_path: file_path,
+          }
         }
-        formData.append('acct_no', acct_no);
-        formData.append('acct_name', acct_name);
-        formData.append('bank_name', bank_name ?? "");
-        formData.append('bank_address', bank_address);
-        formData.append('gcash_no', gcash_no);
-        formData.append('date_hired', date_hired);
-        // SENDING ARRAY IN API
-        if (document.getElementById('file').files.length > 0) {
-          formData.append('profile_picture', document.getElementById('file')
-            .files[0],
-            document.getElementById('file').files[0].name);
-        }
-        // console.log("PICTURE", document.getElementById('file').files[0],
-        // document.getElementById('file').files[0].name);
-        axios.post(apiUrl + '/api/saveprofile', formData, {
+
+        let result = Object.assign({}, data, data2);
+
+        axios.post(apiUrl + '/api/saveprofile', result, {
             headers: {
               Authorization: token,
               "Content-Type": "multipart/form-data",
@@ -1433,7 +1704,14 @@
             let data = response.data;
             // console.log("SUCCESS", data);
             if (data.success == true) {
+              $('html,body').animate({
+                scrollTop: $('#sb-nav-fixed').offset().top
+              }, 'slow');
+              $("div.spanner").addClass("show");
 
+              $('input').removeClass('is-invalid');
+              $('input, select').removeClass('is-invalid');
+              $('.invalid-feedback').remove();
               $("#first_name").val("");
               $("#last_name").val("");
               $("#email").val("");
@@ -1451,25 +1729,17 @@
               $("#bank_address").val("");
               $("#gcash_no").val("");
               $("#date_hired").val("");
-              $("#photo").attr("src", "/images/default.png");
-
+              // $("#photo").attr("src", "/images/default.png");
               // select2Multiple
-              $('.toast1 .toast-title').html('Profile');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(data.message);
-
-
-              $('html,body').animate({
-                scrollTop: $('#sb-nav-fixed').offset().top
-              }, 'slow');
-              $("div.spanner").addClass("show");
 
               setTimeout(function() {
                 $("div.spanner").removeClass("show");
-
-
-                location.href = apiUrl + "/admin/inactive"
-              }, 1500)
-
+                // location.href = apiUrl + "/admin/current"
+                window.location.reload();
+              }, 3000)
               toast1.toast('show');
             }
           })
@@ -1526,6 +1796,171 @@
       }
 
     })
+
+    // $('#ProfileUpdate').submit(function(e) {
+    //   e.preventDefault();
+    //   if (document.getElementById("profile_status").disabled) {
+    //     $('.toast1 .toast-title').html("View Profile");
+    //     $('.toast1 .toast-body').html("Please click edit profile to update.");
+    //     toast1.toast('show');
+    //   } else {
+    //     let user_id = $("#user_id").val();
+    //     let profile_id = $("#profile_id").val();
+    //     let first_name = $("#first_name").val();
+    //     let last_name = $("#last_name").val();
+    //     let email = $("#email").val();
+    //     let position = $("#position").val();
+    //     // let password = $("#password").val();
+    //     let username = $("#username").val();
+    //     let phone_number = $("#phone_number").val();
+    //     let address = $("#address").val();
+    //     let province = $("#province").val();
+    //     let city = $("#city").val();
+    //     let zip_code = $("#zip_code").val();
+    //     let profile_status = $("#profile_status").val();
+    //     let acct_no = $("#acct_no").val();
+    //     let acct_name = $("#acct_name").val();
+    //     let bank_name = $("#bank_name").val();
+    //     let bank_address = $("#bank_address").val();
+    //     let gcash_no = $("#gcash_no").val();
+    //     let date_hired = $("#date_hired").val();
+    //     let deduction_type_id = $('#select2Multiple').val();
+    //     let formData = new FormData();
+    //     formData.append('id', user_id);
+    //     formData.append('profile_id', profile_id);
+    //     formData.append('first_name', first_name);
+    //     formData.append('last_name', last_name);
+    //     formData.append('email', email);
+    //     formData.append('username', username);
+    //     // formData.append('password', "");
+    //     formData.append('position', position ?? "");
+    //     formData.append('phone_number', phone_number);
+    //     formData.append('address', address);
+    //     formData.append('province', province);
+    //     formData.append('city', city);
+    //     formData.append('zip_code', zip_code);
+    //     if (document.getElementById('profile_status').checked == true) {
+    //       formData.append('profile_status', 'Active');
+    //     } else {
+    //       formData.append('profile_status', 'Inactive');
+    //     }
+    //     formData.append('acct_no', acct_no);
+    //     formData.append('acct_name', acct_name);
+    //     formData.append('bank_name', bank_name ?? "");
+    //     formData.append('bank_address', bank_address);
+    //     formData.append('gcash_no', gcash_no);
+    //     formData.append('date_hired', date_hired);
+    //     // SENDING ARRAY IN API
+    //     if (document.getElementById('file').files.length > 0) {
+    //       formData.append('profile_picture', document.getElementById('file')
+    //         .files[0],
+    //         document.getElementById('file').files[0].name);
+    //     }
+    //     // console.log("PICTURE", document.getElementById('file').files[0],
+    //     // document.getElementById('file').files[0].name);
+    //     axios.post(apiUrl + '/api/saveprofile', formData, {
+    //         headers: {
+    //           Authorization: token,
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       })
+    //       .then(function(response) {
+    //         let data = response.data;
+    //         // console.log("SUCCESS", data);
+    //         if (data.success == true) {
+
+    //           $("#first_name").val("");
+    //           $("#last_name").val("");
+    //           $("#email").val("");
+    //           $("#username").val("");
+    //           $("#position").val("");
+    //           $("#phone_number").val("");
+    //           $("#address").val("");
+    //           $("#province").val("");
+    //           $("#city").val("");
+    //           $("#zip_code").val("");
+    //           $("#profile_status").val("");
+    //           $("#acct_no").val("");
+    //           $("#acct_name").val("");
+    //           $("#bank_name").val("");
+    //           $("#bank_address").val("");
+    //           $("#gcash_no").val("");
+    //           $("#date_hired").val("");
+    //           $("#photo").attr("src", "/images/default.png");
+
+    //           // select2Multiple
+    //           $('.toast1 .toast-title').html('Profile');
+    //           $('.toast1 .toast-body').html(data.message);
+
+
+    //           $('html,body').animate({
+    //             scrollTop: $('#sb-nav-fixed').offset().top
+    //           }, 'slow');
+    //           $("div.spanner").addClass("show");
+
+    //           setTimeout(function() {
+    //             $("div.spanner").removeClass("show");
+
+
+    //             location.href = apiUrl + "/admin/inactive"
+    //           }, 1500)
+
+    //           toast1.toast('show');
+    //         }
+    //       })
+    //       .catch(function(error) {
+    //         console.log("ERROR", error)
+    //         console.log("error.response.data.errors", error);
+    //         if (error.response.data.errors) {
+    //           $('input').removeClass('is-invalid');
+    //           $('input, select').removeClass('is-invalid');
+    //           $('.invalid-feedback').remove();
+    //           var errors = error.response.data.errors;
+    //           var errorContainer = $('#error-container');
+    //           errorContainer.empty();
+    //           console.log("errors", errors)
+
+    //           if ("password" in errors) {
+    //             $('#eye').addClass('me-3');
+    //             // Do something
+    //           } else {
+    //             $('#eye').removeClass('me-3');
+    //           }
+    //           for (var key in errors) {
+    //             var inputName = key.replace('_', ' ');
+    //             inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+    //             var errorMsg = errors[key][0];
+    //             $('#' + key).addClass('is-invalid');
+    //             $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+    //           }
+    //         } else {
+    //           $('input').removeClass('is-invalid');
+    //           $('input, select').removeClass('is-invalid');
+    //           $('.invalid-feedback').remove();
+    //         }
+    //         // if (error.response.data.errors) {
+    //         //   let errors = error.response.data.errors;
+    //         //   let fieldnames = Object.keys(errors);
+    //         //   Object.values(errors).map((item, index) => {
+    //         //     fieldname = fieldnames[0].split('_');
+    //         //     fieldname.map((item2, index2) => {
+    //         //       fieldname['key'] = capitalize(
+    //         //         item2);
+    //         //       return ""
+    //         //     });
+    //         //     fieldname = fieldname.join(" ");
+    //         //     $('.toast1 .toast-title').html(fieldname);
+    //         //     $('.toast1 .toast-body').html(Object.values(
+    //         //         errors)[0]
+    //         //       .join(
+    //         //         "\n\r"));
+    //         //   })
+    //         //   toast1.toast('show');
+    //         // }
+    //       });
+    //   }
+
+    // })
 
     $('#profilededuction_delete').on('click', function(e) {
       e.preventDefault();

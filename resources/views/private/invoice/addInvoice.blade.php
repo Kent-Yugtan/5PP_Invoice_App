@@ -200,7 +200,7 @@
 <div style="position: fixed; top: 60px; right: 20px;">
   <div class="toast toast1 toast-bootstrap" role=" alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div id="notifyIcon"></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -758,10 +758,6 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
-
-
-            $('.toast1 .toast-title').html('Create Invoices');
-            $('.toast1 .toast-body').html(response.data.message);
             $('#invoice_items').trigger('reset'); // reset the form
             $('#show_deduction_items').empty();
             $('textarea').val('');
@@ -770,10 +766,13 @@
             $(".label_discount_total").addClass('d-none');
             $("#discount_amount").addClass('d-none');
             $("#discount_total").addClass('d-none');
-            toast1.toast('show');
             $('input').removeClass('is-invalid');
             $('input, select').removeClass('is-invalid');
             $('.invalid-feedback').remove();
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
+            $('.toast1 .toast-body').html(response.data.message);
+            toast1.toast('show');
             due_datee();
 
           }, 1500)
@@ -795,7 +794,7 @@
             inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
             var errorMsg = errors[key][0];
             $('#' + key).addClass('is-invalid');
-            $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+            $('#' + key).parent().append('<span class="invalid-feedback">This field is required.</span>');
           }
         } else {
           $('input').removeClass('is-invalid');

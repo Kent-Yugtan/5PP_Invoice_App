@@ -2,11 +2,9 @@
 @section('content-dashboard')
 
 <div class="container-fluid px-4" id="loader_load">
-  <ol class="breadcrumb mb-3"></ol>
-
   <div class="card shadow p-2 mb-1 bg-white rounded">
     <div class="card-header">
-      <h1 class="mt-0"><i class="fas fa-file-invoice"></i> Deduction Reports</h1>
+      <h1 class="mt-0"><i class="fas fa-file-invoice" style="color:#CF8029"></i> Deduction Reports</h1>
     </div>
   </div>
 
@@ -30,28 +28,30 @@
 
     <div class="col-md-12 col-md-12 col-lg-12">
       <div class="card shadow p-2 mb-1 bg-white rounded">
-        <div class="card-body table-responsive">
-          <table id="deductionReports" width="100%" style="font-size: 14px;" class="table table-hover">
-            <thead>
-            </thead>
-            <tbody>
+        <div class="card-body my-3">
+          <div class="table-responsive">
+            <table id="deductionReports" width="100%" style="font-size: 14px;" class="table table-hover">
+              <thead>
+              </thead>
+              <tbody>
 
-            </tbody>
-            <tfoot>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -122,6 +122,7 @@
 
     .email .email-body .body-text .body-table .table3 {
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      /* border: 1px solid black; */
       padding-bottom: 1rem;
     }
 
@@ -291,12 +292,12 @@
                   @endif
 
                 </td>
-                <td class=" scope" style="text-align:start;"><strong>SubTotal:</strong></td>
+                <td class="scope" style="text-align:start;"><strong>SubTotal:</strong></td>
                 <td class="scope" style="text-align:end;"><strong>${{$content['sub_total']}}</strong> </td>
               </tr>
 
               <tr>
-                <td class="scope" style="word-wrap: break-word;width:50%;vertical-align:top;" rowspan="3">
+                <td class="scope" style="text-align:left;word-wrap: break-word;width:50%;vertical-align:top;" rowspan="3">
                   @if($content['quick_invoice'] == 0)
                   {{$content['invoice_description']}}
                   @endif
@@ -368,7 +369,7 @@
                 <td style="text-align:left" colspan="3"><strong>Notes:</strong></td>
               </tr>
               <tr>
-                <td colspan="3" style="text-align: start;word-wrap: break-word">{{$content['notes']}}</td>
+                <td colspan="3" style="text-align:left;word-wrap: break-word">{{$content['notes']}}</td>
               </tr>
             </tbody>
           </table>

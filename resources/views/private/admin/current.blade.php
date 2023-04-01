@@ -116,12 +116,9 @@
     });
 
     $(window).on('load', function() {
-
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
-
-
         active_count_paid();
         active_count_pending()
         show_data();
@@ -170,8 +167,6 @@
         $('#tbl_user_pagination').empty();
         show_data();
         $("div.spanner").removeClass("show");
-
-
       }, 1500)
 
     })

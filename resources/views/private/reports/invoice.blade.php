@@ -1,11 +1,10 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-  <ol class="breadcrumb mb-3"></ol>
 
   <div class="card shadow p-2 mb-1 bg-white rounded">
     <div class="card-header">
-      <h1 class="mt-0"><i class="fas fa-file-invoice"></i> Invoice Reports</h1>
+      <h1 class="mt-0"><i class="fas fa-file-invoice" style="color:#CF8029"></i> Invoice Reports</h1>
     </div>
   </div>
 
@@ -29,29 +28,31 @@
 
     <div class="col-md-12 col-md-12 col-lg-12">
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
-        <div class="card-body table-responsive">
-          <table id="invoiceReports" style="font-size: 14px;" width="100%" class="display table table-hover">
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
+        <div class="card-body my-3">
+          <div class="table-responsive">
+            <table id="invoiceReports" style="font-size: 14px;" width="100%" class="display table table-hover">
+              <thead>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>

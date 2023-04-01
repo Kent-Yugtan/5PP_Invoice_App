@@ -107,7 +107,7 @@
                       <th style="border-right: 2px solid rgb(255,255,255);width: 15%;text-align: end;">Amount</th>
                     </tr>
                   </thead>
-                  <tbody class="px-3" style="border-bottom: 2px solid rgb(164 166 179);">
+                  <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
                   </tbody>
                 </table>
               </div>
@@ -215,7 +215,7 @@
 
           <div class="row mb-3">
             <div class="col-12 w-100">
-              <button type="button" id="delete_button" data-bs-toggle='modal' data-bs-target='#deleteModal' class="btn  w-100" style="color: White; background-color: red;">Delete
+              <button type="button" id="delete_button" data-bs-toggle='modal' data-bs-target='#deleteModal' class="btn  w-100" style="color: White; background-color: #dc3545;">Delete
                 Invoice</button>
             </div>
           </div>
@@ -241,7 +241,7 @@
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i class="fa fa-newspaper-o"> </i></div>
+      <div id="notifyIcon"></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -289,7 +289,7 @@
             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="active_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Yes</button>
+            <button type="button" id="active_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Confirm</button>
           </div>
         </div>
       </div>
@@ -331,7 +331,7 @@
             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="inactive_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Yes</button>
+            <button type="button" id="inactive_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Confirm</button>
           </div>
         </div>
       </div>
@@ -374,7 +374,7 @@
             <button type="button" class="btn  w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="paid_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Yes</button>
+            <button type="button" id="paid_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Confirm</button>
           </div>
         </div>
       </div>
@@ -417,7 +417,7 @@
             <button type="button" class="btn  w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="cancelled_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Yes</button>
+            <button type="button" id="cancelled_button" class="btn  w-100" style="color:white;background-color: #CF8029;">Confirm</button>
           </div>
         </div>
       </div>
@@ -461,7 +461,7 @@
             <button type="button" class="btn  w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Cancel</button>
           </div>
           <div class="col-6">
-            <button type="button" id="invoice_delete" class="btn btn-danger w-100">Yes</button>
+            <button type="button" id="invoice_delete" class="btn btn-danger w-100">Confirm</button>
           </div>
         </div>
       </div>
@@ -638,7 +638,7 @@
 
                     <div class="row pt-3">
                       <div class="col-6 ">
-                        <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="UpdateModalClose" class="btn w-100" style="color:white; background-color:#A4A6B3; " data-bs-dismiss="modal">Close</button>
                       </div>
                       <div class="col-6 ">
                         <button type="submit" id="update" class="btn w-100" style="color:White; background-color:#CF8029;">Update</button>
@@ -746,14 +746,12 @@
       subtotal();
     })
 
-    // CHECK IF THE USER HAVE THE PROFILE
-    $("#updateModal").on('hide.bs.modal', function() {
-      window.location.reload();
+    // // CHECK IF THE USER HAVE THE PROFILE
+    $("#UpdateModalClose").on('click', function(e) {
+      e.preventDefault();
+      location.reload(true); // refresh the page
     });
 
-    $("#updateModal").on('hide.bs.modal', function() {
-      window.location.reload();
-    });
 
     // ONLY NUMBERS FOR NUMBER INPUTS
     function onlyNumberKey(evt) {
@@ -1765,36 +1763,39 @@
         let data = response.data;
         if (data.success) {
           console.log("SUCCESS", data.data);
-          $('.toast1 .toast-title').html('Successfully Updated');
-          $('.toast1 .toast-body').html(response.data.message);
+          $('#updateModal').modal('hide');
 
+          $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+          $('.toast1 .toast-title').html('Success');
+          $('.toast1 .toast-body').html(response.data.message);
           toast1.toast('show');
           setTimeout(function() {
-            $('#updateModal').modal('hide');
-          }, 1500);
-          // $("#update").attr("data-bs-dismiss", "modal");
+            location.reload(true); // refresh the page
+          }, 1500)
+
         }
       }).catch(function(error) {
         console.log("ERROR", error)
-        // if (error.response.data.errors) {
-        //   let errors = error.response.data.errors;
-        //   let fieldnames = Object.keys(errors);
-        //   Object.values(errors).map((item, index) => {
-        //     fieldname = fieldnames[0].split('_');
-        //     fieldname.map((item2, index2) => {
-        //       fieldname['key'] = capitalize(
-        //         item2);
-        //       return ""
-        //     });
-        //     fieldname = fieldname.join(" ");
-        //     $('.toast1 .toast-title').html(fieldname);
-        //     $('.toast1 .toast-body').html(Object.values(
-        //         errors)[0]
-        //       .join(
-        //         "\n\r"));
-        //   })
-        //   toast1.toast('show');
-        // }
+        if (error.response.data.errors) {
+          let errors = error.response.data.errors;
+          let fieldnames = Object.keys(errors);
+          Object.values(errors).map((item, index) => {
+            fieldname = fieldnames[0].split('_');
+            fieldname.map((item2, index2) => {
+              fieldname['key'] = capitalize(
+                item2);
+              return ""
+            });
+            fieldname = fieldname.join(" ");
+            $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+            $('.toast1 .toast-title').html("Error");
+            $('.toast1 .toast-body').html(Object.values(
+                errors)[0]
+              .join(
+                "\n\r"));
+          })
+          toast1.toast('show');
+        }
       })
     })
 
@@ -1819,23 +1820,19 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
-
+            $('#activeModal').modal('hide');
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
-
-
-              $('#activeModal').modal('hide');
-              $('.toast1 .toast-title').html('Successfully Updated');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(response.data.message);
-
               $('#table_invoiceItems tbody').empty();
               $('.row .title_deductions').empty();
               $('.row .total_deductions').empty();
               $('.row .deductions').empty();
               $('#table_invoiceItems tbody').html(show_invoice());
               toast1.toast('show');
-
             }, 1500);
           }
         }).catch(function(error) {
@@ -1850,7 +1847,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname);
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html("Error");
               $('.toast1 .toast-body').html(Object.values(
                   errors)[0]
                 .join(
@@ -1884,14 +1882,12 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
-
+            $('#inactiveModal').modal('hide');
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
-
-
-              $('#inactiveModal').modal('hide');
-              $('.toast1 .toast-title').html('Successfully Updated');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(response.data.message);
 
               $('#table_invoiceItems tbody').empty();
@@ -1899,7 +1895,6 @@
               $('.row .total_deductions').empty();
               $('.row .deductions').empty();
               $('#table_invoiceItems tbody').html(show_invoice());
-
               toast1.toast('show');
             }, 1500);
 
@@ -1916,7 +1911,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname);
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html("Error");
               $('.toast1 .toast-body').html(Object.values(
                   errors)[0]
                 .join(
@@ -1954,14 +1950,12 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
-
+            $('#paidModal').modal('hide');
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
-
-
-              $('#paidModal').modal('hide');
-              $('.toast1 .toast-title').html('Successfully Updated');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(response.data.message);
 
               $('#table_invoiceItems tbody').empty();
@@ -1985,7 +1979,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname);
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html("Error");
               $('.toast1 .toast-body').html(Object.values(
                   errors)[0]
                 .join(
@@ -2023,14 +2018,12 @@
         }).then(function(response) {
           let data = response.data;
           if (data.success) {
-
+            $('#cancelModal').modal('hide');
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
-
-
-              $('#cancelModal').modal('hide');
-              $('.toast1 .toast-title').html('Successfully Updated');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(response.data.message);
 
               $('#table_invoiceItems tbody').empty();
@@ -2038,7 +2031,6 @@
               $('.row .total_deductions').empty();
               $('.row .deductions').empty();
               $('#table_invoiceItems tbody').html(show_invoice());
-              window.location.reload();
               toast1.toast('show');
             }, 1500);
 
@@ -2055,7 +2047,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname);
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html("Error");
               $('.toast1 .toast-body').html(Object.values(
                   errors)[0]
                 .join(
@@ -2083,23 +2076,18 @@
           let data = response.data;
           if (data.success) {
             $('#deleteModal').modal('hide');
-
             $("div.spanner").addClass("show");
-
             setInterval(function() {
               $("div.spanner").removeClass("show");
-
-
-              toast1.toast('show');
-              $('.toast1 .toast-title').html('Successfully Updated');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(response.data.message);
-
               $('#table_invoiceItems tbody').empty();
               $('.row .title_deductions').empty();
               $('.row .total_deductions').empty();
               $('.row .deductions').empty();
               $('#table_invoiceItems tbody').html(show_invoice());
-
+              toast1.toast('show');
             }, 2000)
 
             setTimeout(function() {
@@ -2120,7 +2108,8 @@
                 return ""
               });
               fieldname = fieldname.join(" ");
-              $('.toast1 .toast-title').html(fieldname);
+              $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+              $('.toast1 .toast-title').html("Error");
               $('.toast1 .toast-body').html(Object.values(
                   errors)[0]
                 .join(

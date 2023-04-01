@@ -80,10 +80,6 @@
   <div class="row pb-4">
     <div class="col-12">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
-        <!-- <div class="card-header">
-          <i class="fas fa-table me-1"></i>
-          Current Invoices
-        </div> -->
         <div class="card-body">
           <div class="row">
             <div class="col">
@@ -108,8 +104,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
-              <div class="page_showing" id="tbl_showing_invoice"></div>
+            <div class="col" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+              <div style="margin-top: 10px;" class="page_showing" id="tbl_showing_invoice"></div>
               <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
               </ul>
             </div>
