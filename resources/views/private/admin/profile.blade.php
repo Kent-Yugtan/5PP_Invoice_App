@@ -4,27 +4,19 @@
 <div class="container-fluid px-4" id="loader_load">
 
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
-      <!-- <div class="card shadow p-2 mb-1 bg-white rounded"> -->
-      <!-- <div class="card-header"> -->
-      <!-- <i style="color:#CF8029" class="fas fa-users"></i>  -->
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
       <div class="row">
         <div class="col-xl-12 col-md-12 py-4">
           <span class="fs-3 fw-bold ">Add Profile</span>
         </div>
       </div>
-      <!-- </div> -->
-      <!-- </div> -->
+
     </div>
   </div>
 
   <div class="row pb-3">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
       <div class="card-border shadow p-2 bg-white h-100">
-        <!-- <div class="card"> -->
-        <!-- <div class="card-header"> -->
-        <!-- <i style="color:#CF8029" class="fa-solid fa-circle-info"></i> -->
-        <!-- </div> -->
         <div class="card-body">
           <div class="row">
             <div class="col-xl-12 col-md-12 mt-3">
@@ -35,22 +27,13 @@
           <form id="ProfileStore">
             <div class="row pt-3">
               @csrf
-              <!-- <div class="image-editor">
-                <input type="file" class="cropit-image-input">
-                <div class="cropit-preview"></div>
-                <div class="image-size-label">
-                  Resize image
-                </div>
-                <input type="range" class="cropit-image-zoom-input">
-                <input type="hidden" name="image-data" class="hidden-image-data" />
-                <button type="submit">Submit</button>
-              </div> -->
 
               <div class="col-md-5 ">
                 <div class="profile-pic-div_adminProfile-wrapper mb-3">
                   <div class="profile-pic-div_adminProfile">
                     <img src="/images/default.png" id="photo">
-                    <input name="file" type="file" id="file">
+                    <!-- id="file" ORIGINAL ID -->
+                    <!-- <input name="file" type="file" id="profilePicture"> -->
                     <label for="file" id="uploadBtn">Choose Photo</label>
                   </div>
                 </div>
@@ -59,8 +42,6 @@
               <div class="col-md-7 pt-3 mb-3">
                 <div class="row">
                   <div class="col mb-3">
-
-
                     <input style="color:#CF8029" class="form-check-input" type="checkbox" id="profile_status" name="profile_status" checked>
                     <label class="form-check-label" for="status">
                       Active
@@ -271,7 +252,7 @@
 <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
   <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <div><i style="color:#CF8029" class="fa fa-newspaper-o"> </i></div>
+      <div id="notifyIcon"></div>
       <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
       <div>
         <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -285,17 +266,134 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader" style="margin:540px;position:unset"></div>
+<!-- Modal FOR CROPING IMAGE-->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="hide-content">
+      <div class="modal-body">
+        <div class="card-border shadow p-2 bg-white h-100">
+          <div class="row px-4 py-4 " id="header">
+            <div class="col-md-12 w-100">
+              <div class="row ">
+                <div class="col" style="margin-bottom:15px">
+                  <span class="fs-3 fw-bold"> Set Profile Image</span>
+                </div>
+              </div>
+
+
+              <div class="row d-none" id="imageRow">
+                <div class="col" style="margin-top:15px">
+                  <div id="image_demo"></div>
+                  <div id="uploaded_image" style="width: 350px;"></div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col" style="display: flex;justify-content: center;">
+                  <label class="label">
+                    <input type="file" name="upload_image" id="upload_image" />
+                    <span>Select a file</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6" style="margin-top:15px">
+
+                  <button type="button" class="btn w-100" style="background-color: #A4A6B3; color: white;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="col-6" style="margin-top:15px">
+                  <button type="button" id="imageCrop" class="btn" style="width: 100%; background-color: #CF8029; color: white;">Crop</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- <button type="button" class="btn " id="showtoast">Show Toast</button> -->
+
+
+
 <script src="{{ asset('/assets/js/adminProfile.js') }}"></script>
-
-
 <script type="text/javascript">
   $(document).ready(function() {
+    // START CODE FOR CROPING IMAGE
+    $('#uploadBtn').on('click', function() {
+      $('#previewModal').modal('show');
+    })
+
+    $("#previewModal").on('hide.bs.modal', function() {
+
+      document.getElementById("upload_image").value = "";
+      $('#imageRow').addClass('d-none')
+    });
+
+    $('#upload_image').on('change', function() {
+
+      $('#imageRow').removeClass('d-none')
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        $uploadCrop.croppie('bind', {
+          url: event.target.result
+        })
+      }
+      reader.readAsDataURL(this.files[0]);
+    })
+
+    $uploadCrop = $('#image_demo').croppie({
+      viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+      },
+      boundary: {
+        width: $('#container').width(),
+        height: 300
+      }
+    });
+
+
+    let file_original_name;
+    let file_name;
+    let file_path;
+    let file_size;
+
+    $('#imageCrop').on('click', function() {
+      $uploadCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+      }).then(function(response) {
+        let formData = new FormData();
+        formData.append('image', response);
+
+        axios.post(apiUrl + "/api/imagePreview", formData, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data",
+          },
+        }).then(function(response) {
+          let data = response.data;
+          if (data.success) {
+            $('#previewModal').modal('hide');
+            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+            // console.log("data.image", data);
+            file_original_name = data.image;
+            file_name = data.image;
+            file_path = data.path;
+            file_size = data.size;
+
+            document.getElementById("upload_image").value = "";
+            $('#imageRow').addClass('d-none')
+          }
+        }).catch(function(error) {
+          console.log("ERROR", error);
+        });
+      })
+    });
+    // END CODE FOR CROPING IMAGE
 
     $("#show_hide_password a").on('click', function(e) {
       e.preventDefault();
@@ -334,10 +432,11 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
     })
 
-    // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
     // Get the input field
     var dateInput = $("#date_hired");
     // Set the datepicker options
@@ -374,9 +473,9 @@
 
     $('#ProfileStore').submit(function(e) {
       e.preventDefault();
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'slow');
+      // $('html,body').animate({
+      //   scrollTop: $('#sb-nav-fixed').offset().top
+      // }, 'slow');
 
       let first_name = $("#first_name").val();
       let last_name = $("#last_name").val();
@@ -389,6 +488,12 @@
       let province = $("#province").val();
       let city = $("#city").val();
       let zip_code = $("#zip_code").val();
+      if ($('#profile_status').is(':checked')) {
+        $('#profile_status').val('Active');
+      } else {
+        $('#profile_status').val('Inactive');
+      }
+      console.log($('#profile_status').val());
       let profile_status = $("#profile_status").val();
       let acct_no = $("#acct_no").val();
       let acct_name = $("#acct_name").val();
@@ -398,41 +503,67 @@
       let date_hired = $("#date_hired").val();
       let deduction_type_id = $('#select2Multiple').val();
 
-      let formData = new FormData();
-      formData.append('first_name', first_name);
-      formData.append('last_name', last_name);
-      formData.append('email', email);
-      formData.append('username', username);
-      formData.append('password', password);
-      formData.append('position', position ?? "");
-      formData.append('phone_number', phone_number);
-      formData.append('address', address);
-      formData.append('province', province);
-      formData.append('city', city);
-      formData.append('zip_code', zip_code);
-      if (document.getElementById('profile_status').checked == true) {
-        formData.append('profile_status', 'Active');
-      } else {
-        formData.append('profile_status', 'Inactive');
-      }
-      formData.append('acct_no', acct_no);
-      formData.append('acct_name', acct_name);
-      formData.append('bank_name', bank_name ?? "");
-      formData.append('bank_address', bank_address);
-      formData.append('gcash_no', gcash_no);
-      formData.append('date_hired', date_hired);
-      formData.append('deduction_type_id', JSON.stringify(deduction_type_id));
-
-      if (document.getElementById('file').files.length > 0) {
-        formData.append('profile_picture', document.getElementById('file').files[0],
-          document.getElementById('file').files[0].name);
-      }
-
+      // let formData = new FormData();
+      // formData.append('first_name', first_name);
+      // formData.append('last_name', last_name);
+      // formData.append('email', email);
+      // formData.append('username', username);
+      // formData.append('password', password);
+      // formData.append('position', position ?? "");
+      // formData.append('phone_number', phone_number);
+      // formData.append('address', address);
+      // formData.append('province', province);
+      // formData.append('city', city);
+      // formData.append('zip_code', zip_code);
+      // if (document.getElementById('profile_status').checked == true) {
+      //   formData.append('profile_status', 'Active');
+      // } else {
+      //   formData.append('profile_status', 'Inactive');
+      // }
+      // formData.append('acct_no', acct_no);
+      // formData.append('acct_name', acct_name);
+      // formData.append('bank_name', bank_name ?? "");
+      // formData.append('bank_address', bank_address);
+      // formData.append('gcash_no', gcash_no);
+      // formData.append('date_hired', date_hired);
+      // formData.append('deduction_type_id', JSON.stringify(deduction_type_id));
+      // if (document.getElementById('profilePicture').files.length > 0) {
+      //   formData.append('profile_picture', document.getElementById('profilePicture').files[0],
+      //     document.getElementById('profilePicture').files[0].name);
+      // }
+      // console.log(formData.get('profile_picture'));
       // CODE FOR FORMDATA SEE TO CONSOLE.LOG
       // for (const [key, value] of formData.entries()) {
-      // console.log(`${key}: ${value}`);
+      //   console.log(`${key}: ${value}`);
       // }
-      axios.post(apiUrl + '/api/saveprofile', formData, {
+
+
+      let data = {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        username: username,
+        password: password,
+        position: position,
+        phone_number: phone_number,
+        address: address,
+        province: province,
+        city: city,
+        zip_code: zip_code,
+        profile_status: profile_status,
+        acct_no: acct_no,
+        acct_name: acct_name,
+        bank_name: bank_name,
+        bank_address: bank_address,
+        gcash_no: gcash_no,
+        date_hired: date_hired,
+        deduction_type_id: JSON.stringify(deduction_type_id),
+        file_original_name: file_original_name,
+        file_name: file_name,
+        file_path: file_path,
+      }
+
+      axios.post(apiUrl + '/api/saveprofile', data, {
           headers: {
             Authorization: token,
             "Content-Type": "multipart/form-data",
@@ -440,8 +571,12 @@
         })
         .then(function(response) {
           let data = response.data;
-          console.log("SUCCESS", response);
+          // console.log("SUCCESS", response);
           if (data.success === true) {
+            $("div.spanner").addClass("show");
+            $('html,body').animate({
+              scrollTop: $('#sb-nav-fixed').offset().top
+            }, 'slow');
             $('input').removeClass('is-invalid');
             $('.invalid-feedback').remove();
             $('input, select').removeClass('is-invalid');
@@ -465,13 +600,12 @@
             $("#date_hired").val("");
             $("#photo").attr("src", "/images/default.png");
             show_deduction();
-            $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
               toast1.toast('show');
             }, 1500)
-
-            $('.toast1 .toast-title').html('Profile');
+            $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+            $('.toast1 .toast-title').html('Success');
             $('.toast1 .toast-body').html(data.message);
 
           }
@@ -529,9 +663,7 @@
 
 
     function show_deduction() {
-
       $('#select2Multiple').empty();
-
       axios
         .get(apiUrl + '/api/show_deduction_type', {
           headers: {
@@ -560,7 +692,6 @@
         });
     }
     show_deduction();
-
     $('#select2Multiple').select2({
       placeholder: $(this).data('placeholder'),
       closeOnSelect: true,

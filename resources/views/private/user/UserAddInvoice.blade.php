@@ -201,11 +201,7 @@
   </div>
 </div>
 
-<!-- LOADER -->
-<div class="spanner">
-  <div class="loader">
-  </div>
-</div>
+
 
 <script type="text/javascript">
   let total_deduction_amount = 0
@@ -222,7 +218,9 @@
     $(window).on('load', function() {
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         due_date();
         display_item_rows();
         selectUserProfile();
@@ -720,11 +718,6 @@
     $('#invoice_items').submit(function(e) {
       e.preventDefault();
 
-      $('div.spanner').addClass('show');
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'smooth');
-
       // CONDITION IF THERE IS BLANK ROW
       $('#show_items .row1').each(function() {
         let parent = $(this).closest('.row1');
@@ -833,6 +826,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Create Invoices');
             $('.toast1 .toast-body').html(response.data.message);
 
@@ -866,7 +861,9 @@
               "\n\r"));
           })
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
           }, 1500);
         }
@@ -876,11 +873,13 @@
     $('#close_back').on('click', function(e) {
       e.preventDefault();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $('div.spanner').addClass('show');
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         $('#invoice_items').trigger('reset'); // reset the form
         $("#discount_amount").addClass('d-none');
         $('#show_deduction_items').empty();

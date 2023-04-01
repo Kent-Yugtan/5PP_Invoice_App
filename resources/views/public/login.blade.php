@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col-sm-12 p-4" style="display:flex;justify-content:center">
       <div class="card-border shadow" style="min-height: 450px; width:450px">
-        <div style="text-align: center;height: 100px; padding-top: 20px;font-size:40px">
-          <img class="img-team" src="{{ URL('images/Invoices-logo.png')}}" style="width: 65px" />
+        <div style="text-align: center;height: 100px; padding-top: 20px;font-size:40px;display: flex;justify-content: center;align-items: center;">
+          <img class="" src="{{ URL('images/Invoices-logo.png')}}" style="width: 65px" />
         </div>
         <div class="input-color" style="text-align: center; font-size:30px;">
           {{ __('5PP Invoicing App') }}
@@ -106,7 +106,7 @@
                 })
                 .then(function(response) {
                   let data = response.data;
-                  console.log('data', data);
+                  // console.log('data', data);
                   if (data.success) {
                     setTimeout(function() {
                       $('#button-submit').html(originalText);

@@ -356,9 +356,10 @@ tfoot,
 tr,
 td,
 th {
-    border-color: #fff;
+  border-color: rgba(207, 128, 41, 0.5);
     border-style: solid;
     border-width: 0;
+
 }
 
 label {
@@ -12002,6 +12003,8 @@ body {
 }
 .sb-topnav .navbar-brand {
     /* width: 225px; */
+    display: flex;
+    align-items: center;
     margin: 0;
     padding-right: 43px;
 }
@@ -12412,7 +12415,7 @@ body {
     position: absolute;
     right: 15px;
     top: 7px;
-    z-index: 9999;
+    z-index: 99;
 }
 
 /* Toastr custom style */
@@ -12756,7 +12759,7 @@ button.toast-close-button {
 }
 
 .spanner {
-    position: absolute;
+    /* position: absolute;
     top: 40%;
     left: 0;
     background: #2a2a2a55;
@@ -12767,7 +12770,18 @@ button.toast-close-button {
     color: #fff;
     transform: translateY(-50%);
     visibility: hidden;
-    z-index: 9999;
+    z-index: 9999; */
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: #2a2a2a55;
+display: block;
+text-align: center;
+visibility: hidden;
+color: #fff;
+z-index: 9999;
 }
 
 .overlay {
@@ -12792,7 +12806,7 @@ button.toast-close-button {
 .loader {
     color: #a66620;
     font-size: 20px;
-    top:10%;
+    top: 1%;
     left: 50%;
     margin: 305px auto;
     position: absolute;
@@ -13094,7 +13108,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         padding-top: 0px;
     }
     
-    .navbar-brand, .img-team, .icons{
+    .navbar-brand, .icons{
       display: none;
     }
     .icons{
@@ -13107,7 +13121,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     
 }
 
-body.hide-brand .navbar-brand,.img-team  {
+body.hide-brand .navbar-brand  {
   display: block;
 }
 
@@ -13417,3 +13431,32 @@ button.dt-button:hover{
   border-color:#CF8029 !important; 
 }
 
+label.label input[type="file"] {
+  position: absolute;
+  top: -1000px;
+}
+.label {
+  cursor: pointer;
+  /* border: 1px solid #cccccc; */
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 5px;
+  background: #CF8029;
+  display: inline-block;
+  color: white;
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+.label:hover {
+  background: #CF8029;
+}
+.label:active {
+  background: #CF8029;
+}
+.label:invalid + span {
+  color: #000000;
+}
+.label:valid + span {
+  color: #ffffff;
+}

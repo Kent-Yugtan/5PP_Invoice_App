@@ -1,11 +1,10 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-  <ol class="breadcrumb mb-3"></ol>
 
   <div class="card shadow p-2 mb-1 bg-white rounded">
     <div class="card-header">
-      <h1 class="mt-0"><i class="fas fa-file-invoice"></i> Invoice Reports</h1>
+      <h1 class="mt-0"><i class="fas fa-file-invoice" style="color:#CF8029"></i> Invoice Reports</h1>
     </div>
   </div>
 
@@ -14,44 +13,46 @@
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
         <div class="input-group">
           <div class="form-floating me-3" style="width:20%">
-            <input type="text" onblur="(this.type='text')" class="form-control" id="from" placeholder="Date Filter From">
+            <input type="text" onblur="(this.type='text')" style="height:50px" class="form-control" id="from" placeholder="Date Filter From">
             <label for="from">Date Filter From</label>
           </div>
 
           <div class="form-floating me-3" style="width:20%">
-            <input type="text" onblur="(this.type='text')" class="form-control" id="to" placeholder="Date Filter To">
+            <input type="text" onblur="(this.type='text')" style="height:50px" class="form-control" id="to" placeholder="Date Filter To">
             <label for="to">Date Filter To</label>
           </div>
-          <button type="button" class="btn" style=" color:white; background-color: #CF8029;width:20%" id="button-submit">Filter</button>
+          <button type="button" class="btn" style=" color:white; background-color: #CF8029;width:20%;height:50px" id="button-submit">Filter</button>
         </div>
       </div>
     </div>
 
     <div class="col-md-12 col-md-12 col-lg-12">
       <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
-        <div class="card-body table-responsive">
-          <table id="invoiceReports" style="font-size: 14px;" width="100%" class="display table table-hover">
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
+        <div class="card-body my-3">
+          <div class="table-responsive">
+            <table id="invoiceReports" style="font-size: 14px;" width="100%" class="display table table-hover">
+              <thead>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -75,10 +76,7 @@
     </div>
   </div>
 </div>
-<div class="spanner">
-  <div class="loader">
-  </div>
-</div>
+
 
 <script type="text/javascript">
   const PHP = value => currency(value, {
@@ -321,11 +319,13 @@
       $('div.spanner').addClass('show');
 
       $('html, body').animate({
-        scrollTop: $('#loader_load').offset.top
+        scrollTop: $('#sb-nav-fixed').offset.top
       }, 'smooth');
 
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         show_data_load()
         from();
         to();
@@ -393,7 +393,9 @@
       $('div.spanner').addClass('show');
 
       setTimeout(function() {
-        $('div.spanner').removeClass('show');
+        $("div.spanner").removeClass("show");
+
+
         show_data_click();
       }, 1500);
 

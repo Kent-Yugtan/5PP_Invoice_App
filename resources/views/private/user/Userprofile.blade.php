@@ -645,7 +645,7 @@
         <div class="row">
           <div class="col">
             <span>
-              <img class="img-team" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
+              <img class="" src="{{ URL('images/Delete.png')}}" style="width: 50%; padding:10px" />
             </span>
           </div>
         </div>
@@ -677,10 +677,6 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
 
 <script src="{{ asset('/assets/js/userMyProfile.js') }}"></script>
 
@@ -703,6 +699,8 @@
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         date_hired();
         due_date();
         check_userActivependingInvoices();
@@ -778,11 +776,13 @@
       $('#cancel_edit_profile').removeClass('d-none');
       $('div.spanner').addClass("show");
       $('html, body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
 
       setTimeout(function() {
-        $('div.spanner').removeClass("show");
+        $("div.spanner").removeClass("show");
+
+
         $('#file').prop('disabled', false);
         $('#profile_status').prop('disabled', false);
         $('#first_name').prop('disabled', false);
@@ -940,11 +940,6 @@
     $('#update_invoice_status').submit(function(e) {
       e.preventDefault();
 
-      $('div.spanner').addClass('show');
-      $().animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'smooth');
-
       var start = performance.now(); // Get the current timestamp
       // Do your processing here
 
@@ -969,6 +964,8 @@
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Update Status');
             $('.toast1 .toast-body').html(response.data.message);
             // show_data();
@@ -999,7 +996,9 @@
               "\n\r"));
           })
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
           }, 1500);
         }
@@ -1080,11 +1079,13 @@
 
     $('#search_invoice').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1092,11 +1093,13 @@
 
     $('#search_deduction').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_deduction').empty();
         show_Profilededuction_Table_Active();
       }, 1500);
@@ -1104,11 +1107,13 @@
 
     $('#filter_all_invoices').on('change', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#tbl_pagination_invoice').empty();
         show_data();
       }, 1500);
@@ -1282,11 +1287,13 @@
               $('.toast1 .toast-body').html(data.message);
 
               $('html,body').animate({
-                scrollTop: $('#loader_load').offset().top
+                scrollTop: $('#sb-nav-fixed').offset().top
               }, 'slow');
               $("div.spanner").addClass("show");
               setTimeout(function() {
                 $("div.spanner").removeClass("show");
+
+
                 // location.href = apiUrl + "/admin/current"
                 window.location.reload();
               }, 1500)
@@ -1455,7 +1462,9 @@
           $('div.spanner').addClass("show");
 
           setTimeout(function() {
-            $('div.spanner').removeClass("show");
+            $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Deleted Successfully');
             $('.toast1 .toast-body').html(data.message);
 
@@ -1786,11 +1795,13 @@
     // CHECK IF THE USER HAVE THE PROFILE
     $("#exampleModal").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#invoice_items').trigger('reset'); // reset the form
         show_data();
       }, 1500)
@@ -1801,12 +1812,14 @@
 
     $("#modal-create-deduction").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
 
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         $('#deductionButton').empty();
         $('#deductionButton').html(
           show_profileDeductionType_Button());
@@ -1815,22 +1828,26 @@
 
     $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
       }, 1500)
     });
 
     $("#invoice_status").on('hide.bs.modal', function() {
       // window.location.reload();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         show_data();
       }, 1500)
     });
@@ -1914,10 +1931,7 @@
     });
     $('#invoice_items').submit(function(e) {
       e.preventDefault();
-      $('div.spanner').addClass('show');
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'smooth');
+
       var start = performance.now(); // Get the current timestamp
 
       // Do your processing here
@@ -2027,6 +2041,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Create Invoices');
             $('.toast1 .toast-body').html(response.data.message);
             $('#invoice_items').trigger('reset'); // reset the form
@@ -2060,7 +2076,9 @@
               0].join(
               "\n\r"));
             setTimeout(function() {
-              $('div.spanner').removeClass('show');
+              $("div.spanner").removeClass("show");
+
+
               toast1.toast('show');
             }, 1500);
           })
@@ -2092,11 +2110,13 @@
           $('#modal-create-deduction').modal('hide');
 
           $('html.body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'slow');
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
           }, 1500)
           $('.toast1 .toast-title').html('Profile Deduction');
@@ -2331,11 +2351,13 @@
         if (data.success) {
           $('#deleteModal').modal('hide');
           $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'smooth');
           $('div.spanner').addClass('show');
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Invoice Configuration');
             $('.toast1 .toast-body').html(response.data.message);
             toast1.toast('show');
@@ -2423,6 +2445,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('.toast1 .toast-title').html('Deduction Types');
             $('.toast1 .toast-body').html(response.data.message);
             show_profileDeductionType_Button();

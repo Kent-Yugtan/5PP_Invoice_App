@@ -85,8 +85,8 @@
             </table>
           </div>
           <div class="row pt-3">
-            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
-              <div class="page_showing" id="tbl_user_showing"></div>
+            <div class="col" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+              <div style="margin-top: 10px;" class="page_showing" id="tbl_user_showing"></div>
               <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
               </ul>
             </div>
@@ -97,9 +97,7 @@
   </div>
 </div>
 
-<div class="spanner">
-  <div class="loader"></div>
-</div>
+
 <script type="text/javascript">
   $(document).ready(function() {
 
@@ -118,7 +116,6 @@
     });
 
     $(window).on('load', function() {
-
       $("div.spanner").addClass("show");
       setTimeout(function() {
         $("div.spanner").removeClass("show");
@@ -162,7 +159,7 @@
     $('#button-submit').on('click', function(e) {
       e.preventDefault();
       $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
+        scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
       $("div.spanner").addClass("show");
       setTimeout(function() {
@@ -209,13 +206,13 @@
                 let tr = '<tr style="vertical-align:middle;">';
                 if (item.file_path) {
                   tr +=
-                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                    '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill " src ="' +
                     item
                     .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 } else {
 
                   tr +=
-                    '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                    '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                     item.full_name + '</div></td>';
                 }
                 tr += '<td>' + item.profile_status + '</td>';
@@ -256,12 +253,12 @@
                   let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
                     tr +=
-                      '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill " src ="' +
+                      '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill " src ="' +
                       item
                       .file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   } else {
                     tr +=
-                      '<td><div style="height:33px"> <img style="height:40px;width:40px;" class="rounded-pill" src ="/images/default.png">&nbsp;' +
+                      '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill" src ="/images/default.png">&nbsp;' +
                       item.full_name + '</div></td>';
                   }
                   tr += '<td>' + item.profile_status + '</td>';

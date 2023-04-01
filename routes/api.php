@@ -173,6 +173,8 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
 
   Route::get('user_data', [ProfileController::class, 'user_data']);
+
+  Route::post('imagePreview', [ProfileController::class, 'imagePreview']);
 });
 
 // // TESTING EMAIL 

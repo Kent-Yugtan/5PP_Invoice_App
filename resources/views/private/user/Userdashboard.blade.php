@@ -207,10 +207,6 @@
     </div>
   </div>
 </div>
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
 
 <script>
   const PHP = value => currency(value, {
@@ -236,6 +232,8 @@
     $(window).on("load", function() {
       setTimeout(function() {
         $("div.spanner").removeClass("show");
+
+
         selectUserProfile();
         check_userActivependingInvoices();
         pendingInvoices();
@@ -643,12 +641,14 @@
 
     // $("#tbl_pagination_pendingInvoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
 
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
     //       scrollTop: $('#pendingInvoices_card').offset().top
     //     }, 'slow');
@@ -657,12 +657,14 @@
 
     // $("#tbl_pagination_overdueInvoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
 
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
     //       scrollTop: $('#overdueInvoices_card').offset().top
     //     }, 'slow');
@@ -681,11 +683,6 @@
 
     $('#quick_invoice').submit(function(e) {
       e.preventDefault();
-
-      $('div.spanner').addClass('show');
-      $('html,body').animate({
-        scrollTop: $('#loader_load').offset().top
-      }, 'smooth');
 
       let profile_id = $('#selectProfile').val();
       let description = $('#description').val();
@@ -735,12 +732,14 @@
         if (data.success) {
           console.log("SUCCES", data.success);
           $('html,body').animate({
-            scrollTop: $('#loader_load').offset().top
+            scrollTop: $('#sb-nav-fixed').offset().top
           }, 'slow');
           $("div.spanner").addClass("show");
 
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('#selectProfile').val('');
             $('#quick_invoice').trigger('reset');
             $('.toast1 .toast-title').html('Create Invoices');
@@ -779,7 +778,9 @@
               "\n\r"));
           })
           setTimeout(function() {
-            $('div.spanner').removeClass('show');
+            $("div.spanner").removeClass("show");
+
+
             toast1.toast('show');
           }, 1500);
         }

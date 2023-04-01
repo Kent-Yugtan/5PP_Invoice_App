@@ -207,10 +207,7 @@
   </div>
 </div>
 
-<!-- LOADER SPINNER -->
-<div class="spanner">
-  <div class="loader"></div>
-</div>
+
 
 <script type="text/javascript">
   const PHP = value => currency(value, {
@@ -224,7 +221,6 @@
     // Highlight the corresponding menu item
     var segments = path.split('/');
     $('#' + segments[1] + segments[2]).addClass('active');
-    console.log("SEGMENT", segments[1] + segments[2]);
 
     let Deductions = [];
     let dollar_rate = 0;
@@ -238,7 +234,9 @@
     $("div.spanner").addClass("show");
     $(window).on('load', function() {
       setTimeout(function() {
-        $("div.spanner").removeClass("show");
+        // $("div.spanner").removeClass("show");
+        // 
+        // 
         profile_id();
         check_ActivependingInvoices();
         pendingInvoices();
@@ -354,12 +352,14 @@
 
     // $("#tbl_pagination_pendingInvoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
 
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
     //       scrollTop: $('#pendingInvoices_card').offset().top
     //     }, 'slow');
@@ -368,12 +368,14 @@
 
     // $("#tbl_pagination_overdueInvoice").on('click', '.page-item', function() {
     //   $('html,body').animate({
-    //     scrollTop: $('#loader_load').offset().top
+    //     scrollTop: $('#sb-nav-fixed').offset().top
     //   }, 'slow');
 
     //   $("div.spanner").addClass("show");
     //   setTimeout(function() {
-    //     $("div.spanner").removeClass("show");
+    //           $("div.spanner").removeClass("show");
+    // 
+    // 
     //     $('html,body').animate({
     //       scrollTop: $('#overdueInvoices_card').offset().top
     //     }, 'slow');
@@ -800,6 +802,8 @@
           $("div.spanner").addClass("show");
           setTimeout(function() {
             $("div.spanner").removeClass("show");
+
+
             $('#quick_invoice').trigger('reset');
             $('input').removeClass('is-invalid');
             $('input, select').removeClass('is-invalid');
