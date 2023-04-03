@@ -20,19 +20,24 @@
 
         <div class="card-body">
           <form id="form_login">
-            <div id="error_msg" class="alert alert-danger text-center"></div>
             @csrf
+            <div class="row">
+              <div class="col">
+                <div id="error_msg" class="alert alert-danger text-center"></div>
+              </div>
+            </div>
+
             <div class="row mb-3">
               <div class="col-md-12" style="padding-top:10px">
                 <label class="form-label" for="email">Email Address</label>
-                <input id="email" placeholder="Enter Email Address" type="text" class="form-control" name="email" required>
+                <input id="email" placeholder="Enter Email Address" type="text" class="form-control" name="email">
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-md-12" style="padding-top:10px">
                 <label class="form-label" for="password">Password</label>
-                <input id="password" placeholder="Enter password" type="password" class="form-control" name="password" required>
+                <input id="password" placeholder="Enter password" type="password" class="form-control" name="password">
               </div>
             </div>
 
@@ -76,7 +81,6 @@
       $('#button-submit').html(
         `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
       );
-
       axios.post(apiUrl + '/api/login', data, {
           headers: {
             Authorization: token,
@@ -88,6 +92,7 @@
             setTimeout(function() {
               $('#button-submit').html(originalText);
               $("#error_msg").html(data.message).show();
+              $("#error_msg").addClass('mt-3');
               $('#form_login').trigger('reset');
             }, 2000);
           } else {
@@ -132,6 +137,11 @@
         })
         .catch(function(error) {
           console.log('catch', error);
+          setTimeout(function() {
+            $("#error_msg").html('Unrecognized credentials.').show();
+            $("#error_msg").addClass('mt-3');
+            $('#button-submit').html(originalText);
+          }, 2000);
         });
     })
   });

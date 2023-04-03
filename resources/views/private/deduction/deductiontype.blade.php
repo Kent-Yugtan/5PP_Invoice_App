@@ -28,8 +28,8 @@
         </div>
       </div>
 
-      <div class="row mb-3">
-        <div class="col-6">
+      <div class="row ">
+        <div class="col-sm-6 mb-3">
           <div class="w-100">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -39,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-sm-6 mb-3">
           <button type="submit" class="btn w-100" style="color:white; background-color: #CF8029" id="button_search">
             <i class="fas fa-search"></i> Search
           </button>
@@ -52,9 +52,9 @@
             <div class="card-body table-responsive">
               <table style="color: #A4A6B3;" class="table table-hover table-responsive" id="table_deduction">
                 <thead>
-                  <th style="width:100px">Deduction Name</th>
-                  <th style="width:100px" class="text-end">Amount</th>
-                  <th colspan="2" class="text-center w-5">Action</th>
+                  <th class="fit" style="width:100px">Deduction Name</th>
+                  <th style="width:100px" class="fit text-end">Amount</th>
+                  <th colspan="2" class="fit text-center w-5">Action</th>
                 </thead>
                 <tbody></tbody>
               </table>

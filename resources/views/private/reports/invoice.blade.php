@@ -8,26 +8,30 @@
     </div>
   </div>
 
-  <div class="row pb-4">
-    <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
-      <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
-        <div class="input-group">
-          <div class="form-floating me-3" style="width:20%">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card shadow p-2 bg-white rounded" style="height:100%">
+
+        <div class="row">
+          <div class="col-sm-4 mb-1">
             <input type="text" onblur="(this.type='text')" style="height:50px" class="form-control" id="from" placeholder="Date Filter From">
-            <label for="from">Date Filter From</label>
           </div>
 
-          <div class="form-floating me-3" style="width:20%">
-            <input type="text" onblur="(this.type='text')" style="height:50px" class="form-control" id="to" placeholder="Date Filter To">
-            <label for="to">Date Filter To</label>
+          <div class="col-sm-4 mb-1">
+            <input type="text" style="height:50px" onblur="(this.type='text')" class="form-control" id="to" placeholder="Date Filter To">
           </div>
-          <button type="button" class="btn" style=" color:white; background-color: #CF8029;width:20%;height:50px" id="button-submit">Filter</button>
+
+          <div class="col-sm-4">
+            <button type="button" class="btn w-100" style=" color:white; background-color: #CF8029;height:50px" id="button-submit">Filter</button>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-12 col-md-12 col-lg-12">
-      <div class="card shadow p-2 mb-1 bg-white rounded" style="height:100%">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-2 mb-1 bg-white rounded">
         <div class="card-body my-3">
           <div class="table-responsive">
             <table id="invoiceReports" style="font-size: 14px;" width="100%" class="display table table-hover">
@@ -262,37 +266,48 @@
           "title": "invoice_id"
         },
         {
-          "title": "Invoice #"
+          "title": "Invoice #",
+          "className": "fit"
         },
         {
-          "title": "Profile Name"
+          "title": "Profile Name",
+          "className": "fit"
         },
         {
-          "title": "Status"
+          "title": "Status",
+          "className": "fit"
         },
         {
-          "title": "Position"
+          "title": "Position",
+          "className": "fit"
         },
         {
-          "title": "Discount Type"
+          "title": "Discount Type",
+          "className": "fit"
         },
         {
-          "title": "Discount Amount"
+          "title": "Discount Amount",
+          "className": "fit"
         },
         {
-          "title": "Deductions Amount"
+          "title": "Deductions Amount",
+          "className": "fit"
         },
         {
-          "title": "Gross Amount"
+          "title": "Gross Amount",
+          "className": "fit"
         },
         {
-          "title": "Net Amount"
+          "title": "Net Amount",
+          "className": "fit"
         },
         {
-          "title": "Date Created"
+          "title": "Date Created",
+          "className": "fit"
         },
         {
-          "title": "Due Date"
+          "title": "Due Date",
+          "className": "fit"
         }
       ],
       order: [

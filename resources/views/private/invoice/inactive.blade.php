@@ -47,7 +47,7 @@
   </div>
 
   <div class="row mb-3">
-    <div class="col-4">
+    <div class="col-sm-4 mb-3">
       <div class="input-group">
         <div class="w-100">
           <div class="input-group">
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-sm-4 mb-3">
       <div class="form-check-inline w-100">
         <select class="form-select form-check-inline" id="filter_invoices">
           <option value="All">All</option>
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-sm-4 mb-3">
       <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>
@@ -101,7 +101,7 @@
                 </table>
               </div>
               <div class="row">
-                <div class="col" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+                <div class="col pt-3" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
                   <div style="margin-top: 10px;" class="page_showing" id="tbl_showing_invoice"></div>
                   <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
                   </ul>
@@ -129,7 +129,7 @@
 
                   <div class="row">
                     <div class="col mb-3">
-                      <span class="fs-3 fw-bold">Update Invoice Status</span>
+                      <span class="fs-3 fw-bold">Update Payment Status</span>
                     </div>
                   </div>
                   <input type="text" id="updateStatus_invoiceNo" hidden>

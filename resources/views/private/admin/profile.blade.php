@@ -378,18 +378,29 @@
           let data = response.data;
           if (data.success) {
             $('#previewModal').modal('hide');
-            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
-            // console.log("data.image", data);
-            file_original_name = data.image;
-            file_name = data.image;
-            file_path = data.path;
-            file_size = data.size;
-
-            document.getElementById("upload_image").value = "";
-            $('#imageRow').addClass('d-none')
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+              $('div.spanner').removeClass('show');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
+              $('.toast1 .toast-body').html(data.message);
+              $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+              // console.log("data.image", data);
+              file_original_name = data.image;
+              file_name = data.image;
+              file_path = data.path;
+              file_size = data.size;
+              document.getElementById("upload_image").value = "";
+              $('#imageRow').addClass('d-none')
+              toast1.toast('show');
+            }, 1500)
           }
         }).catch(function(error) {
           console.log("ERROR", error);
+          $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+          $('.toast1 .toast-title').html('Success');
+          $('.toast1 .toast-body').html("Something went wrong.");
+          toast1.toast('show');
         });
       })
     });

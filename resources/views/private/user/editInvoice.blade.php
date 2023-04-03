@@ -933,6 +933,7 @@
       let row_item = $(this).parent().parent().parent();
 
       $.confirm({
+        columnClass: 'col-md-5',
         icon: 'fa fa-warning',
         draggable: false,
         animation: 'news',
@@ -978,6 +979,7 @@
       console.log("invoiceItems_id", invoiceItems_id);
       if (invoiceItems_id) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animation: 'news',
@@ -1017,6 +1019,7 @@
 
       if (profileDeduction_id) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animation: 'news',

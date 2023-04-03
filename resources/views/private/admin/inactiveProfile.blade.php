@@ -1,7 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-
   <div class="row">
     <div class="col-xl-12 col-md-12" style="padding-top:1.5rem;padding-bottom:1rem">
       <span class="fs-3 fw-bold">View Profile</span>
@@ -199,12 +198,12 @@
                   </div>
                 </div>
                 <div class="row my-3">
-                  <div class="col-6">
+                  <div class="col-sm-6 mb-3">
                     <button type="button" id="edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn">Edit
                       Profile</button>
                     <button type="button" id="cancel_edit_profile" style="width:100%; color:white; background-color: #A4A6B3;" class="btn d-none">Cancel</button>
                   </div>
-                  <div class="col-6">
+                  <div class="col-sm-6 mb-3">
                     <button type="submit" style="width:100%; color:white; background-color: #CF8029;" class="btn ">Update Profile</button>
                   </div>
                 </div>
@@ -218,17 +217,15 @@
 
     <div class="col-md-12 col-lg-12 col-xl-7 mt-3">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
-        <!-- <div class="card-header">Profile Information</div> -->
         <div class="row">
-          <div class="col">
+          <div class="col-sm-12">
             <ul class="nav nav-pills mb-3" style="padding-top:16px;padding-left: 20px;padding-right: 20px;" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation" style="width:50%">
                 <a href="#pills-invoice" data-bs-toggle="pill" data-bs-target="#pills-invoice" class="nav-link active text-center" data-toggle="tab">Invoices</a>
               </li>
 
               <li class="nav-item" role="presentation" style="width:50%">
-                <a style="width:100%" href="#pills-deduction" data-bs-toggle="pill" data-bs-target="#pills-deduction" class="nav-link text-center" data-toggle="tab">Profile
-                  Deductions</a>
+                <a style="width:100%" href="#pills-deduction" data-bs-toggle="pill" data-bs-target="#pills-deduction" class="nav-link text-center" data-toggle="tab">Deductions</a>
               </li>
             </ul>
           </div>
@@ -237,12 +234,12 @@
         <div class="form-group has-search">
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel" aria-labelledby="pills-invoice-tab">
-              <div class="row mx-2 mb-3">
-                <div class="col-4">
+              <div class="row mx-2">
+                <div class="col-sm-4 mb-3">
                   <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" id="button-addon2" name="button-addon2" class="btn form-check-inline pe-3 w-100" disabled><i class="fa fa-plus pe-1"></i>Add
                     Invoice</button>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-4 mb-3">
                   <select class="form-check-inline form-select" id="filter_all_invoices">
                     <!-- <option selected value="" disabled>Filter</option> -->
                     <option value="All">All</option>
@@ -253,7 +250,7 @@
                   </select>
                 </div>
 
-                <div class="col-4">
+                <div class="col-sm-4 mb-3">
                   <div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_invoice" placeholder="Search">
@@ -267,12 +264,12 @@
                     <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="dataTable_invoice">
                       <thead>
                         <tr>
-                          <th>Invoice #</th>
-                          <th class="text-center">Payment Status</th>
-                          <th class="text-end">Total Amount</th>
-                          <th class="text-end">Date Created</th>
-                          <th class="text-end">Due Date</th>
-                          <th class="text-center">Action</th>
+                          <th class="fit">Invoice #</th>
+                          <th class="fit text-center">Payment Status</th>
+                          <th class="fit">Total Amount</th>
+                          <th class="fit">Date Created</th>
+                          <th class="fit">Due Date</th>
+                          <th class="fit text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -297,7 +294,7 @@
             </div>
             <div class="tab-pane fade" id="pills-deduction" role="tabpanel" aria-labelledby="pills-deduction-tab">
               <div class="row mx-2">
-                <div class="col-6">
+                <div class="col-sm-6 mb-3">
                   <!-- <div class="input-group"> -->
                   <button type="button " id="submit-create-deduction" class="btn form-check-inline pe-3" data-bs-toggle="modal" data-bs-target="#modal-create-deduction" style="color:white; background-color: #CF8029;width:100%" disabled>
                     <i class="fa fa-plus pe-1"></i>
@@ -305,7 +302,7 @@
                   </button>
 
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6 mb-3">
                   <div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_deduction" placeholder="Search">
@@ -327,11 +324,11 @@
                     <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="dataTable_deduction">
                       <thead>
                         <tr>
-                          <th>Invoice #</th>
-                          <th class="text-center">Payment Status</th>
-                          <th>Deduction Name</th>
-                          <th class="text-end">Amount</th>
-                          <th class="text-end">Date Created</th>
+                          <th class="fit">Invoice #</th>
+                          <th class="fit text-center">Payment Status</th>
+                          <th class="fit">Deduction Name</th>
+                          <th class="fit text-end">Amount</th>
+                          <th class="fit text-end">Date Created</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -690,7 +687,7 @@
                 <div class="col-md-12 px-2 w-100">
                   <div class="row">
                     <div class="col mb-3">
-                      <span class="fs-3 fw-bold">Update Invoice Status</span>
+                      <span class="fs-3 fw-bold">Update Payment Status</span>
                     </div>
                   </div>
                   <input type="text" id="updateStatus_invoiceNo" hidden>
@@ -897,18 +894,29 @@
           let data = response.data;
           if (data.success) {
             $('#previewModal').modal('hide');
-            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
-            // console.log("data.image", data);
-            file_original_name = data.image;
-            file_name = data.image;
-            file_path = data.path;
-            file_size = data.size;
-
-            document.getElementById("upload_image").value = "";
-            $('#imageRow').addClass('d-none')
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+              $('div.spanner').removeClass('show');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
+              $('.toast1 .toast-body').html(data.message);
+              $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+              // console.log("data.image", data);
+              file_original_name = data.image;
+              file_name = data.image;
+              file_path = data.path;
+              file_size = data.size;
+              document.getElementById("upload_image").value = "";
+              $('#imageRow').addClass('d-none')
+              toast1.toast('show');
+            }, 1500)
           }
         }).catch(function(error) {
           console.log("ERROR", error);
+          $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+          $('.toast1 .toast-title').html('Success');
+          $('.toast1 .toast-body').html("Something went wrong.");
+          toast1.toast('show');
         });
       })
     });
@@ -920,13 +928,9 @@
     $('#cancel_edit_profile').addClass('d-none');
     show_data();
     $(window).on('load', function() {
-
       $("div.spanner").addClass("show");
-
       setTimeout(function() {
         $("div.spanner").removeClass("show");
-
-
         date_hired();
         due_date();
         check_InactivependingInvoicesStatus();
@@ -992,10 +996,14 @@
 
     $('#cancel_edit_profile').on('click', function(e) {
       e.preventDefault();
+      $('html, body').animate({
+        scrollTop: $('#sb-nav-fixed').offset().top
+      }, 'slow');
+      setTimeout(function() {
+        location.reload(true); // refresh the page
+      }, 1500);
       $('#cancel_edit_profile').addClass('d-none');
       $('#edit_profile').removeClass('d-none');
-      location.reload(true); // refresh the page
-      $(window).scrollTop(0); // scroll to the top
     })
 
 

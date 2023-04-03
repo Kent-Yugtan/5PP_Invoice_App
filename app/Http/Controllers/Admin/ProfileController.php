@@ -80,7 +80,8 @@ class ProfileController extends Controller
       'success' => true,
       'image' => $filename,
       'path' => '/storage/images/' . $filename,
-      'size' => $imageSize
+      'size' => $imageSize,
+      'message' => 'Your profile image has been successfully set to this account.',
     ]);
   }
   public function store(Request $request)
