@@ -311,9 +311,9 @@
             if (res.data.data.length > 0) {
               res.data.data.map((item) => {
                 let tr = '<tr style="vertical-align: middle;">';
-                tr += '<td >' + item.deduction_name +
+                tr += '<td class="fit">' + item.deduction_name +
                   '</td>';
-                tr += '<td class="text-end">' + PHP(
+                tr += '<td class="fit text-end">' + PHP(
                   item
                   .deduction_amount).format()
                 '</td>';

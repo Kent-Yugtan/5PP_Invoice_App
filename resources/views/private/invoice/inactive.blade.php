@@ -295,10 +295,10 @@
 
               let tr = '<tr style="vertical-align: middle;">';
               tr += '<td hidden>' + item.id + '</td>'
-              tr += '<td >' +
+              tr += '<td class="fit">' +
                 item.invoice_no +
                 '</td>';
-              tr += '<td>' +
+              tr += '<td class="fit">' +
                 item.profile.user.first_name + " " + item.profile.user.last_name +
                 '</td>';
               // console.log("due_date " + due_date + " date_now " + date_now);
@@ -369,9 +369,9 @@
                   item.invoice_status + '</button></td>';
               }
 
-              tr += '<td class="text-center">' + item.status +
+              tr += '<td class="fit text-center">' + item.status +
                 '</td>'
-              tr += '<td class="text-end">' + Number(
+              tr += '<td class="fit text-end">' + Number(
                   parseFloat(item
                     .grand_total_amount).toFixed(2))
                 .toLocaleString(
@@ -379,10 +379,10 @@
                     minimumFractionDigits: 2
                   }) +
                 '</td>';
-              tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+              tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                 'Asia/Manila').format(
                 'MM/DD/YYYY') + '</td>';
-              tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
+              tr += '<td class="fit text-end">' + moment.utc(item.due_date).tz(
                 'Asia/Manila').format(
                 'MM/DD/YYYY') + '</td>';
 
@@ -486,10 +486,10 @@
 
               let tr = '<tr style="vertical-align: middle;">';
               tr += '<td hidden>' + item.id + '</td>'
-              tr += '<td >' +
+              tr += '<td class="fit">' +
                 item.invoice_no +
                 '</td>';
-              tr += '<td>' +
+              tr += '<td class="fit">' +
                 item.profile.user.first_name + " " + item.profile.user.last_name +
                 '</td>';
               // console.log("due_date " + due_date + " date_now " + date_now);
@@ -558,9 +558,9 @@
                   item.invoice_status + '</button></td>';
               }
 
-              tr += '<td class="text-center">' + item.status +
+              tr += '<td class="fit text-center">' + item.status +
                 '</td>'
-              tr += '<td class="text-end">' + Number(
+              tr += '<td class="fit text-end">' + Number(
                   parseFloat(item
                     .grand_total_amount).toFixed(2))
                 .toLocaleString(
@@ -568,10 +568,10 @@
                     minimumFractionDigits: 2
                   }) +
                 '</td>';
-              tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+              tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                 'Asia/Manila').format(
                 'MM/DD/YYYY') + '</td>';
-              tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
+              tr += '<td class="fit text-end">' + moment.utc(item.due_date).tz(
                 'Asia/Manila').format(
                 'MM/DD/YYYY') + '</td>';
 
