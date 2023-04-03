@@ -197,13 +197,13 @@
               res.data.data.map((item) => {
                 let tr = '<tr style="vertical-align:middle;">';
                 if (item.file_path) {
-                  tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
+                  tr += '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 } else {
-                  tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
+                  tr += '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;' + item.full_name + '</div></td>';
                 }
-                tr += '<td>' + item.profile_status + '</td>';
-                tr += '<td>' + item.phone_number + '</td>';
-                tr += '<td>' + item.position + '</td>';
+                tr += '<td class="fit">' + item.profile_status + '</td>';
+                tr += '<td class="fit">' + item.phone_number + '</td>';
+                tr += '<td class="fit">' + item.position + '</td>';
 
                 if (item.profile.invoice.length > 0) {
                   let latest_invoice = item.profile.invoice[item.profile.invoice
@@ -223,7 +223,7 @@
                   var diff = date_2 - date_1;
                   diff = diff / (1000 * 3600 * 24);
                   // console.log("DIFF", Math.round(diff));
-                  tr += '<td>' + Math.round(diff ? diff : 0) +
+                  tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
                     ' Days ago</td>';
                   tr +=
                     '<td  class="text-center"> <a href="' + apiUrl +
@@ -238,15 +238,15 @@
                 } else {
                   let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
-                    tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
+                    tr += '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   } else {
-                    tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
+                    tr += '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;' + item.full_name + '</div></td>';
                   }
-                  tr += '<td>' + item.profile_status + '</td>';
-                  tr += '<td>' + item
+                  tr += '<td class="fit">' + item.profile_status + '</td>';
+                  tr += '<td class="fit">' + item
                     .phone_number + '</td>';
-                  tr += '<td>' + item.position + '</td>';
-                  tr += '<td> No Latest Invoice</td>';
+                  tr += '<td class="fit">' + item.position + '</td>';
+                  tr += '<td class="fit"> No Latest Invoice</td>';
 
                   tr +=
                     '<td  class="text-center"> <a href="' + apiUrl +

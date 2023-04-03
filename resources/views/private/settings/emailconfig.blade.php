@@ -353,14 +353,14 @@
                 data.data.data.map((item) => {
                   let tr = '<tr style="vertical-align: middle;">';
                   tr += '<td hidden>' + item.id + '</td>';
-                  tr += '<td>' + item.fullname + '</td>';
-                  tr += '<td>' + item
+                  tr += '<td class="fit">' + item.fullname + '</td>';
+                  tr += '<td class="fit">' + item
                     .email_address +
                     '</td>';
-                  tr += '<td>' + item
+                  tr += '<td class="fit">' + item
                     .title +
                     '</td>';
-                  tr += '<td>' + item
+                  tr += '<td class="fit">' + item
                     .status +
                     '</td>';
                   tr +=

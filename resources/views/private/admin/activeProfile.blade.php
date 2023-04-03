@@ -1367,7 +1367,7 @@
 
                 let tr = '<tr style="vertical-align: middle;">';
                 tr += '<td hidden>' + item.id + '</td>'
-                tr += '<td>' +
+                tr += '<td class="fit">' +
                   item.invoice_no +
                   '</td>';
                 // console.log("due_date " + due_date + " date_now " + date_now);
@@ -1392,7 +1392,7 @@
                     item.invoice_status + '</button></td>';
                 }
 
-                tr += '<td class=" text-end">' + Number(
+                tr += '<td class="fit text-end">' + Number(
                     parseFloat(item
                       .grand_total_amount).toFixed(2))
                   .toLocaleString(
@@ -1400,12 +1400,12 @@
                       minimumFractionDigits: 2
                     }) +
                   '</td>';
-                tr += '<td class="text-end">' + moment.utc(item.created_at).tz('Asia/Manila')
+                tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz('Asia/Manila')
                   .format('MM/DD/YYYY') +
                   '</td>';
-                tr += '<td class="text-end">' + moment(item.due_date).format('L') + '</td>';
+                tr += '<td class="fit text-end">' + moment(item.due_date).format('L') + '</td>';
                 tr +=
-                  '<td class="text-center"> <a href="' +
+                  '<td class="fit text-center"> <a href="' +
                   apiUrl +
                   '/admin/editInvoice/' +
                   item.id +
@@ -2645,7 +2645,7 @@
 
                   let tr = '<tr style="vertical-align: middle;">';
 
-                  tr += '<td>' + item.invoice.invoice_no + '</td>';
+                  tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
                   if (item.invoice.invoice_status == "Cancelled") {
                     tr +=
                       '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
@@ -2664,12 +2664,12 @@
                       '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
                   }
 
-                  tr += '<td>' + item.deduction_type_name +
+                  tr += '<td class="fit">' + item.deduction_type_name +
                     '</td>';
-                  tr += '<td class="text-end">' + PHP(item
+                  tr += '<td class="fit text-end">' + PHP(item
                       .amount)
                     .format() + '</td>';
-                  tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+                  tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                     'Asia/Manila').format(
                     'MM/DD/YYYY') + '</td>';
 

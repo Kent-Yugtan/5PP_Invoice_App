@@ -487,9 +487,9 @@
             data.data.data.map((item) => {
               let tr = '<tr style="vertical-align:middle;">';
 
-              tr += '<td>' + item.invoice_title + '</td>';
-              tr += '<td>' + item.invoice_email + '</td>';
-              tr += '<td>' + item.bill_to_address + '</td>';
+              tr += '<td class="fit">' + item.invoice_title + '</td>';
+              tr += '<td class="fit">' + item.invoice_email + '</td>';
+              tr += '<td class="fit">' + item.bill_to_address + '</td>';
               tr +=
                 '<td class="text-center" style="width:20px"><button value=' + item.id +
                 ' class="editButton btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" > <i class="fa-solid fa-pen-to-square"></i></button></td>';
