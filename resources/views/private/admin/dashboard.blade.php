@@ -456,14 +456,14 @@
               let tr = '<tr style="vertical-align: middle;">';
               tr += '<td hidden>' + item.id + '</td>'
               tr +=
-                '<td>' +
+                '<td class="fit">' +
                 item.invoice_no +
                 '</td>';
               tr +=
-                '<td>' +
+                '<td class="fit">' +
                 item.profile.user.first_name + " " + item.profile.user.last_name +
                 '</td>';
-              tr += '<td>' + moment(item.due_date).format('L') + '</td>';
+              tr += '<td class="fit">' + moment(item.due_date).format('L') + '</td>';
               tr +=
                 '<td style="text-align:center"><a href = "' +
                 apiUrl +
@@ -553,14 +553,14 @@
               let tr = '<tr style="vertical-align: middle;">';
               tr += '<td hidden>' + item.id + '</td>'
               tr +=
-                '<td>' +
+                '<td class="fit">' +
                 item.invoice_no +
                 '</td>';
               tr +=
-                '<td>' +
+                '<td class="fit">' +
                 item.profile.user.first_name + " " + item.profile.user.last_name +
                 '</td>';
-              tr += '<td>' + moment(item.due_date).format('L') + '</td>';
+              tr += '<td class="fit">' + moment(item.due_date).format('L') + '</td>';
               tr +=
                 '<td style="text-align:center"><a href = "' +
                 apiUrl +
