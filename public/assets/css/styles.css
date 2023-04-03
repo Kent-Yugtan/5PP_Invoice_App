@@ -12006,7 +12006,7 @@ body {
     display: flex;
     align-items: center;
     margin: 0;
-    padding-right: 43px;
+    /* padding-right: 43px; */
 }
 .sb-topnav.navbar-dark #sidebarToggle {
     color: rgba(255, 255, 255, 0.5);
@@ -13459,4 +13459,24 @@ label.label input[type="file"] {
 }
 .label:valid + span {
   color: #ffffff;
+}
+
+.dataTables_length{
+  margin-bottom: 1rem !important;
+  display: flex;
+  align-items: center;
+
+}
+
+.dt-buttons,.dataTables_filter {
+  margin-bottom: 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dataTables_info,.dataTables_paginate{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
 }

@@ -10,7 +10,7 @@
   <div class="row pb-3">
     <form id="invoice_items">
       @csrf
-      <div class="col-lg-9">
+      <div class="col-lg-12">
         <div class="card-border shadow mb-1 p-2 bg-white h-100">
           <div class="card-body">
             <!-- <div class="row px-2 pb-3" id="header"> -->
@@ -57,10 +57,10 @@
                 <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
               </div>
 
-              <div class="col-8 mb-3"></div>
-              <div class="col-4 mb-3">
+              <!-- <div class="col-6 mb-3"></div> -->
+              <div class="col-12 mb-3">
                 <div class="row">
-                  <div class="col-4 md-2 w-100">
+                  <div class="col md-2 w-100">
                     <div class="form-group">
                       <button class="btn " style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
                         Item</button>
@@ -71,7 +71,7 @@
 
               <div class="col-12 mb-3">
                 <div class="row">
-                  <div class="col" style="display: flex;align-items: start;">
+                  <div class="col-lg-4 mb-3" style="display: flex;align-items: start;">
                     <div class="form-group">
                       <label class="formGroupExampleInput2" style="color: #A4A6B3;">Discount
                         Type</label>
@@ -88,14 +88,14 @@
                     </div>
                   </div>
 
-                  <div class="col">
+                  <div class="col-lg-4 mb-3">
                     <div class="form-group">
                       <label for="discount_amount" class="label_discount_amount" style="color: #A4A6B3;">Discount
                         Amount ($)</label>
                       <input type="text" step="any" style="text-align:right;" name="discount_amount" id="discount_amount" class="form-control" />
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-lg-4 mb-3">
                     <div class="form-group">
                       <label style="color: #A4A6B3;" for="discount_total" class="label_discount_total">Discount
                         Total ($)</label>
@@ -107,11 +107,10 @@
 
               <div class="col-12 mb-3">
                 <div class="row">
-                  <div class="col-12" style="justify-content:end;display:flex">
+                  <div class="col-lg-12" style="justify-content:end;display:flex">
                     <div class="form-group">
-                      <!-- border-style:none -->
-                      <label style="color: #A4A6B3;">Subtotal ($): </label>
-                      <input type="text" style="font-weight: bold;text-align:right;border:none;background-color:white" name="sub_total" id="sub_total" class="form-control no-outline sub_total" readonly>
+                      <label for="sub_total" style="color:#A4A6B3">Subtotal ($): </label>
+                      <input type="text" style="font-weight: bold;text-align:right;border:none;background-color:white" name="sub_total" id="sub_total" class="form-control no-outline sub_total" readonly tabindex="-1">
                     </div>
                   </div>
                 </div>
@@ -119,7 +118,7 @@
 
               <div class="col-12 mb-3">
                 <div class="row">
-                  <div class="col">
+                  <div class="col-12 col-sm-4">
                     <div class="form-group">
                       <label class="formGroupExampleInput2" style="color: #A4A6B3;">Dollar Amount
                         ($)</label>
@@ -128,14 +127,14 @@
                     </div>
                   </div>
 
-                  <div class="col">
+                  <div class="col-12 col-sm-4">
                     <div class="form-group">
                       <label class="formGroupExampleInput2" style="color: #A4A6B3;">Peso Rate
                         (Php)</label>
                       <input type="text" style="font-weight: bold;border:none; text-align:left;background-color:white" onkeypress="return onlyNumberKey(event)" id="peso_rate" class="form-control" disabled />
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-12 col-sm-4">
                     <div class="form-group">
                       <label style="color: #A4A6B3;" class="formGroupExampleInput2" for="form3Example2">Converted
                         Amount (Php)</label>
@@ -158,41 +157,37 @@
 
               <div class="col-12 mb-3">
                 <div class="row">
-                  <div class="col-7" style="text-align:right;">
-
-                  </div>
-                  <div class="col-4" style="justify-content:end;display:flex">
+                  <div class="col-lg-12" style="justify-content:end;display:flex">
                     <!-- border-style:none -->
-                    <label style="vertical-align: -webkit-baseline-middle" class="fw-bold" style="color:#A4A6B3">Grand
-                      Total
-                      (Php):
-                      <label>
-                        <input type="text" id="grand_total" class="form-control no-outline fw-bold" style="text-align:right;border:0;background-color:white;" disabled>
+                    <div class="form-group">
+                      <label for="grand_total" class="fw-bold">Grand Total(Php):</label>
+                      <input type="text" id="grand_total" class="form-control fw-bold" style="text-align:right;border:0;background-color:white;" disabled>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12 mb-3">
-                  <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
-                  <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
-                </div>
-              </div>
 
-              <div class="row pt-3 pb-3">
-                <div class="col-6">
-                  <button type="button" id="close_back" class="btn w-100" style="color:white; background-color:#A4A6B3;">Close</button>
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
+                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <button type="submit" class="btn w-100" style="color:White; background-color:#CF8029;">Save</button>
-                </div>
-              </div>
 
+                <div class="row pt-3 pb-3">
+                  <div class="col-6">
+                    <button type="button" id="close_back" class="btn w-100" style="color:white; background-color:#A4A6B3;">Close</button>
+                  </div>
+                  <div class="col-6">
+                    <button type="submit" class="btn w-100" style="color:White; background-color:#CF8029;">Save</button>
+                  </div>
+                </div>
+
+              </div>
+              <!-- </div> -->
             </div>
-            <!-- </div> -->
           </div>
         </div>
-      </div>
     </form>
   </div>
 </div>
@@ -500,6 +495,7 @@
       let row_item = $(this).parent().parent().parent();
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -540,6 +536,7 @@
       let row_item = $(this).parent().parent().parent();
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -616,9 +613,9 @@
         add_rows += '</div>';
 
         add_rows += '<div class="col-md-1 ">';
-        add_rows += '<div class="form-group">';
+        add_rows += '<div class="form-group" style="display:flex;justify-content:flex-end">';
         add_rows +=
-          '<button class="btn remove_items col-remove-item d-none" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+          '<button class="btn remove_items col-remove-item d-none"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
         add_rows += '</div>';
         add_rows += '</div>';
 
@@ -868,7 +865,7 @@
               data.data.profile_deduction_types.map((item) => {
                 add_rows = '';
                 add_rows += '<div class="row mb-3">';
-                add_rows += '<div class="col-7">';
+                add_rows += '<div class="col-lg-7 mb-3">';
                 add_rows += '<div class="form-group w-100">';
                 add_rows += '<input type="text" class="profile_deduction_type_id" value=' + item.id +
                   ' hidden>';
@@ -886,7 +883,7 @@
                 add_rows += '</div>';
                 add_rows += '</div>';
 
-                add_rows += '<div class="col-4">';
+                add_rows += '<div class="col-lg-4 mb-3">';
                 add_rows += '<div class="form-group ">';
                 add_rows +=
                   '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
@@ -898,7 +895,7 @@
                 add_rows += '</div>';
                 add_rows += '</div>';
 
-                add_rows += '<div class="col-1 col-remove-deductions">';
+                add_rows += '<div class="col-lg-1 col-remove-deductions mb-3" style="display:flex;justify-content:flex-end">';
                 add_rows += '<div class="form-group">';
                 add_rows +=
                   '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';

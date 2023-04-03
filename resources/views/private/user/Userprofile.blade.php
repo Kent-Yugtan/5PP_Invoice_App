@@ -1645,6 +1645,7 @@
       console.log("row_item", row_item);
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animation: 'news',
@@ -1687,6 +1688,7 @@
       let row_item = $(this).parent().parent().parent();
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animation: 'news',

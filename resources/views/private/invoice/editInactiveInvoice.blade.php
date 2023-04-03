@@ -9,7 +9,7 @@
   </div>
 
   <div class="row pb-3">
-    <div class="col-lg-8 col-xxl-6 pb-4">
+    <div class="col-lg-12 col-xl-8 pb-4">
       <div class="card-border shadow mb-1 p-2 bg-white h-100">
         <div class="card-body">
           <div id="content">
@@ -85,26 +85,28 @@
               </div>
 
               <div class="col-md-6 col-sm-12">
-                <div class="rounded-3" style="height: 50px; background-color: #A4A6B3; display: flex; align-items: center;">
-                  <div class="col-6 text-start">
-                    <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
-                  </div>
-                  <div class="col-6 text-end">
-                    <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                <div class="rounded-3" style="background-color: #A4A6B3;">
+                  <div class="row">
+                    <div class="col" style="display:flex; justify-content:space-between;align-items:center">
+                      <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
+                      <!-- </div>
+                  <div class="col-6 text-end"> -->
+                      <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="row pt-3">
-              <div class="col-sm-12">
-                <table class="table" id="table_invoiceItems" style="table-layout: fixed;">
-                  <thead class="thead-dark" style="border-radius: 5px; background-color: black; color: white;">
+              <div class="col-md-12">
+                <table class="table table-responsive-sm" id="table_invoiceItems" style="table-layout: fixed;">
+                  <thead class="thead-dark" style="border-radius: 3px; background-color: black; color: white;">
                     <tr>
-                      <th style="border-right: 2px solid rgb(255,255,255);width: 55%;">Description</th>
-                      <th style="border-right: 2px solid rgb(255,255,255);width: 15%;text-align: end;">Quantity</th>
-                      <th style="border-right: 2px solid rgb(255,255,255);width: 15%;text-align: end;">Rate</th>
-                      <th style="border-right: 2px solid rgb(255,255,255);width: 15%;text-align: end;">Amount</th>
+                      <th class="fit" style="border-right: 2px solid rgb(255,255,255);width: 55px;">Description</th>
+                      <th class="fit" style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">Quantity</th>
+                      <th class="fit" style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">Rate</th>
+                      <th class="fit" style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">Amount</th>
                     </tr>
                   </thead>
                   <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
@@ -181,7 +183,7 @@
       </div>
     </div>
 
-    <div class="col-lg-4 col-xxl-4 pb-4 h-50">
+    <div class="col-lg-12 col-xl-4  pb-4 h-50">
       <div class="card-border shadow mb-1 p-2 bg-white ">
         <div class="card-body">
 
@@ -964,6 +966,7 @@
       $('#updateModal').addClass('d-none');
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -1008,6 +1011,7 @@
       $('#updateModal').addClass('d-none');
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -1047,6 +1051,7 @@
       $('#updateModal').addClass('d-none');
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -1584,7 +1589,7 @@
                   let div_rows0 = '';
                   div_rows0 += '<div class="col-md-5 col-sm-12"> </div>';
                   div_rows0 += '<div class="col">';
-                  div_rows0 += '<h5> DEDUCTIONS </h5>';
+                  div_rows0 += '<label class="fs-5 fw-bold"> DEDUCTIONS </label class="fs-5 fw-bold">';
                   div_rows0 += '</div>';
                   div_rows0 += '<div class = "col mx-2" style = "text-align:end" > </div>';
                   $(".row .title_deductions").append(div_rows0);
@@ -1647,7 +1652,6 @@
             console.log("ERROR", error);
           });
       }
-
     }
 
 
@@ -1991,9 +1995,6 @@
             }, 1500)
           }
         })
-
-
-
       }
     });
 

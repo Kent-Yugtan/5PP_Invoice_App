@@ -1,7 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
 <div class="container-fluid px-4" id="loader_load">
-
   <div class="row">
     <div class="col-xl-12 col-md-12" style="padding-top:1.5rem;padding-bottom:1rem">
       <span class="fs-3 fw-bold">View Profile</span>
@@ -199,13 +198,13 @@
                     <input id="date_hired" name="date_hired" type="text" onblur="(this.type='text')" class="form-control" placeholder="Date Hired" disabled="true">
                   </div>
                 </div>
-                <div class="row mt-3 mb-3">
-                  <div class="col-6">
+                <div class="row mt-3">
+                  <div class="col-sm-6 mb-3">
                     <button type="button" id="edit_profile" style="width:100%;color:white; background-color: #A4A6B3;" class="btn">Edit
                       Profile</button>
                     <button type="button" id="cancel_edit_profile" style="width:100%;color:white; background-color: #A4A6B3;" class="btn d-none">Cancel</button>
                   </div>
-                  <div class="col-6">
+                  <div class="col-sm-6 mb-3">
                     <button type="submit" style="width:100%;color:white; background-color: #CF8029;" class="btn">Update
                       Profile</button>
                   </div>
@@ -219,17 +218,15 @@
 
     <div class="col-md-12 col-lg-12 col-xl-7 mt-3">
       <div class="card-border shadow mb-1 p-2 bg-white">
-        <!-- <div class="card-header">Profile Information</div> -->
         <div class="row">
-          <div class="col">
+          <div class="col-sm-12">
             <ul class="nav nav-pills mb-3" style="padding-top:16px;padding-left: 20px;padding-right: 20px;" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation" style="width:50%">
                 <a href="#pills-invoice" data-bs-toggle="pill" data-bs-target="#pills-invoice" class="nav-link active text-center" data-toggle="tab">Invoices</a>
               </li>
 
               <li class="nav-item" role="presentation" style="width:50%">
-                <a style="width:100%" href="#pills-deduction" data-bs-toggle="pill" data-bs-target="#pills-deduction" class="nav-link text-center" data-toggle="tab">Profile
-                  Deductions</a>
+                <a style="width:100%" href="#pills-deduction" data-bs-toggle="pill" data-bs-target="#pills-deduction" class="nav-link text-center" data-toggle="tab">Deductions</a>
               </li>
             </ul>
           </div>
@@ -238,12 +235,12 @@
         <div class="form-group has-search">
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel" aria-labelledby="pills-invoice-tab">
-              <div class="row mx-2 mb-3">
-                <div class="col-4">
+              <div class="row mx-2">
+                <div class="col-sm-4 mb-3">
                   <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" id="button-addon2" name="button-addon2" class="btn form-check-inline pe-3 w-100 "><i class="fa fa-plus pe-1"></i>Add
                     Invoice</button>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-4 mb-3">
                   <select class="form-check-inline form-select" id="filter_all_invoices">
                     <!-- <option selected value="" disabled>Filter</option> -->
                     <option value="All">All</option>
@@ -254,7 +251,7 @@
                   </select>
                 </div>
 
-                <div class="col-4">
+                <div class="col-sm-4 mb-3">
                   <div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_invoice" placeholder="Search">
@@ -268,12 +265,12 @@
                     <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="dataTable_invoice">
                       <thead>
                         <tr>
-                          <th>Invoice #</th>
-                          <th class="text-center">Payment Status</th>
-                          <th class="text-end">Total Amount</th>
-                          <th class="text-end">Date Created</th>
-                          <th class="text-end">Due Date</th>
-                          <th class="text-center">Action</th>
+                          <th class="fit">Invoice #</th>
+                          <th class="fit text-center">Payment Status</th>
+                          <th class="fit">Total Amount</th>
+                          <th class="fit">Date Created</th>
+                          <th class="fit">Due Date</th>
+                          <th class="fit text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -297,13 +294,13 @@
 
             <div class="tab-pane fade" id="pills-deduction" role="tabpanel" aria-labelledby="pills-deduction-tab">
               <div class="row mx-2">
-                <div class="col-6 ">
+                <div class="col-sm-6 mb-3">
                   <button type="button " id="submit-create-deduction" class="btn form-check-inline pe-3" data-bs-toggle="modal" data-bs-target="#modal-create-deduction" style="color:white; background-color: #CF8029;width:100%">
                     <i class="fa fa-plus pe-1"></i>
                     Add Deduction
                   </button>
                 </div>
-                <div class="col-6">
+                <div class="col-sm-6 mb-3">
                   <div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback" style="color:#CF8029"></span>
                     <input type="text" class="form-control" id="search_deduction" placeholder="Search">
@@ -311,7 +308,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 pt-3 px-4">
+                <div class="col-12 px-4">
                   <label for="date_hired" style="color: #A4A6B3;margin-left:7px">Deduction Types</label>
                   <div id="deductionButton" style="word-wrap: break-word;">
                   </div>
@@ -324,11 +321,11 @@
                     <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="dataTable_deduction">
                       <thead>
                         <tr>
-                          <th>Invoice #</th>
-                          <th class="text-center">Payment Status</th>
-                          <th>Deduction Name</th>
-                          <th class="text-end">Amount</th>
-                          <th class="text-end">Date Created</th>
+                          <th class="fit">Invoice #</th>
+                          <th class="fit text-center">Payment Status</th>
+                          <th class="fit">Deduction Name</th>
+                          <th class="fit text-end">Amount</th>
+                          <th class="fit text-end">Date Created</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -360,7 +357,7 @@
 <!-- START CREATE INVOICE MODAL -->
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="hide-content" style="width: 115%;">
+    <div class="hide-content">
       <!-- <div class=" modal-header">
       <h1 class="modal-title fs-5">Add Invoice</h1>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -377,12 +374,12 @@
                     <input id="profile_id" type="text" hidden>
                     <!-- <label class="formGroupExampleInput2">Invoice #</label> -->
                     <div class="row">
-                      <div class="col-xl-12 col-md-12 mb-3">
+                      <div class="col-sm-12 mb-3">
                         <span class="fs-3 fw-bold">Create Invoice</span>
                       </div>
                     </div>
 
-                    <div class="col-4 mb-3">
+                    <div class="col-md-6 mb-3">
                       <div class="row">
                         <div class="col">
                           <label for="due_date" style="color:#A4A6B3">Due Date</label>
@@ -401,17 +398,15 @@
                       </div>
                     </div>
 
-                    <div class="col-12 mb-3 " id="show_items">
+                    <div class="col-lg-12 mb-3 " id="show_items">
                       <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                     </div>
 
-                    <div class="col-8 mb-3"></div>
-                    <div class="col-4 mb-3">
+                    <div class="col-12 mb-3">
                       <div class="row">
-                        <div class="col-4 md-2 w-100">
+                        <div class="col md-2 w-100">
                           <div class="form-group">
-                            <button class="btn" style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add
-                              Item</button>
+                            <button class="btn" style="width:100%;color:white; background-color: #CF8029;" id="add_item">Add Item</button>
                           </div>
                         </div>
                       </div>
@@ -419,30 +414,28 @@
 
                     <div class="col-12 mb-3">
                       <div class="row">
-                        <div class="col" style="display: flex;align-items: start;">
+                        <div class="col-lg-4 mb-3" style="display: flex;align-items: start;">
                           <div class="form-group">
                             <label class="formGroupExampleInput2" style="color:#A4A6B3">Discount Type</label>
                             <br>
                             <input class="form-check-input" type="radio" name="discount_type" id="discount_type" value="Fixed">
                             <label class="formGroupExampleInput2">
-                              Fxd &nbsp; &nbsp;
+                              Fxd &nbsp;
                             </label>
                             <input class="discount_type form-check-input" type="radio" name="discount_type" id="discount_type" value="Percentage">
                             <label class="formGroupExampleInput2">
                               %
                             </label>
-                            <!-- <input type="text" id="discount_type" class="form-control" /> -->
-
                           </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col-lg-4 mb-3">
                           <label for="discount_amount" class="label_discount_amount" style="color:#A4A6B3">Discount
                             Amount ($)</label>
                           <input type="text" step="any" style="text-align:right;" name="discount_amount" id="discount_amount" class="form-control" />
                         </div>
 
-                        <div class="col">
+                        <div class="col-lg-4 mb-3">
                           <label for="discount_total" class="label_discount_total" style="color:#A4A6B3">Discount
                             Total ($)</label>
                           <input type="text" disabled style="text-align:right; border:0px;background-color:white;" onkeypress="return onlyNumberKey(event)" name="discount_total" id="discount_total" class="form-control" />
@@ -452,9 +445,8 @@
 
                     <div class="col-12 mb-3">
                       <div class="row">
-                        <div class="col-12" style="justify-content:end;display:flex">
+                        <div class="col-lg-12" style="justify-content:end;display:flex">
                           <div class="form-group">
-                            <!-- border-style:none -->
                             <label for="sub_total" style="color:#A4A6B3">Subtotal ($): </label>
                             <input type="text" style="font-weight: bold;text-align:right;border:none;background-color:white" name="sub_total" id="sub_total" class="form-control no-outline sub_total" readonly tabindex="-1">
                           </div>
@@ -464,7 +456,7 @@
 
                     <div class="col-12 mb-3">
                       <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-sm-4">
                           <div class="form-group">
                             <label for="dollar_amount" style="color:#A4A6B3">Dollar Amount
                               ($)</label>
@@ -472,14 +464,14 @@
                           </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col-12 col-sm-4">
                           <div class="form-group">
                             <label for="peso_rate" style="color:#A4A6B3">Peso Rate
                               (Php)</label>
                             <input type="text" style="font-weight: bold;border:none;background-color:white" onkeypress="return onlyNumberKey(event)" id="peso_rate" class="text-start form-control" disabled />
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-sm-4">
                           <div class="form-group">
                             <label for="converted_amount" style="color:#A4A6B3">Converted
                               Amount (Php)</label>
@@ -502,10 +494,7 @@
 
                     <div class="col-12 mb-3">
                       <div class="row">
-                        <div class="col-7" style="text-align:right;">
-
-                        </div>
-                        <div class="col-4" style="justify-content:end;display:flex">
+                        <div class="col-lg-12" style="justify-content:end;display:flex">
                           <!-- border-style:none -->
                           <div class="form-group">
                             <label for="grand_total" class="fw-bold">Grand Total(Php):</label>
@@ -513,23 +502,24 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-12 mb-3">
+                          <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
+                          <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row pt-3">
+                        <div class="col-6">
+                          <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3;" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-6">
+                          <button type="submit" id="save" class="btn w-100" style="color:White; background-color:#CF8029;">Save</button>
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-12 mb-3">
-                        <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
-                        <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
-                      </div>
-                    </div>
-
-                    <div class="row pt-3">
-                      <div class="col-6">
-                        <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3;" data-bs-dismiss="modal">Close</button>
-                      </div>
-                      <div class="col-6">
-                        <button type="submit" id="save" class="btn w-100" style="color:White; background-color:#CF8029;">Save</button>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -560,9 +550,9 @@
 
 <!-- START MODAL ADD -->
 <div class="modal fade" id="modal-create-deduction" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="hide-content">
-      <div class="modal-body ">
+      <div class="modal-body">
         <form id="deductiontype_store" method="POST" action="javascript:void(0)">
           @csrf
           <div class="card-border shadow mb-1 p-2 bg-white h-100">
@@ -885,17 +875,27 @@
           let data = response.data;
           if (data.success) {
             $('#previewModal').modal('hide');
-            $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
-            // console.log("data.image", data);
-            file_original_name = data.image ? data.image : "";
-            file_name = data.image ? data.image : "";;
-            file_path = data.path ? data.path : "";
-
-            document.getElementById("upload_image").value = "";
-            $('#imageRow').addClass('d-none')
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+              $('div.spanner').removeClass('show');
+              $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
+              $('.toast1 .toast-title').html('Success');
+              $('.toast1 .toast-body').html(data.message);
+              $('#photo').attr('src', '{{ asset("storage/images") }}/' + data.image);
+              // console.log("data.image", data);
+              file_original_name = data.image ? data.image : "";
+              file_name = data.image ? data.image : "";;
+              file_path = data.path ? data.path : "";
+              document.getElementById("upload_image").value = "";
+              $('#imageRow').addClass('d-none')
+              toast1.toast('show');
+            }, 1500)
           }
         }).catch(function(error) {
-          console.log("ERROR", error);
+          $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+          $('.toast1 .toast-title').html('Success');
+          $('.toast1 .toast-body').html("Something went wrong.");
+          toast1.toast('show');
         });
       })
     });
@@ -983,23 +983,17 @@
       // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
     }
 
-
-
     $('#cancel_edit_profile').on('click', function(e) {
       e.preventDefault();
       $('html, body').animate({
         scrollTop: $('#sb-nav-fixed').offset().top
       }, 'slow');
-
-      $(window).scrollTop(0); // scroll to the top
       setTimeout(function() {
         location.reload(true); // refresh the page
       }, 1500);
       $('#cancel_edit_profile').addClass('d-none');
       $('#edit_profile').removeClass('d-none');
-
     })
-
 
     $('#edit_profile').on('click', function(e) {
       e.preventDefault();
@@ -1153,7 +1147,7 @@
           if (data.success) {
             // console.log("SUCCESS");
             // console.log("GENERAL", data.data.email);
-            console.log("PROFILE SHOW EDIT", data.data.profile);
+            // console.log("PROFILE SHOW EDIT", data.data.profile);
             if (data.data.profile.profile_status === "Active") {
               $('#profile_status').prop('checked', true);
             } else {
@@ -2010,6 +2004,7 @@
       // console.log("row_item", row_item);
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -2052,6 +2047,7 @@
       let row_item = $(this).parent().parent().parent();
       if (row_item) {
         $.confirm({
+          columnClass: 'col-md-5',
           icon: 'fa fa-warning',
           draggable: false,
           animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
@@ -2095,7 +2091,7 @@
         let wrapper = $('#show_items');
         add_rows = '';
         add_rows += '<div class="row row1">';
-        add_rows += '<div class="col-md-4 mb-3">';
+        add_rows += '<div class="col-lg-4 mb-3">';
         // add_rows += '<div class="form-floating form-group">';
         add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
         add_rows +=
@@ -2103,7 +2099,7 @@
         // add_rows += '</div>';
         add_rows += '</div>';
 
-        add_rows += '<div class="col-md-2 mb-3">';
+        add_rows += '<div class="col-lg-2 mb-3">';
         // add_rows += '<div class="form-floating form-group">';
         add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
         add_rows +=
@@ -2111,7 +2107,7 @@
         // add_rows += '</div>';
         add_rows += ' </div>';
 
-        add_rows += '<div class="col-md-3 mb-3">';
+        add_rows += '<div class="col-lg-3 mb-3">';
         // add_rows += '<div class="form-floating form-group">';
         add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
         add_rows +=
@@ -2119,7 +2115,7 @@
         // add_rows += '</div>';
         add_rows += '</div>';
 
-        add_rows += '<div class="col-md-2 mb-3">';
+        add_rows += '<div class="col-lg-2 mb-3">';
         // add_rows += '<div class="form-floating form-group">';
         // style="text-align:right;border:none;background-color:white"
         add_rows += '<label for="amount" style="color:#A4A6B3">Amount</label>';
@@ -2128,11 +2124,11 @@
         // add_rows += '</div>';
         add_rows += '</div>';
 
-        add_rows += '<div class="col-md-1 mb-3">';
-        add_rows += '<div class="form-group">';
+        add_rows += '<div class="col-lg-1 mb-3">';
+        add_rows += '<div class="form-group" style="display:flex;justify-content:flex-end">';
         add_rows += '<label></label>';
         add_rows +=
-          '<button class="btn remove_items col-remove-item d-none" style="margin-top:0px;display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+          '<button class="btn remove_items col-remove-item d-none"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
         add_rows += '</div>';
         add_rows += '</div>';
 
@@ -2218,6 +2214,9 @@
     $("#button-addon2").click(function(e) {
       due_datee();
 
+      $('html, body').animate({
+        scrollTop: $('#sb-nav-fixed').offset().top
+      }, 'slow');
       let toast1 = $('.toast1');
       let id = $('#user_id').val();
       axios
@@ -2243,16 +2242,11 @@
               data.data.profile_deduction_types.map((item) => {
                 let wrapper = $('#show_deduction_items');
                 add_rows = '';
-                add_rows += '<div class="row mb-3">';
-                add_rows += '<div class="col-7">';
+                add_rows += '<div class="row">';
+                add_rows += '<div class="col-lg-7 mb-3">';
                 add_rows += '<div class="form-group w-100">';
                 add_rows += '<input type="text" class="profile_deduction_type_id" value=' + item.id +
                   ' hidden>';
-                //   add_rows +=
-                //     '<select class="form-control deduction_type_name" id="deduction_type_name" name="deduction_type_name">';
-                //   add_rows += '<option value=' + item.deduction_type_name +
-                //     '>' + item.deduction_type_name + '</option> ';
-                //   add_rows += '</select>';
                 add_rows +=
                   '<label for="deduction_type_name" style="color:#A4A6B3">Deduction Type</label>';
                 add_rows +=
@@ -2261,7 +2255,7 @@
                 add_rows += '</div>';
                 add_rows += '</div>';
 
-                add_rows += '<div class="col-4">';
+                add_rows += '<div class="col-lg-4 mb-3">';
                 add_rows += '<div class="form-group ">';
                 add_rows +=
                   '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
@@ -2273,10 +2267,10 @@
                 add_rows += '</div>';
                 add_rows += '</div>';
 
-                add_rows += '<div class="col-1 col-remove-deductions">';
+                add_rows += '<div class="col-lg-1 col-remove-deductions mb-3" style="display:flex;justify-content:flex-end">';
                 add_rows += '<div class="form-group">';
                 add_rows +=
-                  '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                  '<button type="button" class="btn remove_deductions"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                 add_rows += '</div>';
                 add_rows += '</div>';
 
@@ -2506,7 +2500,6 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
               $("div.spanner").removeClass("show");
-
               $('#notifyIcon').html('<i class="fa-solid fa-check" style="color:green"></i>');
               $('.toast1 .toast-title').html('Success');
               $('.toast1 .toast-body').html(data.message);
@@ -2589,7 +2582,7 @@
 
     $(document).on('change', '#createDeduction_deduction_name', function() {
       let deduction_id = $(this).val();
-      console.log("SELECT", deduction_id);
+      // console.log("SELECT", deduction_id);
       if (deduction_id) {
         axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
           headers: {

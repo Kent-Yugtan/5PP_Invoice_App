@@ -3,16 +3,11 @@
 <div class="container-fluid px-4" id="loader_load">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
-      <!-- <div class="card shadow p-2 mb-1 bg-white rounded">  -->
-      <!-- <div class="card-header"> -->
-      <!-- <i style="color:#CF8029" class="fas fa-users"></i>  -->
       <div class="row">
         <div class="col-xl-12 col-md-12 py-4">
           <span class="fs-3 fw-bold ">Inactive Profile</span>
         </div>
       </div>
-      <!-- </div> -->
-      <!-- </div> -->
     </div>
   </div>
 
@@ -41,8 +36,8 @@
     </div>
   </div>
 
-  <div class="row mb-3">
-    <div class="col-8">
+  <div class="row ">
+    <div class="col-sm-8 mb-3">
       <div class="w-100">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -52,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-sm-4 mb-3">
       <button class="btn w-100" style="color:white; background-color: #CF8029" id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
   </div>
@@ -66,12 +61,12 @@
             <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
               <thead>
                 <tr>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Phone Number</th>
-                  <th>Position</th>
-                  <th>Latest Invoice</th>
-                  <th class="text-center">Action</th>
+                  <th class="fit">User</th>
+                  <th class="fit">Status</th>
+                  <th class="fit">Phone Number</th>
+                  <th class="fit">Position</th>
+                  <th class="fit">Latest Invoice</th>
+                  <th class="fit text-center">Action</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -193,15 +188,9 @@
               res.data.data.map((item) => {
                 let tr = '<tr style="vertical-align:middle;">';
                 if (item.file_path) {
-                  tr +=
-                    '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill " src ="' +
-                    item
-                    .file_path + '">&nbsp;' + item.full_name + '</div></td>';
+                  tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
                 } else {
-
-                  tr +=
-                    '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill" src ="/images/default.png">&nbsp;' +
-                    item.full_name + '</div></td>';
+                  tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
                 }
                 tr += '<td>' + item.profile_status + '</td>';
                 tr += '<td>' + item.phone_number + '</td>';
@@ -240,14 +229,9 @@
                 } else {
                   let tr = '<tr style="vertical-align:middle;">';
                   if (item.file_path) {
-                    tr +=
-                      '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill " src ="' +
-                      item
-                      .file_path + '">&nbsp;' + item.full_name + '</div></td>';
+                    tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
                   } else {
-                    tr +=
-                      '<td><div style="height:40px"> <img style="height:40px;width:40px;margin-bottom::5px" class="rounded-pill" src ="/images/default.png">&nbsp;' +
-                      item.full_name + '</div></td>';
+                    tr += '<td><div class="row ps-3 w-100" style="align-items:center"><div class="col-sm-2" style="display:flex;justify-content:center;align-items:center;"><img style="height:40px;width:40px" class="rounded-pill" src="' + item.file_path + '">&nbsp;</div><div class="col-sm-10">' + item.full_name + '</div></div></td>';
                   }
                   tr += '<td>' + item.profile_status + '</td>';
                   tr += '<td>' + item

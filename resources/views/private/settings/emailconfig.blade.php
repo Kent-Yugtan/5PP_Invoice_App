@@ -8,7 +8,7 @@
   </div>
 
   <div class="row pb-4">
-    <div class="col-sm-12 col-md-12 col-lg-4 mb-1">
+    <div class="col-sm-12 col-md-12 col-lg-4 mb-3">
       <div class="card-border shadow p-2 bg-white h-100">
 
         <div class="header fs-5 mb-3">
@@ -16,56 +16,58 @@
           <label> Email Information</label>
         </div>
         <div class="row">
-          <form id="emailconfigs_store">
-            <div class="card-body">
-              @csrf
-              <div class="row">
-                <div class="col-12 mb-3">
-                  <label for="fullname" style=" color: #A4A6B3;">Fullname</label>
-                  <input id="fullname" name="fullname" type="text" class="form-control" placeholder="Fullname">
+          <div class="col">
+            <form id="emailconfigs_store">
+              <div class="card-body">
+                @csrf
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="fullname" style=" color: #A4A6B3;">Fullname</label>
+                    <input id="fullname" name="fullname" type="text" class="form-control" placeholder="Fullname">
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12 mb-3">
-                  <label for="email_address" style=" color: #A4A6B3;">Email Address</label>
-                  <input id="email_address" name="email_address" type="email" class="form-control" placeholder="Email Address">
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="email_address" style=" color: #A4A6B3;">Email Address</label>
+                    <input id="email_address" name="email_address" type="email" class="form-control" placeholder="Email Address">
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12 mb-3">
-                  <label for="title" style=" color: #A4A6B3;">Position</label>
-                  <input id="title" type="text" name="title" class="form-control" placeholder="Position">
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="title" style=" color: #A4A6B3;">Position</label>
+                    <input id="title" type="text" name="title" class="form-control" placeholder="Position">
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12 mb-3">
-                  <label for="status" style=" color: #A4A6B3;">Status</label>
-                  <select class="form-select" name="status" id="status">
-                    <option selected disabled value="" style=" color: #A4A6B3;">Please Select Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </select>
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="status" style=" color: #A4A6B3;">Status</label>
+                    <select class="form-select" name="status" id="status">
+                      <option selected disabled value="" style=" color: #A4A6B3;">Please Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row mb-3 pt-3">
-                <div class="col-6">
-                  <button type="button" id="close" style="width:100%; color:white; background-color: #A4A6B3;" class="btn">Close</button>
-                </div>
-                <div class="col-6">
-                  <button type="submit" style="width:100%; color:white; background-color: #CF8029;" class="btn">Save</button>
+                <div class="row mb-3 pt-3">
+                  <div class="col-6">
+                    <button type="button" id="close" style="width:100%; color:white; background-color: #A4A6B3;" class="btn">Close</button>
+                  </div>
+                  <div class="col-6">
+                    <button type="submit" style="width:100%; color:white; background-color: #CF8029;" class="btn">Save</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-12 col-lg-8 mb-1">
+    <div class="col-sm-12 col-md-12 col-lg-8 mb-3">
       <div class="card-border shadow p-2 bg-white h-100">
         <div class="header mb-3">
           <span class="fs-5"> View Email Information</span>
@@ -73,7 +75,7 @@
         <div class="card-body ">
 
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6 mb-3">
               <div class="w-100">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -83,7 +85,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6 mb-3">
               <button type="submit" class="btn w-100" style="color:white; background-color: #CF8029" id="button_search">
                 <i class="fas fa-search"></i> Search
               </button>
@@ -95,11 +97,11 @@
               <div class="table-responsive">
                 <table style="color: #A4A6B3;" class="table table-hover table-responsive" id="table_emailconfigs">
                   <thead>
-                    <th>Fullname</th>
-                    <th>Email Address</th>
-                    <th>Position</th>
-                    <th>Status</th>
-                    <th colspan="2" style="text-align:center">Action</th>
+                    <th class="fit">Fullname</th>
+                    <th class="fit">Email Address</th>
+                    <th class="fit">Position</th>
+                    <th class="fit">Status</th>
+                    <th class="fit" colspan="2" style="text-align:center">Action</th>
                   </thead>
                   <tbody>
                   </tbody>
@@ -109,11 +111,10 @@
           </div>
 
           <div class="row pt-3">
-            <div class="col" style="display: flex; align-content: stretch; justify-content: space-between;">
-              <div class="page_showing" id="tbl_showing">
-              </div>
+            <div class="col" style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+              <div style="margin-top: 10px;" class="page_showing" id="tbl_showing"></div>
               <div>
-                <ul style="display:flex;align-items:center" class="pagination pagination-sm" id="tbl_pagination">
+                <ul style="display:flex;align-items:center" class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
                 </ul>
               </div>
             </div>

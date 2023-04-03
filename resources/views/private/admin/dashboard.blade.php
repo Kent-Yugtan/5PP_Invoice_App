@@ -121,14 +121,14 @@
         <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
 
         <!-- </div> -->
-        <div class="card-body">
-          <table style="color: #A4A6B3;font-size: 14px;" class="table table-responsive table table-hover" id="pendingInvoices">
+        <div class="card-body table-responsive">
+          <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="pendingInvoices">
             <thead>
               <tr>
-                <th>Invoice #</th>
-                <th>Profile Name</th>
-                <th>Due Date</th>
-                <th class="text-center w-5">Action</th>
+                <th class="fit">Invoice #</th>
+                <th class="fit">Profile Name</th>
+                <th class="fit">Due Date</th>
+                <th class="fit text-center w-5">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -158,14 +158,14 @@
           <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
           <label> Overdue Invoices</label>
         </div>
-        <div class="card-body">
-          <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover table-responsive" id="overdueInvoices">
+        <div class="card-body table-responsive">
+          <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="overdueInvoices">
             <thead>
               <tr>
-                <th>Invoice #</th>
-                <th>Profile Name</th>
-                <th>Due Date</th>
-                <th class="text-center w-5">Action</th>
+                <th class="fit">Invoice #</th>
+                <th class="fit">Profile Name</th>
+                <th class="fit">Due Date</th>
+                <th class="fit text-center w-5">Action</th>
               </tr>
             </thead>
             <tbody>
