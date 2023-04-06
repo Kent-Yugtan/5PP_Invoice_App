@@ -730,9 +730,12 @@ progress {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
+    /* padding-right: 5px;
+    padding-left: 5px; */
     padding-right: calc(var(--bs-gutter-x) * 0.5);
     padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-top: var(--bs-gutter-y);
+    
 }
 
 .col {
@@ -4958,6 +4961,8 @@ fieldset:disabled .btn {
     /* /* flex: 1 1 auto; */
     padding-left: 1rem;
     padding-right: 1rem;
+    /* padding-top: 1rem;
+    padding-bottom: 1rem; */
 }
 
 .card-title {
@@ -11955,9 +11960,9 @@ body {
         display: none;
     }
 }
-/* .sb-nav-fixed .sb-topnav {
+.sb-nav-fixed .sb-topnav {
     z-index: 1039;
-} */
+}
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
     width: 225px;
     height: 100vh;
@@ -12914,8 +12919,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
 }
 .profile-pic-div_adminProfile {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -12924,8 +12929,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_adminActiveProfile {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -12934,8 +12939,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_userMyProfile {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -12944,8 +12949,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_InactiveProfile {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -12956,18 +12961,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for Large screens */
 @media (min-width: 1281px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 200px;
+        width: 200px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 200px;
+        width: 200px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 200px;
+        width: 200px;
     }
 }
 
@@ -13118,14 +13123,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     body.hide-brand .icons{
       display: block;
     }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
+    }
     
 }
 
 body.hide-brand .navbar-brand  {
   display: block;
 }
-
-
 
 @media (min-width: 500px) and (max-width: 575px) {
     .profile-pic-div_InactiveProfile {
@@ -13154,6 +13161,10 @@ body.hide-brand .navbar-brand  {
         height: 200px;
         width: 200px;
     }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
+    }
 }
 
 @media (max-width: 500px) {
@@ -13177,6 +13188,10 @@ body.hide-brand .navbar-brand  {
     .profile-pic-div_userMyProfile {
         height: 200px;
         width: 200px;
+    }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
     }
 }
 
@@ -13207,6 +13222,10 @@ body.hide-brand .navbar-brand  {
         height: 200px;
         width: 200px;
     }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
+    }
 }
 
 @media (max-width: 425px) {
@@ -13236,12 +13255,20 @@ body.hide-brand .navbar-brand  {
         height: 200px;
         width: 200px;
     }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
+    }
 }
 
 @media (max-width: 375px) {
     .profile-pic-div_adminProfile {
         height: 200px;
         width: 200px;
+    }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
     }
 }
 
@@ -13269,6 +13296,10 @@ body.hide-brand .navbar-brand  {
     .profile-pic-div_userMyProfile {
         height: 200px;
         width: 200px;
+    }
+    .pagination-alignment{
+      display: flex !important;
+      justify-content: center !important;
     }
 }
 .is-invalid {
@@ -13356,11 +13387,11 @@ body.hide-brand .navbar-brand  {
     border-radius: 1rem;
 }
 
-.header {
+/* .header {
     padding-left: 18px !important;
     padding-top: 5px !important;
     margin-bottom: 0;
-}
+} */
 
 .select2-container--default .select2-search--inline .select2-search__field {
     padding-left: 5px !important;
@@ -13475,8 +13506,79 @@ label.label input[type="file"] {
   justify-content: flex-start;
 }
 .dataTables_info,.dataTables_paginate{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
+  display: flex !important;
+  justify-content: center !important;
+  /* padding-top: 20px !important; */
 }
+
+.container-header{
+  /* padding-top: 10px !important; */
+  /* padding-bottom: 10px !important; */
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.topBottom{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.bottom10{
+  padding-bottom: 10px !important;
+}
+.bottom20{
+  padding-bottom: 20px !important;
+}
+.top10{
+  padding-top: 10px !important;
+}
+.top20{
+  padding-top: 20px !important;
+}
+
+.topBottom20{
+    padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.left20{
+  padding-left: 20px !important;
+}
+.right20{
+  padding-left: 20px !important;
+}
+
+.rightLeft20{
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.left10{
+  padding-left: 10px !important;
+}
+.right10{
+  padding-left: 10px !important;
+}
+
+.rightLeft10{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.dt-buttons .dt-button{
+  height: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.dataTables_info, .dataTables_paginate.paging_simple_numbers {
+  width: 100%;
+}
+
+.dataTables_wrapper .dataTables_info{
+  padding-top:10px !important;
+}
+
+
+
+/* ANOTHER STYLE  */
