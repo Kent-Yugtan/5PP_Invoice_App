@@ -10,6 +10,7 @@
 window.addEventListener("DOMContentLoaded", (event) => {
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector("#sidebarToggle");
+    let shouldExecuteCode = false; // variable to keep track of whether the code should be executed or not
     if (sidebarToggle) {
         // Uncomment Below to persist sidebar toggle between refreshes
         // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
@@ -22,7 +23,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 "sb|sidebar-toggle",
                 document.body.classList.contains("sb-sidenav-toggled")
             );
-            // document.body.classList.toggle("hide-brand"); // Add or remove the class to show/hide the brand
+
+            // Toggle the code that removes "d-flex" class and adds "d-none" class on the "invoiceApp" div
+            shouldExecuteCode = !shouldExecuteCode;
+            const invoiceApp = document.getElementById("invoiceApp");
+            if (shouldExecuteCode) {
+                invoiceApp.classList.remove("d-flex");
+                invoiceApp.classList.add("d-none");
+            } else {
+                invoiceApp.classList.remove("d-none");
+                invoiceApp.classList.add("d-flex");
+            }
         });
     }
 });

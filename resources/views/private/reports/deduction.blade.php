@@ -285,7 +285,7 @@
                         "className": "fit"
                     },
                     {
-                        "title": "Deductions Amount",
+                        "title": "Total",
                         "className": "fit"
                     },
                     {

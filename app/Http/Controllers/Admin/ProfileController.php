@@ -618,24 +618,31 @@ class ProfileController extends Controller
         ]
       );
 
-      if ($request->file('profile_picture')) {
-        $userImageFile = $request->file('profile_picture');
-        $userImageFileName = $userImageFile->getClientOriginalName();
-        $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
-        $filename =  $userImageFilePath;
-        $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
+      // if ($request->file('profile_picture')) {
+      //   $userImageFile = $request->file('profile_picture');
+      //   $userImageFileName = $userImageFile->getClientOriginalName();
+      //   $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
+      //   $filename =  $userImageFilePath;
+      //   $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
 
-        $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
-        // $path = $userImageFilePath;
-        $path = '/storage/' . $userImageFilePath;
+      //   $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
+      //   // $path = $userImageFilePath;
+      //   $path = '/storage/' . $userImageFilePath;
 
-        $incoming_data += [
-          'file_original_name' => $userImageFileName,
-          'file_name' => $userImageFilePath,
-          'file_path' => $path,
-          'file_size' => $userImageFileSize,
-        ];
-      }
+      //   $incoming_data += [
+      //     'file_original_name' => $userImageFileName,
+      //     'file_name' => $userImageFilePath,
+      //     'file_path' => $path,
+      //     'file_size' => $userImageFileSize,
+      //   ];
+      // }
+
+      $incoming_data += [
+        'file_original_name' => $request->file_original_name,
+        'file_name' => $request->file_name,
+        'file_path' => $request->file_path,
+        // 'file_size' => $request->userImageFileSize,
+      ];
 
       if (!$userId) {
         $incoming_data += $request->validate([
@@ -731,7 +738,7 @@ class ProfileController extends Controller
   public function user_data()
   {
     $userId = auth()->user()->id;
-    $findProfile = Profile::where('user_id', $userId)->first();
+    $findProfile = Profile::with('user')->where('user_id', $userId)->first();
     if (!$findProfile) {
       return response()->json([
         'success' => false,

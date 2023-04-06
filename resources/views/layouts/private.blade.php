@@ -22,24 +22,24 @@
 
 </head>
 
-<body id="sb-nav-fixed" style="background-color: #f8f9fa;">
+<body class="sb-nav-fixed" id="sb-nav-fixed" style="background-color: #f8f9fa;">
     <!-- LOADER SPINNER -->
     <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
         <div class="loader"></div>
     </div>
-    @if (session('data')->role == 'Admin')
-        @include('layouts.admin.header')
-    @else
-        @include('layouts.employee.header')
-    @endif
-
     <div id="layoutSidenav">
         @if (session('data')->role == 'Admin')
             @include('layouts.admin.sidemenu')
         @else
             @include('layouts.employee.sidemenu')
         @endif
+
         <div id="layoutSidenav_content">
+            @if (session('data')->role == 'Admin')
+                @include('layouts.admin.header')
+            @else
+                @include('layouts.employee.header')
+            @endif
             <main>
                 @yield('content-dashboard')
             </main>

@@ -1,7 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
-
         <div class="row" style="padding-top:10px">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
@@ -341,9 +340,6 @@
         </div>
     </div>
 
-
-
-
     <script src="{{ asset('/assets/js/adminProfile.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -410,7 +406,7 @@
                                 $('div.spanner').removeClass('show');
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-check" style="color:green"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(data.message);
                                 $('#photo').attr('src',

@@ -1,10 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
-        <!-- <div class="row">
-                        <div class="col-xl-12 col-md-12 header">
-                        </div>
-                      </div> -->
 
         <div class="row" style="padding-top:10px">
             <div class="col-xl-3 col-md-3 bottom10" style="padding-right:5px;padding-left:5px;">
@@ -87,7 +83,7 @@
                                 </div>
 
                                 <div class="col-xl-6 bottom20">
-                                    <label for="sub_total" style="color: #A4A6B3; ">Amount</label>
+                                    <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
                                     <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$"
                                         class="form-control" id="sub_total" placeholder="Subtotal ($)">
                                 </div>
@@ -176,7 +172,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div><i style="color:#CF8029" class="fa fa-newspaper-o"> </i></div>
+                <div id='notifyIcon'></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -793,8 +789,8 @@
                     },
                 }).then(function(response) {
                     let data = response.data;
-                    console.log("DATA", response)
                     if (data.success) {
+                        console.log("DATA", response);
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
@@ -804,7 +800,9 @@
                             $('input').removeClass('is-invalid');
                             $('input, select').removeClass('is-invalid');
                             $('.invalid-feedback').remove();
-                            $('.toast1 .toast-title').html('Create Invoice');
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             active_count_paid();
                             active_count_pending();

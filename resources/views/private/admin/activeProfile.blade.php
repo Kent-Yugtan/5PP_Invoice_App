@@ -20,7 +20,7 @@
                                 <input type="text" id="profile_id_show" hidden>
 
                                 <div class="col-md-6 col-lg-6">
-                                    <div class="profile-pic-div_adminProfile-wrapper bottom20">
+                                    <div class="profile-pic-div_adminProfile-wrapper">
                                         <div class="profile-pic-div_adminActiveProfile">
                                             <img src="/images/default.png" id="photo">
                                             <!-- id="file" ORIGINAL ID -->
@@ -225,6 +225,7 @@
                                                 disabled="true">
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-sm-6 bottom20">
                                             <button type="button" id="edit_profile"
@@ -407,7 +408,8 @@
                                 <div class="col-md-6 w-100 bottom10" style="padding-right:5px;padding-left:5px;">
                                     <div class="card-border shadow bg-white h-100" style="padding:20px">
                                         <div class="card-body">
-                                            <div class="row container-header" id="header">
+
+                                            <div class="row" id="header">
                                                 <input id="profile_id" type="text" hidden>
                                                 <!-- <label class="formGroupExampleInput2">Invoice #</label> -->
                                                 <div class="row">
@@ -604,6 +606,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -757,7 +760,7 @@
             </div>
         </div>
     </div>
-    <!-- START MODAL DEDUCTION EDIT -->
+    <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
     <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
@@ -917,12 +920,9 @@
         </div>
     </div>
 
-
-
     <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
         <div class="loader"></div>
     </div>
-    <!-- <script src="{{ asset('/assets/js/activeProfile.js') }}"></script> -->
 
     <script type="text/javascript">
         let total_deduction_amount = 0
@@ -1633,7 +1633,6 @@
                     } else {
                         $('#profile_status').val('Inactive');
                     }
-                    console.log($('#profile_status').val());
                     let profile_status = $("#profile_status").val();
                     let acct_no = $("#acct_no").val();
                     let acct_name = $("#acct_name").val();
@@ -2311,7 +2310,7 @@
 
                     $('#invoice_items').trigger('reset'); // reset the form
                     show_data();
-                }, 1500)
+                }, 2500)
 
                 $('#show_deduction_items').empty();
                 $('textarea').val('');
@@ -2543,29 +2542,31 @@
                     let data = response.data;
                     if (data.success) {
                         console.log("SUCCES", data.success);
+                        $('html,body').animate({
+                            scrollTop: $('#sb-nav-fixed').offset().top
+                        }, 'slow');
                         $('#exampleModal').modal('hide');
-                        $("div.spanner").addClass("show");
-                        setTimeout(function() {
-                            $("div.spanner").removeClass("show");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
 
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            $('#invoice_items').trigger('reset'); // reset the form
-                            $('#show_deduction_items').empty();
-                            $('textarea').val('');
-                            $('#dataTable_deduction tbody').empty();
-                            $('#dataTable_deduction tbody').html(
-                                show_Profilededuction_Table_Active());
-                            $(".label_discount_amount").addClass('d-none');
-                            $(".label_discount_total").addClass('d-none');
-                            toast1.toast('show');
-                            $('input').removeClass('is-invalid');
-                            $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
-                            due_datee();
-                        }, 1500)
+                        $('#invoice_items').trigger('reset'); // reset the form
+                        $('#show_deduction_items').empty();
+                        $('textarea').val('');
+                        $('#dataTable_deduction tbody').empty();
+                        $('#dataTable_deduction tbody').html(
+                            show_Profilededuction_Table_Active());
+                        $(".label_discount_amount").addClass('d-none');
+                        $(".label_discount_total").addClass('d-none');
+                        toast1.toast('show');
+                        $('input').removeClass('is-invalid');
+                        $('input, select').removeClass('is-invalid');
+                        $('.invalid-feedback').remove();
+
+                        $('#notifyIcon').html(
+                            '<i class="fa-solid fa-check" style="color:green"></i>');
+                        $('.toast1 .toast-title').html('Success');
+                        $('.toast1 .toast-body').html(response.data.message);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 3000)
 
                     }
                 }).catch(function(error) {
@@ -3001,8 +3002,9 @@
                     },
                 }).then(function(response) {
                     let data = response.data;
-                    $('#ProfileDeductioneditModal').modal('hide');
+
                     if (data.success) {
+                        $('#ProfileDeductioneditModal').modal('hide');
                         // $('#profileDeductionType_id').val('');
                         // $('#edit_profileDeductionType_amount').val('');
                         $("div.spanner").addClass("show");

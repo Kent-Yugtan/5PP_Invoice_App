@@ -11912,6 +11912,7 @@ body {
     transition: transform 0.15s ease-in-out;
     z-index: 1038;
     transform: translateX(-225px);
+
 }
 #layoutSidenav #layoutSidenav_content {
     position: relative;
@@ -13455,7 +13456,7 @@ button.dt-button{
   background-color:#CF8029 !important;
   color:white !important;
   border-color:inherit; 
-  border-radius: 0.25rem;
+  border-radius: 0.25rem !important;
 }
 
 button.dt-button:hover{
@@ -13579,6 +13580,22 @@ label.label input[type="file"] {
   padding-top:10px !important;
 }
 
+button.dt-button, div.dt-button, a.dt-button, input.dt-button{
+  border: none !important;
+}
+/* Set the background color and width of all scrollbars */
+::-webkit-scrollbar {
+  width: 10px !important;
+  background-color: #f5f5f5 !important;
+}
 
+/* Set the color of the thumb of all scrollbars */
+::-webkit-scrollbar-thumb {
+  background-color: #cf8029 !important;
+  border-radius:1rem !important;
+}
 
-/* ANOTHER STYLE  */
+/* Set the color of the track of all scrollbars */
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5 !important;
+}
