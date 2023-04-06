@@ -3,10 +3,10 @@
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
-            <div class="col-sm-12 col-md-12 col-lg-4 bottom10" style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-4 bottom20" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
-                        <div class="header fs-3">
+                        <div class="header fs-5">
                             <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
                             <label> Email Information</label>
                         </div>
@@ -62,22 +62,22 @@
                                                 class="btn">Save</button>
                                         </div>
                                     </div>
-                                </form>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-8 bottom10" style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-8 bottom20" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
+                    <div class="header bottom20" style="padding-left:5px">
+                        <span class="fs-5"> View Email Information</span>
+                    </div>
                     <div class="card-body">
-                        <div class="header bottom20" style="padding-left:5px">
-                            <span class="fs-3"> View Email Information</span>
-                        </div>
 
                         <div class="row">
-                            <div class="col-sm-6 bottom20" style="padding-right:8px;padding-left:8px;">
+                            <div class="col-sm-6 bottom20" style="padding-right:5px;padding-left:5px;">
                                 <div class="w-100">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 bottom20" style="padding-right:8px;padding-left:8px;">
+                            <div class="col-sm-6 bottom20" style="padding-right:5px;padding-left:5px;">
                                 <button type="submit" class="btn w-100" style="color:white; background-color: #CF8029"
                                     id="button_search">
                                     <i class="fas fa-search"></i> Search
@@ -98,7 +98,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col" style="padding-right:8px;padding-left:8px;">
+                            <div class="col" style="padding-right:5px;padding-left:5px;">
                                 <div class="table-responsive">
                                     <table style="color: #A4A6B3;" class="table table-hover table-responsive"
                                         id="table_emailconfigs">
@@ -124,81 +124,93 @@
                             </ul>
                         </div>
 
+                        <div class="row pt-3">
+                            <div class="col"
+                                style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
+                                <div style="margin-top: 10px;" class="page_showing" id="tbl_showing"></div>
+                                <div>
+                                    <ul style="display:flex;align-items:center;margin-top:15px"
+                                        class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="hide-content">
-                    <div class="modal-body ">
-                        <form id="emailconfigs_update">
-                            @csrf
-                            <div class="card-border shadow p-2 bg-white h-100">
-                                <div class="row px-4 py-4 " id="header">
-                                    <div class="col-md-12 w-100">
-                                        <div class="row ">
-                                            <div class="col">
-                                                <span class="fs-3 fw-bold"> Update Email Configuration</span>
+            <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="hide-content">
+                        <div class="modal-body ">
+                            <form id="emailconfigs_update">
+                                @csrf
+                                <div class="card-border shadow p-2 bg-white h-100">
+                                    <div class="row px-4 py-4 " id="header">
+                                        <div class="col-md-12 w-100">
+                                            <div class="row ">
+                                                <div class="col">
+                                                    <span class="fs-3 fw-bold"> Update Email Configuration</span>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <input type="text" id="emailconfig_id" hidden>
 
-                                        <div class="row">
-                                            <div class="col-12 mt-3 bottom20">
-                                                <label for="edit_fullname" style="color:#A4A6B3">Fullname</label>
-                                                <input id="edit_fullname" name="edit_fullname" type="text"
-                                                    class="form-control" placeholder="Fullname">
+                                            <input type="text" id="emailconfig_id" hidden>
+
+                                            <div class="row">
+                                                <div class="col-12 mt-3 bottom20">
+                                                    <label for="edit_fullname" style="color:#A4A6B3">Fullname</label>
+                                                    <input id="edit_fullname" name="edit_fullname" type="text"
+                                                        class="form-control" placeholder="Fullname">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_email_address" style="color:#A4A6B3">Email
-                                                    Address</label>
-                                                <input id="edit_email_address" name="edit_email_address" type="text"
-                                                    class="form-control" placeholder="Email Address">
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="edit_email_address" style="color:#A4A6B3">Email
+                                                        Address</label>
+                                                    <input id="edit_email_address" name="edit_email_address"
+                                                        type="text" class="form-control" placeholder="Email Address">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_title" style="color: #A4A6B3;">Position</label>
-                                                <input id="edit_title" name="edit_title" type="text"
-                                                    class="form-control" placeholder="Position">
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="edit_title" style="color: #A4A6B3;">Position</label>
+                                                    <input id="edit_title" name="edit_title" type="text"
+                                                        class="form-control" placeholder="Position">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_status" style=" color: #A4A6B3;">Status</label>
-                                                <select class="form-select" name="edit_status" id="edit_status">
-                                                    <option selected disabled value="">Please Select Status
-                                                    </option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Inactive">Inactive</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="edit_status" style=" color: #A4A6B3;">Status</label>
+                                                    <select class="form-select" name="edit_status" id="edit_status">
+                                                        <option selected disabled value="">Please Select Status
+                                                        </option>
+                                                        <option value="Active">Active</option>
+                                                        <option value="Inactive">Inactive</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row pt-3">
-                                            <div class="col">
-                                                <button type="button" class="btn w-100"
-                                                    style=" color:white; background-color:#A4A6B3;"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                            <div class="col">
-                                                <button type="submit" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029; ">Update</button>
+                                            <div class="row pt-3">
+                                                <div class="col">
+                                                    <button type="button" class="btn w-100"
+                                                        style=" color:white; background-color:#A4A6B3;"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="submit" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029; ">Update</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -509,7 +521,7 @@
 
                                     $('#notifyIcon').html(
                                         '<i class="fa-solid fa-check" style="color:green"></i>');
-                                    $('.toast1 .toast-title').html('Email Configuration');
+                                    $('.toast1 .toast-title').html('Success');
                                     $('.toast1 .toast-body').html(response.data.message);
                                     toast1.toast('show');
                                     show_data();
@@ -551,7 +563,7 @@
 
                                     $('#notifyIcon').html(
                                         '<i class="fa-solid fa-check" style="color:green"></i>');
-                                    $('.toast1 .toast-title').html('Email Configuration');
+                                    $('.toast1 .toast-title').html('Success');
                                     $('.toast1 .toast-body').html(response.data.message);
                                     toast1.toast('show');
                                     show_data();
