@@ -87,7 +87,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                              <div class="col-6 text-end"> -->
+                                                                                                                                                                                  <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -137,11 +137,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                              <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                              </div>
-                                                                                                                                                                              <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                            </div> -->
+                                                                                                                                                                                  <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                    <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                  </div>
+                                                                                                                                                                                  <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                </div> -->
                                         </div>
 
 
@@ -201,8 +201,7 @@
                         <div class="row bottom10">
                             <div class="col-12 w-100">
                                 <button type="button" id="back" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Back
-                                    to View Profile</button>
+                                    style="color: White; background-color: #CF8029;">Back</button>
                             </div>
                         </div>
 

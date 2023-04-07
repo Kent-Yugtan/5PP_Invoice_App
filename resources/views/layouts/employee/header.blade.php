@@ -104,7 +104,13 @@
                 $("#header_title").html('View Profile');
             }
 
-            if (urlSplit[1] + urlSplit[2] == 'usereditInvoice') {
+            if (urlSplit[1] + urlSplit[2] == 'userprofileEditInvoice') {
+                $("#header_title").html('View Invoice');
+            }
+            if (urlSplit[1] + urlSplit[2] == 'useractiveEditInvoice') {
+                $("#header_title").html('View Invoice');
+            }
+            if (urlSplit[1] + urlSplit[2] == 'userinactiveEditInvoice') {
                 $("#header_title").html('View Invoice');
             }
 
