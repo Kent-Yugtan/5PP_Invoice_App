@@ -15,11 +15,19 @@
         <div class="icons d-flex align-items-center">
             <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-magnifying-glass "></i></span>
             <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:75px">1</span>
+                <div class="mobileLayout d-none">
+                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:180px">1</span>
+                </div>
+                <div class="webLayout d-none">
+                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:71px">1</span>
+                </div>
             </span>
             <span style="margin-right:15px"><i style="color:#A4A6B3;"
                     class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
-
+            <div class="mobileLayout d-none">
+                <span style="margin-right:15px">{{ session('data')->first_name }}
+                    {{ session('data')->last_name }}</span>
+            </div>
             <ul class="navbar-nav ms-auto ms-sm-0 ">
                 <li class="nav-item dropdown">
                     <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown"
@@ -27,17 +35,19 @@
                             aria-expanded="false" src="/images/default.png"></button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"></a></li>
-                        <li><a class="dropdown-item">{{ session('data')->first_name }}
-                                {{ session('data')->last_name }}</a>
-                        </li>
-                        <li><a class="dropdown-item">{{ session('data')->role }}</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" id="logout"><span
-                                    style="cursor: pointer;">{{ __('Logout') }}</span></a></li>
-                    </ul>
+                        <div class="webLayout d-none">
+                            <li><a class="dropdown-item">{{ session('data')->first_name }}
+                                    {{ session('data')->last_name }}</a>
+                        </div>
                 </li>
+                <li><a class="dropdown-item">{{ session('data')->role }}</a></li>
+                <li>
+                    <hr class="dropdown-divider" />
+                </li>
+                <li><a class="dropdown-item" id="logout"><span
+                            style="cursor: pointer;">{{ __('Logout') }}</span></a></li>
+            </ul>
+            </li>
             </ul>
         </div>
     </div>
@@ -51,9 +61,13 @@
         if (windowWidth < 768) {
             // console.log("<768");
             $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+            $('.mobileLayout').removeClass("d-flex").addClass("d-none");
+            $('.webLayout').removeClass("d-none").addClass("d-flex");
         } else {
             // console.log(">=768");
             $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+            $('.mobileLayout').removeClass("d-none").addClass("d-flex");
+            $('.webLayout').removeClass("d-flex").addClass("d-none");
         }
 
         $(window).resize(function() {
@@ -61,9 +75,13 @@
             if (windowWidth < 768) {
                 // console.log("<768");
                 $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+                $('.mobileLayout').removeClass("d-flex").addClass("d-none");
+                $('.webLayout').removeClass("d-none").addClass("d-flex");
             } else {
                 // console.log(">=768");
                 $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+                $('.mobileLayout').removeClass("d-none").addClass("d-flex");
+                $('.webLayout').removeClass("d-flex").addClass("d-none");
             }
         });
 

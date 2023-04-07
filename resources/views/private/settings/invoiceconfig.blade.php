@@ -510,7 +510,7 @@
 
                                 tr += '<td class="fit">' + item.invoice_title + '</td>';
                                 tr += '<td class="fit">' + item.invoice_email + '</td>';
-                                tr += '<td class="fit">' + item.bill_to_address + '</td>';
+                                tr += '<td class="wrap">' + item.bill_to_address + '</td>';
                                 tr +=
                                     '<td class="text-center" style="width:20px"><button value=' +
                                     item.id +

@@ -736,7 +736,8 @@
             show_deduction();
             $('#select2Multiple').select2({
                 placeholder: $(this).data('placeholder'),
-                closeOnSelect: true,
+                // closeOnSelect: true,
+                closeOnSelect: false,
             });
             $('#select2Multiple').on('select2:opening select2:closing', function(event) {
                 var $searchfield = $(this).parent().find('.select2-search__field');
