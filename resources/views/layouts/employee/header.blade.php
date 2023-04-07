@@ -13,12 +13,27 @@
 
     <div class="collapse navbar-collapse" style="justify-content: flex-end;margin-right:8px">
         <div class="icons d-flex align-items-center">
-            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-magnifying-glass "></i></span>
-            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:75px">1</span>
+            <div class="mobileLayout d-none">
+                <span style="margin-right:15px"><i style="color:#A4A6B3;"
+                        class="fa-solid fa-magnifying-glass "></i></span>
+                <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+                    <label class="badge bg-danger position-absolute"
+                        style="position: absolute;display: block;font-size: 8px;top: 8px;margin-left: 10px;">1</label>
+                </span>
+            </div>
+            <div class="webLayout d-none">
+                <span style="margin-right:15px"><i style="color:#A4A6B3;"
+                        class="fa-solid fa-magnifying-glass "></i></span>
+                <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:71px">1</span>
+            </div>
             </span>
             <span style="margin-right:15px"><i style="color:#A4A6B3;"
                     class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
+
+            <div class="mobileLayout d-none">
+                <span style="margin-right:15px"><span class="fullname"></span>
+            </div>
 
             <ul class="navbar-nav ms-auto ms-sm-0 ">
                 <li class="nav-item dropdown">
@@ -27,7 +42,9 @@
                             aria-expanded="false" src="/images/default.png"></button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"></a></li>
-                        <li><a class="dropdown-item"><span id="fullname"></span></a></li>
+                        <div class="webLayout d-none">
+                            <li><a class="dropdown-item"><span class="fullname"></span></a></li>
+                        </div>
                         <li><a class="dropdown-item"><span id="role"></span></a></li>
                         <li>
                             <hr class="dropdown-divider" />
@@ -49,20 +66,27 @@
         if (windowWidth < 768) {
             // console.log("<768");
             $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+            $('.mobileLayout').removeClass("d-flex").addClass("d-none");
+            $('.webLayout').removeClass("d-none").addClass("d-flex");
         } else {
             // console.log(">=768");
             $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+            $('.mobileLayout').removeClass("d-none").addClass("d-flex");
+            $('.webLayout').removeClass("d-flex").addClass("d-none");
         }
-
 
         $(window).resize(function() {
             var windowWidth = $(window).width();
             if (windowWidth < 768) {
                 // console.log("<768");
                 $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+                $('.mobileLayout').removeClass("d-flex").addClass("d-none");
+                $('.webLayout').removeClass("d-none").addClass("d-flex");
             } else {
                 // console.log(">=768");
                 $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+                $('.mobileLayout').removeClass("d-none").addClass("d-flex");
+                $('.webLayout').removeClass("d-flex").addClass("d-none");
             }
         });
 
@@ -117,7 +141,7 @@
                 if (data.success) {
                     $(".rounded-pill").attr("src", data.data.file_path ? data.data.file_path :
                         '/images/default.png');
-                    $('#fullname').html(data.data.user.first_name + " " + data.data.user.last_name);
+                    $('.fullname').html(data.data.user.first_name + " " + data.data.user.last_name);
                     $('#role').html(data.data.user.role);
                     // console.log("USERDATA", data);
                 }

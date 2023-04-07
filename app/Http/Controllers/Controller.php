@@ -207,7 +207,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Profile Paid Status";
+    $subject = "5 Pints Productions Invoice - Staff Paid Status";
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -434,7 +434,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Profile";
+    $subject = "5 Pints Productions Invoice - Staff";
 
     if (!empty($data['attachment'])) {
       $attachment = $data['attachment'];

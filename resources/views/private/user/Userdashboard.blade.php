@@ -427,7 +427,7 @@
                                 tr +=
                                     '<td class="fit" style="text-align:center"><a href = "' +
                                     apiUrl +
-                                    '/user/editInvoice/' +
+                                    '/user/profileEditInvoice/' +
                                     item.id +
                                     '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i> </a></td>';
                                 tr += '</tr>';
@@ -525,7 +525,7 @@
                                 tr +=
                                     '<td class="fit" style="text-align:center"><a href = "' +
                                     apiUrl +
-                                    '/user/editInvoice/' +
+                                    '/user/profileEditInvoice/' +
                                     item.id +
                                     '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i> </a></td>';
                                 tr += '</tr>';
