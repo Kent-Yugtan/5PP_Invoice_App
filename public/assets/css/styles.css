@@ -3250,7 +3250,7 @@ textarea.is-invalid.dataTable-input {
 .btn-check:focus + .btn,
 .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
 }
 .btn:disabled,
 .btn.disabled,
@@ -3600,8 +3600,8 @@ fieldset:disabled .btn {
 .btn-outline-primary.active,
 .btn-outline-primary.dropdown-toggle.show {
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    /* background-color: #0d6efd;
+    border-color: #0d6efd; */
 }
 .btn-check:checked + .btn-outline-primary:focus,
 .btn-check:active + .btn-outline-primary:focus,
@@ -13597,5 +13597,5 @@ button.dt-button, div.dt-button, a.dt-button, input.dt-button{
 
 /* Set the color of the track of all scrollbars */
 ::-webkit-scrollbar-track {
-  background-color: #f5f5f5 !important;
+  background-color: #ffffff !important;
 }

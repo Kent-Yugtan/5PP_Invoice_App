@@ -685,9 +685,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                    <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                </select> -->
+                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                    </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -953,7 +953,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 1;
+        let x = 0;
 
         const PHP = value => currency(value, {
             symbol: '',

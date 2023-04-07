@@ -1,97 +1,100 @@
 @extends('layouts.private')
 @section('content-dashboard')
-    <div class="container-fluid px-4" id="loader_load">
-        <h1 class="mt-4">Inactive Invoices</h1>
-        <ol class="breadcrumb mb-4"></ol>
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="card-hover card shadow p-2 mb-4 bg-white rounded">
-                    <div>
-                        <div class="row text-center py-3">
-                            <Label class="fs-1" id="paid_invoices">
-                            </Label>
-                        </div>
-                        <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid
-                        </div>
+    <div class="container-fluid container-header" id="loader_load">
+
+
+        <div class="row" style="padding-top:10px;padding-bottom:10px">
+            <div class="col-12 col-md-6 column1 bottom10" style="padding-right:5px;padding-left:5px;">
+                <!-- <div class="card-hover card shadow p-2 mb-4 bg-white rounded"> -->
+                <div>
+                    <div class="row text-center py-3">
+                        <Label class="fs-1" id="paid_invoices">
+                            0
+                        </Label>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between"></div>
+                    <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid
+                    </div>
                 </div>
+                <div class="d-flex align-items-center justify-content-between"></div>
+                <!-- </div> -->
             </div>
-            <div class="col-12 col-md-6">
-                <div class="card-hover card shadow p-2 mb-4 bg-white rounded">
-                    <div>
-                        <div class="row text-center py-3">
-                            <Label class="fs-1" id="pending_invoices">
-                            </Label>
-                        </div>
-                        <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+            <div class="col-12 col-md-6 column2 bottom10" style="padding-right:5px;padding-left:5px;">
+                <!-- <div class="card-hover card shadow p-2 mb-4 bg-white rounded"> -->
+                <div>
+                    <div class="row text-center py-3">
+                        <Label class="fs-1" id="pending_invoices">
+                            0
+                        </Label>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between"></div>
+                    <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-group has-search">
-                <div class="col-4">
-                    <div class="form-group form-check-inline has-search" style="width:90%">
-                        <span class=" fa fa-search form-control-feedback"></span>
-                        <input id="search" name="search" type="text" class="form-control form-check-inline"
-                            placeholder="Search">
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <div class="form-group form-check-inline has-search" style="width:90%">
-                        <select class="form-select form-check-inline" id="filter_invoices">
-                            <option value="All">All</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Overdue">Overdue</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%"
-                        id="button-submit">Search</button>
-                </div>
+                <div class="d-flex align-items-center justify-content-between"></div>
+                <!-- </div> -->
             </div>
         </div>
 
-        <div class="row pt-3">
-            <div class="col">
-                <div class="card mb-5">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Inactive Invoices
-                    </div>
-                    <div class="card-body table-responsive">
-                        <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
-                            <thead>
-                                <tr>
-                                    <th class="fit">Invoice #</th>
-                                    <th class="fit">Profile Name</th>
-                                    <th class="fit text-center">Payment Status</th>
-                                    <th class="fit text-center">Invoice Status</th>
-                                    <th class="fit text-end">Total Amount</th>
-                                    <th class="fit text-end">Date Created</th>
-                                    <th class="fit text-end">Due Date</th>
-                                    <th class="text-center fit">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row mx-3">
-                        <div class="col-xl-6">
-                            <div class="page_showing" id="tbl_showing_invoice"></div>
+        <div class="row">
+            <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
+                <div class="input-group">
+                    <div class="w-100">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                    style="height:38px;background-color: white;color: #CF8029;border-right:none"><i
+                                        class="fas fa-search"></i></span>
+                            </div>
+                            <input id="search" name="search" type="text" class="form-control form-check-inline"
+                                style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
                         </div>
-                        <div class="col-xl-6">
-                            <ul style="float:right" class="pagination pagination-sm flex-sm-wrap"
-                                id="tbl_pagination_invoice">
-                            </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
+                <div class="form-check-inline w-100">
+                    <select class="form-select form-check-inline" id="filter_invoices">
+                        <option value="All">All</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
+                <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%"
+                    id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
+                <div class="card-border shadow bg-white h-100">
+                    <div class="table-responsive" style="padding:20px">
+                        <div class="card-body">
+                            <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
+                                <thead>
+                                    <tr>
+                                        <th class="fit">Invoice #</th>
+                                        <th class="fit">Profile Name</th>
+                                        <th class="fit text-center">Payment Status</th>
+                                        <th class="fit text-center">Invoice Status</th>
+                                        <th class="fit text-end">Total Amount</th>
+                                        <th class="fit text-end">Date Created</th>
+                                        <th class="fit text-end">Due Date</th>
+                                        <th class="text-center fit">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                                id="tbl_showing_invoice"></div>
+                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,40 +106,56 @@
     <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-body ">
+            <div class="hide-content ">
+                <div class="modal-body ">
+                    <form id="update_invoice_status">
+                        @csrf
                         <div class="row">
-                            <h5>Update Invoice Status</h5>
-                            <form id="update_invoice_status">
-                                @csrf
-                                <input type="text" id="updateStatus_invoiceNo" hidden>
-                                <div class="form-floating form-group mt-3">
-                                    <select class="form-select" id="select_invoice_status">
-                                        <option value="" Selected disabled>Please choose status</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                        <option value="Overdue">Overdue</option>
-                                        <option value="Paid">Paid</option>
-                                        <option value="Pending">Pending</option>
-                                    </select>
-                                    <label for="updateStatus_invoiceNo">Status Name</label>
-                                </div>
+                            <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                                <div class="row px-4 py-4" id="header">
+                                    <div class="col-md-12 px-2 w-100">
 
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <span class="fs-3 fw-bold">Update Payment Status</span>
+                                            </div>
+                                        </div>
+                                        <input type="text" id="updateStatus_invoiceNo" hidden>
 
-                                <div class="row mt-3">
-                                    <div class="col">
-                                        <button type="button" class="btn  w-100"
-                                            style=" color:#CF8029; background-color:white; "
-                                            data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="submit" id="update" class="btn  w-100"
-                                            style="color:White; background-color:#CF8029; ">Update</button>
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <div class="form-group">
+                                                    <label for="select_invoice_status"
+                                                        style="color:#A4A6B3">Status</label>
+                                                    <select class="form-select" id="select_invoice_status">
+                                                        <option value="" Selected disabled>Please choose status
+                                                        </option>
+                                                        <option value="Cancelled">Cancelled</option>
+                                                        <option value="Overdue">Overdue</option>
+                                                        <option value="Paid">Paid</option>
+                                                        <option value="Pending">Pending</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col">
+                                                <button type="button" class="btn w-100"
+                                                    style="background-color:#A4A6B3;color:white"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" id="update" class="btn w-100"
+                                                    style="color:White; background-color:#CF8029;"
+                                                    disabled="true">Update</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -160,6 +179,10 @@
         </div>
     </div>
 
+    <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+        <div class="loader"></div>
+    </div>
+
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -176,6 +199,20 @@
                     show_userstatusInactiveinvoice();
                 }, 1500)
             })
+
+            var currentPage = window.location.href;
+            $('#collapseLayouts2 a').each(function() {
+                // Compare the href attribute of the link to the current page URL
+                if (currentPage.indexOf($(this).attr('href')) !== -1) {
+                    // If there is a match, add the "active" class to the link
+                    $(this).addClass('active');
+
+                    // Trigger a click event on the parent link to expand the collapsed section
+                    $(this).parent().parent().addClass("show");
+                    $(this).parent().parent().addClass("active");
+                    $('[data-bs-target="#collapseLayouts2"]').addClass('active');
+                }
+            });
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -257,10 +294,10 @@
 
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
-                                tr += '<td >' +
+                                tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
-                                tr += '<td>' +
+                                tr += '<td class="fit">' +
                                     item.profile.user.first_name + " " + item.profile.user
                                     .last_name +
                                     '</td>';
@@ -332,9 +369,9 @@
                                         item.invoice_status + '</button></td>';
                                 }
 
-                                tr += '<td class="text-center">' + item.status +
+                                tr += '<td class="fit text-center">' + item.status +
                                     '</td>'
-                                tr += '<td class="text-end">' + Number(
+                                tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
                                             .grand_total_amount).toFixed(2))
                                     .toLocaleString(
@@ -342,17 +379,17 @@
                                             minimumFractionDigits: 2
                                         }) +
                                     '</td>';
-                                tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+                                tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
-                                tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
+                                tr += '<td class="fit text-end">' + moment.utc(item.due_date).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
                                 tr +=
                                     '<td class="text-center"> <a href="' +
                                     apiUrl +
-                                    '/user/editInvoice/' +
+                                    '/user/inactiveEditInvoice/' +
                                     item.id +
                                     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
@@ -366,6 +403,18 @@
                                 $('#tbl_pagination_invoice').append(li)
                                 return ""
                             })
+
+                            if (data.data.links.length) {
+                                let lastPage = data.data.links[data.data.links.length - 1];
+                                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                    $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
+                                }
+                                let PreviousPage = data.data.links[0];
+                                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                                    $('#tbl_pagination_invoice .page-item:first-child').addClass(
+                                        'disabled');
+                                }
+                            }
 
                             $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {
 
@@ -396,6 +445,9 @@
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
+                            let tbl_showing_invoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_invoice').html(tbl_showing_invoice);
                         }
                     }
                 }).catch(function(error) {
@@ -438,10 +490,10 @@
 
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
-                                tr += '<td >' +
+                                tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
-                                tr += '<td>' +
+                                tr += '<td class="fit">' +
                                     item.profile.user.first_name + " " + item.profile.user
                                     .last_name +
                                     '</td>';
@@ -511,9 +563,9 @@
                                         item.invoice_status + '</button></td>';
                                 }
 
-                                tr += '<td class="text-center">' + item.status +
+                                tr += '<td class="fit text-center">' + item.status +
                                     '</td>'
-                                tr += '<td class="text-end">' + Number(
+                                tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
                                             .grand_total_amount).toFixed(2))
                                     .toLocaleString(
@@ -521,17 +573,17 @@
                                             minimumFractionDigits: 2
                                         }) +
                                     '</td>';
-                                tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+                                tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
-                                tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
+                                tr += '<td class="fit text-end">' + moment.utc(item.due_date).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
                                 tr +=
-                                    '<td class="text-center"> <a href="' +
+                                    '<td class="fit text-center"> <a href="' +
                                     apiUrl +
-                                    '/user/editInvoice/' +
+                                    '/user/inactiveEditInvoice/' +
                                     item.id +
                                     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
@@ -545,6 +597,18 @@
                                 $('#tbl_pagination_invoice').append(li)
                                 return ""
                             })
+
+                            if (data.data.links.length) {
+                                let lastPage = data.data.links[data.data.links.length - 1];
+                                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                    $('#tbl_pagination_invoice .page-item:last-child').addClass('disabled');
+                                }
+                                let PreviousPage = data.data.links[0];
+                                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                                    $('#tbl_pagination_invoice .page-item:first-child').addClass(
+                                        'disabled');
+                                }
+                            }
 
                             $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {
 
@@ -578,6 +642,9 @@
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
+                            let tbl_showing_invoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_invoice').html(tbl_showing_invoice);
                         }
                     }
                 }).catch(function(error) {

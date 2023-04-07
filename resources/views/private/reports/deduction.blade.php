@@ -86,6 +86,21 @@
                 }, 1500);
 
             })
+
+            var currentPage = window.location.href;
+            $('#collapseLayouts3 a').each(function() {
+                // Compare the href attribute of the link to the current page URL
+                if (currentPage.indexOf($(this).attr('href')) !== -1) {
+                    // If there is a match, add the "active" class to the link
+                    $(this).addClass('active');
+
+                    // Trigger a click event on the parent link to expand the collapsed section
+                    $(this).parent().parent().addClass("show");
+                    $(this).parent().parent().addClass("active");
+                    $('[data-bs-target="#collapseLayouts3"]').addClass('active');
+                }
+            });
+
             var dataTable = $('#deductionReports').DataTable({
                 "footerCallback": function(row, data, start, end, display) {
                     var api = this.api();

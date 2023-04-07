@@ -166,7 +166,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div><i class="fa fa-newspaper-o"> </i></div>
+                <div id="notifyIcon"></i></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -180,6 +180,10 @@
         </div>
     </div>
 
+
+    <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+        <div class="loader"></div>
+    </div>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -195,7 +199,6 @@
             })
 
             var currentPage = window.location.href;
-            console.log("CURRENT", currentPage);
             $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
@@ -765,13 +768,12 @@
                     if (data.success) {
                         $('#invoice_status').modal('hide');
                         $("div.spanner").addClass("show");
-
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
 
-
-
-                            $('.toast1 .toast-title').html('Update Status');
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             toast1.toast('show');
                         }, 1500);
@@ -792,7 +794,9 @@
                             });
                             fieldname = fieldname.join(" ");
 
-                            $('.toast1 .toast-title').html(fieldname);
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-x" style="color:red"></i>');
+                            $('.toast1 .toast-title').html("Error");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                 0].join(
                                 "\n\r"));

@@ -415,16 +415,17 @@
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
                                 tr +=
-                                    '<td>' +
+                                    '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
                                 tr +=
-                                    '<td>' +
+                                    '<td class="fit">' +
                                     item.profile.user.first_name + " " + item.profile.user
                                     .last_name + '</td>';
-                                tr += '<td>' + moment(item.due_date).format('L') + '</td>';
+                                tr += '<td class="fit">' + moment(item.due_date).format('L') +
+                                    '</td>';
                                 tr +=
-                                    '<td style="text-align:center"><a href = "' +
+                                    '<td class="fit" style="text-align:center"><a href = "' +
                                     apiUrl +
                                     '/user/editInvoice/' +
                                     item.id +
@@ -442,6 +443,19 @@
                                 $('#tbl_pagination_pendingInvoice').append(li)
                                 return ""
                             })
+
+                            if (data.data.links.length) {
+                                let lastPage = data.data.links[data.data.links.length - 1];
+                                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                    $('#tbl_pagination_pendingInvoice .page-item:last-child').addClass(
+                                        'disabled');
+                                }
+                                let PreviousPage = data.data.links[0];
+                                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                                    $('#tbl_pagination_pendingInvoice .page-item:first-child').addClass(
+                                        'disabled');
+                                }
+                            }
 
                             $("#tbl_pagination_pendingInvoice .page-item .page-link").on('click',
                                 function() {
@@ -499,16 +513,17 @@
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
                                 tr +=
-                                    '<td>' +
+                                    '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
                                 tr +=
-                                    '<td>' +
+                                    '<td class="fit">' +
                                     item.profile.user.first_name + " " + item.profile.user
                                     .last_name + '</td>';
-                                tr += '<td>' + moment(item.due_date).format('L') + '</td>';
+                                tr += '<td class="fit">' + moment(item.due_date).format('L') +
+                                    '</td>';
                                 tr +=
-                                    '<td style="text-align:center"><a href = "' +
+                                    '<td class="fit" style="text-align:center"><a href = "' +
                                     apiUrl +
                                     '/user/editInvoice/' +
                                     item.id +
@@ -523,6 +538,19 @@
                                 $('#tbl_pagination_overdueInvoice').append(li)
                                 return ""
                             })
+
+                            if (data.data.links.length) {
+                                let lastPage = data.data.links[data.data.links.length - 1];
+                                if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                    $('#tbl_pagination_overdueInvoice .page-item:last-child').addClass(
+                                        'disabled');
+                                }
+                                let PreviousPage = data.data.links[0];
+                                if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                                    $('#tbl_pagination_overdueInvoice .page-item:first-child').addClass(
+                                        'disabled');
+                                }
+                            }
 
                             $("#tbl_pagination_overdueInvoice .page-item .page-link").on('click',
                                 function() {

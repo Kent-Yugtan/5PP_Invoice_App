@@ -1,191 +1,194 @@
 @extends('layouts.private')
 @section('content-dashboard')
     <div class="container-fluid content-header" id="loader_load">
-
         <div class="row" style="padding-top:10px">
             <div class="col-lg-12 col-xl-8 bottom10">
                 <div class="card-border shadow bg-white h-100">
-                    <div style="padding:20px">
-                        <div class="card-body">
-                            <div class="row bottom20">
-                                <span id="userId" hidden></span>
-                                <span id="profileId" hidden></span>
-                                <div class="col-sm-6 fw-bolder" style="margin-top:17px">
-                                    <div id="fullname"></div>
-                                    <div id="email"></div>
+                    <div class="card-body">
+
+                        <div style="padding:20px">
+                            <div id="content">
+                                <div class="row bottom20">
+                                    <span id="userId" hidden></span>
+                                    <span id="profileId" hidden></span>
+                                    <div class="col-sm-6 fw-bolder" style="margin-top:17px">
+                                        <div id="full_name"></div>
+                                        <div id="email"></div>
+                                    </div>
+
+                                    <div class="col-sm-6 fw-bolder text-md-end">
+                                        <div class="fs-3 fw-bold">INVOICE</div>
+                                        <div class="text-muted" id="invoice_no"></div>
+                                    </div>
                                 </div>
 
-                                <div class="col-sm-6 fw-bolder text-md-end">
-                                    <div class="fs-3 fw-bold">INVOICE</div>
-                                    <div class="text-muted" id="invoice_no"></div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div id="address"></div>
-                                    <div id="city-province"></div>
-                                    <div id="zip_code"></div>
-                                </div>
-                            </div>
-
-                            <div class="row pt-3">
-                                <div class="col-sm-6">
-                                    <span class="text-muted">Bill To:</span>
-                                </div>
-                                <div class="col-md-3 text-md-start">
-                                    <span class="text-muted">Date:</span>
-                                </div>
-                                <div class="col-md-3 text-md-end">
-                                    <div id="date_created"></div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6 col-lg-6">
-                                    <div class="fw-bolder" id="invoice_title"></div>
-                                </div>
-                                <div class="col-sm-3 col-lg-3 text-md-start">
-                                    <span class="text-muted">Due Date:</span>
-                                </div>
-                                <div class="col-sm-3 col-lg-3 text-md-end">
-                                    <div id="show_due_date"></div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6 text-md-start">
-                                    <div id="bill_to_address"></div>
-                                </div>
-                                <div class="col-sm-3 text-md-start">
-                                    <span class="text-muted">Invoice Status:</span>
-                                </div>
-                                <div class="col-sm-3 text-md-end">
-                                    <div id="invoice_status"></div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-3 text-muted text-md-start" id="text_date_received">
-                                </div>
-                                <div class="col-sm-3 text-md-end" id="date_received">
-                                </div>
-                            </div>
-
-                            <div class="row pt-3">
-                                <div class="col-sm-6">
-                                    <!-- <div id="ship_to_address"></div> -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="address"></div>
+                                        <div id="city-province"></div>
+                                        <div id="zip_code"></div>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="rounded-3" style="background-color: #A4A6B3;">
-                                        <div class="row">
-                                            <div class="col"
-                                                style="display:flex; justify-content:space-between;align-items:center">
-                                                <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
-                                                <!-- </div>
-                                                                                                                                                                                  <div class="col-6 text-end"> -->
-                                                <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                <div class="row pt-3">
+                                    <div class="col-sm-6">
+                                        <span class="text-muted">Bill To:</span>
+                                    </div>
+                                    <div class="col-md-3 text-md-start">
+                                        <span class="text-muted">Date:</span>
+                                    </div>
+                                    <div class="col-md-3 text-md-end">
+                                        <div id="date_created"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-lg-6">
+                                        <div class="fw-bolder" id="invoice_title"></div>
+                                    </div>
+                                    <div class="col-sm-3 col-lg-3 text-md-start">
+                                        <span class="text-muted">Due Date:</span>
+                                    </div>
+                                    <div class="col-sm-3 col-lg-3 text-md-end">
+                                        <div id="show_due_date"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 text-md-start">
+                                        <div id="bill_to_address"></div>
+                                    </div>
+                                    <div class="col-sm-3 text-md-start">
+                                        <span class="text-muted">Invoice Status:</span>
+                                    </div>
+                                    <div class="col-sm-3 text-md-end">
+                                        <div id="invoice_status"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-3 text-muted text-md-start" id="text_date_received">
+                                    </div>
+                                    <div class="col-sm-3 text-md-end" id="date_received">
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-sm-6">
+                                        <!-- <div id="ship_to_address"></div> -->
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="rounded-3" style="background-color: #A4A6B3;">
+                                            <div class="row">
+                                                <div class="col"
+                                                    style="display:flex; justify-content:space-between;align-items:center">
+                                                    <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
+                                                    <!-- </div>
+                                                                                                                                                                                                                                                  <div class="col-6 text-end"> -->
+                                                    <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row pt-3">
-                                <div class="col-md-12">
-                                    <table class="table table-responsive-sm" id="table_invoiceItems"
-                                        style="table-layout: fixed;">
-                                        <thead class="thead-dark"
-                                            style="border-radius: 3px; background-color: black; color: white;">
-                                            <tr>
-                                                <th class="fit"
-                                                    style="border-right: 2px solid rgb(255,255,255);width: 55px;">
-                                                    Description</th>
-                                                <th class="fit"
-                                                    style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                    Quantity</th>
-                                                <th class="fit"
-                                                    style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                    Rate
-                                                </th>
-                                                <th class="fit"
-                                                    style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                    Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5 col-sm-12" id="quickInvoiceDescription"></div>
-
-
-                                <div class="col-md-7 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <label class="text-muted " style="text-align:right"> Subtotal: </label>
-                                        </div>
-                                        <div class="col mx-2 h6" id="sub_total" style="text-align:end"></div>
-                                    </div>
-
-                                    <div id="displayDiscountType">
-                                        <!-- <div class="row">
-                                                                                                                                                                                  <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                    <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                  </div>
-                                                                                                                                                                                  <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                </div> -->
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <label class="text-muted"> Total:</label>
-                                        </div>
-                                        <div class="col mx-2 h6" id="total" style="text-align:end"></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-8 col-sm-8">
-                                            <label class="text-muted fw-bold">Converted Amount: <label class="text-muted"
-                                                    id="peso_rate"></label></label>
-                                        </div>
-
-                                        <div class="col mx-2 h6 fw-bold" id="convertedAmount" style="text-align:end">
-                                        </div>
+                                <div class="row pt-3">
+                                    <div class="col-md-12">
+                                        <table class="table table-responsive-sm" id="table_invoiceItems"
+                                            style="table-layout: fixed;">
+                                            <thead class="thead-dark"
+                                                style="border-radius: 3px; background-color: black; color: white;">
+                                                <tr>
+                                                    <th class="fit"
+                                                        style="border-right: 2px solid rgb(255,255,255);width: 55px;">
+                                                        Description</th>
+                                                    <th class="fit"
+                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                        Quantity</th>
+                                                    <th class="fit"
+                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                        Rate
+                                                    </th>
+                                                    <th class="fit"
+                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                        Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row title_deductions pt-3">
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-12" id="quickInvoiceDescription"></div>
 
-                            <div class="deductions">
-                            </div>
 
-                            <div class="row total_deductions" id="total_deductions">
-                            </div>
+                                    <div class="col-md-7 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <label class="text-muted " style="text-align:right"> Subtotal: </label>
+                                            </div>
+                                            <div class="col mx-2 h6" id="sub_total" style="text-align:end"></div>
+                                        </div>
 
-                            <div class="row pt-3">
-                                <div class="col-5 fw-bold">Notes:</div>
-                                <div class="col">
-                                    <label class="fw-bold">Grand Total: </label>
+                                        <div id="displayDiscountType">
+                                            <!-- <div class="row">
+                                                                                                                                                                                                                                                  <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                    <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                  <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                </div> -->
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <label class="text-muted"> Total:</label>
+                                            </div>
+                                            <div class="col mx-2 h6" id="total" style="text-align:end"></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-8 col-sm-8">
+                                                <label class="text-muted fw-bold">Converted Amount: <label
+                                                        class="text-muted" id="peso_rate"></label></label>
+                                            </div>
+
+                                            <div class="col mx-2 h6 fw-bold" id="convertedAmount" style="text-align:end">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col mx-2 h6 fw-bold" id="grand_total_amount" style="text-align:end"></div>
-                            </div>
 
-                            <div class="row pb-5">
-                                <div class="col-5" id="notes"></div>
-                                <div class="col">
-
+                                <div class="row title_deductions pt-3">
                                 </div>
-                            </div>
 
+                                <div class="deductions">
+                                </div>
+
+                                <div class="row total_deductions" id="total_deductions">
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-5 fw-bold">Notes:</div>
+                                    <div class="col">
+                                        <label class="fw-bold">Grand Total: </label>
+                                    </div>
+                                    <div class="col mx-2 h6 fw-bold" id="grand_total_amount" style="text-align:end">
+                                    </div>
+                                </div>
+
+                                <div class="row pb-5">
+                                    <div class="col-5" id="notes"></div>
+                                    <div class="col">
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -760,20 +763,6 @@
                 }, 1500)
             })
 
-            var currentPage = apiUrl + "/admin/inactive";
-            $('#collapseLayouts a').each(function() {
-                // Compare the href attribute of the link to the current page URL
-                if (currentPage.indexOf($(this).attr('href')) !== -1) {
-                    // If there is a match, add the "active" class to the link
-                    $(this).addClass('active');
-
-                    // Trigger a click event on the parent link to expand the collapsed section
-                    $(this).parent().parent().addClass("show");
-                    $(this).parent().parent().addClass("active");
-                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
-                }
-            });
-
             function due_date() {
                 // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
                 // Get the input field
@@ -793,6 +782,20 @@
 
             }
 
+            var currentPage = apiUrl + "/user/profile";
+            $('#collapseLayouts a').each(function() {
+                // Compare the href attribute of the link to the current page URL
+                if (currentPage.indexOf($(this).attr('href')) !== -1) {
+                    // If there is a match, add the "active" class to the link
+                    $(this).addClass('active');
+
+                    // Trigger a click event on the parent link to expand the collapsed section
+                    $(this).parent().parent().addClass("show");
+                    $(this).parent().parent().addClass("active");
+                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
+                }
+            });
+
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -805,7 +808,7 @@
                 let userid = $('#userId').html();
                 let profileId = $('#profileId').html();
                 // console.log(userid + " " + profileId);
-                window.location.href = apiUrl + "/admin/inactive";
+                window.location.href = apiUrl + "/user/profile";
             })
 
             $('.close').on('click', function(e) {
@@ -1466,10 +1469,8 @@
                                 $('#userId').html(data.data.profile.user.id);
                                 $('#profileId').html(data.data.profile.id);
 
-                                $('#fullname').html(data.data.profile.user.first_name + " " + data.data
-                                    .profile.user
-                                    .last_name);
-
+                                $('#full_name').html(data.data.profile.user.first_name + " " + data.data.profile
+                                    .user.last_name);
                                 $('#email').html(data.data.profile.user.email);
                                 $('#invoice_no').html("#" + data.data.invoice_no);
                                 // $('#status').html(data.data.status);

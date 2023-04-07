@@ -920,7 +920,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 1;
+        let x = 0;
         const PHP = value => currency(value, {
             symbol: '',
             decimal: '.',
@@ -1161,7 +1161,7 @@
                 // console.log("sddsadsa", urlSplit.length);
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: 20,
                     page: page ? page : 1,
                     search: $('#search_invoice').val(),
                     filter_all_invoices: $('#filter_all_invoices').val(),
@@ -1193,7 +1193,7 @@
 
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
-                                tr += '<td>' +
+                                tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
                                 // console.log("due_date " + due_date + " date_now " + date_now);
@@ -1218,7 +1218,7 @@
                                         item.invoice_status + '</button></td>';
                                 }
 
-                                tr += '<td class=" text-end">' + Number(
+                                tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
                                             .grand_total_amount).toFixed(2))
                                     .toLocaleString(
@@ -1226,16 +1226,17 @@
                                             minimumFractionDigits: 2
                                         }) +
                                     '</td>';
-                                tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
+                                tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                         'Asia/Manila')
                                     .format('MM/DD/YYYY') +
                                     '</td>';
-                                tr += '<td class="text-end">' + moment(item.due_date).format('L') +
+                                tr += '<td class="fit text-end">' + moment(item.due_date).format(
+                                        'L') +
                                     '</td>';
                                 tr +=
-                                    '<td class="text-center"> <a href="' +
+                                    '<td class="fit text-center"> <a href="' +
                                     apiUrl +
-                                    '/user/editInvoice/' +
+                                    '/user/profileEditInvoice/' +
                                     item.id +
                                     '"  style="color: #cf8029" ><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
@@ -2682,7 +2683,7 @@
 
                 if (profile_id) {
                     let filter = {
-                        page_size: 10,
+                        page_size: 20,
                         page: page ? page : 1,
                         profile_id: $('#profile_id_show').val(),
                         search: $('#search_deduction').val(),
@@ -2709,7 +2710,7 @@
 
                                         let tr = '<tr style="vertical-align: middle;">';
 
-                                        tr += '<td>' + item.invoice.invoice_no + '</td>';
+                                        tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
                                         if (item.invoice.invoice_status == "Cancelled") {
                                             tr +=
                                                 '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
@@ -2728,14 +2729,15 @@
                                                 '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
                                         }
 
-                                        tr += '<td>' + item.deduction_type_name +
+                                        tr += '<td class="fit">' + item.deduction_type_name +
                                             '</td>';
-                                        tr += '<td class="text-end">' + PHP(item
+                                        tr += '<td class="fit text-end">' + PHP(item
                                                 .amount)
                                             .format() + '</td>';
-                                        tr += '<td class="text-end">' + moment.utc(item.created_at).tz(
-                                            'Asia/Manila').format(
-                                            'MM/DD/YYYY') + '</td>';
+                                        tr += '<td class="fit text-end">' + moment.utc(item.created_at)
+                                            .tz(
+                                                'Asia/Manila').format(
+                                                'MM/DD/YYYY') + '</td>';
 
                                         tr += '</tr>';
 
@@ -2749,6 +2751,21 @@
                                         $('#tbl_pagination_deduction').append(li)
                                         return ""
                                     })
+
+                                    if (data.data.links.length) {
+                                        let lastPage = data.data.links[data.data.links.length - 1];
+                                        if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                            $('#tbl_pagination_deduction .page-item:last-child').addClass(
+                                                'disabled');
+                                        }
+                                        let PreviousPage = data.data.links[0];
+                                        if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                            null) {
+                                            $('#tbl_pagination_deduction .page-item:first-child').addClass(
+                                                'disabled');
+                                        }
+                                    }
+
                                     $("#tbl_pagination_deduction .page-item .page-link").on('click',
                                         function() {
                                             $("#tbl_pagination_deduction .page-item")

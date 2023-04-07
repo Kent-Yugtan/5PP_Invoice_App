@@ -193,9 +193,18 @@ class InvoiceController extends Controller
   {
     return view('private.invoice.editInactiveInvoice');
   }
-  public function edit_userInvoice()
+  public function profileEditInvoice()
   {
-    return view('private.user.editInvoice');
+    return view('private.user.profileEditInvoice');
+  }
+
+  public function activeEditInvoice()
+  {
+    return view('private.user.activeEditInvoice');
+  }
+  public function inactiveEditInvoice()
+  {
+    return view('private.user.inactiveEditInvoice');
   }
 
   public function user_addInvoice()

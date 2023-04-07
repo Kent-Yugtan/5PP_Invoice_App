@@ -1,6 +1,7 @@
 @extends('layouts.private')
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
+
         <div class="row bottom10">
             <div class="col-12 col-md-6 column1 bottom10" style="padding-right:5px;padding-left:5px;">
                 <!-- <div class=" card-hover card shadow p-2 mb-4 bg-white rounded"> -->
