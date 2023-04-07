@@ -55,7 +55,9 @@ Route::middleware(['isPrivateCheck'])->group(function () {
   Route::get('user/profile', [ProfileController::class, 'userprofile']);
   Route::get('user/activeProfile/{id}/{profile_id}', [ProfileController::class, 'userviewProfile']);
   Route::get('user/inactive', [ProfileController::class, 'userinactive']);
-  Route::get('user/editInvoice/{id}', [InvoiceController::class, 'edit_userInvoice']);
+  Route::get('user/profileEditInvoice/{id}', [InvoiceController::class, 'profileEditInvoice']);
+  Route::get('user/activeEditInvoice/{id}', [InvoiceController::class, 'activeEditInvoice']);
+  Route::get('user/inactiveEditInvoice/{id}', [InvoiceController::class, 'inactiveEditInvoice']);
   Route::get('user/addInvoice', [InvoiceController::class, 'user_addInvoice']);
   Route::get('user/currentActiveInvoice', [InvoiceController::class, 'user_currentActiveInvoice']);
   Route::get('user/currentInactiveInvoice', [InvoiceController::class, 'user_currentInactiveInvoice']);

@@ -240,7 +240,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 1;
+        let x = 0;
 
         const PHP = value => currency(value, {
             symbol: '',
@@ -661,8 +661,8 @@
                         $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
                             'd-none');
                     }
+                    x++;
                 }
-                x++;
             }
 
             // ONLY NUMBERS FOR NUMBER INPUTS
@@ -802,6 +802,9 @@
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
                             toast1.toast('show');
                             due_datee();
 

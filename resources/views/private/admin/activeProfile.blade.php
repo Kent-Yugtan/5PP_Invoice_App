@@ -926,7 +926,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 1;
+        let x = 0;
 
         const PHP = value => currency(value, {
             symbol: '',

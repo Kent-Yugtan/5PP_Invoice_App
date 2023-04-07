@@ -13,11 +13,11 @@
 
     <div class="collapse navbar-collapse" style="justify-content: flex-end;margin-right:8px">
         <div class="icons d-flex align-items-center">
-            <span style="margin-right:10px"><i style="color:#A4A6B3;" class="fa-solid fa-magnifying-glass "></i></span>
-            <span style="margin-right:10px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:65px">1</span>
+            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-magnifying-glass "></i></span>
+            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+                <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:75px">1</span>
             </span>
-            <span style="margin-right:10px"><i style="color:#A4A6B3;"
+            <span style="margin-right:15px"><i style="color:#A4A6B3;"
                     class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
 
             <ul class="navbar-nav ms-auto ms-sm-0 ">
@@ -46,6 +46,15 @@
 
 <script>
     $(document).ready(function() {
+
+        var windowWidth = $(window).width();
+        if (windowWidth < 768) {
+            // console.log("<768");
+            $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+        } else {
+            // console.log(">=768");
+            $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+        }
 
         $(window).resize(function() {
             var windowWidth = $(window).width();

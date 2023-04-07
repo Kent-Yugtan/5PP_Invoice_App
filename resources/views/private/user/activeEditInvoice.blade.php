@@ -86,7 +86,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -136,11 +136,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                          <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                            <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                          <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                          <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                            <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                          <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                        </div> -->
                                         </div>
 
 
@@ -735,7 +735,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 1;
+        let x = 0;
 
         const PHP = value => currency(value, {
             symbol: '',
@@ -763,20 +763,6 @@
                 }, 1500)
             })
 
-            var currentPage = apiUrl + "/admin/current";
-            $('#collapseLayouts a').each(function() {
-                // Compare the href attribute of the link to the current page URL
-                if (currentPage.indexOf($(this).attr('href')) !== -1) {
-                    // If there is a match, add the "active" class to the link
-                    $(this).addClass('active');
-
-                    // Trigger a click event on the parent link to expand the collapsed section
-                    $(this).parent().parent().addClass("show");
-                    $(this).parent().parent().addClass("active");
-                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
-                }
-            });
-
             function due_date() {
                 // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
                 // Get the input field
@@ -796,8 +782,8 @@
 
             }
 
-            var currentPage = apiUrl + "/user/profile";
-            $('#collapseLayouts a').each(function() {
+            var currentPage = apiUrl + "/user/currentActiveInvoice";
+            $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
                     // If there is a match, add the "active" class to the link
@@ -806,7 +792,7 @@
                     // Trigger a click event on the parent link to expand the collapsed section
                     $(this).parent().parent().addClass("show");
                     $(this).parent().parent().addClass("active");
-                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
+                    $('[data-bs-target="#collapseLayouts2"]').addClass('active');
                 }
             });
 
@@ -822,7 +808,7 @@
                 let userid = $('#userId').html();
                 let profileId = $('#profileId').html();
                 // console.log(userid + " " + profileId);
-                window.location.href = apiUrl + "/user/profile";
+                window.location.href = apiUrl + "/user/currentActiveInvoice";
             })
 
             $('.close').on('click', function(e) {

@@ -146,7 +146,8 @@
                                             </div>
                                             <div class="col">
                                                 <button type="submit" id="update" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029; ">Update</button>
+                                                    style="color:White; background-color:#CF8029; "
+                                                    disabled="true">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -437,6 +438,9 @@
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
+                            let tbl_showing_invoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_invoice').html(tbl_showing_invoice);
                         }
                     }
                 }).catch(function(error) {
@@ -628,6 +632,9 @@
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
+                            let tbl_showing_invoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_invoice').html(tbl_showing_invoice);
                         }
                     }
                 }).catch(function(error) {
