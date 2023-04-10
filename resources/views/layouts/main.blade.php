@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="https://invoice.5ppsite.com/logo.png">
+    <link rel="icon" href="https://invoice.5ppsite.com/images/Invoices-logo.png" type="image/x-icon"
+        style="border-radius:50%">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
