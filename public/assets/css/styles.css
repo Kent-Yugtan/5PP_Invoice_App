@@ -13602,3 +13602,8 @@ button.dt-button, div.dt-button, a.dt-button, input.dt-button{
 ::-webkit-scrollbar-track {
   background-color: #ffffff !important;
 }
+
+table.dataTable td.dt-control:before {
+  width: 2em !important;
+  text-indent: -1px !important !important;
+}

@@ -47,7 +47,11 @@
                                             <th style="width:100px" class="fit text-end">Amount</th>
                                             <th colspan="2" class="fit text-center w-5">Action</th>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" colspan="3">Loading...</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
 
                                     <div style="display:flex;justify-content:center;"

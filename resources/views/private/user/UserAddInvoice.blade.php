@@ -251,8 +251,6 @@
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     due_date();
                     display_item_rows();
                     selectUserProfile();

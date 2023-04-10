@@ -332,15 +332,11 @@
 
             $(window).on('load', function() {
                 $('div.spanner').addClass('show');
-
                 $('html, body').animate({
                     scrollTop: $('#sb-nav-fixed').offset.top
                 }, 'smooth');
-
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_data_load()
                     from();
                     to();

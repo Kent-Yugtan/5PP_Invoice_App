@@ -309,6 +309,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="6">Loading...</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -367,6 +370,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="5">Loading...</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1036,8 +1042,7 @@
 
             $('#cancel_edit_profile').addClass('d-none');
             // REFRESH WHEN THIS PAGE IS LOAD
-            show_data();
-            show_edit()
+
 
             $(window).on('load', function() {
                 $("div.spanner").addClass("show");
@@ -1048,6 +1053,8 @@
                     check_userActivependingInvoices();
                     show_profileDeductionType_Button();
                     show_Profilededuction_Table_Active();
+                    show_data();
+                    show_edit()
                 }, 1500)
             })
 

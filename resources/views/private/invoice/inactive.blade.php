@@ -85,6 +85,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Loading...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
@@ -182,14 +185,14 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            show_statusInactiveinvoice();
             $(window).on('load', function() {
-
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
                     active_inactiveCount_paid();
                     active_inactiveCount_pending();
+                    show_statusInactiveinvoice();
+
                     // check_InactiveStatusInvoice();
                 }, 1500)
             })

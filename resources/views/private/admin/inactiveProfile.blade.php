@@ -329,6 +329,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="6">Loading...</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -393,6 +396,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <tr>
+                                                            <td class="text-center" colspan="5">Loading...</td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -685,9 +691,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                    </select> -->
+                                                                                                                                                                                                                                                                                                        <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                            <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                        </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -1061,7 +1067,6 @@
 
             // REFRESH WHEN THIS PAGE IS LOAD
             $('#cancel_edit_profile').addClass('d-none');
-            show_data();
             $(window).on('load', function() {
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
@@ -1072,6 +1077,7 @@
                     show_profileDeductionType_Button();
                     show_Profilededuction_Table_Active();
                     show_edit();
+                    show_data();
                 }, 1500)
 
             })

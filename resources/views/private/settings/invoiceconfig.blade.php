@@ -83,7 +83,11 @@
                                             <th class="fit">Bill from Address</th>
                                             <th class="fit text-center" colspan="2">Action</th>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" colspan="4">Loading...</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

@@ -119,6 +119,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td class="text-center" colspan="4">Loading...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -152,6 +155,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td class="text-center" colspan="4">Loading...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

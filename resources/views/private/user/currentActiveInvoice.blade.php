@@ -87,6 +87,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Loading...</td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -189,15 +192,13 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            show_data();
             $(window).on('load', function() {
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     active_user_count_paid();
                     active_user_count_pending();
+                    show_data();
                     // search_userstatusActive_invoice();
                 }, 1500)
             })
