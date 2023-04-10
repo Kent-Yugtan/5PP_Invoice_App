@@ -86,6 +86,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Loading...</td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -187,7 +190,6 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            show_data();
             $(window).on('load', function() {
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
@@ -195,6 +197,8 @@
                     active_count_paid();
                     active_count_pending();
                     check_pendingInvoicesStatus();
+                    show_data();
+
                 }, 1500)
             })
 

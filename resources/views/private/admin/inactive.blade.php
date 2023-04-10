@@ -65,7 +65,11 @@
                                         <th class="fit text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center" colspan="6">Loading...</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                                 id="tbl_user_showing"></div>
@@ -103,8 +107,6 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     inactive_count_paid();
                     inactive_count_pending();
                     show_data();

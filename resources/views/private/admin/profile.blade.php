@@ -349,13 +349,11 @@
             })
 
             $("#previewModal").on('hide.bs.modal', function() {
-
                 document.getElementById("upload_image").value = "";
                 $('#imageRow').addClass('d-none')
             });
 
             $('#upload_image').on('change', function() {
-
                 $('#imageRow').removeClass('d-none')
                 var reader = new FileReader();
                 reader.onload = function(event) {
@@ -471,8 +469,6 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                 }, 1500)
             })
 

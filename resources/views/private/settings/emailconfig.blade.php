@@ -6,7 +6,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4 bottom20" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
-                        <div class="header fs-5">
+                        <div class="header fs-3">
                             <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
                             <label> Email Information</label>
                         </div>
@@ -72,7 +72,7 @@
             <div class="col-sm-12 col-md-12 col-lg-8 bottom20" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="header bottom20" style="padding-left:5px">
-                        <span class="fs-5"> View Email Information</span>
+                        <span class="fs-3"> View Email Information</span>
                     </div>
                     <div class="card-body">
 
@@ -110,6 +110,9 @@
                                             <th class="fit" colspan="2" style="text-align:center">Action</th>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td class="text-center" colspan="5">Loading...</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
