@@ -30,9 +30,9 @@
             </div>
             <ul class="navbar-nav ms-auto ms-sm-0 ">
                 <li class="nav-item dropdown">
-                    <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown"
-                        href="#"><img class="rounded-pill" style="height:40px;width:40px;" role="button"
-                            aria-expanded="false" src="/images/default.png"></button>
+                    <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
+                        <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
+                            src="/images/default.png"></button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"></a></li>
                         <div class="webLayout d-none">

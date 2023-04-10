@@ -3592,7 +3592,7 @@ fieldset:disabled .btn {
 }
 .btn-check:focus + .btn-outline-primary,
 .btn-outline-primary:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); */
 }
 .btn-check:checked + .btn-outline-primary,
 .btn-check:active + .btn-outline-primary,
@@ -3608,7 +3608,7 @@ fieldset:disabled .btn {
 .btn-outline-primary:active:focus,
 .btn-outline-primary.active:focus,
 .btn-outline-primary.dropdown-toggle.show:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); */
 }
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
@@ -8542,6 +8542,8 @@ fieldset:disabled .btn {
 
 .rounded-pill {
     border-radius: 50rem !important;
+    width: 40px;
+    
 }
 
 .rounded-top {
