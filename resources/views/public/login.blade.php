@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form id="form_login">
+                        <form id="form_login" style="padding:20px">
                             @csrf
                             <div class="row">
                                 <div class="col">
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="padding-top:10px">
                                     <button type="submit" id="button-submit"
                                         style="width:100%; color:white; background-color: #CF8029;" class="btn">
                                         Login
@@ -55,7 +55,7 @@
 
 
                             <div class="row mb-3">
-                                <div class="col-md-12" style="text-align: center">
+                                <div class="col-md-12" style="text-align: center;padding-top:10px">
                                     <!-- <label class="input-color">{{ __('Don\'t have an account?') }} </label> -->
                                     <a style="text-decoration:none;" class="input-color"
                                         href="{{ url('forgotPassword') }}">Forgot
