@@ -13425,7 +13425,6 @@ body.hide-brand .navbar-brand  {
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
   background-color: #CF8029 !important;
-  color: white !important;
   /* padding: 2px !important; */
   border-color: 2px solid #dee2e6 !important;
 }

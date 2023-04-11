@@ -655,8 +655,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
+
 
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
@@ -691,9 +690,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                        <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                            <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                        </select> -->
+                                                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                    </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -1013,7 +1012,13 @@
             let file_name = "";
             let file_path = "";
 
-            $('#imageCrop').on('click', function() {
+            $('#imageCrop').on('click', function(e) {
+                e.preventDefault();
+                var originalText = $('#imageCrop').html();
+                // add spinner to button
+                $('#imageCrop').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
                 $uploadCrop.croppie('result', {
                     type: 'canvas',
                     size: 'viewport'
@@ -1029,6 +1034,7 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#imageCrop').html(originalText);
                             $('#previewModal').modal('hide');
                             $('div.spanner').addClass('show');
                             setTimeout(function() {

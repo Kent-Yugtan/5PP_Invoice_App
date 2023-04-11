@@ -986,7 +986,13 @@
             let file_name = "";
             let file_path = "";
 
-            $('#imageCrop').on('click', function() {
+            $('#imageCrop').on('click', function(e) {
+                e.preventDefault();
+                var originalText = $('#imageCrop').html();
+                // add spinner to button
+                $('#imageCrop').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
                 $uploadCrop.croppie('result', {
                     type: 'canvas',
                     size: 'viewport'
@@ -1002,6 +1008,7 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#imageCrop').html(originalText);
                             $('#previewModal').modal('hide');
                             $('div.spanner').addClass('show');
                             setTimeout(function() {

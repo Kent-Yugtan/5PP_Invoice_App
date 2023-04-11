@@ -100,6 +100,7 @@ class Controller extends BaseController
     }
 
     $data_email = [
+      'forgot'        => 0,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
@@ -214,6 +215,7 @@ class Controller extends BaseController
     }
 
     $data_email = [
+      'forgot'        => 0,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
@@ -328,6 +330,7 @@ class Controller extends BaseController
     }
 
     $data_email = [
+      'forgot'        => 0,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
@@ -444,6 +447,7 @@ class Controller extends BaseController
     }
 
     $data_email = [
+      'forgot'        => 0,
       'to_name'       => $to_name,
       'to_email'      => $to_email,
       'subject'       => $subject,
@@ -527,6 +531,7 @@ class Controller extends BaseController
     }
 
     $data_email = [
+      'forgot'        => 1,
       'to_name'       => $to,
       'to_email'      => $to,
       'subject'       => $subject,
@@ -535,6 +540,7 @@ class Controller extends BaseController
       'template'      => $template,
       'body_data'     => [
         "content" => [
+          'invoice_logo'    => '',
           'to'              => $to,
           'token'           => $token,
           'action_link'     => $action_link,
