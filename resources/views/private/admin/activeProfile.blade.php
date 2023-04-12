@@ -43,7 +43,7 @@
 
                                     <div class="row">
                                         <div class="col bottom20">
-                                            <label style="color: #A4A6B3;" for="first_name">*Firstname</label>
+                                            <label style="color: #A4A6B3;" for="first_name">Firstname</label>
                                             <input id="first_name" name="first_name" type="text" class="form-control"
                                                 placeholder="Firstname" disabled="true">
                                         </div>
@@ -51,7 +51,7 @@
 
                                     <div class="row">
                                         <div class="col">
-                                            <label for="last_name" style="color: #A4A6B3;">*Lastname</label>
+                                            <label for="last_name" style="color: #A4A6B3;">Lastname</label>
                                             <input id="last_name" name="last_name" type="text" class="form-control"
                                                 placeholder="Lastname" disabled="true">
                                         </div>
@@ -63,7 +63,7 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="email" style="color: #A4A6B3;">*Email Address</label>
+                                            <label for="email" style="color: #A4A6B3;">Email Address</label>
                                             <input id="email" name="email" type="email" class="form-control"
                                                 placeholder="Email" disabled="true">
                                         </div>
@@ -71,7 +71,7 @@
 
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="username" style="color: #A4A6B3;">*Username</label>
+                                            <label for="username" style="color: #A4A6B3;">Username</label>
                                             <input id="username" name="username" type="text" class="form-control"
                                                 placeholder="Username" disabled="true">
                                         </div>
@@ -134,7 +134,7 @@
 
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="acct_no" style="color: #A4A6B3;">*Account Number</label>
+                                            <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                             <input id="acct_no" name="acct_no" type="text" class="form-control"
                                                 placeholder="Account Number" disabled="true">
                                         </div>
@@ -142,7 +142,7 @@
 
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="acct_name" style="color: #A4A6B3;">*Account Name</label>
+                                            <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                             <input id="acct_name" name="acct_name" type="text" class="form-control"
                                                 placeholder="Account Name" disabled="true">
                                         </div>
@@ -150,7 +150,7 @@
 
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="bank_name" style="color: #A4A6B3;">*Bank Name</label>
+                                            <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
                                             <select class="form-select" id="bank_name" name="bank_name"
                                                 aria-label="Default select example" disabled="true">
                                                 <option selected disabled value="">Please Select Bank Name</option>
@@ -211,7 +211,7 @@
 
                                     <div class="row">
                                         <div class="col-12 bottom20">
-                                            <label for="gcash_no" style="color: #A4A6B3;">*Gcash Number</label>
+                                            <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
                                             <input id="gcash_no" name="gcash_no" type="text" class="form-control"
                                                 placeholder="Gcash Number" disabled="true">
                                         </div>
@@ -229,18 +229,17 @@
                                     <div class="row">
                                         <div class="col-sm-6 bottom20">
                                             <button type="button" id="edit_profile"
-                                                style="width:100%;color:white; background-color: #A4A6B3;"
+                                                style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn">Edit
                                                 Profile</button>
                                             <button type="button" id="cancel_edit_profile"
-                                                style="width:100%;color:white; background-color: #A4A6B3;"
+                                                style="width:100%;color:#CF8029; background-color: #f3f3f3;"
                                                 class="btn d-none">Cancel</button>
                                         </div>
                                         <div class="col-sm-6">
                                             <button type="submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
-                                                class="btn">Update
-                                                Profile</button>
+                                                class="btn">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +250,7 @@
             </div>
 
             <div class="col-md-12 col-lg-12 col-xl-7 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white" style="padding:20px">
+                <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <ul class="nav nav-pills bottom20" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation" style="width:50%">
@@ -275,8 +274,7 @@
                                             <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal" type="submit" id="button-addon2"
                                                 name="button-addon2" class="btn form-check-inline pe-3 w-100 "><i
-                                                    class="fa fa-plus pe-1"></i>Add
-                                                Invoice</button>
+                                                    class="fa fa-plus pe-1"></i>Create Invoice</button>
                                         </div>
                                         <div class="col-sm-4 bottom20">
                                             <select class="form-check-inline form-select" id="filter_all_invoices">
@@ -290,9 +288,9 @@
                                         </div>
 
                                         <div class="col-sm-4 bottom20">
-                                            <div class="form-group has-search">
+                                            <div class="has-search">
                                                 <span class="fa fa-search form-control-feedback"
-                                                    style="color:#CF8029"></span>
+                                                    style="color:#A4A6B3"></span>
                                                 <input type="text" class="form-control" id="search_invoice"
                                                     placeholder="Search">
                                             </div>
@@ -344,9 +342,9 @@
                                             </button>
                                         </div>
                                         <div class="col-sm-6 bottom20">
-                                            <div class="form-group has-search">
+                                            <div class=" has-search">
                                                 <span class="fa fa-search form-control-feedback"
-                                                    style="color:#CF8029"></span>
+                                                    style="color:#A4A6B3"></span>
                                                 <input type="text" class="form-control" id="search_deduction"
                                                     placeholder="Search">
                                             </div>

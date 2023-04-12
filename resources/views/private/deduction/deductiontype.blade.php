@@ -5,7 +5,7 @@
         <div class="row" style="padding-top:10px;">
             <div class="col-xs-5 col-sm-12 col-md-12 col-lg-6 bottom10">
                 <div class="row">
-                    <div class="col-sm-12 bottom10" style="padding-right:5px;padding-left:5px;">
+                    <div class="col-sm-6 bottom10" style="padding-right:8px;padding-left:8px;">
                         <button class="btn w-100" style="color:white; background-color: #CF8029;" data-bs-toggle="modal"
                             data-bs-target="#addModal" type="submit" id="button-addon2">
                             <i class="fa fa-plus pe-1"></i>
@@ -18,14 +18,15 @@
                 <div class="row">
                     <div class="col-sm-6 bottom10" style="padding-right:8px;padding-left:8px;">
                         <div class="w-100">
-                            <div class="input-group">
+                            <div class="input-group" id="input-group-search">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"
-                                        style="height:38px;background-color: white;color: #CF8029;border-right:none"><i
+                                    <span class="input-group-text search-right-icon border-search" id="border-search"><i
                                             class="fas fa-search"></i></span>
                                 </div>
-                                <input id="search" name="search" type="text" class="form-control form-check-inline"
-                                    style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+                                <input id="search" name="search" type="text"
+                                    class="search-left-icon form-control form-check-inline" placeholder="Search"
+                                    onfocus="input_group_focus('in','input-group-search')"
+                                    onfocusout="input_group_focus('out','input-group-search')">
                             </div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@
                                         <div class="col-md-12 w-100">
                                             <div class="row">
                                                 <div class="col bottom20">
-                                                    <span class="fs-3 fw-bold">Add Deduction</span>
+                                                    <span class="fs-3 fw-bold">Create Deduction Type</span>
                                                 </div>
                                             </div>
 
@@ -257,6 +258,15 @@
     </div>
 
     <script type="text/javascript">
+        function input_group_focus(option, id) {
+            if (option == "out") {
+                $('#' + id).removeClass('input-group-focused');
+                $('#border-search').addClass('border-search');
+            } else {
+                $('#border-search').removeClass('border-search');
+                $('#' + id).addClass('input-group-focused');
+            }
+        }
         const PHP = value => currency(value, {
             symbol: '',
             decimal: '.',

@@ -29,14 +29,15 @@
         <div class="row">
             <div class="col-sm-8 bottom10" style="padding-right:8px;padding-left:8px;">
                 <div class="w-100">
-                    <div class="input-group">
+                    <div class="input-group" id="input-group-search">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"
-                                style="height:38px;background-color: white;color: #CF8029;border-right:none"><i
+                            <span class="input-group-text search-right-icon border-search" id="border-search"><i
                                     class="fas fa-search"></i></span>
                         </div>
-                        <input id="search" name="search" type="text" class="form-control form-check-inline"
-                            style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
+                        <input id="search" name="search" type="text"
+                            class="search-left-icon form-control form-check-inline" placeholder="Search"
+                            onfocus="input_group_focus('in','input-group-search')"
+                            onfocusout="input_group_focus('out','input-group-search')">
                     </div>
                 </div>
             </div>
@@ -85,6 +86,15 @@
 
 
     <script type="text/javascript">
+        function input_group_focus(option, id) {
+            if (option == "out") {
+                $('#' + id).removeClass('input-group-focused');
+                $('#border-search').addClass('border-search');
+            } else {
+                $('#border-search').removeClass('border-search');
+                $('#' + id).addClass('input-group-focused');
+            }
+        }
         $(document).ready(function() {
 
             var currentPage = window.location.href;
@@ -229,7 +239,7 @@
                                             '<td  class="text-center"> <a href="' + apiUrl +
                                             '/admin/activeProfile/' +
                                             item.id + "/" + item.profile.id +
-                                            '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                            '" class="btn" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
 
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);

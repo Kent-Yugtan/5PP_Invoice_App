@@ -60,36 +60,49 @@
                     <!-- <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i> -->
                     <!-- </div> -->
                     <div class="card-body">
-                        <form id="quick_invoice">
+                        <form id="quick_invoice" class="g-3 needs-validation" novalidate>
                             <div class="row">
-                                <div class="col-xl-6 bottom20">
-                                    <label for="profile_id" style="color: #A4A6B3;">Profile</label>
-                                    <select class="form-select" name="selectProfile" id="profile_id">
-                                        <option value="" selected disabled style="color: #A4A6B3;">Select Profile
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-6 bottom20">
-                                    <label for="due_date" style="color: #A4A6B3;">Due Date</label>
-                                    <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date"
-                                        name="due_date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-6 bottom20">
-                                    <label for="description" style="color: #A4A6B3;">Description</label>
-                                    <input type="text" class="form-control" name="description" id="description"
-                                        placeholder="Description">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="profile_id" style="color: #A4A6B3;">Profile</label>
+                                        <select class="form-select" name="selectProfile" id="profile_id" required>
+                                            <option value="" selected disabled style="color: #A4A6B3;">Select Profile
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
                                 </div>
 
-                                <div class="col-xl-6 bottom20">
-                                    <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
-                                    <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$"
-                                        class="form-control" id="sub_total" placeholder="Subtotal ($)">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="due_date" style="color: #A4A6B3;">Due Date</label>
+                                        <input type="text" placeholder="Due Date" onblur="(this.type='text')"
+                                            id="due_date" name="due_date" class="form-control" required>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xl-12 bottom">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="description" style="color: #A4A6B3;">Description</label>
+                                        <input type="text" class="form-control" name="description" id="description"
+                                            placeholder="Description" required>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
+                                        <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$"
+                                            class="form-control" id="sub_total" placeholder="Subtotal ($)" required>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 ">
                                     <button type="submit" style="width:100%;color:white; background-color: #CF8029;"
                                         class="btn" class="btn">Create Invoice</button>
                                 </div>
@@ -201,11 +214,10 @@
             separator: ','
         });
         $(document).ready(function() {
-            // Get the current page's URL path
             var path = window.location.pathname;
-            // Highlight the corresponding menu item
             var segments = path.split('/');
-            $('#' + segments[1] + segments[2]).addClass('active');
+            var id = '#' + segments[1] + segments[2];
+            $(id).addClass('active');
 
             let Deductions = [];
             let dollar_rate = 0;
@@ -246,7 +258,8 @@
                     dateFormat: "yy/mm/dd",
                     onSelect: function(dateText, inst) {
                         // Update the input value with the selected date
-                        dateInput.val(dateText);
+                        // dateInput.val(dateText);
+                        $('#due_date').val(dateText);
                     }
                 });
                 // Set the input value to the current system date in the specified format
@@ -456,7 +469,7 @@
                                     apiUrl +
                                     '/admin/editInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass "></i> </a></td>';
+                                    '" class="btn"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
 
                                 $('#pendingInvoices tbody').append(tr);
@@ -559,7 +572,7 @@
                                     apiUrl +
                                     '/admin/editInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass "></i> </a></td>';
+                                    '" class="btn"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
                                 $('#overdueInvoices tbody').append(tr);
                             })
@@ -668,9 +681,11 @@
                                     '</option>';
                                 $('#profile_id').append(option);
                             })
+                        } else {
+                            $('#profile_id').append(
+                                '<option value="" class="text-center" disabled="true">No Data</option>');
                         }
                     }
-
                 }).catch(function(error) {
                     console.log("ERROR", error);
                 })
@@ -746,6 +761,17 @@
                 }
             })
 
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
             $('#quick_invoice').submit(function(e) {
                 e.preventDefault();
 
@@ -801,11 +827,7 @@
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
 
-
-                            $('#quick_invoice').trigger('reset');
-                            $('input').removeClass('is-invalid');
-                            $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
+                            // $('input, select').removeClass('is-invalid');
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
@@ -817,35 +839,36 @@
                             pendingInvoices();
                             overdueInvoices();
                             getResults_Converted();
-                            // location.reload(true); // refresh the page
+                            // $('.invalid-feedback').remove();
+                            $('#quick_invoice').trigger('reset');
+                            $('#quick_invoice').removeClass('was-validated');
                             toast1.toast('show');
                         }, 1500)
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    if (error.response.data.errors) {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                        var errors = error.response.data.errors;
-                        var errorContainer = $('#error-container');
-                        errorContainer.empty();
-                        console.log("errors", errors)
+                    // if (error.response.data.errors) {
+                    //     $('input').removeClass('is-invalid');
+                    //     $('input, select').removeClass('is-invalid');
+                    //     $('.invalid-feedback').remove();
+                    //     var errors = error.response.data.errors;
+                    //     var errorContainer = $('#error-container');
+                    //     errorContainer.empty();
+                    //     console.log("errors", errors)
 
-                        for (var key in errors) {
-                            var inputName = key.replace('_', ' ');
-                            inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                            var errorMsg = errors[key][0];
-                            $('#' + key).addClass('is-invalid');
-                            $('#' + key).parent().append(
-                                '<span class="invalid-feedback">This field is required.</span>');
-                            // $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
-                        }
-                    } else {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                    }
+                    //     for (var key in errors) {
+                    //         var inputName = key.replace('_', ' ');
+                    //         inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+                    //         var errorMsg = errors[key][0];
+                    //         $('#' + key).addClass('is-invalid');
+                    //         // $('#' + key).parent().append('<span class="invalid-feedback">This field is required.</span>');
+                    //         // $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
+                    //     }
+                    // } else {
+                    //     $('input').removeClass('is-invalid');
+                    //     $('input, select').removeClass('is-invalid');
+                    //     $('.invalid-feedback').remove();
+                    // }
                     // if (error.response.data.errors) {
                     // let fieldnames = Object.keys(errors);
                     // // console.log(fieldnames);

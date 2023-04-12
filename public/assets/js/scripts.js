@@ -26,13 +26,21 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
             // Toggle the code that removes "d-flex" class and adds "d-none" class on the "invoiceApp" div
             shouldExecuteCode = !shouldExecuteCode;
+            var windowWidth = $(window).width();
             const invoiceApp = document.getElementById("invoiceApp");
-            if (shouldExecuteCode) {
-                invoiceApp.classList.remove("d-flex");
+            const sideTitle = document.getElementById("sideTitle");
+            if (windowWidth < 768) {
                 invoiceApp.classList.add("d-none");
+                sideTitle.classList.add("d-flex");
             } else {
-                invoiceApp.classList.remove("d-none");
-                invoiceApp.classList.add("d-flex");
+                sideTitle.classList.add("d-none");
+                if (shouldExecuteCode) {
+                    invoiceApp.classList.remove("d-flex");
+                    invoiceApp.classList.add("d-none");
+                } else {
+                    invoiceApp.classList.remove("d-none");
+                    invoiceApp.classList.add("d-flex");
+                }
             }
         });
     }
