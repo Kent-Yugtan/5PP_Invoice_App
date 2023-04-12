@@ -241,7 +241,7 @@
                                         </div>
                                     </div>
                                     <div class="row ">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 bottom20">
                                             <button type="button" id="edit_profile"
                                                 style="width:100%; color:white; background-color: #A4A6B3;"
                                                 class="btn">Edit
@@ -690,9 +690,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                    </select> -->
+                                                                                                                                                                                                                                                                                                                        <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                            <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                        </select> -->
                                 </div>
 
                                 <div class="form-group">

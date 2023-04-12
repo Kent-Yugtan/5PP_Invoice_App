@@ -1,30 +1,37 @@
 <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
-    <div id="invoiceApp" class="d-flex">
-        <img class="img-team" src="{{ URL('images/Invoices-logo.png') }}" style="width: 60px; padding:10px" />
-        <a class="navbar-brand" href="{{ url('admin/dashboard') }}" style="width: 172px;">Invoicing App</a>
+    <div id="invoiceApp" class="invoiceApp d-none">
+        <img id="image" class="img-team" src="{{ URL('images/Invoices-logo.png') }}"
+            style="width: 60px; padding:10px" />
+        <a class="navbar-brand" href="{{ url('admin/dashboard') }}">Invoicing App</a>
+        {{-- style="width: 172px;" --}}
     </div>
+    <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!">
+        <i style="color:#CF8029" class="fas fa-bars"></i>
+    </button>
     <div class="d-flex flex-sm-wrap">
-        <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!">
-            <i style="color:#CF8029" class="fas fa-bars"></i>
-        </button>
         <span id='header_title' class="fs-3 fw-bold"></span>
     </div>
 
 
     <div class="collapse navbar-collapse" style="justify-content: flex-end;margin-right:8px">
-        <div class="icons d-flex align-items-center">
-            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-magnifying-glass "></i></span>
-            <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                <div class="mobileLayout d-none">
-                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:180px">1</span>
+        <div class="d-flex align-items-center">
+            <span class="icons d-none" style="margin-right:30px"><i style="color:#A4A6B3;"
+                    class="fa-solid fa-magnifying-glass "></i></span>
+            <span class="icons" style="margin-right:30px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+                <div class="icons mobileLayout d-none">
+                    <span class="custom-badge position-absolute"
+                        style="font-size: 6px;top:16px;right:248px;background-color:#f8f9fa"><i
+                            class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
-                <div class="webLayout d-none">
-                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:71px">1</span>
+                <div class="icons webLayout d-none">
+                    <span class="custom-badge position-absolute"
+                        style="font-size: 6px;top:15px;right:141px;background-color:#f8f9fa"><i
+                            class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
             </span>
-            <span style="margin-right:15px"><i style="color:#A4A6B3;"
+            <span class="icons d-none" style="margin-right:60px"><i style="color:#A4A6B3;"
                     class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
-            <div class="mobileLayout d-none">
+            <div class="icons mobileLayout d-none">
                 <span style="margin-right:15px">{{ session('data')->first_name }}
                     {{ session('data')->last_name }}</span>
             </div>
@@ -58,13 +65,21 @@
     $(document).ready(function() {
 
         var windowWidth = $(window).width();
+        if (windowWidth < 400) {
+            $('.icons').removeClass("d-flex").addClass("d-none");
+        } else {
+            $('.icons').removeClass("d-none").addClass("d-flex");
+        }
+
         if (windowWidth < 768) {
             // console.log("<768");
-            $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+            $('#invoiceApp').addClass("d-none");
+            $('#header_title').removeClass("ps-3");
             $('.mobileLayout').removeClass("d-flex").addClass("d-none");
             $('.webLayout').removeClass("d-none").addClass("d-flex");
         } else {
             // console.log(">=768");
+            $('#header_title').addClass("ps-3");
             $('#invoiceApp').removeClass("d-none").addClass("d-flex");
             $('.mobileLayout').removeClass("d-none").addClass("d-flex");
             $('.webLayout').removeClass("d-flex").addClass("d-none");
@@ -72,13 +87,20 @@
 
         $(window).resize(function() {
             var windowWidth = $(window).width();
+            if (windowWidth < 400) {
+                $('.icons').removeClass("d-flex").addClass("d-none");
+            } else {
+                $('.icons').removeClass("d-none").addClass("d-flex");
+            }
             if (windowWidth < 768) {
                 // console.log("<768");
-                $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+                $('#invoiceApp').addClass("d-none");
+                $('#header_title').removeClass("ps-3");
                 $('.mobileLayout').removeClass("d-flex").addClass("d-none");
                 $('.webLayout').removeClass("d-none").addClass("d-flex");
             } else {
                 // console.log(">=768");
+                $('#header_title').addClass("ps-3");
                 $('#invoiceApp').removeClass("d-none").addClass("d-flex");
                 $('.mobileLayout').removeClass("d-none").addClass("d-flex");
                 $('.webLayout').removeClass("d-flex").addClass("d-none");
@@ -130,7 +152,7 @@
                 $("#header_title").html('Inactive Invoice');
             }
             if (path == 'settings/deductiontype') {
-                $("#header_title").html('Deductions');
+                $("#header_title").html('Deduction Types');
             }
             if (path == 'reports/deduction') {
                 $("#header_title").html('Deduction Report');

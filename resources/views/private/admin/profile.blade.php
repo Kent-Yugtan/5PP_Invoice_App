@@ -11,7 +11,7 @@
                             </div>
                         </div>
 
-                        <form id="ProfileStore">
+                        <form id="ProfileStore" class="g-3 needs-validation" novalidate>
                             <div class="row pt-3">
                                 @csrf
 
@@ -26,31 +26,38 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 pt-3 bottom20">
+                                <div class="col-md-6 pt-3 ">
                                     <div class="row">
-                                        <div class="col bottom20">
+                                        <div class="col">
                                             <input style="color:#CF8029" class="form-check-input" type="checkbox"
                                                 id="profile_status" name="profile_status" checked>
                                             <label class="form-check-label" for="status">
                                                 Active
                                             </label>
+
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col bottom20">
-                                            <label style="color: #A4A6B3;" for="first_name">*Firstname</label>
-                                            <input id="first_name" name="first_name" type="text" class="form-control"
-                                                placeholder="Firstname">
+                                        <div class="col ">
+                                            <div class="form-group-profile">
+                                                <label style="color: #A4A6B3;" for="first_name">Firstname</label>
+                                                <input id="first_name" name="first_name" type="text" class="form-control"
+                                                    placeholder="Firstname" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
 
                                     <div class="row">
                                         <div class="col">
-                                            <label for="last_name" style="color: #A4A6B3;">*Lastname</label>
-                                            <input id="last_name" name="last_name" type="text" class="form-control"
-                                                placeholder="Lastname">
+                                            <div class="form-group-profile">
+                                                <label for="last_name" style="color: #A4A6B3;">Lastname</label>
+                                                <input id="last_name" name="last_name" type="text" class="form-control"
+                                                    placeholder="Lastname" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -59,28 +66,35 @@
                             <div class="row row_email_adminProfile">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="email" style="color: #A4A6B3;">*Email Address</label>
-                                            <input id="email" name="email" type="email" class="form-control"
-                                                placeholder="Email">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="email" style="color: #A4A6B3;">Email Address</label>
+                                                <input id="email" name="email" type="email" class="form-control"
+                                                    placeholder="Email" required>
+                                                <div id="error_email"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="username" style="color: #A4A6B3;">*Username</label>
-                                            <input id="username" name="username" type="text" class="form-control"
-                                                placeholder="Username">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="username" style="color: #A4A6B3;">Username</label>
+                                                <input id="username" name="username" type="text" class="form-control"
+                                                    placeholder="Username" required>
+                                                <div id="error_username"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="password" style="color: #A4A6B3;">Password</label>
-                                            <div class="form-group has-toggle">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile has-toggle">
+                                                <label for="password" style="color: #A4A6B3;">Password</label>
                                                 <div class="input-group" id="show_hide_password">
                                                     <input class="form-control" id="password" name="password"
-                                                        type="password" placeholder="Password">
+                                                        type="password" placeholder="Password" required>
+                                                    <div class="invalid-feedback">This field is required.</div>
                                                     <div class="form-control-feedback" id="toggle_password">
                                                         <a href="#" id="eye" class=""
                                                             style="color:#CF8029">
@@ -88,157 +102,205 @@
                                                             <i class="fa fa-eye d-none" id="hide"></i>
                                                         </a>
                                                     </div>
+
                                                 </div>
                                             </div>
-                                            <!-- <input id="password" name="password" type="password" class="form-control"> -->
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="position" style="color: #A4A6B3;">Position</label>
-                                            <select class="form-select" id="position" name="position">
-                                                <option selected disabled value="">Please Select Position</option>
-                                                <option value="Lead Developer">Lead Developer</option>
-                                                <option value="Senior Developer">Senior Developer</option>
-                                                <option value="Junior Developer">Junior Developer</option>
-                                                <option value="Web Designer">Web Designer</option>
-                                                <option value="Tester">Tester</option>
-                                            </select>
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="position" style="color: #A4A6B3;">Position</label>
+                                                <select class="form-select" id="position" name="position" required>
+                                                    <option selected disabled value="">Please Select Position
+                                                    </option>
+                                                    <option value="Lead Developer">Lead Developer</option>
+                                                    <option value="Senior Developer">Senior Developer</option>
+                                                    <option value="Junior Developer">Junior Developer</option>
+                                                    <option value="Web Designer">Web Designer</option>
+                                                    <option value="Tester">Tester</option>
+                                                </select>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="phone_number" style="color: #A4A6B3;">Phone Number</label>
-                                            <input name="phone_number" id="phone_number" type="text"
-                                                class="form-control" placeholder="Phone Number">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="phone_number" style="color: #A4A6B3;">Phone Number</label>
+                                                <input name="phone_number" id="phone_number" type="text"
+                                                    class="form-control" placeholder="Phone Number" required
+                                                    maxlength="11">
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="address" style="color: #A4A6B3;">Address</label>
-                                            <input name="address" id="address" type="text" class="form-control"
-                                                placeholder="Address">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="address" style="color: #A4A6B3;">Address</label>
+                                                <input name="address" id="address" type="text" class="form-control"
+                                                    placeholder="Address" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="province" style="color: #A4A6B3;">Province</label>
-                                            <input name="province" id="province" type="text" class="form-control"
-                                                placeholder="Province">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="province" style="color: #A4A6B3;">Province</label>
+                                                <input name="province" id="province" type="text"
+                                                    class="form-control" placeholder="Province" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="city" style="color: #A4A6B3;">City</label>
-                                            <input id="city" name="city" type="text" class="form-control"
-                                                placeholder="City">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="city" style="color: #A4A6B3;">City</label>
+                                                <input id="city" name="city" type="text" class="form-control"
+                                                    placeholder="City" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="city" style="color: #A4A6B3;">ZIP Code</label>
-                                            <input id="zip_code" name="zip_code" type="text" class="form-control"
-                                                placeholder="Zip Code">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="city" style="color: #A4A6B3;">ZIP Code</label>
+                                                <input id="zip_code" name="zip_code" type="text"
+                                                    class="form-control" placeholder="Zip Code" required maxlength="10">
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="acct_no" style="color: #A4A6B3;">*Account Number</label>
-                                            <input name="acct_no" id="acct_no" type="text" class="form-control"
-                                                placeholder="Account Number">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
+                                                <input name="acct_no" id="acct_no" type="text" class="form-control"
+                                                    placeholder="Account Number" required maxlength="15">
+                                                <div id="error_acct_no"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="acct_name" style="color: #A4A6B3;">*Account Name</label>
-                                            <input name="acct_name" id="acct_name" type="text" class="form-control"
-                                                placeholder="Account Name">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="bank_name" style="color: #A4A6B3;">*Bank Name</label>
-                                            <select class="form-select" id="bank_name" name="bank_name">
-                                                <option selected disabled value="">Please Select Bank Name</option>
-                                                <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
-                                                <option value="Land Bank of the Philippines">Land Bank of the Philippines
-                                                    (LANDBANK)
-                                                </option>
-                                                <option value="Metropolitan Bank & Trust Company">Metropolitan Bank & Trust
-                                                    Company
-                                                    (Metrobank)</option>
-                                                <option value="Bank of the Philippine Islands">Bank of the Philippine
-                                                    Islands (BPI)
-                                                </option>
-                                                <option value="Philippine National Bank">Philippine National Bank (PNB)
-                                                </option>
-                                                <option value="Development Bank of the Philippines">Development Bank of the
-                                                    Philippines
-                                                    (DBP)</option>
-                                                <option value="China Banking Corporation">China Banking Corporation (CBC)
-                                                </option>
-                                                <option value="Rizal Commercial Banking Corporation">Rizal Commercial
-                                                    Banking
-                                                    Corporation (RCBC)</option>
-                                                <option value="Union Bank of the Philippines, Inc.">Union Bank of the
-                                                    Philippines, Inc.
-                                                </option>
-                                                <option value="Security Bank Corporation">Security Bank Corporation
-                                                </option>
-                                                <option value="EastWest Bank">EastWest Bank</option>
-                                                <option value="Citibank, N.A.">Citibank, N.A. (Philippine Branch)</option>
-                                                <option value="United Coconut Planters Bank">United Coconut Planters Bank
-                                                    (UCPB)
-                                                </option>
-                                                <option value="Asia United Bank Corporation">Asia United Bank Corporation
-                                                    (AUB)</option>
-                                                <option value="Bank of Commerce">Bank of Commerce (BankCom)</option>
-                                                <option value="Hongkong and Shanghai Banking Corporation">Hongkong and
-                                                    Shanghai Banking
-                                                    Corporation (HSBC)</option>
-                                                <option value="Robinsons Bank Corporation">Robinsons Bank Corporation
-                                                </option>
-                                                <option value="Philtrust Bank">Philtrust Bank</option>
-                                                <option value="Philippine Bank of Communications">Philippine Bank of
-                                                    Communications
-                                                    (PBCOM)</option>
-                                                <option value="Maybank Philippines Inc.">Maybank Philippines Inc.</option>
-                                            </select>
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
+                                                <input name="acct_name" id="acct_name" type="text"
+                                                    class="form-control" placeholder="Account Name" required>
+                                                <div id="error_acct_name"></div>
+                                            </div>
                                         </div>
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="city" style="color: #A4A6B3;">Bank Address</label>
-                                            <input id="bank_address" name="bank_address" type="text"
-                                                class="form-control" placeholder="Bank Address">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
+                                                <select class="form-select" id="bank_name" name="bank_name" required>
+                                                    <option selected disabled value="">Please Select Bank Name
+                                                    </option>
+                                                    <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
+                                                    <option value="Land Bank of the Philippines">Land Bank of the
+                                                        Philippines
+                                                        (LANDBANK)
+                                                    </option>
+                                                    <option value="Metropolitan Bank & Trust Company">Metropolitan Bank &
+                                                        Trust
+                                                        Company
+                                                        (Metrobank)</option>
+                                                    <option value="Bank of the Philippine Islands">Bank of the Philippine
+                                                        Islands (BPI)
+                                                    </option>
+                                                    <option value="Philippine National Bank">Philippine National Bank (PNB)
+                                                    </option>
+                                                    <option value="Development Bank of the Philippines">Development Bank of
+                                                        the
+                                                        Philippines
+                                                        (DBP)</option>
+                                                    <option value="China Banking Corporation">China Banking Corporation
+                                                        (CBC)
+                                                    </option>
+                                                    <option value="Rizal Commercial Banking Corporation">Rizal Commercial
+                                                        Banking
+                                                        Corporation (RCBC)</option>
+                                                    <option value="Union Bank of the Philippines, Inc.">Union Bank of the
+                                                        Philippines, Inc.
+                                                    </option>
+                                                    <option value="Security Bank Corporation">Security Bank Corporation
+                                                    </option>
+                                                    <option value="EastWest Bank">EastWest Bank</option>
+                                                    <option value="Citibank, N.A.">Citibank, N.A. (Philippine Branch)
+                                                    </option>
+                                                    <option value="United Coconut Planters Bank">United Coconut Planters
+                                                        Bank
+                                                        (UCPB)
+                                                    </option>
+                                                    <option value="Asia United Bank Corporation">Asia United Bank
+                                                        Corporation
+                                                        (AUB)</option>
+                                                    <option value="Bank of Commerce">Bank of Commerce (BankCom)</option>
+                                                    <option value="Hongkong and Shanghai Banking Corporation">Hongkong and
+                                                        Shanghai Banking
+                                                        Corporation (HSBC)</option>
+                                                    <option value="Robinsons Bank Corporation">Robinsons Bank Corporation
+                                                    </option>
+                                                    <option value="Philtrust Bank">Philtrust Bank</option>
+                                                    <option value="Philippine Bank of Communications">Philippine Bank of
+                                                        Communications
+                                                        (PBCOM)</option>
+                                                    <option value="Maybank Philippines Inc.">Maybank Philippines Inc.
+                                                    </option>
+                                                </select>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="city" style="color: #A4A6B3;">Bank Address</label>
+                                                <input id="bank_address" name="bank_address" type="text"
+                                                    class="form-control" placeholder="Bank Address" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="city" style="color: #A4A6B3;">*Gcash Number</label>
-                                            <input name="gcash_no" type="text" class="form-control" id="gcash_no"
-                                                placeholder="Gcash Number">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="city" style="color: #A4A6B3;">Gcash Number</label>
+                                                <input name="gcash_no" type="text" class="form-control"
+                                                    id="gcash_no" placeholder="Gcash Number" required maxlength="11">
+                                                <div id="error_gcash_no"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
-                                            <input name="date_hired" type="text" onblur="(this.type='text')"
-                                                class="form-control" id="date_hired" placeholder="Date Hired">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
+                                                <input name="date_hired" type="text" onblur="(this.type='text')"
+                                                    class="form-control" id="date_hired" placeholder="Date Hired"
+                                                    required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -514,11 +576,36 @@
                 toast1.toast('hide');
             })
 
+            $('#password').on('keyup', function() {
+                if ($(this).val() != "") {
+                    $("#toggle_password").css("margin-right", "0px");
+                } else {
+                    $("#toggle_password").css("margin-right", "20px");
+                }
+            })
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
             $('#ProfileStore').submit(function(e) {
                 e.preventDefault();
                 // $('html,body').animate({
                 //   scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+                if ($('#password').val() == "") {
+                    $("#toggle_password").css("margin-right", "20px");
+                }
 
                 let first_name = $("#first_name").val();
                 let last_name = $("#last_name").val();
@@ -651,58 +738,106 @@
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
-
+                            $('#ProfileStore').trigger('reset');
+                            $('#ProfileStore').removeClass('was-validated');
                         }
                     })
                     .catch(function(error) {
                         console.log("error.response.data.errors", error);
                         if (error.response.data.errors) {
-                            $('input').removeClass('is-invalid');
-                            $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
-                            var errors = error.response.data.errors;
-                            var errorContainer = $('#error-container');
-                            errorContainer.empty();
-                            console.log("errors", errors)
-
-                            if ("password" in errors) {
-                                $('#eye').addClass('me-3');
-                                // Do something
+                            // ERROR EMAIL
+                            if (error.response.data.errors.email) {
+                                if (error.response.data.errors.email.length > 0) {
+                                    $email_error = error.response.data.errors.email[0];
+                                    if ($email_error == "The email field is required.") {
+                                        $("#error_email").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                    if ($email_error == "The email must be a valid email address.") {
+                                        $("#error_email").addClass('invalid-feedback').html(
+                                            "The email address must be valid.").show();
+                                    }
+                                    if ($email_error == "The email has already been taken.") {
+                                        $("#error_email").addClass('invalid-feedback').html(
+                                            "The email has already been taken.").show();
+                                    }
+                                }
                             } else {
-                                $('#eye').removeClass('me-3');
+                                $("#error_email").removeClass('invalid-feedback').html("").show();
                             }
-                            for (var key in errors) {
-                                var inputName = key.replace('_', ' ');
-                                inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                                var errorMsg = errors[key][0];
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key).parent().append('<span class="invalid-feedback">' +
-                                    errorMsg + '</span>');
+
+                            // ERROR USERNAME
+                            if (error.response.data.errors.username) {
+                                if (error.response.data.errors.username.length > 0) {
+                                    $username_error = error.response.data.errors.username[0];
+                                    if ($username_error == "The username field is required.") {
+                                        $("#error_username").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                    if ($username_error == "The username has already been taken.") {
+                                        $("#error_username").addClass('invalid-feedback').html(
+                                            "The username has already been taken.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_username").removeClass('invalid-feedback').html("").show();
                             }
-                        } else {
-                            $('input').removeClass('is-invalid');
-                            $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
+
+                            // ERROR ACCT_NO
+                            if (error.response.data.errors.acct_no) {
+                                if (error.response.data.errors.acct_no.length > 0) {
+                                    $acct_no = error.response.data.errors.acct_no[0];
+                                    // console.log("ACCT_NO", $acct_no);
+                                    if ($acct_no == "The acct no field is required.") {
+                                        $("#error_acct_no").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                    if ($acct_no == "The acct no has already been taken.") {
+                                        $("#error_acct_no").addClass('invalid-feedback').html(
+                                            "The acct no has already been taken.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                            }
+
+                            // ERROR ACCT_NAME
+                            if (error.response.data.errors.acct_name) {
+                                if (error.response.data.errors.acct_name.length > 0) {
+                                    $acct_name = error.response.data.errors.acct_name[0];
+                                    // console.log("ACCT_NAME", $acct_name);
+                                    if ($acct_name == "The acct name field is required.") {
+                                        $("#error_acct_name").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                    if ($acct_name == "The acct name has already been taken.") {
+                                        $("#error_acct_name").addClass('invalid-feedback').html(
+                                            "The acct name has already been taken.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                            }
+
+                            // ERROR GCASH
+                            if (error.response.data.errors.gcash_no) {
+                                if (error.response.data.errors.gcash_no.length > 0) {
+                                    $gcash_no = error.response.data.errors.gcash_no[0];
+                                    // console.log("GCASH", $gcash_no);
+                                    if ($gcash_no == "The gcash no field is required.") {
+                                        $("#error_gcash_no").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                    if ($gcash_no == "The gcash no has already been taken.") {
+                                        $("#error_gcash_no").addClass('invalid-feedback').html(
+                                            "The gcash no has already been taken.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                            }
                         }
-                        // let errors = error.response.data.errors;
-                        // console.log(errors);
-                        // if (error.response.data.errors) {
-                        // let errors = error.response.data.errors;
-                        // let fieldnames = Object.keys(errors);
-                        // $('#' + fieldnames[0]).addClass('is-invalid');
-                        // Object.values(errors).map((item, index) => {
-                        // fieldname = fieldnames[0].split('_');
-                        // fieldname.map((item2, index2) => {
-                        // fieldname['key'] = capitalize(item2);
-                        // return ""
-                        // });
-                        // fieldname = fieldname.join(" ");
-                        // // $('.toast1 .toast-title').html(fieldname);
-                        // $('#error_email').html(Object.values(errors)[0].join(
-                        // "\n\r"));
-                        // })
-                        // // toast1.toast('show');
-                        // }
+
                     });
             })
 

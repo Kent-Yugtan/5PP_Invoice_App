@@ -91,7 +91,7 @@ class Controller extends BaseController
     $to_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $to_email = !empty($data['admin_email']) ? $data['admin_email'] : "";
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
     $subject = "5 Pints Productions Invoice - Admin Status Paid";
 
@@ -206,7 +206,7 @@ class Controller extends BaseController
     $to_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $to_email = !empty($data['user_email']) ? $data['user_email'] : "";
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
     $subject = "5 Pints Productions Invoice - Staff Paid Status";
 
@@ -321,7 +321,7 @@ class Controller extends BaseController
     $to_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $to_email = !empty($data['admin_email']) ? $data['admin_email'] : "";
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
     $subject = "5 Pints Productions Invoice - Admin";
 
@@ -435,7 +435,7 @@ class Controller extends BaseController
     $to_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $to_email = !empty($data['user_email']) ? $data['user_email'] : "";
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
     $subject = "5 Pints Productions Invoice - Staff";
 
@@ -522,7 +522,7 @@ class Controller extends BaseController
     $action_link = !empty($data['action_link']) ? $data['action_link'] : "";
 
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
-    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+    $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.email-forgot';
     $subject = "Reset Password";
 
