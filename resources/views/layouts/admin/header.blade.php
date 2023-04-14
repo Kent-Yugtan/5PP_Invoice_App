@@ -190,11 +190,11 @@
                 },
             }).then(function(response) {
                 let data = response.data;
-                if (data.success) {
+                if (data.data) {
                     $(".rounded-pill").attr("src", data.data.file_path ? data.data.file_path :
                         '/images/default.png');
-                    $('#fullname').html(data.data.user.first_name + " " + data.data.user.last_name);
-                    $('#role').html(data.data.user.role);
+                    $('#fullname').html(data.data.first_name + " " + data.data.last_name);
+                    $('#role').html(data.data.role);
                 }
             }).catch(function(error) {
                 console.log('error', error);
