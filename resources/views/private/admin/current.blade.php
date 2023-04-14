@@ -169,6 +169,7 @@
                     $('#select-all').prop('checked', this.checked);
                 } else {
                     $('#select-all').prop('checked', false);
+                    array_item = [];
                 }
 
                 profile_id_item = array_item;

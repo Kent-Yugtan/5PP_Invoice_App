@@ -1004,11 +1004,11 @@
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $('div.spanner').removeClass('show');
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(data.message);
+                                // $('#notifyIcon').html(
+                                //     '<i class="fa-solid fa-check" style="color:green"></i>'
+                                // );
+                                // $('.toast1 .toast-title').html('Success');
+                                // $('.toast1 .toast-body').html(data.message);
                                 $('#photo').attr('src',
                                     '{{ asset('storage/images') }}/' + data
                                     .image);
@@ -1018,7 +1018,7 @@
                                 file_path = data.path ? data.path : "";
                                 document.getElementById("upload_image").value = "";
                                 $('#imageRow').addClass('d-none')
-                                toast1.toast('show');
+                                // toast1.toast('show');
                             }, 1500)
                         }
                     }).catch(function(error) {

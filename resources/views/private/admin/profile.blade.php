@@ -487,7 +487,7 @@
                                 file_size = data.size;
                                 document.getElementById("upload_image").value = "";
                                 $('#imageRow').addClass('d-none')
-                                toast1.toast('show');
+                                // toast1.toast('show');
                             }, 1500)
                         }
                     }).catch(function(error) {

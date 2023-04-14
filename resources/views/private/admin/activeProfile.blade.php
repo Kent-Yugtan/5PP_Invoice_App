@@ -1113,7 +1113,7 @@
                                 file_path = data.path ? data.path : "";
                                 document.getElementById("upload_image").value = "";
                                 $('#imageRow').addClass('d-none')
-                                toast1.toast('show');
+                                // toast1.toast('show');
                             }, 1500)
                         }
                     }).catch(function(error) {

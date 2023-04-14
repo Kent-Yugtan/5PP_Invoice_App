@@ -743,9 +743,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                            <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                        </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -1099,11 +1099,11 @@
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $('div.spanner').removeClass('show');
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(data.message);
+                                // $('#notifyIcon').html(
+                                //     '<i class="fa-solid fa-check" style="color:green"></i>'
+                                // );
+                                // $('.toast1 .toast-title').html('Success');
+                                // $('.toast1 .toast-body').html(data.message);
                                 $('#photo').attr('src',
                                     '{{ asset('storage/images') }}/' + data
                                     .image);
@@ -1114,7 +1114,7 @@
                                 file_size = data.size;
                                 document.getElementById("upload_image").value = "";
                                 $('#imageRow').addClass('d-none')
-                                toast1.toast('show');
+                                // toast1.toast('show');
                             }, 1500)
                         }
                     }).catch(function(error) {
