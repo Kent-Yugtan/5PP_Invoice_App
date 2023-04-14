@@ -121,7 +121,7 @@ class ProfileController extends Controller
           }
           if ($findUser->email != $request->email) {
             $request->validate([
-              'email' => 'required|unique:users',
+              'email' => 'required|unique:users|email',
             ]);
           }
           if ($findUser->username != $request->username) {
@@ -141,7 +141,7 @@ class ProfileController extends Controller
           }
           if ($findUser->profile->gcash_no != $request->gcash_no) {
             $request->validate([
-              'gcash_no' => 'required|unique:profiles',
+              'gcash_no' => 'required|unique:profiles|numeric',
             ]);
           }
         }
@@ -266,13 +266,13 @@ class ProfileController extends Controller
       if (!$user_id) {
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully added to the database.',
+          'message' => 'Your profile has been created successfully.',
           'data' => $userCreate,
         ], 200);
       } else {
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your profile has been updated successfully.',
           'data' => $userCreate,
         ], 200);
       }

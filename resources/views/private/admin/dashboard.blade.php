@@ -104,9 +104,9 @@
                             <div class="row">
                                 <div class="col-xl-12 ">
                                     <button type="submit" style="width:100%;color:white; background-color: #CF8029;"
-                                        class="btn" class="btn">Create Invoice</button>
+                                        class="btn">Create Invoice</button>
                                 </div>
-                            </div>
+                            </div>`
                         </form>
                     </div>
                     <!-- </div> -->
@@ -469,7 +469,7 @@
                                     apiUrl +
                                     '/admin/editInvoice/' +
                                     item.id +
-                                    '" class="btn"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
+                                    '" class="btn-table"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
 
                                 $('#pendingInvoices tbody').append(tr);
@@ -572,7 +572,7 @@
                                     apiUrl +
                                     '/admin/editInvoice/' +
                                     item.id +
-                                    '" class="btn"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
+                                    '" class=""><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
                                 $('#overdueInvoices tbody').append(tr);
                             })

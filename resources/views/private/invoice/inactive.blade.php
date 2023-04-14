@@ -67,6 +67,8 @@
             </div>
         </div>
 
+
+
         <div class="row ">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
@@ -75,6 +77,9 @@
                             <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
                                 <thead>
                                     <tr>
+                                        <th class="active fit" style="width: 10px">
+                                            <input type="checkbox" class="select-all form-check-input" id="select-all" />
+                                        </th>
                                         <th class="fit">Invoice #</th>
                                         <th class="fit">Profile Name</th>
                                         <th class="fit text-center">Payment Status</th>
@@ -82,7 +87,7 @@
                                         <th class="fit text-end">Total Amount</th>
                                         <th class="fit text-end">Date Created</th>
                                         <th class="fit text-end">Due Date</th>
-                                        <th class="text-center fit">Action</th>
+                                        <th class="fit" style="width:10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -195,6 +200,9 @@
             }
         }
         $(document).ready(function() {
+            $('#select-all').click(function(e) {
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+            });
             $(window).on('load', function() {
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
@@ -301,6 +309,8 @@
 
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
+                                tr +=
+                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -393,12 +403,14 @@
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
+                                // tr +=
+                                //     '<td class="text-center"> <a href="' +
+                                //     apiUrl +
+                                //     '/invoice/editInactiveInvoice/' +
+                                //     item.id +
+                                //     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr +=
-                                    '<td class="text-center"> <a href="' +
-                                    apiUrl +
-                                    '/invoice/editInactiveInvoice/' +
-                                    item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                    '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
@@ -497,6 +509,8 @@
 
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td hidden>' + item.id + '</td>'
+                                tr +=
+                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -587,12 +601,14 @@
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
+                                // tr +=
+                                //     '<td class="text-center"> <a href="' +
+                                //     apiUrl +
+                                //     '/invoice/editInactiveInvoice/' +
+                                //     item.id +
+                                //     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr +=
-                                    '<td class="text-center"> <a href="' +
-                                    apiUrl +
-                                    '/invoice/editInactiveInvoice/' +
-                                    item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                    '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''

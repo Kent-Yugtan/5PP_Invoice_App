@@ -12,7 +12,7 @@
                             </div>
                         </div>
                         <!-- method="POST" action="javascript:void(0)" class="row g-3 needs-validation"novalidate -->
-                        <form id="ProfileUpdate">
+                        <form id="ProfileUpdate" class="g-3 needs-validation" novalidate>
                             <div class="row pt-3">
                                 @csrf
                                 <span hidden>user id</span>
@@ -30,9 +30,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-6 pt-3 bottom20">
+                                <div class="col-md-6 col-lg-6 pt-3 ">
                                     <div class="row">
-                                        <div class="col bottom20">
+                                        <div class="col ">
                                             <input class="form-check-input" type="checkbox" id="profile_status"
                                                 name="profile_status" disabled="true">
                                             <label class="form-check-label" for="status">
@@ -42,18 +42,24 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col bottom20">
-                                            <label style="color: #A4A6B3;" for="first_name">Firstname</label>
-                                            <input id="first_name" name="first_name" type="text" class="form-control"
-                                                placeholder="Firstname" disabled="true">
+                                        <div class="col">
+                                            <div class="form-group-profile">
+                                                <label style="color: #A4A6B3;" for="first_name">Firstname</label>
+                                                <input id="first_name" name="first_name" type="text" class="form-control"
+                                                    placeholder="Firstname" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <label for="last_name" style="color: #A4A6B3;">Lastname</label>
-                                            <input id="last_name" name="last_name" type="text" class="form-control"
-                                                placeholder="Lastname" disabled="true">
+                                            <div class="form-group-profile">
+                                                <label for="last_name" style="color: #A4A6B3;">Lastname</label>
+                                                <input id="last_name" name="last_name" type="text" class="form-control"
+                                                    placeholder="Lastname" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,167 +68,228 @@
                             <div class="row row_email_adminActiveProfile">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="email" style="color: #A4A6B3;">Email Address</label>
-                                            <input id="email" name="email" type="email" class="form-control"
-                                                placeholder="Email" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="email" style="color: #A4A6B3;">Email Address</label>
+                                                <input id="email" name="email" type="email" class="form-control"
+                                                    placeholder="Email" disabled="true" required>
+                                                <div id="error_email"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="username" style="color: #A4A6B3;">Username</label>
-                                            <input id="username" name="username" type="text" class="form-control"
-                                                placeholder="Username" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="username" style="color: #A4A6B3;">Username</label>
+                                                <input id="username" name="username" type="text" class="form-control"
+                                                    placeholder="Username" disabled="true" required>
+                                                <div id="error_username">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="position" style="color: #A4A6B3;">Position</label>
-                                            <select class="form-select" id="position" name="position" defaultValue="select"
-                                                disabled="true">
-                                                <option selected disabled value="">Please Select Position</option>
-                                                <option value="Lead Developer">Lead Developer</option>
-                                                <option value="Senior Developer">Senior Developer</option>
-                                                <option value="Junior Developer">Junior Developer</option>
-                                                <option value="Web Designer">Web Designer</option>
-                                                <option value="Tester">Tester</option>
-                                            </select>
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="position" style="color: #A4A6B3;">Position</label>
+                                                <select class="form-select" id="position" name="position"
+                                                    defaultValue="select" disabled="true" required>
+                                                    <option selected disabled value="">Please Select Position
+                                                    </option>
+                                                    <option value="Lead Developer">Lead Developer</option>
+                                                    <option value="Senior Developer">Senior Developer</option>
+                                                    <option value="Junior Developer">Junior Developer</option>
+                                                    <option value="Web Designer">Web Designer</option>
+                                                    <option value="Tester">Tester</option>
+                                                </select>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="phone_number" style="color: #A4A6B3;">Phone Number</label>
-                                            <input id="phone_number" name="phone_number" type="text"
-                                                class="form-control" placeholder="Phone Number" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="phone_number" style="color: #A4A6B3;">Phone Number</label>
+                                                <input id="phone_number" name="phone_number" type="text"
+                                                    class="form-control" placeholder="Phone Number"
+                                                    disabled="true"required maxlength="11">
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="address" style="color: #A4A6B3;">Address</label>
-                                            <input id="address" name="address" type="text" class="form-control"
-                                                placeholder="Address" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="address" style="color: #A4A6B3;">Address</label>
+                                                <input id="address" name="address" type="text" class="form-control"
+                                                    placeholder="Address" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="province" style="color: #A4A6B3;">Province</label>
-                                            <input id="province" name="province" type="text" class="form-control"
-                                                placeholder="Province" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="province" style="color: #A4A6B3;">Province</label>
+                                                <input id="province" name="province" type="text"
+                                                    class="form-control" placeholder="Province" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="city" style="color: #A4A6B3;">City</label>
-                                            <input id="city" name="city" type="text" class="form-control"
-                                                placeholder="City" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="city" style="color: #A4A6B3;">City</label>
+                                                <input id="city" name="city" type="text" class="form-control"
+                                                    placeholder="City" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="zip_code" style="color: #A4A6B3;">Zip Code</label>
-                                            <input id="zip_code" name="zip_code" type="text" class="form-control"
-                                                placeholder="Zip Code" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="zip_code" style="color: #A4A6B3;">Zip Code</label>
+                                                <input id="zip_code" name="zip_code" type="text"
+                                                    class="form-control" placeholder="Zip Code" disabled="true" required
+                                                    maxlength="10">
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
-                                            <input id="acct_no" name="acct_no" type="text" class="form-control"
-                                                placeholder="Account Number" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
+                                                <input id="acct_no" name="acct_no" type="text" class="form-control"
+                                                    placeholder="Account Number" disabled="true" required maxlength="15">
+                                                <div id="error_acct_no">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
-                                            <input id="acct_name" name="acct_name" type="text" class="form-control"
-                                                placeholder="Account Name" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
+                                                <input id="acct_name" name="acct_name" type="text"
+                                                    class="form-control" placeholder="Account Name" disabled="true"
+                                                    required>
+                                                <div id="error_acct_name">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
-                                            <select class="form-select" id="bank_name" name="bank_name"
-                                                aria-label="Default select example" disabled="true">
-                                                <option selected disabled value="">Please Select Bank Name</option>
-                                                <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
-                                                <option value="Land Bank of the Philippines">Land Bank of the Philippines
-                                                    (LANDBANK)
-                                                </option>
-                                                <option value="Metropolitan Bank & Trust Company">Metropolitan Bank & Trust
-                                                    Company
-                                                    (Metrobank)</option>
-                                                <option value="Bank of the Philippine Islands">Bank of the Philippine
-                                                    Islands (BPI)
-                                                </option>
-                                                <option value="Philippine National Bank">Philippine National Bank (PNB)
-                                                </option>
-                                                <option value="Development Bank of the Philippines">Development Bank of the
-                                                    Philippines
-                                                    (DBP)</option>
-                                                <option value="China Banking Corporation">China Banking Corporation (CBC)
-                                                </option>
-                                                <option value="Rizal Commercial Banking Corporation">Rizal Commercial
-                                                    Banking
-                                                    Corporation (RCBC)</option>
-                                                <option value="Union Bank of the Philippines, Inc.">Union Bank of the
-                                                    Philippines, Inc.
-                                                </option>
-                                                <option value="Security Bank Corporation">Security Bank Corporation
-                                                </option>
-                                                <option value="EastWest Bank">EastWest Bank</option>
-                                                <option value="Citibank, N.A.">Citibank, N.A. (Philippine Branch)</option>
-                                                <option value="United Coconut Planters Bank">United Coconut Planters Bank
-                                                    (UCPB)
-                                                </option>
-                                                <option value="Asia United Bank Corporation">Asia United Bank Corporation
-                                                    (AUB)</option>
-                                                <option value="Bank of Commerce">Bank of Commerce (BankCom)</option>
-                                                <option value="Hongkong and Shanghai Banking Corporation">Hongkong and
-                                                    Shanghai Banking
-                                                    Corporation (HSBC)</option>
-                                                <option value="Robinsons Bank Corporation">Robinsons Bank Corporation
-                                                </option>
-                                                <option value="Philtrust Bank">Philtrust Bank</option>
-                                                <option value="Philippine Bank of Communications">Philippine Bank of
-                                                    Communications
-                                                    (PBCOM)</option>
-                                                <option value="Maybank Philippines Inc.">Maybank Philippines Inc.</option>
-                                            </select>
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
+                                                <select class="form-select" id="bank_name" name="bank_name"
+                                                    aria-label="Default select example" disabled="true" required>
+                                                    <option selected disabled value="">Please Select Bank Name
+                                                    </option>
+                                                    <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
+                                                    <option value="Land Bank of the Philippines">Land Bank of the
+                                                        Philippines
+                                                        (LANDBANK)
+                                                    </option>
+                                                    <option value="Metropolitan Bank & Trust Company">Metropolitan Bank &
+                                                        Trust
+                                                        Company
+                                                        (Metrobank)</option>
+                                                    <option value="Bank of the Philippine Islands">Bank of the Philippine
+                                                        Islands (BPI)
+                                                    </option>
+                                                    <option value="Philippine National Bank">Philippine National Bank (PNB)
+                                                    </option>
+                                                    <option value="Development Bank of the Philippines">Development Bank of
+                                                        the
+                                                        Philippines
+                                                        (DBP)</option>
+                                                    <option value="China Banking Corporation">China Banking Corporation
+                                                        (CBC)
+                                                    </option>
+                                                    <option value="Rizal Commercial Banking Corporation">Rizal Commercial
+                                                        Banking
+                                                        Corporation (RCBC)</option>
+                                                    <option value="Union Bank of the Philippines, Inc.">Union Bank of the
+                                                        Philippines, Inc.
+                                                    </option>
+                                                    <option value="Security Bank Corporation">Security Bank Corporation
+                                                    </option>
+                                                    <option value="EastWest Bank">EastWest Bank</option>
+                                                    <option value="Citibank, N.A.">Citibank, N.A. (Philippine Branch)
+                                                    </option>
+                                                    <option value="United Coconut Planters Bank">United Coconut Planters
+                                                        Bank
+                                                        (UCPB)
+                                                    </option>
+                                                    <option value="Asia United Bank Corporation">Asia United Bank
+                                                        Corporation
+                                                        (AUB)</option>
+                                                    <option value="Bank of Commerce">Bank of Commerce (BankCom)</option>
+                                                    <option value="Hongkong and Shanghai Banking Corporation">Hongkong and
+                                                        Shanghai Banking
+                                                        Corporation (HSBC)</option>
+                                                    <option value="Robinsons Bank Corporation">Robinsons Bank Corporation
+                                                    </option>
+                                                    <option value="Philtrust Bank">Philtrust Bank</option>
+                                                    <option value="Philippine Bank of Communications">Philippine Bank of
+                                                        Communications
+                                                        (PBCOM)</option>
+                                                    <option value="Maybank Philippines Inc.">Maybank Philippines Inc.
+                                                    </option>
+                                                </select>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="bank_address" style="color: #A4A6B3;">Bank Address</label>
-                                            <input id="bank_address" name="bank_address" type="text"
-                                                class="form-control" placeholder="Bank Address" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="bank_address" style="color: #A4A6B3;">Bank Address</label>
+                                                <input id="bank_address" name="bank_address" type="text"
+                                                    class="form-control" placeholder="Bank Address" disabled="true"
+                                                    required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
-                                            <input id="gcash_no" name="gcash_no" type="text" class="form-control"
-                                                placeholder="Gcash Number" disabled="true">
+                                        <div class="col-12 ">
+                                            <div class="form-group-profile">
+                                                <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
+                                                <input id="gcash_no" name="gcash_no" type="text"
+                                                    class="form-control" placeholder="Gcash Number" disabled="true"
+                                                    required maxlength="11">
+                                                <div id="error_gcash_no">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
-                                            <input id="date_hired" name="date_hired" type="text"
-                                                onblur="(this.type='text')" class="form-control" placeholder="Date Hired"
-                                                disabled="true">
+                                        <div class="col-12 bottom10">
+                                            <div class="form-group-profile">
+                                                <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
+                                                <input id="date_hired" name="date_hired" type="text"
+                                                    onblur="(this.type='text')" class="form-control"
+                                                    placeholder="Date Hired" disabled="true" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -236,7 +303,7 @@
                                                 style="width:100%;color:#CF8029; background-color: #f3f3f3;"
                                                 class="btn d-none">Cancel</button>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 bottom20">
                                             <button type="submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn">Save</button>
@@ -265,7 +332,7 @@
                             </li>
                         </ul>
 
-                        <div class="form-group has-search">
+                        <div class="has-search">
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel"
                                     aria-labelledby="pills-invoice-tab">
@@ -406,7 +473,7 @@
             <div class="hide-content">
                 <div class="modal-body">
                     <div class="row">
-                        <form id="invoice_items">
+                        <form id="invoice_items" class="g-3 needs-validation" novalidate>
                             @csrf
                             <div class="row " id="header">
                                 <div class="col-md-6 w-100 bottom10" style="padding-right:5px;padding-left:5px;">
@@ -422,37 +489,45 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6 bottom20">
+                                                <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label for="due_date" style="color:#A4A6B3">Due Date</label>
-                                                            <input type="text" placeholder="Due Date" id="due_date"
-                                                                onblur="(this.type='text')" name="due_date"
-                                                                class="form-control">
+                                                            <div class="form-group-profile">
+                                                                <label for="due_date" style="color:#A4A6B3">Due
+                                                                    Date</label>
+                                                                <input type="text" placeholder="Due Date"
+                                                                    id="due_date" onblur="(this.type='text')"
+                                                                    name="due_date" class="form-control" required>
+                                                                <div class="invalid-feedback">This field is required.</div>
+                                                            </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col ">
-                                                            <label for="description"
-                                                                style="color:#A4A6B3">Description</label>
-                                                            <input id="description" placeholder="Description"
-                                                                name="description" type="text" class="form-control">
+                                                            <div class="form-group-profile">
+                                                                <label for="description"
+                                                                    style="color:#A4A6B3">Description</label>
+                                                                <input id="description" placeholder="Description"
+                                                                    name="description" type="text"
+                                                                    class="form-control" required>
+                                                                <div class="invalid-feedback">This field is required.</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-lg-12 bottom20 " id="show_items">
+                                                <div class="col-lg-12  " id="show_items">
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col-lg-12 d-flex justify-content-end">
-                                                            <div class="form-group w-50">
+                                                            <div class="w-25">
                                                                 <button class="btn"
                                                                     style="width:100%;color:white; background-color: #CF8029;"
                                                                     id="add_item">Add Item</button>
@@ -465,7 +540,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-4 bottom20"
                                                             style="display: flex;align-items: start;">
-                                                            <div class="form-group">
+                                                            <div>
                                                                 <label class="formGroupExampleInput2"
                                                                     style="color:#A4A6B3">Discount Type</label>
                                                                 <br>
@@ -490,7 +565,8 @@
                                                                 Amount ($)</label>
                                                             <input type="text" step="any"
                                                                 style="text-align:right;" name="discount_amount"
-                                                                id="discount_amount" class="form-control" />
+                                                                id="discount_amount" class="form-control"
+                                                                maxlength="6" />
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
@@ -506,17 +582,18 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col-lg-12" style="justify-content:end;display:flex">
-                                                            <div class="form-group">
-                                                                <label for="sub_total" style="color:#A4A6B3">Subtotal ($):
+                                                            <div>
+                                                                <label for="sub_total" style="color:#A4A6B3">Subtotal
+                                                                    ($):
                                                                 </label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;text-align:right;border:none;background-color:white"
                                                                     name="sub_total" id="sub_total"
-                                                                    class="form-control no-outline sub_total" readonly
-                                                                    tabindex="-1">
+                                                                    class="form-control no-outline sub_total"
+                                                                    tabindex="-1" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -525,7 +602,7 @@
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4">
-                                                            <div class="form-group">
+                                                            <div>
                                                                 <label for="dollar_amount" style="color:#A4A6B3">Dollar
                                                                     Amount
                                                                     ($)</label>
@@ -537,7 +614,7 @@
                                                         </div>
 
                                                         <div class="col-12 col-sm-4">
-                                                            <div class="form-group">
+                                                            <div>
                                                                 <label for="peso_rate" style="color:#A4A6B3">Peso Rate
                                                                     (Php)</label>
                                                                 <input type="text"
@@ -548,7 +625,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-4">
-                                                            <div class="form-group">
+                                                            <div>
                                                                 <label for="converted_amount"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
@@ -578,7 +655,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-12" style="justify-content:end;display:flex">
                                                             <!-- border-style:none -->
-                                                            <div class="form-group">
+                                                            <div>
                                                                 <label for="grand_total" class="fw-bold">Grand
                                                                     Total(Php):</label>
                                                                 <input type="text" id="grand_total"
@@ -645,33 +722,37 @@
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="modal-body">
-                    <form id="deductiontype_store" method="POST" action="javascript:void(0)">
+                    <form id="deductiontype_store" class="g-3 needs-validation" novalidate>
                         @csrf
-                        <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
                             <div class="card-body">
-                                <div class="row px-4 py-4" id="header">
-                                    <div class="col-md-12 px-2 w-100">
+                                <div class="row" id="header">
+                                    <div class="col-md-12 w-100">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col bottom20">
                                                 <span class="fs-3 fw-bold">Add Deduction</span>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
+                                            <div class="col-12  ">
                                                 <input type="text" id="createDeduction_profile_id" hidden>
-                                                <div class="form-group mt-3" id="select_deduction_name"></div>
+                                                <div class="form-group" id="select_deduction_name"></div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="createDeduction_deduction_amount"
-                                                    style="color:#A4A6B3">Amount</label>
-                                                <input id="createDeduction_deduction_amount"
-                                                    name="createDeduction_deduction_amount" type="text"
-                                                    class="createDeduction_deduction_amount form-control"
-                                                    placeholder="Amount">
+                                            <div class="col-12 ">
+                                                <div class="form-group-profile">
+                                                    <label for="createDeduction_deduction_amount"
+                                                        style="color:#A4A6B3">Amount</label>
+                                                    <input id="createDeduction_deduction_amount"
+                                                        name="createDeduction_deduction_amount" type="text"
+                                                        class="createDeduction_deduction_amount form-control"
+                                                        placeholder="Amount" maxlength="6" required>
+                                                    <div id="invalid-feedback-deduction-amount" class="invalid-feedback">
+                                                        This field is required.</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -702,7 +783,7 @@
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
-                    <form id="ProfileDeductiontype_update">
+                    <form id="ProfileDeductiontype_update" class="g-3 needs-validation" novalidate>
                         @csrf
                         <div class="row">
                             <div class="card-border shadow bg-white h-100" style="padding:20px">
@@ -717,29 +798,36 @@
                                             <input type="text" id="profileDeductionType_id" hidden>
 
                                             <div class="row">
-                                                <div class="col bottom20">
-                                                    <div class="form-group">
+                                                <div class="col ">
+                                                    <div class="form-group-profile">
                                                         <label for="edit_profileDeductionType_name"
                                                             style="color:#A4A6B3">Profile Deduction Name</label>
                                                         <input type="text" id="edit_profileDeductionType_name"
-                                                            name="edit_profileDeductionType_name" class="form-control">
+                                                            name="edit_profileDeductionType_name" class="form-control"
+                                                            required>
+                                                        <div id="error_deduction_name" class="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col bottom20">
-                                                    <label for="edit_profileDeductionType_amount"
-                                                        style="color:#A4A6B3">Amount</label>
-                                                    <input id="edit_profileDeductionType_amount"
-                                                        name="edit_profileDeductionType_amount" type="text"
-                                                        class="form-control" placeholder="Amount">
+                                                <div class="col ">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_profileDeductionType_amount"
+                                                            style="color:#A4A6B3">Amount</label>
+                                                        <input id="edit_profileDeductionType_amount"
+                                                            name="edit_profileDeductionType_amount" type="text"
+                                                            class="form-control" placeholder="Amount" maxlength="6"
+                                                            required>
+                                                        <div class="invalid-feedback">This field is required.</div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="row pt-3">
                                                 <div class="col">
-                                                    <button type="button" class="btn  w-100" data-bs-dismiss="modal"
+                                                    <button type="button" class="btn w-100" id="cancelProfileDeduction"
                                                         style="color:white; background-color:#A4A6B3;">Cancel</button>
                                                 </div>
                                                 <div class="col">
@@ -1011,11 +1099,11 @@
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $('div.spanner').removeClass('show');
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(data.message);
+                                // $('#notifyIcon').html(
+                                //     '<i class="fa-solid fa-check" style="color:green"></i>'
+                                // );
+                                // $('.toast1 .toast-title').html('Success');
+                                // $('.toast1 .toast-body').html(data.message);
                                 $('#photo').attr('src',
                                     '{{ asset('storage/images') }}/' + data
                                     .image);
@@ -1475,7 +1563,7 @@
                     // console.log("sddsadsa", urlSplit.length);
                     let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                     let filter = {
-                        page_size: 20,
+                        page_size: 30,
                         page: page ? page : 1,
                         user_id: urlSplit[3],
                         search: $('#search_invoice').val(),
@@ -1618,6 +1706,20 @@
                 }
             }
 
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
             $('#ProfileUpdate').submit(function(e) {
                 e.preventDefault();
                 if (document.getElementById("profile_status").disabled) {
@@ -1728,8 +1830,6 @@
                     let result = Object.assign({}, data, data2);
                     // console.log("DATA", result);
 
-
-
                     axios.post(apiUrl + '/api/saveprofile', result, {
                             headers: {
                                 Authorization: token,
@@ -1771,7 +1871,8 @@
                                     '<i class="fa-solid fa-check" style="color:green"></i>');
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(data.message);
-
+                                $('#ProfileUpdate').trigger('reset');
+                                $('#ProfileUpdate').removeClass('was-validated');
                                 setTimeout(function() {
                                     $("div.spanner").removeClass("show");
                                     // location.href = apiUrl + "/admin/current"
@@ -1781,55 +1882,138 @@
                             }
                         })
                         .catch(function(error) {
-                            console.log("ERROR", error)
                             console.log("error.response.data.errors", error);
-                            if (error.response.data.errors) {
-                                $('input').removeClass('is-invalid');
-                                $('input, select').removeClass('is-invalid');
-                                $('.invalid-feedback').remove();
-                                var errors = error.response.data.errors;
-                                var errorContainer = $('#error-container');
-                                errorContainer.empty();
-                                console.log("errors", errors)
 
-                                if ("password" in errors) {
-                                    $('#eye').addClass('me-3');
-                                    // Do something
+                            if (error.response.data.errors) {
+                                // ERROR EMAIL
+                                if (error.response.data.errors.email) {
+                                    if (error.response.data.errors.email.length > 0) {
+                                        $email_error = error.response.data.errors.email[0];
+                                        if ($email_error == "The email field is required.") {
+                                            $("#error_email").addClass('invalid-feedback').html(
+                                                "This field is required.").show();
+                                        }
+                                        if ($email_error ==
+                                            "The email must be a valid email address.") {
+                                            $("#error_email").addClass('invalid-feedback').html(
+                                                "The email address must be valid.").show();
+                                        }
+                                        if ($email_error == "The email has already been taken.") {
+                                            $("#error_email").addClass('invalid-feedback').html(
+                                                "The email has already been taken.").show();
+                                        }
+                                    }
                                 } else {
-                                    $('#eye').removeClass('me-3');
+                                    $check = $('#email').val();
+                                    if ($check.length > 0) {
+                                        $("#error_email").removeClass('invalid-feedback').html("")
+                                            .show();
+                                    } else {
+                                        $("#error_email").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+
                                 }
-                                for (var key in errors) {
-                                    var inputName = key.replace('_', ' ');
-                                    inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                                    var errorMsg = errors[key][0];
-                                    $('#' + key).addClass('is-invalid');
-                                    $('#' + key).parent().append('<span class="invalid-feedback">' +
-                                        errorMsg + '</span>');
+
+                                // ERROR USERNAME
+                                if (error.response.data.errors.username) {
+                                    if (error.response.data.errors.username.length > 0) {
+                                        $username_error = error.response.data.errors.username[0];
+                                        if ($username_error == "The username field is required.") {
+                                            $("#error_username").addClass('invalid-feedback').html(
+                                                "This field is required.").show();
+                                        }
+                                        if ($username_error == "The username has already been taken.") {
+                                            $("#error_username").addClass('invalid-feedback').html(
+                                                "The username has already been taken.").show();
+                                        }
+                                    }
+                                } else {
+                                    $check = $('#username').val();
+                                    if ($check.length > 0) {
+                                        $("#error_username").removeClass('invalid-feedback').html("")
+                                            .show();
+                                    } else {
+                                        $("#error_username").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
                                 }
-                            } else {
-                                $('input').removeClass('is-invalid');
-                                $('input, select').removeClass('is-invalid');
-                                $('.invalid-feedback').remove();
+
+                                // ERROR ACCT_NO
+                                if (error.response.data.errors.acct_no) {
+                                    if (error.response.data.errors.acct_no.length > 0) {
+                                        $acct_no = error.response.data.errors.acct_no[0];
+                                        // console.log("ACCT_NO", $acct_no);
+                                        if ($acct_no == "The acct no field is required.") {
+                                            $("#error_acct_no").addClass('invalid-feedback').html(
+                                                "This field is required.").show();
+                                        }
+                                        if ($acct_no == "The acct no has already been taken.") {
+                                            $("#error_acct_no").addClass('invalid-feedback').html(
+                                                "The acct no has already been taken.").show();
+                                        }
+                                    }
+                                } else {
+                                    $check = $('#acct_no').val();
+                                    if ($check.length > 0) {
+                                        $("#error_acct_no").removeClass('invalid-feedback').html("")
+                                            .show();
+                                    } else {
+                                        $("#error_acct_no").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                }
+
+                                // ERROR ACCT_NAME
+                                if (error.response.data.errors.acct_name) {
+                                    if (error.response.data.errors.acct_name.length > 0) {
+                                        $acct_name = error.response.data.errors.acct_name[0];
+                                        // console.log("ACCT_NAME", $acct_name);
+                                        if ($acct_name == "The acct name field is required.") {
+                                            $("#error_acct_name").addClass('invalid-feedback').html(
+                                                "This field is required.").show();
+                                        }
+                                        if ($acct_name == "The acct name has already been taken.") {
+                                            $("#error_acct_name").addClass('invalid-feedback').html(
+                                                "The acct name has already been taken.").show();
+                                        }
+                                    }
+                                } else {
+                                    $check = $('#acct_name').val();
+                                    if ($check.length > 0) {
+                                        $("#error_acct_name").removeClass('invalid-feedback').html("")
+                                            .show();
+                                    } else {
+                                        $("#error_acct_name").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                }
+
+                                // ERROR GCASH
+                                if (error.response.data.errors.gcash_no) {
+                                    if (error.response.data.errors.gcash_no.length > 0) {
+                                        $gcash_no = error.response.data.errors.gcash_no[0];
+                                        // console.log("GCASH", $gcash_no);
+                                        if ($gcash_no == "The gcash no field is required.") {
+                                            $("#error_gcash_no").addClass('invalid-feedback').html(
+                                                "This field is required.").show();
+                                        }
+                                        if ($gcash_no == "The gcash no has already been taken.") {
+                                            $("#error_gcash_no").addClass('invalid-feedback').html(
+                                                "The gcash no has already been taken.").show();
+                                        }
+                                    }
+                                } else {
+                                    $check = $('#gcash_no').val();
+                                    if ($check.length > 0) {
+                                        $("#error_gcash_no").removeClass('invalid-feedback').html("")
+                                            .show();
+                                    } else {
+                                        $("#error_gcash_no").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                }
                             }
-                            // if (error.response.data.errors) {
-                            //   let errors = error.response.data.errors;
-                            //   let fieldnames = Object.keys(errors);
-                            //   Object.values(errors).map((item, index) => {
-                            //     fieldname = fieldnames[0].split('_');
-                            //     fieldname.map((item2, index2) => {
-                            //       fieldname['key'] = capitalize(
-                            //         item2);
-                            //       return ""
-                            //     });
-                            //     fieldname = fieldname.join(" ");
-                            //     $('.toast1 .toast-title').html(fieldname);
-                            //     $('.toast1 .toast-body').html(Object.values(
-                            //         errors)[0]
-                            //       .join(
-                            //         "\n\r"));
-                            //   })
-                            //   toast1.toast('show');
-                            // }
                         });
                 }
 
@@ -2244,28 +2428,37 @@
                     let wrapper = $('#show_items');
                     add_rows = '';
                     add_rows += '<div class="row row1">';
-                    add_rows += '<div class="col-lg-4 bottom20">';
+                    add_rows += '<div class="col-lg-4 ">';
+                    add_rows += '<div class="form-group-profile">';
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" />';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-lg-2 bottom20">';
+                    add_rows += '<div class="col-lg-2">';
                     // add_rows += '<div class="form-floating form-group">';
+                    add_rows += '<div class="form-group-profile">';
                     add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
                     add_rows +=
-                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
+                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" required />';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += ' </div>';
 
-                    add_rows += '<div class="col-lg-3 bottom20">';
+                    add_rows += '<div class="col-lg-3">';
+                    add_rows += '<div class="form-group-profile">';
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
                     add_rows +=
-                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" />';
+                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" required/>';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += '</div>';
 
                     add_rows += '<div class="col-lg-2 bottom20">';
@@ -2316,12 +2509,11 @@
                 }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
+                    location.reload(true);
                     $("div.spanner").removeClass("show");
-
-
                     $('#invoice_items').trigger('reset'); // reset the form
                     show_data();
-                }, 2500)
+                }, 3500)
 
                 $('#show_deduction_items').empty();
                 $('textarea').val('');
@@ -2335,23 +2527,26 @@
 
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     $('#deductionButton').empty();
                     $('#deductionButton').html(
                         show_profileDeductionType_Button());
+                    $('#deductiontype_store').trigger('reset');
+                    $('#deductiontype_store').removeClass('was-validated');
                 }, 1500)
             });
 
-            $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
+            $("#cancelProfileDeduction").on('click', function(e) {
+                e.preventDefault();
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');
+                $('#ProfileDeductioneditModal').modal('hide');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
+                    $('#ProfileDeductiontype_update').trigger('reset');
+                    $('#ProfileDeductiontype_update').removeClass('was-validated');
+                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
                     $("div.spanner").removeClass("show");
-
-
                 }, 1500)
             });
 
@@ -2397,7 +2592,7 @@
                                     add_rows = '';
                                     add_rows += '<div class="row">';
                                     add_rows += '<div class="col-lg-7 bottom20">';
-                                    add_rows += '<div class="form-group w-100">';
+                                    add_rows += '<div class=" w-100">';
                                     add_rows +=
                                         '<input type="text" class="profile_deduction_type_id" value=' +
                                         item.id +
@@ -2411,20 +2606,20 @@
                                     add_rows += '</div>';
 
                                     add_rows += '<div class="col-lg-4 bottom20">';
-                                    add_rows += '<div class="form-group ">';
+                                    add_rows += '<div class=" ">';
                                     add_rows +=
                                         '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
                                     add_rows +=
                                         '<input type="text" value="' + PHP(item
                                             .amount)
                                         .format() +
-                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" />';
+                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6" />';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows +=
                                         '<div class="col-lg-1 col-remove-deductions topBottom20" style="display:flex;justify-content:flex-end">';
-                                    add_rows += '<div class="form-group">';
+                                    add_rows += '<div class="">';
                                     add_rows +=
                                         '<button type="button" class="btn remove_deductions"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
@@ -2444,6 +2639,20 @@
                         console.log("error", error);
                     });
             });
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var invoice_items = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(invoice_items)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
 
             $('#invoice_items').submit(function(e) {
                 e.preventDefault();
@@ -2582,28 +2791,28 @@
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    if (error.response.data.errors) {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                        var errors = error.response.data.errors;
-                        var errorContainer = $('#error-container');
-                        errorContainer.empty();
-                        console.log("errors", errors)
+                    // if (error.response.data.errors) {
+                    //     $('input').removeClass('is-invalid');
+                    //     $('input, select').removeClass('is-invalid');
+                    //     $('.invalid-feedback').remove();
+                    //     var errors = error.response.data.errors;
+                    //     var errorContainer = $('#error-container');
+                    //     errorContainer.empty();
+                    //     console.log("errors", errors)
 
-                        for (var key in errors) {
-                            var inputName = key.replace('_', ' ');
-                            inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                            var errorMsg = errors[key][0];
-                            $('#' + key).addClass('is-invalid');
-                            $('#' + key).parent().append('<span class="invalid-feedback">' +
-                                errorMsg + '</span>');
-                        }
-                    } else {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                    }
+                    //     for (var key in errors) {
+                    //         var inputName = key.replace('_', ' ');
+                    //         inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+                    //         var errorMsg = errors[key][0];
+                    //         $('#' + key).addClass('is-invalid');
+                    //         $('#' + key).parent().append('<span class="invalid-feedback">' +
+                    //             errorMsg + '</span>');
+                    //     }
+                    // } else {
+                    //     $('input').removeClass('is-invalid');
+                    //     $('input, select').removeClass('is-invalid');
+                    //     $('.invalid-feedback').remove();
+                    // }
                     // console.log('ERRORS', error);
                     // if (error.response.data.errors) {
                     //   let errors = error.response.data.errors;
@@ -2666,6 +2875,8 @@
                                     '<i class="fa-solid fa-check" style="color:green"></i>');
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(data.message);
+                                $('#deductiontype_store').trigger('reset');
+                                $('#deductiontype_store').removeClass('was-validated');
                                 toast1.toast('show');
                             }, 1500)
                         }
@@ -2673,26 +2884,26 @@
                         let errors = error.response.data.errors;
                         console.log(errors);
                         console.log("ERROR", error);
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
-                                $('.toast1 .toast-title').html('Error');
-                                $('.toast1 .toast-body').html(Object.values(errors)[
-                                        0]
-                                    .join(
-                                        "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
+                        // if (error.response.data.errors) {
+                        //     let errors = error.response.data.errors;
+                        //     let fieldnames = Object.keys(errors);
+                        //     Object.values(errors).map((item, index) => {
+                        //         fieldname = fieldnames[0].split('_');
+                        //         fieldname.map((item2, index2) => {
+                        //             fieldname['key'] = capitalize(item2);
+                        //             return ""
+                        //         });
+                        //         fieldname = fieldname.join(" ");
+                        //         $('#notifyIcon').html(
+                        //             '<i class="fa-solid fa-x" style="color:red"></i>');
+                        //         $('.toast1 .toast-title').html('Error');
+                        //         $('.toast1 .toast-body').html(Object.values(errors)[
+                        //                 0]
+                        //             .join(
+                        //                 "\n\r"));
+                        //     })
+                        //     toast1.toast('show');
+                        // }
                     });
             })
 
@@ -2713,10 +2924,11 @@
                         if (data.success) {
                             $('#select_deduction_name').empty();
                             let option = '';
+                            option += '<div class="form-group-profile">'
                             option +=
                                 '<label for="createDeduction_deduction_name" style="color:#A4A6B3">Deduction Name:</label>';
                             option +=
-                                '<select class="createDeduction_deduction_name form-select" id="createDeduction_deduction_name" name="createDeduction_deduction_name">';
+                                '<select class="createDeduction_deduction_name form-select" id="createDeduction_deduction_name" name="createDeduction_deduction_name" required>';
                             option +=
                                 '<option selected disabled value="">Please Select Deductions</option>';
 
@@ -2729,6 +2941,9 @@
                                     })
                             }
                             option += '</select>';
+                            option +=
+                                ' <div id="invalid-feedback-deduction-name" class="invalid-feedback">This field is required.</div>';
+                            option += '</div>';
                             $('#select_deduction_name').append(
                                 option);
                         }
@@ -2783,7 +2998,7 @@
                     let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
 
                     let filter = {
-                        page_size: 20,
+                        page_size: 30,
                         page: page ? page : 1,
                         profile_id: urlSplit[4],
                         search: $('#search_deduction').val() ? $('#search_deduction').val() : '',
@@ -2992,10 +3207,22 @@
                 }
             }
 
+            var ProfileDeductiontype_update = $('#ProfileDeductiontype_update')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(ProfileDeductiontype_update)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
             // MODAL OF PROFILE DEDUCTION TYPE BUTTON
             $('#ProfileDeductiontype_update').submit(function(e) {
                 e.preventDefault();
-                console.log("UPDATE");
                 let profileDeductionType_id = $('#profileDeductionType_id').val();
                 let profileDeductionType_name = $('#edit_profileDeductionType_name').val();
                 let profileDeductionType_amount = $('#edit_profileDeductionType_amount').val().replaceAll(
@@ -3022,8 +3249,6 @@
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
 
-
-
                             show_profileDeductionType_Button();
                             show_Profilededuction_Table_Active();
                             $('#notifyIcon').html(
@@ -3031,31 +3256,40 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
                             toast1.toast('show');
+                            $('#ProfileDeductiontype_update').trigger('reset');
+                            $('#ProfileDeductiontype_update').removeClass('was-validated');
                         }, 1500)
 
                     }
                 }).catch(function(error) {
+                    console.log("error.response.data.errors", error);
+
                     if (error.response.data.errors) {
-                        let errors = error.response.data.errors;
-                        console.log("error", errors);
-                        let fieldnames = Object.keys(errors);
-                        Object.values(errors).map((item, index) => {
-                            fieldname = fieldnames[0].split('_');
-                            fieldname.map((item2, index2) => {
-                                fieldname['key'] = capitalize(item2);
-                                return ""
-                            });
-                            fieldname = fieldname.join(" ");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
-                            $('.toast1 .toast-title').html("Error");
-                            $('.toast1 .toast-body').html(Object.values(errors)[
-                                    0]
-                                .join(
-                                    "\n\r"));
-                        })
-                        toast1.toast('show');
+                        if (error.response.data.errors.deduction_type_name) {
+                            if (error.response.data.errors.deduction_type_name.length > 0) {
+                                $deduction_type_name_error = error.response.data.errors
+                                    .deduction_type_name[0];
+                                if ($deduction_type_name_error ==
+                                    "The deduction type name field is required.") {
+                                    $("#error_deduction_name").addClass('invalid-feedback')
+                                        .html(
+                                            "This field is required.").show();
+                                }
+
+                                if ($deduction_type_name_error ==
+                                    "The deduction type name has already been taken.") {
+                                    $("#error_deduction_name").addClass('invalid-feedback')
+                                        .html(
+                                            "The deduction name has already been taken.")
+                                        .show();
+                                }
+                            }
+                        } else {
+                            $("#error_deduction_name").removeClass('invalid-feedback').html("")
+                                .show();
+                        }
                     }
+
                 })
 
             })

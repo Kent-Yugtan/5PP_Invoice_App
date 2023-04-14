@@ -61,6 +61,7 @@ class ProfileDeductionTypesController extends Controller
         // $data = ProfileDeductionTypes::find($profileDeductionTypes_id);
         $request->validate([
           'amount' => 'required',
+          'deduction_type_name' => 'required',
         ]);
         $store_data = ProfileDeductionTypes::where('id', $profileDeductionTypes_id)->update(
           [
@@ -70,7 +71,7 @@ class ProfileDeductionTypesController extends Controller
         );
         return response()->json([
           'success' => true,
-          'message' => 'Profile Deduction Type has been successfully updated to the database.',
+          'message' => 'The profile deduction type has been updated successfully.',
           'data' => $store_data,
         ], 200);
       }

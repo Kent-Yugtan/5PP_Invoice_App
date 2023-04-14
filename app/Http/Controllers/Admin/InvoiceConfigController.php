@@ -52,7 +52,7 @@ class InvoiceConfigController extends Controller
 
         if ($data->invoice_email != $request->invoice_email) {
           $request->validate([
-            'invoice_email' => 'required|email',
+            'invoice_email' => 'required|email|unique:invoice_configs',
           ]);
         }
         if ($data->bill_to_address != $request->bill_to_address) {
@@ -60,7 +60,6 @@ class InvoiceConfigController extends Controller
             'bill_to_address' => 'required',
           ]);
         }
-
 
         $incoming_data = [
           'invoice_title' => $request->invoice_title,
@@ -96,7 +95,7 @@ class InvoiceConfigController extends Controller
 
         return response()->json([
           'success' => true,
-          'message' => 'Invoice Configuration has been successfully updated to the database.',
+          'message' => 'The invoice Configuration has been updated successfully.',
           'data' => $data,
         ], 200);
       } else {
@@ -131,7 +130,7 @@ class InvoiceConfigController extends Controller
 
         return response()->json([
           'success' => true,
-          'message' => 'Invoice Configuration has been successfully added to the database.',
+          'message' => 'The invoice configuration has been added successfully.',
           'data' => $store_data,
           'incoming_data' => $incoming_data,
         ], 200);

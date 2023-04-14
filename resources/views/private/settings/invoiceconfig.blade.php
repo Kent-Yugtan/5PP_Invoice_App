@@ -11,38 +11,49 @@
 
                         <div class="row pt-3">
                             <div class="col">
-                                <form name="invoiceconfigs_store" id="invoiceconfigs_store" method="post"
-                                    action="javascript:void(0)">
+                                <form id="invoiceconfigs_store" class="g-3 needs-validation" novalidate>
                                     @csrf
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="invoice_logo" style="color: #A4A6B3;">Invoice Logo</label>
-                                            <input class="form-control" id="invoice_logo" name="invoice_logo"
-                                                type="file">
+                                        <div class="col-12">
+                                            <div class="form-group-profile">
+                                                <label for="invoice_logo" style="color: #A4A6B3;">Invoice Logo</label>
+                                                <input class="form-control" id="invoice_logo" name="invoice_logo"
+                                                    type="file">
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="invoice_title" style="color: #A4A6B3;">Invoice Title</label>
-                                            <input id="invoice_title" name="invoice_title" type="text"
-                                                class="form-control" placeholder="Invoice Title">
+                                        <div class="col-12">
+                                            <div class="form-group-profile">
+                                                <label for="invoice_title" style="color: #A4A6B3;">Invoice Title</label>
+                                                <input id="invoice_title" name="invoice_title" type="text"
+                                                    class="form-control" placeholder="Invoice Title" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="invoice_email" style="color: #A4A6B3;">Invoice Email</label>
-                                            <input id="invoice_email" name="invoice_email" type="text"
-                                                class="form-control" placeholder="Invoice Email">
+                                        <div class="col-12">
+                                            <div class="form-group-profile">
+                                                <label for="invoice_email" style="color: #A4A6B3;">Invoice Email</label>
+                                                <input id="invoice_email" name="invoice_email" type="text"
+                                                    class="form-control" placeholder="Invoice Email" required>
+                                                <div id="error_invoice_email" class="invalid-feedback"></div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom20">
-                                            <label for="bill_to_address" style="color: #A4A6B3;">Bill From Address</label>
-                                            <input id="bill_to_address" name="bill_to_address" type="text"
-                                                class="form-control" placeholder="Bill from Address">
+                                        <div class="col-12 bottom10">
+                                            <div class="form-group-profile">
+                                                <label for="bill_to_address" style="color: #A4A6B3;">Bill From
+                                                    Address</label>
+                                                <input id="bill_to_address" name="bill_to_address" type="text"
+                                                    class="form-control" placeholder="Bill from Address" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -105,20 +116,23 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="hide-content">
-                    <div class="modal-body ">
-                        <form id="invoice_config_update">
-                            @csrf
+    {{-- MODAL FOR UPDATE --}}
+    <div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="hide-content">
+                <div class="modal-body ">
+                    <form id="invoice_config_update" class="g-3 needs-validation" novalidate>
+                        @csrf
 
-                            <div class="card-border shadow p-2 bg-white h-100">
-                                <div class="row px-4 py-4 " id="header">
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
+                            <div class="card-body">
+                                <div class="row" id="header">
                                     <div class="col-md-12 w-100">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col bottom20">
                                                 <span class="fs-3 fw-bold"> Update Email Configuration</span>
                                             </div>
                                         </div>
@@ -126,7 +140,7 @@
                                         <input type="text" id="invoice_config_id" hidden>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20 mt-3">
+                                            <div class="col-12">
                                                 <input class="form-control" id="edit_invoice_logo"
                                                     name="edit_invoice_logo" type="file">
                                                 <div style="margin-left: 5px;" id="edit_invoice_path"></div>
@@ -134,36 +148,48 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_invoice_title" style="color:#A4A6B3">Invoice
-                                                    Title</label>
-                                                <input id="edit_invoice_title" name="edit_invoice_title" type="text"
-                                                    class="form-control" placeholder="Invoice Title">
+                                            <div class="col-12 top10 ">
+                                                <div class="form-group-profile">
+                                                    <label for="edit_invoice_title" style="color:#A4A6B3">Invoice
+                                                        Title</label>
+                                                    <input id="edit_invoice_title" name="edit_invoice_title"
+                                                        type="text" class="form-control" placeholder="Invoice Title"
+                                                        required>
+                                                    <div class="invalid-feedback">This field is required.</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_invoice_email" style="color:#A4A6B3">Invoice
-                                                    Email</label>
-                                                <input id="edit_invoice_email" name="edit_invoice_email" type=" text"
-                                                    class="form-control" placeholder="Invoice Email">
+                                            <div class="col-12 ">
+                                                <div class="form-group-profile">
+                                                    <label for="edit_invoice_email" style="color:#A4A6B3">Invoice
+                                                        Email</label>
+                                                    <input id="edit_invoice_email" name="edit_invoice_email"
+                                                        type=" text" class="form-control" placeholder="Invoice Email"
+                                                        required>
+                                                    <div id="error_edit_email_address" class="invalid-feedback"></div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="edit_to_bill" style="color:#A4A6B3">Bill from Address</label>
-                                                <input id="edit_to_bill" name="edit_to_bill" type=" text"
-                                                    class="form-control" placeholder="Bill from Address">
+                                            <div class="col-12 bottom10 ">
+                                                <div class="form-group-profile">
+                                                    <label for="edit_to_bill" style="color:#A4A6B3">Bill from
+                                                        Address</label>
+                                                    <input id="edit_to_bill" name="edit_to_bill" type=" text"
+                                                        class="form-control" placeholder="Bill from Address" required>
+                                                    <div class="invalid-feedback">This field is required.</div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="row mt-3">
+                                        <div class="row ">
                                             <div class="col">
                                                 <button type="button" class="btn w-100"
                                                     style=" color:white; background-color:#A4A6B3;"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                    id="closeUpdate">Close</button>
                                             </div>
                                             <div class="col">
                                                 <button type="submit" class="btn w-100"
@@ -173,8 +199,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -302,13 +328,18 @@
 
             $('#close').on('click', function(e) {
                 e.preventDefault();
-                $("div.spanner").addClass("show");
+                location.reload(true);
+            })
 
+            $('#closeUpdate').on('click', function(e) {
+                e.preventDefault();
+                $("div.spanner").addClass("show");
+                $('#editModal').modal('hide');
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
-                    $('#invoiceconfigs_store').trigger("reset");
+                    $('#invoice_config_update').trigger('reset');
+                    $('#invoice_config_update').removeClass('was-validated');
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
                 }, 1500)
             })
 
@@ -325,6 +356,19 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var invoice_config_update = $('#invoice_config_update')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(invoice_config_update)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
 
 
             // CLICK TO UPDATE
@@ -368,32 +412,60 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             toast1.toast('show');
-                            // show_data();
+                            $('#invoice_config_update').trigger('reset');
+                            $('#invoice_config_update').removeClass('was-validated');
+                            $("#error_edit_email_address").removeClass('invalid-feedback')
+                                .html(
+                                    "")
+                                .show();
+                            show_data();
                         }, 1500)
                     }
 
                 }).catch(function(error) {
-                    console.log(error);
+                    let errors = error.response.data.errors;
+                    console.log("ERROR", errors)
                     if (error.response.data.errors) {
-                        let errors = error.response.data.errors;
-                        let fieldnames = Object.keys(errors);
-                        Object.values(errors).map((item, index) => {
-                            fieldname = fieldnames[0].split('_');
-                            fieldname.map((item2, index2) => {
-                                fieldname['key'] = capitalize(item2);
-                                return ""
-                            });
-                            fieldname = fieldname.join(" ");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
-                            $('.toast1 .toast-title').html("Error");
-                            $('.toast1 .toast-body').html(Object.values(errors)[0].join(
-                                "\n\r"));
-                        })
-                        toast1.toast('show');
+                        // ERROR FULLNAME
+                        if (error.response.data.errors.invoice_email) {
+                            if (error.response.data.errors.invoice_email.length > 0) {
+                                $error_edit_email_address = error.response.data.errors
+                                    .invoice_email[
+                                        0];
+                                if ($error_edit_email_address ==
+                                    "The invoice email field is required.") {
+                                    $("#error_edit_email_address").addClass('invalid-feedback')
+                                        .html(
+                                            "This field is required.").show();
+                                }
+
+                                if ($error_edit_email_address ==
+                                    "The invoice email must be a valid email address.") {
+                                    $("#error_edit_email_address").addClass('invalid-feedback')
+                                        .html(
+                                            "The invoice email must be a valid email address.")
+                                        .show();
+                                }
+                                if ($error_edit_email_address ==
+                                    "The invoice email has already been taken.") {
+                                    $("#error_edit_email_address").addClass('invalid-feedback')
+                                        .html(
+                                            "The invoice email has already been taken.").show();
+                                }
+                            }
+                        } else {
+                            $check = $('#edit_invoice_email').val();
+                            if ($check.length > 0) {
+                                $("#error_edit_email_address").removeClass('invalid-feedback').html(
+                                        "")
+                                    .show();
+                            } else {
+                                $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                    "This field is required.").show();
+                            }
+                        }
                     }
                 });
-
             })
 
             // CLICK TO EDIT BUTTON
@@ -428,8 +500,22 @@
                     });
             })
 
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var invoiceconfigs_store = $('#invoiceconfigs_store')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(invoiceconfigs_store)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
             // STORE DATA
-            $('#invoiceconfigs_store').on('submit', function(e) {
+            $('#invoiceconfigs_store').submit(function(e) {
                 e.preventDefault();
                 let invoice_title = $('#invoice_title').val();
                 let invoice_email = $('#invoice_email').val();
@@ -464,30 +550,54 @@
                             $('.toast1 .toast-body').html(response.data.message);
                             $('#invoiceconfigs_store').trigger('reset');
                             toast1.toast('show');
+                            $('#invoiceconfigs_store').trigger('reset');
+                            $('#invoiceconfigs_store').removeClass('was-validated');
                             show_data();
                         }, 1500)
                     }
 
                 }).catch(function(error) {
-                    console.log(error);
+                    let errors = error.response.data.errors;
+                    console.log("ERROR", errors)
                     if (error.response.data.errors) {
-                        let errors = error.response.data.errors;
-                        let fieldnames = Object.keys(errors);
-                        Object.values(errors).map((item, index) => {
-                            fieldname = fieldnames[0].split('_');
-                            fieldname.map((item2, index2) => {
-                                fieldname['key'] = capitalize(item2);
-                                return ""
-                            });
-                            fieldname = fieldname.join(" ");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
-                            $('.toast1 .toast-title').html("Error");
-                            $('.toast1 .toast-body').html(Object.values(errors)[0].join(
-                                "\n\r"));
-                        })
-                        toast1.toast('show');
+                        // ERROR EMAIL
+                        if (error.response.data.errors.invoice_email) {
+                            if (error.response.data.errors.invoice_email.length > 0) {
+                                $error_invoice_email = error.response.data.errors.invoice_email[
+                                    0];
+                                console.log("DEDUCTION NAME", $error_invoice_email);
+                                if ($error_invoice_email ==
+                                    "The invoice email field is required.") {
+                                    $("#error_invoice_email").addClass('invalid-feedback').html(
+                                        "This field is required.").show();
+                                }
+                                if ($error_invoice_email ==
+                                    "The invoice email must be a valid email address.") {
+                                    $("#error_invoice_email").addClass('invalid-feedback').html(
+                                            "The invoice email address must be a valid email address."
+                                        )
+                                        .show();
+                                }
+                                if ($error_invoice_email ==
+                                    "The invoice email has already been taken.") {
+                                    $("#error_invoice_email").addClass('invalid-feedback').html(
+                                            "The invoice email address has already been taken.")
+                                        .show();
+                                }
+                            }
+                        } else {
+                            $check = $('#invoice_email').val();
+                            if ($check.length > 0) {
+                                $("#error_invoice_email").removeClass('invalid-feedback').html("")
+                                    .show();
+                            } else {
+                                $("#error_invoice_email").addClass('invalid-feedback').html(
+                                    "This field is required.").show();
+                            }
+
+                        }
                     }
+
                 });
 
             })
@@ -518,11 +628,11 @@
                                 tr +=
                                     '<td class="text-center" style="width:20px"><button value=' +
                                     item.id +
-                                    ' class="editButton btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" > <i class="fa-solid fa-pen-to-square"></i></button></td>';
+                                    ' class="editButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#editModal" > <i style="color:#CF8029" class="fa-solid fa-pen-to-square"></i></button></td>';
                                 tr +=
                                     '<td class="text-center" style="width:20px"><button value=' +
                                     item.id +
-                                    ' class="deleteButton btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fa-solid fa-trash"></i></button></td>';
+                                    ' class="deleteButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#deleteModal" ><i style="color:#dc3545" class="fa-solid fa-trash"></i></button></td>';
 
                                 tr += '</tr>';
 
