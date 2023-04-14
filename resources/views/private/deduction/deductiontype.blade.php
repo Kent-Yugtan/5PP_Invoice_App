@@ -17,7 +17,7 @@
 
                 <div class="row">
                     <div class="col-sm-6 bottom10" style="padding-right:8px;padding-left:8px;">
-                        <div class="w-100">
+                        <div class="w-100 ">
                             <div class="input-group" id="input-group-search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text search-right-icon border-search" id="border-search"><i
@@ -44,9 +44,9 @@
                                     <table style="color: #A4A6B3;" class="table table-hover table-responsive"
                                         id="table_deduction">
                                         <thead>
-                                            <th class="fit" style="width:100px">Deduction Name</th>
-                                            <th style="width:100px" class="fit text-end">Amount</th>
-                                            <th colspan="2" class="fit text-center w-5">Action</th>
+                                            <th class="fit">Deduction Name</th>
+                                            <th class="fit text-end">Amount</th>
+                                            <th colspan="2" class="fit text-center">Action</th>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -79,7 +79,7 @@
             <div class="hide-content">
                 <div class="modal-body ">
                     <div class="row">
-                        <form id="deductiontype_store">
+                        <form id="deductiontype_store" class="g-3 needs-validation" novalidate>
                             @csrf
                             <div class="card-border shadow bg-white h-100" style="padding:20px">
                                 <div class="card-body">
@@ -92,18 +92,25 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-12 bottom20">
-                                                    <label for="deduction_name">Deduction Name</label>
-                                                    <input id="deduction_name" name="deduction_name" type="text"
-                                                        class="form-control" placeholder="Deduction Name">
+                                                <div class="col-12">
+                                                    <div class="form-group-profile">
+                                                        <label for="deduction_name">Deduction Name</label>
+                                                        <input id="deduction_name" name="deduction_name" type="text"
+                                                            class="form-control" placeholder="Deduction Name" required>
+                                                        <div id="error_deduction_name"></div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-12 bottom20">
-                                                    <label for="deduction_amount">Amount</label>
-                                                    <input id="deduction_amount" name="deduction_amount" type="text"
-                                                        class="form-control" placeholder="Amount">
+                                                <div class="col-12">
+                                                    <div class="form-group-profile">
+                                                        <label for="deduction_amount">Amount</label>
+                                                        <input id="deduction_amount" name="deduction_amount"
+                                                            type="text" class="form-control" maxlength="6"
+                                                            placeholder="Amount" required>
+                                                        <div class="invalid-feedback">This field is required.</div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -136,7 +143,7 @@
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
-                    <form id="deductiontype_update">
+                    <form id="deductiontype_update" class="g-3 needs-validation" novalidate>
                         @csrf
                         <div class="card-border shadow bg-white h-100" style="padding:20px">
                             <div class="card-body">
@@ -151,18 +158,25 @@
 
                                         <div class="row">
                                             <div class="col bottom20">
-                                                <label for="edit_deduction_name" style="color:#A4A6B3">Deduction
-                                                    Name</label>
-                                                <input id="edit_deduction_name" type="text" class="form-control"
-                                                    placeholder="Deduction Name">
+                                                <div class="form-group-profile">
+                                                    <label for="edit_deduction_name" style="color:#A4A6B3">Deduction
+                                                        Name</label>
+                                                    <input id="edit_deduction_name" type="text" class="form-control"
+                                                        placeholder="Deduction Name" required>
+                                                    <div class="invalid-feedback">This field is required.</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col bottom20">
-                                                <label for="edit_deduction_amount" style="color:#A4A6B3">Amount</label>
-                                                <input id="edit_deduction_amount" type="text" class="form-control"
-                                                    placeholder="Amount">
+                                                <div class="form-group-profile">
+                                                    <label for="edit_deduction_amount"
+                                                        style="color:#A4A6B3">Amount</label>
+                                                    <input id="edit_deduction_amount" type="text" class="form-control"
+                                                        placeholder="Amount" required maxlength="6">
+                                                    <div class="invalid-feedback">This field is required.</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -170,7 +184,7 @@
                                             <div class="col">
                                                 <button type="button" class="btn  w-100"
                                                     style="color:white; background-color:#A4A6B3;"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                    id="closedeductiontype_update">Close</button>
                                             </div>
                                             <div class="col">
                                                 <button type="submit" class="btn  w-100"
@@ -343,12 +357,12 @@
                                         .deduction_amount).format()
                                     '</td>';
                                     tr +=
-                                        '<td class="text-center"> <button value=' +
+                                        '<td class="text-end"> <button value=' +
                                         item.id +
-                                        ' class="editButton btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" ><i class="fa-solid fa-pen-to-square"></i></button></td>';
-                                    tr += '<td class="text-center"><button value=' +
+                                        ' class="editButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#editModal"  ><i class="fa-solid fa-pen-to-square" style="color:#CF8029"></i></button></td>';
+                                    tr += '<td class="text-start"><button value=' +
                                         item.id +
-                                        ' class="deleteButton btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fa-solid fa-trash"></i></button></td>';
+                                        ' class="deleteButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fa-solid fa-trash" style="color:#dc3545"></i></button></td>';
                                     tr += '</tr>';
                                     $("#table_deduction tbody").append(tr);
 
@@ -408,18 +422,49 @@
 
             $('#close').on('click', function(e) {
                 e.preventDefault();
-                $('#deductiontype_store').trigger('reset');
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
                 $('#addModal').modal('hide');
-            })
-
-            $("#editModal").on('hide.bs.modal', function() {
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
+                    $('#deductiontype_store').trigger('reset');
+                    $('#deductiontype_store').removeClass('was-validated');
+                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
                     $("div.spanner").removeClass("show");
+                }, 1500)
 
 
+            })
+
+            $("#closedeductiontype_update").on('click', function(e) {
+                e.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $('#editModal').modal('hide');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $('#deductiontype_update').trigger('reset');
+                    $('#deductiontype_update').removeClass('was-validated');
+                    $("div.spanner").removeClass("show");
                 }, 1500)
             });
+
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var deductiontype_store = $('#deductiontype_store')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(deductiontype_store)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
 
             $('#deductiontype_store').submit(function(e) {
                 e.preventDefault();
@@ -454,52 +499,44 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
+                                $('#deductiontype_store').trigger('reset');
+                                $('#deductiontype_store').removeClass('was-validated');
                             }, 1500)
                         }
                     })
                     .catch(function(error) {
                         console.log("error.response.data.errors", error.response.data.errors);
                         if (error.response.data.errors) {
-                            $('input').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
-                            var errors = error.response.data.errors;
-                            var errorContainer = $('#error-container');
-                            errorContainer.empty();
-                            console.log("errors", errors)
+                            // ERROR EMAIL
+                            if (error.response.data.errors.deduction_name) {
+                                if (error.response.data.errors.deduction_name.length > 0) {
+                                    $error_deduction_name = error.response.data.errors.deduction_name[
+                                        0];
+                                    console.log("DEDUCTION NAME", $error_deduction_name);
+                                    if ($error_deduction_name ==
+                                        "The deduction name field is required.") {
+                                        $("#error_deduction_name").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
 
-                            for (var key in errors) {
-                                var inputName = key.replace('_', ' ');
-                                inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                                var errorMsg = errors[key][0];
-                                $('#' + key).addClass('is-invalid');
-                                $('#' + key).parent().append(
-                                    '<span class="invalid-feedback">This field is required or already been taken.</span>'
-                                );
+                                    if ($error_deduction_name ==
+                                        "The deduction name has already been taken.") {
+                                        $("#error_deduction_name").addClass('invalid-feedback').html(
+                                            "The deduction name has already been taken.").show();
+                                    }
+                                }
+                            } else {
+                                $check = $('#deduction_name').val();
+                                if ($check.length > 0) {
+                                    $("#error_deduction_name").removeClass('invalid-feedback').html("")
+                                        .show();
+                                } else {
+                                    $("#error_deduction_name").addClass('invalid-feedback').html(
+                                        "This field is required.").show();
+                                }
+
                             }
-                        } else {
-                            $('input').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
                         }
-                        // console.log("ERROR", error);
-                        // if (error.response.data.errors) {
-                        //   let errors = error.response.data.errors;
-                        //   let fieldnames = Object.keys(errors);
-                        //   Object.values(errors).map((item, index) => {
-                        //     fieldname = fieldnames[0].split('_');
-                        //     fieldname.map((item2, index2) => {
-                        //       fieldname['key'] = capitalize(item2);
-                        //       return ""
-                        //     });
-                        //     fieldname = fieldname.join(" ");
-                        //     $('.toast1 .toast-title').html(fieldname);
-                        //     $('.toast1 .toast-body').html(Object.values(errors)[0].join(
-                        //       "\n\r"));
-                        //   })
-                        //   setTimeout(function() {
-                        //     $('div.spanner').removeClass('show');
-                        //     toast1.toast('show');
-                        //   }, 1500);
-                        // }
                     });
 
             })
@@ -545,6 +582,20 @@
                     });
             })
 
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var deductiontype_update = $('#deductiontype_update')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(deductiontype_update)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
             $('#deductiontype_update').submit(function(e) {
                 e.preventDefault();
                 let deduction_id = $('#deduction_id').val();
@@ -579,30 +630,32 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
+                                $('#deductiontype_store').trigger('reset');
+                                $('#deductiontype_store').removeClass('was-validated');
                                 show_data();
                             }, 1500)
                         }
                     })
                     .catch(function(error) {
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            console.log("error", errors);
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(errors)[0].join(
-                                    "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
+                        let errors = error.response.data.errors;
+                        console.log("error", errors);
+                        // if (error.response.data.errors) {
+                        //     let fieldnames = Object.keys(errors);
+                        //     Object.values(errors).map((item, index) => {
+                        //         fieldname = fieldnames[0].split('_');
+                        //         fieldname.map((item2, index2) => {
+                        //             fieldname['key'] = capitalize(item2);
+                        //             return ""
+                        //         });
+                        //         fieldname = fieldname.join(" ");
+                        //         $('#notifyIcon').html(
+                        //             '<i class="fa-solid fa-x" style="color:red"></i>');
+                        //         $('.toast1 .toast-title').html("Error");
+                        //         $('.toast1 .toast-body').html(Object.values(errors)[0].join(
+                        //             "\n\r"));
+                        //     })
+                        //     toast1.toast('show');
+                        // }
                     });
             })
 

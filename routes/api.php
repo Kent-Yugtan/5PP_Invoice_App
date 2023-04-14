@@ -86,8 +86,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('active_pending_invoice_count', [InvoiceController::class, 'active_pending_invoice_count']);
   Route::get('active_overdue_invoice_count', [InvoiceController::class, 'active_overdue_invoice_count']);
   Route::get('active_cancelled_invoice_count', [InvoiceController::class, 'active_cancelled_invoice_count']);
-  Route::get('inactive_paid_invoice_count', [InvoiceController::class, 'inactive_paid_invoice_count']);
-  Route::get('inactive_pending_invoice_count', [InvoiceController::class, 'inactive_pending_invoice_count']);
+
+  Route::get('active_profile_count', [InvoiceController::class, 'active_profile_count']);
+  Route::get('inactive_profile_count', [InvoiceController::class, 'inactive_profile_count']);
 
   Route::get('admin/check_InactiveStatusInvoice', [InvoiceController::class, 'check_InactiveStatusInvoice']); // FOR INVOICE STATUS INACTIVE CHECK AND UPDATE
   Route::get('admin/check_pendingInvoicesStatus', [InvoiceController::class, 'check_pendingInvoicesStatus']); // FOR INVOICE STATUS ACTIVE CHECK AND UPDATE

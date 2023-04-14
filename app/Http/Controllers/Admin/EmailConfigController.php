@@ -108,7 +108,7 @@ class EmailConfigController extends Controller
       if (!$emailconfig_id) {
         $incoming_data = $request->validate([
           'fullname' => 'required|unique:email_configs',
-          'email_address' => 'email|required|unique:email_configs',
+          'email_address' => 'required|email|unique:email_configs',
           'title' => 'required',
           'status' => 'required',
         ]);
@@ -116,20 +116,20 @@ class EmailConfigController extends Controller
         $store_data = EmailConfig::create($incoming_data);
         return response()->json([
           'success' => true,
-          'message' => 'Email Configuration has been successfully added to the database.',
+          'message' => 'The email configuration has been added successfully.',
           'data' => $store_data,
         ], 200);
       } else {
         $data = EmailConfig::find($emailconfig_id);
         if ($data->fullname != $request->fullname) {
           $request->validate([
-            'fullname' => 'required',
+            'fullname' => 'required|unique:email_configs',
           ]);
         }
 
         if ($data->email_address != $request->email_address) {
           $request->validate([
-            'email_address' => 'required|unique:email_configs',
+            'email_address' => 'required|email|unique:email_configs',
           ]);
         }
 
@@ -144,7 +144,7 @@ class EmailConfigController extends Controller
         );
         return response()->json([
           'success' => true,
-          'message' => 'Email Configuration has been successfully updated to the database.',
+          'message' => 'The email configuration has been updated successfully.',
           'data' => $store_data,
         ], 200);
       }

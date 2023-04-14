@@ -95,7 +95,6 @@
                             i.replace(/[\$,]/g, '') * 1 :
                             typeof i === 'number' ?
                             i : 0;
-                        git a
                     };
 
                     // computing column Total of the current page only

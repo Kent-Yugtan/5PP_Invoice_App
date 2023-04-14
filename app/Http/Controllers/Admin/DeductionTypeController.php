@@ -52,7 +52,7 @@ class DeductionTypeController extends Controller
         $store_data = DeductionType::Create($incoming_data);
         return response()->json([
           'success' => true,
-          'message' => 'Deduction Types has been successfully added to the database.',
+          'message' => 'The deduction types has been added successfully.',
           'data' => $store_data,
         ], 200);
       } else {
@@ -73,7 +73,7 @@ class DeductionTypeController extends Controller
 
         return response()->json([
           'success' => true,
-          'message' => 'Deduction Types has been successfully updated to the database.',
+          'message' => 'The deduction types has been updated successfully.',
           'data' => $store_data,
         ], 200);
       }
@@ -127,7 +127,7 @@ class DeductionTypeController extends Controller
     $delete_data = DeductionType::where('id', $deductionType_id)->delete();
     return response()->json([
       'success' => true,
-      'message' => 'Data deleted successfully',
+      'message' => 'The deduction types has been deleted successfully.',
       'data' => $delete_data,
     ], 200);
   }

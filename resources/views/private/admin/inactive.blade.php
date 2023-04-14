@@ -7,22 +7,22 @@
             <div class="col-12 col-md-6 column1  bottom10" style="padding-right:5px;padding-left:5px;">
                 <div>
                     <div class="row text-center py-3">
-                        <Label class="fs-1" id="paid_invoices">
+                        <Label class="fs-1" id="active_profile">
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Paid</div>
+                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Active</div>
                 </div>
             </div>
 
             <div class="col-12 col-md-6 column2  bottom10" style="padding-right:5px;padding-left:5px;">
                 <div>
                     <div class="row text-center py-3">
-                        <Label class="fs-1" id="pending_invoices">
+                        <Label class="fs-1" id="inactive_profile">
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+                    <div class="card-body text-center" style="border-bottom: none;color: #A4A6B3; ">Inactive</div>
                 </div>
                 <div class="d-flex align-items-center justify-content-between"></div>
             </div>
@@ -58,12 +58,15 @@
                             <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
                                 <thead>
                                     <tr>
+                                        <th class="active fit" style="width: 10px">
+                                            <input type="checkbox" class="select-all form-check-input" id="select-all" />
+                                        </th>
                                         <th class="fit">User</th>
                                         <th class="fit">Status</th>
                                         <th class="fit">Phone Number</th>
                                         <th class="fit">Position</th>
                                         <th class="fit">Latest Invoice</th>
-                                        <th class="fit text-center">Action</th>
+                                        <th class="fit" style="width:10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,6 +101,9 @@
             }
         }
         $(document).ready(function() {
+            $('#select-all').click(function(e) {
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+            });
 
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {
@@ -117,38 +123,38 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-                    inactive_count_paid();
-                    inactive_count_pending();
+                    active_profile_count();
+                    inactive_profile_count();
                     show_data();
                 }, 1500)
             })
 
-            function inactive_count_paid() {
-                axios.get(apiUrl + '/api/inactive_paid_invoice_count', {
+            function active_profile_count() {
+                axios.get(apiUrl + '/api/active_profile_count', {
                     headers: {
                         Authorization: token
                     },
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        console.log("SUCCESS", data);
-                        $('#paid_invoices').html(data.data.length ? data.data.length : 0)
+                        console.log("active_profile_count", data);
+                        $('#active_profile').html(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
                 })
             }
 
-            function inactive_count_pending() {
-                axios.get(apiUrl + '/api/inactive_pending_invoice_count', {
+            function inactive_profile_count() {
+                axios.get(apiUrl + '/api/inactive_profile_count', {
                     headers: {
                         Authorization: token,
                     },
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        console.log("SUCCESS", data);
-                        $('#pending_invoices').html(data.data.length ? data.data.length : 0);
+                        console.log("inactive_profile_count", data);
+                        $('#inactive_profile').html(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -194,6 +200,8 @@
                             if (res.data.data.length > 0) {
                                 res.data.data.map((item) => {
                                     let tr = '<tr style="vertical-align:middle;">';
+                                    tr +=
+                                        '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                     if (item.file_path) {
                                         tr +=
                                             '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
@@ -229,11 +237,13 @@
                                         tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
                                             ' Days ago</td>';
 
+                                        // tr +=
+                                        //     '<td  class="fit text-center"> <a href="' + apiUrl +
+                                        //     '/admin/inactiveProfile/' +
+                                        //     item.id + "/" + item.profile.id +
+                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
-                                            '<td  class="fit text-center"> <a href="' + apiUrl +
-                                            '/admin/inactiveProfile/' +
-                                            item.id + "/" + item.profile.id +
-                                            '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                            '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
 
                                         tr += '</tr>';
                                         $(
@@ -241,6 +251,8 @@
 
                                     } else {
                                         let tr = '<tr style="vertical-align:middle;">';
+                                        tr +=
+                                            '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                         if (item.file_path) {
                                             tr +=
                                                 '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
@@ -258,11 +270,13 @@
                                         tr += '<td class="fit">' + item.position + '</td>';
                                         tr += '<td class="fit"> No Latest Invoice</td>';
 
+                                        // tr +=
+                                        //     '<td class="text-center"> <a href="' + apiUrl +
+                                        //     '/admin/inactiveProfile/' +
+                                        //     item.id + "/" + item.profile.id +
+                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
-                                            '<td class="text-center"> <a href="' + apiUrl +
-                                            '/admin/inactiveProfile/' +
-                                            item.id + "/" + item.profile.id +
-                                            '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                            '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
 
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);

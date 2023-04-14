@@ -112,7 +112,7 @@ class InvoiceController extends Controller
 
       return response()->json([
         'success' => true,
-        'message' => "Invoice has been successfully deleted.",
+        'message' => "The invoice has been deleted successfully.",
       ], 200);
     }
   }
@@ -271,7 +271,7 @@ class InvoiceController extends Controller
 
     return response()->json([
       'success' => true,
-      'message' => "Invoice status has been successfully updated.",
+      'message' => "The invoice status has been updated successfully.",
       'data' => $data,
     ]);
   }
@@ -301,7 +301,7 @@ class InvoiceController extends Controller
 
     return response()->json([
       'success' => true,
-      'message' => "Invoice status has been successfully sent to your email and successfully updated to the database.",
+      'message' => "The invoice payment status has been updated successfully and sent to your email.",
       'data' => $data,
     ]);
   }
@@ -371,7 +371,7 @@ class InvoiceController extends Controller
       return response()->json(
         [
           'success' => true,
-          'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
+          'message' => "The invoice has been created successfully and sent to your email.",
           'data' => $store_data,
         ],
         200
@@ -397,7 +397,7 @@ class InvoiceController extends Controller
             'profile_id' => '',
             'due_date' => 'required',
             'description' => 'required',
-            'sub_total' => 'required',
+            'sub_total' => '',
             'peso_rate' => '',
             'converted_amount' => '',
             'discount_type' => '',
@@ -448,7 +448,7 @@ class InvoiceController extends Controller
         $this->sendEmail_profile();
         return response()->json([
           'success' => true,
-          'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
+          'message' => "The invoice has been created successfully and sent to your email.",
           'data' => $store_data,
         ], 200);
       }
@@ -533,7 +533,7 @@ class InvoiceController extends Controller
 
           return response()->json([
             'success' => true,
-            'message' => "Invoice has been successfully updated to the database.",
+            'message' => "The invoice has been updated successfully.",
             'data' => $invoice_update_data,
           ], 200);
         }
@@ -590,7 +590,7 @@ class InvoiceController extends Controller
 
           return response()->json([
             'success' => true,
-            'message' => "Invoice has been successfully updated to the database.",
+            'message' => "The invoice has been updated successfully.",
             'data' => $invoice_update_data,
           ], 200);
         }
@@ -659,7 +659,7 @@ class InvoiceController extends Controller
 
           return response()->json([
             'success' => true,
-            'message' => "Invoice has been successfully updated to the database.",
+            'message' => "The invoice has been updated successfully.",
             'data' => $invoice_update_data,
           ], 200);
         }
@@ -724,7 +724,7 @@ class InvoiceController extends Controller
           $this->sendEmail_profile();
           return response()->json([
             'success' => true,
-            'message' => "Invoice has been successfully sent to your email and successfully added to the database.",
+            'message' => "The invoice has been created successfully and sent to your email.",
             'data' => $store_data,
           ], 200);
         }
@@ -1291,14 +1291,9 @@ class InvoiceController extends Controller
   }
 
 
-  public function inactive_paid_invoice_count()
+  public function active_profile_count()
   {
-    $data = Invoice::join('profiles', 'profiles.id', 'invoices.profile_id')
-      ->where('profiles.profile_status', 'Inactive')
-      ->where('invoices.invoice_status', 'Paid')
-      ->where('invoices.status', 'Active')
-      ->get();
-
+    $data = Profile::where('profile_status', 'Active')->count();
     if ($data) {
       return response()->json([
         'success' => true,
@@ -1307,14 +1302,9 @@ class InvoiceController extends Controller
     }
   }
 
-  public function inactive_pending_invoice_count()
+  public function inactive_profile_count()
   {
-    $data = Invoice::join('profiles', 'profiles.id', 'invoices.profile_id')
-      ->where('profiles.profile_status', 'Inactive')
-      ->where('invoices.invoice_status', 'Pending')
-      ->where('invoices.status', 'Active')
-      ->get();
-
+    $data = Profile::where('profile_status', 'Inactive')->count();
     if ($data) {
       return response()->json([
         'success' => true,

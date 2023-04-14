@@ -47,6 +47,13 @@
             </div>
         </div>
 
+        <div class="row d-none" id="button_inactive">
+            <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
+                <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%"
+                    id="button-submit">Inactive</button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
@@ -56,12 +63,15 @@
                                 <thead>
                                     <!-- style="border-bottom: 2px solid #f7f8f9 !important;" -->
                                     <tr>
+                                        <th class="active fit" style="width: 10px">
+                                            <input type="checkbox" class="select-all form-check-input" id="select-all" />
+                                        </th>
                                         <th class="fit">User</th>
                                         <th class="fit">Status</th>
                                         <th class="fit">Phone Number</th>
                                         <th class="fit">Position</th>
                                         <th class="fit">Latest Invoice</th>
-                                        <th class="fit text-center">Action</th>
+                                        <th class="fit" style="width:10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +92,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-popup" id="viewButton">
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn cancel" onclick="closeButton()">Close</button>
+        </div>
     </div>
+
+
+
+
 
 
     <script type="text/javascript">
@@ -95,7 +114,69 @@
                 $('#' + id).addClass('input-group-focused');
             }
         }
+
+        function openButton() {
+            $("#viewButton").show();
+        }
+
+        function closeButton() {
+            $("#viewButton").hide();
+        }
+
         $(document).ready(function() {
+            let profile_id_all = [];
+            let array_all = [];
+            let profile_id_item = [];
+            let array_item = [];
+            $('#select-all').click(function(e) {
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+                $(this).closest('table').find('td').each(function() {
+                    let cellValue = $(this).text(); // get the text content of the td element
+                    if ($(this).hasClass('profile_id')) {
+                        array_all.push(cellValue);
+                    }
+                    profile_id_all = array_all; // assign the updated array to profile_id
+                });
+                if (this.checked) {
+                    $('#button_inactive').removeClass('d-none');
+                } else {
+                    $('#button_inactive').addClass('d-none');
+                }
+                console.log("CELLVALUE", profile_id_all);
+                array_all = [];
+            });
+
+            $(document).on('change', '.select-item', function() {
+                if ($(this).is(":checked")) {
+                    // Add your code here for when the checkbox is checked
+                    var profileId = $(this).closest('tr').find('.profile_id').text();
+                    array_item.push(profileId);
+                    $('#button_inactive').removeClass('d-none');
+                } else {
+                    // Add your code here for when the checkbox is unchecked
+                    var profileId = $(this).closest('tr').find('.profile_id').text();
+                    array_item.pop(profileId);
+                }
+                if ($('.select-item:checked').length === 0) {
+                    // Add your code here for when no checkbox is checked
+                    $('#button_inactive').addClass('d-none');
+                    array_item = [];
+                }
+
+                var numCheckboxes = $('.select-item').length;
+                if ($('.select-item:checked').length === numCheckboxes) {
+                    // Add your code here for when all checkboxes are checked
+                    $('#select-all').prop('checked', this.checked);
+                } else {
+                    $('#select-all').prop('checked', false);
+                }
+
+                profile_id_item = array_item;
+                console.log("profile_id_item", profile_id_item);
+            });
+
+
+
 
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {
@@ -200,6 +281,9 @@
                             if (res.data.data.length > 0) {
                                 res.data.data.map((item) => {
                                     let tr = '<tr style="vertical-align:middle;">';
+                                    tr += '<td class="profile_id">' + item.profile.id + '</td>';
+                                    tr +=
+                                        '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                     if (item.file_path) {
                                         tr +=
                                             '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
@@ -235,18 +319,21 @@
                                         // console.log("DIFF", Math.round(diff));
                                         tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
                                             ' Days ago</td>';
+                                        // tr +=
+                                        //     '<td  class="text-center"> <a href="' + apiUrl +
+                                        //     '/admin/activeProfile/' +
+                                        //     item.id + "/" + item.profile.id +
+                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
-                                            '<td  class="text-center"> <a href="' + apiUrl +
-                                            '/admin/activeProfile/' +
-                                            item.id + "/" + item.profile.id +
-                                            '" class="btn" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
-
+                                            '<td  class="text-center" onclick="openButton()"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);
                                         return ''
 
                                     } else {
                                         let tr = '<tr style="vertical-align:middle;">';
+                                        tr +=
+                                            '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                         if (item.file_path) {
                                             tr +=
                                                 '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
@@ -264,11 +351,13 @@
                                         tr += '<td class="fit">' + item.position + '</td>';
                                         tr += '<td class="fit"> No Latest Invoice</td>';
 
+                                        // tr +=
+                                        //     '<td  class="text-center"> <a href="' + apiUrl +
+                                        //     '/admin/activeProfile/' +
+                                        //     item.id + "/" + item.profile.id +
+                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
-                                            '<td  class="text-center"> <a href="' + apiUrl +
-                                            '/admin/activeProfile/' +
-                                            item.id + "/" + item.profile.id +
-                                            '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                            '<td  class="text-center"><i class="fa-solid fa-ellipsis-vertical"></i></a> </td>';
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);
                                         return ''
