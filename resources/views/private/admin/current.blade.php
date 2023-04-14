@@ -358,7 +358,22 @@
                                         //     item.id + "/" + item.profile.id +
                                         //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
-                                            '<td  class="text-center"><i class="fa-solid fa-ellipsis-vertical"></i></a> </td>';
+                                            '<td  class="text-center">';
+                                        tr +=
+                                            `<div class="dropdown">
+                                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li><a class="dropdown-item" href="#">INACTIVE</a></li>
+                                                    <li><a class="dropdown-item" href="#">VIEW</a></li>
+                                                </ul>
+                                            </div>`;
+
+                                        // tr +=
+                                        //     '<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button> '
+                                        tr += '</td>';
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);
                                         return ''
