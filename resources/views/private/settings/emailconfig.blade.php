@@ -3,7 +3,7 @@
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
-            <div class="col-sm-12 col-md-12 col-lg-4 bottom20" style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-4 " style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <div class="header fs-3">
@@ -18,7 +18,8 @@
                                         <div class="col-12">
                                             <div class="form-group-profile">
                                                 <label for="fullname" style=" color: #A4A6B3;">Fullname</label>
-                                                <input id="fullname" name="fullname" type="text" class="form-control"
+                                                <input id="fullname" name="fullname" type="text"
+                                                    onblur="validateFullname(this)" class="form-control"
                                                     placeholder="Fullname" required>
                                                 <div id="error_fullname" class="invalid-feedback">This field is required.
                                                 </div>
@@ -31,7 +32,8 @@
                                             <div class="form-group-profile">
                                                 <label for="email_address" style=" color: #A4A6B3;">Email Address</label>
                                                 <input id="email_address" name="email_address" type="email"
-                                                    class="form-control" placeholder="Email Address" required>
+                                                    class="form-control" placeholder="Email Address"
+                                                    onblur="validateEmailConfig(this)" required>
                                                 <div id="error_email_address" class="invalid-feedback">This field is
                                                     required.</div>
                                             </div>
@@ -67,8 +69,8 @@
                                     <div class="row ">
                                         <div class="col-6">
                                             <button type="button" id="cancel"
-                                                style="width:100%; color:white; background-color: #A4A6B3;"
-                                                class="btn">Cancel</button>
+                                                style="color:#CF8029; background-color:#f3f3f3; "
+                                                class="btn w-100">Cancel</button>
                                         </div>
                                         <div class="col-6">
                                             <button type="submit"
@@ -83,15 +85,14 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-8 bottom20" style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-8" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
-                    <div class="header bottom20" style="padding-left:5px">
-                        <span class="fs-3"> View Email Information</span>
-                    </div>
                     <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-sm-6 bottom20" style="padding-right:5px;padding-left:5px;">
+                        <div class="header ">
+                            <span class="fs-3"> View Email Information</span>
+                        </div>
+                        <div class="row  pt-3">
+                            <div class="col-sm-6 bottom20">
                                 <div class="w-100">
                                     <div class="input-group" id="input-group-search">
                                         <div class="input-group-prepend">
@@ -105,7 +106,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 bottom20" style="padding-right:5px;padding-left:5px;">
+                            <div class="col-sm-6 bottom20">
                                 <button type="submit" class="btn w-100" style="color:white; background-color: #CF8029"
                                     id="button_search">
                                     <i class="fas fa-search"></i> Search
@@ -114,7 +115,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col" style="padding-right:5px;padding-left:5px;">
+                            <div class="col">
                                 <div class="table-responsive">
                                     <table style="color: #A4A6B3;" class="table table-hover table-responsive"
                                         id="table_emailconfigs">
@@ -143,21 +144,10 @@
                             </ul>
                         </div>
 
-                        <div class="row pt-3">
-                            <div class="col"
-                                style="margin-bottom:0px;display: flex; align-content: stretch; justify-content: space-between;">
-                                <div style="margin-top: 10px;" class="page_showing" id="tbl_showing"></div>
-                                <div>
-                                    <ul style="display:flex;align-items:center;margin-top:15px"
-                                        class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -166,89 +156,100 @@
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
-                <div class="modal-body ">
-                    <form id="emailconfigs_update" class="g-3 needs-validation" novalidate>
-                        @csrf
-                        <div class="card-border shadow bg-white h-100" style="padding:20px">
-                            <div class="row" id="header">
-                                <div class="col-md-12 w-100">
-                                    <div class="row ">
-                                        <div class="col bottom20">
-                                            <span class="fs-3 fw-bold"> Update Email Configuration</span>
-                                        </div>
-                                    </div>
+                <div class="row">
+                    <div class="modal-body ">
+                        <form id="emailconfigs_update" class="g-3 needs-validation" novalidate>
+                            @csrf
+                            <div class="card-border shadow bg-white h-100" style="padding:20px">
+                                <div class="card-body">
+                                    <div class="row" id="header">
+                                        <div class="col-md-12 w-100">
+                                            <div class="row ">
+                                                <div class="col bottom20">
+                                                    <span class="fs-3 fw-bold"> Update Email Configuration</span>
+                                                </div>
+                                            </div>
 
-                                    <input type="text" id="emailconfig_id" hidden>
+                                            <input type="text" id="emailconfig_id" hidden>
 
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group-profile">
-                                                <label for="edit_fullname" style="color:#A4A6B3">Fullname</label>
-                                                <input id="edit_fullname" name="edit_fullname" type="text"
-                                                    class="form-control" placeholder="Fullname" required>
-                                                <div id="error_edit_fullname" class="invalid-feedback">This field is
-                                                    required.
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_fullname" style="color:#A4A6B3">Fullname</label>
+                                                        <input id="edit_fullname" name="edit_fullname" type="text"
+                                                            class="form-control" placeholder="Fullname"
+                                                            onblur="editValidateFullname(this)" required>
+                                                        <div id="error_edit_fullname" class="invalid-feedback">This field
+                                                            is
+                                                            required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_email_address" style="color:#A4A6B3">Email
+                                                            Address</label>
+                                                        <input id="edit_email_address" name="edit_email_address"
+                                                            type="text" class="form-control"
+                                                            placeholder="Email Address"
+                                                            onblur="editValidateEmailConfig(this)" required>
+                                                        <div id="error_edit_email_address" class="invalid-feedback">This
+                                                            field
+                                                            is
+                                                            required.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_title" style="color: #A4A6B3;">Position</label>
+                                                        <input id="edit_title" name="edit_title" type="text"
+                                                            class="form-control" placeholder="Position" required>
+                                                        <div class="invalid-feedback">This field is required.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12 bottom10">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_status" style=" color: #A4A6B3;">Status</label>
+                                                        <select class="form-select" name="edit_status" id="edit_status"
+                                                            required>
+                                                            <option selected disabled value="">Please Select Status
+                                                            </option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">This field is required.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn w-100"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
+                                                        id="closeUpdate">Close</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="submit" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group-profile">
-                                                <label for="edit_email_address" style="color:#A4A6B3">Email
-                                                    Address</label>
-                                                <input id="edit_email_address" name="edit_email_address" type="text"
-                                                    class="form-control" placeholder="Email Address" required>
-                                                <div id="error_edit_email_address" class="invalid-feedback">This field
-                                                    is
-                                                    required.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group-profile">
-                                                <label for="edit_title" style="color: #A4A6B3;">Position</label>
-                                                <input id="edit_title" name="edit_title" type="text"
-                                                    class="form-control" placeholder="Position" required>
-                                                <div class="invalid-feedback">This field is required.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12 bottom10">
-                                            <div class="form-group-profile">
-                                                <label for="edit_status" style=" color: #A4A6B3;">Status</label>
-                                                <select class="form-select" name="edit_status" id="edit_status" required>
-                                                    <option selected disabled value="">Please Select Status
-                                                    </option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Inactive">Inactive</option>
-                                                </select>
-                                                <div class="invalid-feedback">This field is required.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <button type="button" class="btn w-100"
-                                                style=" color:white; background-color:#A4A6B3;"
-                                                id="closeUpdate">Close</button>
-                                        </div>
-                                        <div class="col">
-                                            <button type="submit" class="btn w-100"
-                                                style="color:White; background-color:#CF8029; ">Update</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -326,8 +327,174 @@
                 $('#' + id).addClass('input-group-focused');
             }
         }
-        $(document).ready(function() {
+        // VALIDATE UPDATE
+        function editValidateFullname(e) {
+            console.log("FULLNAME", e.value);
+            let emailconfig_id = $('#emailconfig_id').val();
+            let data = {
+                id: emailconfig_id,
+                fullname: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateFullname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#edit_fullname").removeClass('is-invalid');
+                    $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#edit_fullname").removeClass('is-invalid');
+                    $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.fullname) {
+                    if (error.response.data.errors.fullname.length > 0) {
+                        $error = error.response.data.errors.fullname[0];
+                        if ($("#edit_fullname").val() == "") {
+                            $("#error_edit_fullname").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
 
+                            if ($error == "The fullname has already been taken.") {
+                                $("#error_edit_fullname").addClass('invalid-feedback').html(
+                                    "The fullname has already been taken.").show();
+                            }
+                        }
+                        $("#edit_fullname").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function editValidateEmailConfig(e) {
+            let emailconfig_id = $('#emailconfig_id').val();
+            let data = {
+                id: emailconfig_id,
+                email_address: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateEmailConfig", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#edit_email_address").removeClass('is-invalid');
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#edit_email_address").removeClass('is-invalid');
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.email_address) {
+                    if (error.response.data.errors.email_address.length > 0) {
+                        $error = error.response.data.errors.email_address[0];
+                        if ($("#edit_email_address").val() == "") {
+                            $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+                            if ($error == "The email address has already been taken.") {
+                                $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                    "The email address has already been taken.").show();
+                            }
+                            if ($error == "The email address must be a valid email address.") {
+                                $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                    "The email address must be a valid").show();
+                            }
+                        }
+                        $("#edit_email_address").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        // VALIDATE ON SAVE
+        function validateFullname(e) {
+            let data = {
+                fullname: e.value
+            }
+            axios.post(apiUrl + "/api/validateFullname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#fullname").removeClass('is-invalid');
+                    $("#error_fullname").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.fullname) {
+                    if (error.response.data.errors.fullname.length > 0) {
+                        $error = error.response.data.errors.fullname[0];
+                        if ($("#fullname").val() == "") {
+                            $("#error_fullname").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The fullname has already been taken.") {
+                                $("#error_fullname").addClass('invalid-feedback').html(
+                                    "The fullname has already been taken.").show();
+                            }
+                        }
+                        $("#fullname").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function validateEmailConfig(e) {
+            let data = {
+                email_address: e.value
+            }
+            axios.post(apiUrl + "/api/validateEmailConfig", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#email_address").removeClass('is-invalid');
+                    $("#error_email_address").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.email_address) {
+                    if (error.response.data.errors.email_address.length > 0) {
+                        $error = error.response.data.errors.email_address[0];
+                        if ($("#email_address").val() == "") {
+                            $("#error_email_address").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The email address has already been taken.") {
+                                $("#error_email_address").addClass('invalid-feedback').html(
+                                    "The email address has already been taken.").show();
+                            }
+
+                            if ($error == "The email address must be a valid email address.") {
+                                $("#error_email_address").addClass('invalid-feedback').html(
+                                    "The email address must be a valid").show();
+                            }
+                        }
+                        $("#email_address").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+
+
+        $(document).ready(function() {
             $(window).on('load', function() {
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
@@ -361,7 +528,8 @@
                     $('#emailconfigs_update').trigger('reset');
                     $('#emailconfigs_update').removeClass('was-validated');
                     $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
-                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("")
+                        .show();
                     show_data();
                 }, 1500)
             })
@@ -463,7 +631,8 @@
                                         $('#tbl_pagination .page-item:last-child').addClass('disabled');
                                     }
                                     let PreviousPage = data.data.links[0];
-                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
                                         $('#tbl_pagination .page-item:first-child').addClass('disabled');
                                     }
                                 }
@@ -471,9 +640,10 @@
                                 $("#tbl_pagination .page-item .page-link").on('click', function() {
                                     let url = $(this).data('url')
                                     $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
-                                            url
-                                        );
+                                        var results = new RegExp("[?&]" + name + "=([^&#]*)")
+                                            .exec(
+                                                url
+                                            );
                                         return results !== null ? results[1] || 0 : 0;
                                     };
 
@@ -483,7 +653,6 @@
                                         page: $.urlParam('page')
                                     });
                                 })
-                                console.log("data.data", data.data);
                                 let table_emailconfigs =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing').html(table_emailconfigs);
@@ -562,7 +731,8 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
@@ -618,7 +788,8 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
@@ -687,7 +858,8 @@
                             } else {
                                 $check = $('#email_address').val();
                                 if ($check.length > 0) {
-                                    $("#error_email_address").removeClass('invalid-feedback').html("")
+                                    $("#error_email_address").removeClass('invalid-feedback').html(
+                                            "")
                                         .show();
                                 } else {
                                     $("#error_email_address").addClass('invalid-feedback').html(
@@ -746,7 +918,8 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
@@ -781,7 +954,8 @@
                             } else {
                                 $check = $('#edit_fullname').val();
                                 if ($check.length > 0) {
-                                    $("#error_edit_fullname").removeClass('invalid-feedback').html("")
+                                    $("#error_edit_fullname").removeClass('invalid-feedback').html(
+                                            "")
                                         .show();
                                 } else {
                                     $("#error_edit_fullname").addClass('invalid-feedback').html(
@@ -820,12 +994,14 @@
                             } else {
                                 $check = $('#edit_email_address').val();
                                 if ($check.length > 0) {
-                                    $("#error_edit_email_address").removeClass('invalid-feedback').html(
+                                    $("#error_edit_email_address").removeClass('invalid-feedback')
+                                        .html(
                                             "")
                                         .show();
                                 } else {
-                                    $("#error_edit_email_address").addClass('invalid-feedback').html(
-                                        "This field is required.").show();
+                                    $("#error_edit_email_address").addClass('invalid-feedback')
+                                        .html(
+                                            "This field is required.").show();
                                 }
 
                             }

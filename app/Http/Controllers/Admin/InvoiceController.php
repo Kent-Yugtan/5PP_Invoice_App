@@ -1334,13 +1334,9 @@ class InvoiceController extends Controller
     ], 200);
   }
 
-  public function statusInactive_paid_invoice_count()
+  public function activeInvoiceCount()
   {
-    $data = Invoice::join('profiles', 'profiles.id', 'invoices.profile_id')
-      ->where('profiles.profile_status', 'Active')
-      ->where('invoices.status', 'Inactive')
-      ->where('invoices.invoice_status', 'Paid')
-      ->get();
+    $data = Invoice::where('status', 'Active')->count();
     if ($data) {
       return response()->json([
         'success' => true,
@@ -1349,14 +1345,9 @@ class InvoiceController extends Controller
     }
   }
 
-  public function statusInactive_pending_invoice_count()
+  public function inactiveInvoiceCount()
   {
-    $data = Invoice::join('profiles', 'profiles.id', 'invoices.profile_id')
-      ->where('profiles.profile_status', 'Active')
-      ->where('invoices.status', 'Inactive')
-      ->where('invoices.invoice_status', 'Pending')
-      ->get();
-
+    $data = Invoice::where('status', 'Inactive')->count();
     if ($data) {
       return response()->json([
         'success' => true,
@@ -2217,6 +2208,32 @@ class InvoiceController extends Controller
         'success' => true,
         'data' => $data,
       ]);
+    }
+  }
+
+  public function updateActiveInvoice(Request $request)
+  {
+    $error = false;
+    $invoice_id = $request->invoice_id;
+    $multipleId = $request->multipleId;
+    if ($error === false) {
+      if ($invoice_id) {
+        $data = Invoice::find($invoice_id);
+        $data->status = 'Active';
+        $data->save();
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Invoice has been successfully updated to the database.',
+        ], 200);
+      } else {
+
+        $multipleData = Invoice::whereIn('id', $multipleId)
+          ->update(['status' => 'Active']);
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Invoice has been successfully updated to the database.',
+        ], 200);
+      }
     }
   }
 }

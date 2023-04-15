@@ -72,8 +72,9 @@
                                             <div class="form-group-profile">
                                                 <label for="email" style="color: #A4A6B3;">Email Address</label>
                                                 <input id="email" name="email" type="email" class="form-control"
-                                                    placeholder="Email" disabled="true" required>
-                                                <div id="error_email"></div>
+                                                    placeholder="Email" disabled="true" onblur="editValidateEmail(this)"
+                                                    required>
+                                                <div id="error_email" class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +84,8 @@
                                             <div class="form-group-profile">
                                                 <label for="username" style="color: #A4A6B3;">Username</label>
                                                 <input id="username" name="username" type="text" class="form-control"
-                                                    placeholder="Username" disabled="true" required>
+                                                    placeholder="Username" disabled="true"
+                                                    onblur="editValidateUsername(this)" required>
                                                 <div id="error_username">
                                                 </div>
                                             </div>
@@ -171,7 +173,8 @@
                                             <div class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input id="acct_no" name="acct_no" type="text" class="form-control"
-                                                    placeholder="Account Number" disabled="true" required maxlength="15">
+                                                    placeholder="Account Number" disabled="true"
+                                                    onblur="editValidateAcctno(this)" required maxlength="15">
                                                 <div id="error_acct_no">
                                                 </div>
                                             </div>
@@ -184,7 +187,7 @@
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input id="acct_name" name="acct_name" type="text"
                                                     class="form-control" placeholder="Account Name" disabled="true"
-                                                    required>
+                                                    onblur="editValidateAcctname(this)" required>
                                                 <div id="error_acct_name">
                                                 </div>
                                             </div>
@@ -273,8 +276,9 @@
                                             <div class="form-group-profile">
                                                 <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input id="gcash_no" name="gcash_no" type="text"
-                                                    class="form-control" placeholder="Gcash Number" disabled="true"
-                                                    required maxlength="11">
+                                                    class="form-control" placeholder="Gcash Number"
+                                                    onblur="editValidateGCASHno(this)" disabled="true" required
+                                                    maxlength="11">
                                                 <div id="error_gcash_no">
                                                 </div>
                                             </div>
@@ -1026,6 +1030,218 @@
             separator: ','
         });
 
+        function editValidateEmail(e) {
+            let user_id = $("#user_id").val();
+            let data = {
+                user_id: user_id,
+                email: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateEmail", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    console.log("VALIDATE", e.value);
+                    console.log("VALIDATE", data);
+                    $("#email").removeClass('is-invalid');
+                    $("#error_email").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#email").removeClass('is-invalid');
+                    $("#error_email").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.email) {
+                    if (error.response.data.errors.email.length > 0) {
+                        $error = error.response.data.errors.email[0];
+                        if ($("#email").val() == "") {
+                            $("#error_email").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+                            if ($error == "The email must be a valid email address.") {
+                                $("#error_email").addClass('invalid-feedback').html(
+                                    "The email address must be valid.").show();
+                            }
+                            if ($error == "The email has already been taken.") {
+                                $("#error_email").addClass('invalid-feedback').html(
+                                    "The email has already been taken.").show();
+                            }
+                        }
+                        $("#email").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function editValidateUsername(e) {
+            let user_id = $("#user_id").val();
+            let data = {
+                user_id: user_id,
+                username: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateUsername", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#username").removeClass('is-invalid');
+                    $("#error_username").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#username").removeClass('is-invalid');
+                    $("#error_username").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.username) {
+                    if (error.response.data.errors.username.length > 0) {
+                        $error = error.response.data.errors.username[0];
+                        if ($("#username").val() == "") {
+                            $("#error_username").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The username has already been taken.") {
+                                $("#error_username").addClass('invalid-feedback').html(
+                                    "The username has already been taken.").show();
+                            }
+                        }
+                        $("#username").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+
+        function editValidateAcctno(e) {
+            let user_id = $("#user_id").val();
+            let data = {
+                user_id: user_id,
+                acct_no: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateAcctno", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#acct_no").removeClass('is-invalid');
+                    $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#acct_no").removeClass('is-invalid');
+                    $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.acct_no) {
+                    if (error.response.data.errors.acct_no.length > 0) {
+                        $error = error.response.data.errors.acct_no[0];
+                        if ($("#acct_no").val() == "") {
+                            $("#error_acct_no").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The acct no has already been taken.") {
+                                $("#error_acct_no").addClass('invalid-feedback').html(
+                                    "The account number has already been taken.").show();
+                            }
+                        }
+                        $("#acct_no").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function editValidateAcctname(e) {
+            let user_id = $("#user_id").val();
+            let data = {
+                user_id: user_id,
+                acct_name: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateAcctname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#acct_name").removeClass('is-invalid');
+                    $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#acct_name").removeClass('is-invalid');
+                    $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.acct_name) {
+                    if (error.response.data.errors.acct_name.length > 0) {
+                        $error = error.response.data.errors.acct_name[0];
+                        if ($("#acct_name").val() == "") {
+                            $("#error_acct_name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The acct name has already been taken.") {
+                                $("#error_acct_name").addClass('invalid-feedback').html(
+                                    "The account name has already been taken.").show();
+                            }
+                        }
+                        $("#acct_name").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function editValidateGCASHno(e) {
+            let user_id = $("#user_id").val();
+            let data = {
+                user_id: user_id,
+                gcash_no: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateGCASHno", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#gcash_no").removeClass('is-invalid');
+                    $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#gcash_no").removeClass('is-invalid');
+                    $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.gcash_no) {
+                    if (error.response.data.errors.gcash_no.length > 0) {
+                        $error = error.response.data.errors.gcash_no[0];
+                        if ($("#gcash_no").val() == "") {
+                            $("#error_gcash_no").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The gcash no has already been taken.") {
+                                $("#error_gcash_no").addClass('invalid-feedback').html(
+                                    "The GCASH number has already been taken.").show();
+                            }
+                            if ($error == "The gcash no must be a number.") {
+                                $("#error_gcash_no").addClass('invalid-feedback').html(
+                                    "The given data is invalid.").show();
+                            }
+                        }
+                        $("#gcash_no").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+
+
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
 
@@ -1170,8 +1386,7 @@
                 e.preventDefault();
                 toast1.toast('hide');
             });
-            $("#error_msg").hide();
-            $("#success_msg").hide();
+
 
             function due_datee() {
                 // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd

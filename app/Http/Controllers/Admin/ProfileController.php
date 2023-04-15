@@ -17,6 +17,8 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
+
+
 {
 
   /**
@@ -70,6 +72,7 @@ class ProfileController extends Controller
     if (file_put_contents($filepath, $imageData) !== false) {
       $imageSize = getimagesize($filepath);
     } else {
+
       return response()->json([
         'success' => false,
         'message' => 'Failed to save image.'
@@ -278,6 +281,196 @@ class ProfileController extends Controller
       }
     }
   }
+
+
+
+  // VALIDATE EMAIL ON UPDATE
+  public function editValidateEmail(Request $request)
+  {
+    $user_id = $request->user_id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
+    if ($user_id) {
+      if ($findUser) {
+        if ($findUser->profile) {
+          if ($findUser->email != $request->email) {
+            $editvalidateEmail = $request->validate([
+              'email' => 'required|unique:users|email',
+            ]);
+
+            return response()->json([
+              'success' => true,
+              'data' => $editvalidateEmail,
+            ], 200);
+          }
+        }
+      }
+    }
+  }
+
+
+
+  // VALIDATE USERNAME ON UPDATE
+  public function editValidateUsername(Request $request)
+  {
+    $user_id = $request->user_id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
+    if ($user_id) {
+      if ($findUser) {
+        if ($findUser->profile) {
+          if ($findUser->username != $request->username) {
+            $editvalidateUsername = $request->validate([
+              'username' => 'required|unique:users',
+            ]);
+
+            return response()->json([
+              'success' => true,
+              'data' => $editvalidateUsername,
+            ], 200);
+          }
+        }
+      }
+    }
+  }
+
+  // VALIDATE ACCT NUmber ON UPDATE
+  public function editValidateAcctno(Request $request)
+  {
+    $user_id = $request->user_id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
+    if ($user_id) {
+      if ($findUser) {
+        if ($findUser->profile) {
+          if ($findUser->profile->acct_no != $request->acct_no) {
+            $editvalidateAcctno =  $request->validate([
+              'acct_no' => 'required|unique:profiles',
+            ]);
+
+            return response()->json([
+              'success' => true,
+              'data' => $editvalidateAcctno,
+            ], 200);
+          }
+        }
+      }
+    }
+  }
+
+  // VALIDATE ACCT NUmber ON UPDATE
+  public function editValidateAcctname(Request $request)
+  {
+    $user_id = $request->user_id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
+    if ($user_id) {
+      if ($findUser) {
+        if ($findUser->profile) {
+          if ($findUser->profile->acct_name != $request->acct_name) {
+            $editvalidateAcctname = $request->validate([
+              'acct_name' => 'required|unique:profiles',
+            ]);
+
+            return response()->json([
+              'success' => true,
+              'data' => $editvalidateAcctname,
+            ], 200);
+          }
+        }
+      }
+    }
+  }
+
+
+
+  // VALIDATE ACCT NUmber ON UPDATE
+  public function editValidateGCASHno(Request $request)
+  {
+    $user_id = $request->user_id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($user_id);
+    if ($user_id) {
+      if ($findUser) {
+        if ($findUser->profile) {
+          if ($findUser->profile->acct_name != $request->acct_name) {
+            $editvalidateGCASHno = $request->validate([
+              'gcash_no' => 'required|unique:profiles|numeric',
+            ]);
+
+            return response()->json([
+              'success' => true,
+              'data' => $editvalidateGCASHno,
+            ], 200);
+          }
+        }
+      }
+    }
+  }
+
+
+  // VALIDATION
+  public function validateEmail(Request $request)
+  {
+    $validateEmail = $request->validate([
+      'email' => 'required|email|unique:users',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateEmail,
+    ], 200);
+  }
+
+  // VALIDATION
+  public function validateUsername(Request $request)
+  {
+    $validateUsername = $request->validate([
+      'username' => 'required|unique:users',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateUsername,
+    ], 200);
+  }
+
+
+  // VALIDATION
+  public function validateAcctno(Request $request)
+  {
+    $validateAcctno = $request->validate([
+      'acct_no' => 'required|unique:profiles',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateAcctno,
+    ], 200);
+  }
+
+  // VALIDATION
+  public function validateAcctname(Request $request)
+  {
+    $validateAcctname = $request->validate([
+      'acct_name' => 'required|unique:profiles',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateAcctname,
+    ], 200);
+  }
+
+  // VALIDATION
+  public function validateGcashno(Request $request)
+  {
+    $validateGcashno = $request->validate([
+      'gcash_no' => 'required|unique:profiles|numeric',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateGcashno,
+    ], 200);
+  }
+
+
 
   /**
    * Display the specified resource.
@@ -744,5 +937,60 @@ class ProfileController extends Controller
       'success' => true,
       'data' => $findProfile,
     ], 200);
+  }
+
+
+
+  public function updateInactiveProfile(Request $request)
+  {
+
+    $error = false;
+    $profile_id = $request->profile_id;
+    $multipleId = $request->multipleId;
+    if ($error === false) {
+      if ($profile_id) {
+        $data = Profile::find($profile_id);
+        $data->profile_status = 'Inactive';
+        $data->save();
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been successfully updated to the database.',
+        ], 200);
+      } else {
+
+        $multipleData = Profile::whereIn('id', $multipleId)
+          ->update(['profile_status' => 'Inactive']);
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been successfully updated to the database.',
+        ], 200);
+      }
+    }
+  }
+  public function updateActiveProfile(Request $request)
+  {
+
+    $error = false;
+    $profile_id = $request->profile_id;
+    $multipleId = $request->multipleId;
+    if ($error === false) {
+      if ($profile_id) {
+        $data = Profile::find($profile_id);
+        $data->profile_status = 'Active';
+        $data->save();
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been successfully updated to the database.',
+        ], 200);
+      } else {
+
+        $multipleData = Profile::whereIn('id', $multipleId)
+          ->update(['profile_status' => 'Active']);
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been successfully updated to the database.',
+        ], 200);
+      }
+    }
   }
 }

@@ -70,8 +70,8 @@
                                             <div class="form-group-profile">
                                                 <label for="email" style="color: #A4A6B3;">Email Address</label>
                                                 <input id="email" name="email" type="email" class="form-control"
-                                                    placeholder="Email" required>
-                                                <div id="error_email"></div>
+                                                    placeholder="Email Address" onblur="validateEmail(this)" required>
+                                                <div id="error_email" class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -80,8 +80,8 @@
                                         <div class="col-12 ">
                                             <div class="form-group-profile">
                                                 <label for="username" style="color: #A4A6B3;">Username</label>
-                                                <input id="username" name="username" type="text" class="form-control"
-                                                    placeholder="Username" required>
+                                                <input id="username" name="username" onblur="validateUsername(this)"
+                                                    type="text" class="form-control" placeholder="Username" required>
                                                 <div id="error_username"></div>
                                             </div>
                                         </div>
@@ -187,7 +187,8 @@
                                             <div class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input name="acct_no" id="acct_no" type="text" class="form-control"
-                                                    placeholder="Account Number" required maxlength="15">
+                                                    placeholder="Account Number" onblur="validateAcctno(this)" required
+                                                    maxlength="15">
                                                 <div id="error_acct_no"></div>
                                             </div>
                                         </div>
@@ -198,7 +199,8 @@
                                             <div class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input name="acct_name" id="acct_name" type="text"
-                                                    class="form-control" placeholder="Account Name" required>
+                                                    class="form-control" onblur="validateAcctname(this)"
+                                                    placeholder="Account Name" required>
                                                 <div id="error_acct_name"></div>
                                             </div>
                                         </div>
@@ -286,7 +288,8 @@
                                             <div class="form-group-profile">
                                                 <label for="city" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input name="gcash_no" type="text" class="form-control"
-                                                    id="gcash_no" placeholder="Gcash Number" required maxlength="11">
+                                                    id="gcash_no" onblur="validateGcashno(this)"
+                                                    placeholder="Gcash Number" required maxlength="11">
                                                 <div id="error_gcash_no"></div>
                                             </div>
                                         </div>
@@ -404,6 +407,193 @@
 
     <script src="{{ asset('/assets/js/adminProfile.js') }}"></script>
     <script type="text/javascript">
+        function validateEmail(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                email: e.value
+            }
+            axios.post(apiUrl + "/api/validateEmail", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#email").removeClass('is-invalid');
+                    $("#error_email").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.email) {
+                    if (error.response.data.errors.email.length > 0) {
+                        $email_error = error.response.data.errors.email[0];
+                        if ($("#email").val() == "") {
+                            $("#error_email").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+                            if ($email_error == "The email must be a valid email address.") {
+                                $("#error_email").addClass('invalid-feedback').html(
+                                    "The email address must be valid.").show();
+                            }
+                            if ($email_error == "The email has already been taken.") {
+                                $("#error_email").addClass('invalid-feedback').html(
+                                    "The email has already been taken.").show();
+                            }
+                        }
+                        $("#email").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function validateUsername(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                username: e.value
+            }
+            axios.post(apiUrl + "/api/validateUsername", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#username").removeClass('is-invalid');
+                    $("#error_username").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.username) {
+                    if (error.response.data.errors.username.length > 0) {
+                        $error = error.response.data.errors.username[0];
+                        if ($("#username").val() == "") {
+                            $("#error_username").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The username has already been taken.") {
+                                $("#error_username").addClass('invalid-feedback').html(
+                                    "The username has already been taken.").show();
+                            }
+                        }
+                        $("#username").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function validateAcctno(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                acct_no: e.value
+            }
+            axios.post(apiUrl + "/api/validateAcctno", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#acct_no").removeClass('is-invalid');
+                    $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.acct_no) {
+                    if (error.response.data.errors.acct_no.length > 0) {
+                        $error = error.response.data.errors.acct_no[0];
+                        if ($("#acct_no").val() == "") {
+                            $("#error_acct_no").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+                            if ($error == "The acct no has already been taken.") {
+                                $("#error_acct_no").addClass('invalid-feedback').html(
+                                    "The account number has already been taken.").show();
+                            }
+
+                        }
+                        $("#acct_no").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function validateAcctname(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                acct_name: e.value
+            }
+            axios.post(apiUrl + "/api/validateAcctname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#acct_name").removeClass('is-invalid');
+                    $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.acct_name) {
+                    if (error.response.data.errors.acct_name.length > 0) {
+                        $error = error.response.data.errors.acct_name[0];
+                        if ($("#acct_name").val() == "") {
+                            $("#error_acct_name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The acct name has already been taken.") {
+                                $("#error_acct_name").addClass('invalid-feedback').html(
+                                    "The account name has already been taken.").show();
+                            }
+                        }
+                        $("#acct_name").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+        function validateGcashno(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                gcash_no: e.value
+            }
+            axios.post(apiUrl + "/api/validateGcashno", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#gcash_no").removeClass('is-invalid');
+                    $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.gcash_no) {
+                    if (error.response.data.errors.gcash_no.length > 0) {
+                        $error = error.response.data.errors.gcash_no[0];
+                        if ($("#gcash_no").val() == "") {
+                            $("#error_gcash_no").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The gcash no has already been taken.") {
+                                $("#error_gcash_no").addClass('invalid-feedback').html(
+                                    "The GCASH number has already been taken.").show();
+                            }
+                            if ($error == "The gcash no must be a number.") {
+                                $("#error_gcash_no").addClass('invalid-feedback').html(
+                                    "The given data was invalid").show();
+                            }
+                        }
+                        $("#gcash_no").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
         $(document).ready(function() {
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
@@ -598,6 +788,8 @@
                     }, false)
                 })
 
+
+
             $('#ProfileStore').submit(function(e) {
                 e.preventDefault();
                 // $('html,body').animate({
@@ -750,20 +942,33 @@
                                 if (error.response.data.errors.email.length > 0) {
                                     $email_error = error.response.data.errors.email[0];
                                     if ($email_error == "The email field is required.") {
+                                        $("#email").addClass('is-invalid');
                                         $("#error_email").addClass('invalid-feedback').html(
                                             "This field is required.").show();
                                     }
                                     if ($email_error == "The email must be a valid email address.") {
+                                        $("#email").addClass('is-invalid');
                                         $("#error_email").addClass('invalid-feedback').html(
                                             "The email address must be valid.").show();
                                     }
                                     if ($email_error == "The email has already been taken.") {
+                                        $("#email").addClass('is-invalid');
                                         $("#error_email").addClass('invalid-feedback').html(
                                             "The email has already been taken.").show();
                                     }
+
                                 }
                             } else {
-                                $("#error_email").removeClass('invalid-feedback').html("").show();
+                                $check = $('#email').val();
+                                if ($check.length > 0) {
+                                    $("#email").removeClass('is-invalid');
+                                    $("#error_email").removeClass('invalid-feedback').html("").show();
+                                } else {
+                                    // $("#email").addClass('is-invalid');
+                                    $("#error_deduction_name").addClass('invalid-feedback').html(
+                                        "This field is required.").show();
+                                }
+
                             }
 
                             // ERROR USERNAME

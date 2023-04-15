@@ -94,18 +94,20 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group-profile">
-                                                        <label for="deduction_name">Deduction Name</label>
+                                                        <label for="deduction_name" style="color:#A4A6B3">Deduction
+                                                            Name</label>
                                                         <input id="deduction_name" name="deduction_name" type="text"
-                                                            class="form-control" placeholder="Deduction Name" required>
+                                                            class="form-control" placeholder="Deduction Name"
+                                                            onblur="validateDeductionname(this)" required>
                                                         <div id="error_deduction_name"></div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-12">
+                                                <div class="col-12 bottom10">
                                                     <div class="form-group-profile">
-                                                        <label for="deduction_amount">Amount</label>
+                                                        <label for="deduction_amount" style="color:#A4A6B3">Amount</label>
                                                         <input id="deduction_amount" name="deduction_amount"
                                                             type="text" class="form-control" maxlength="6"
                                                             placeholder="Amount" required>
@@ -114,10 +116,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row pt-3">
+                                            <div class="row">
                                                 <div class="col">
                                                     <button type="button" id="close" class="btn  w-100"
-                                                        style="color:white; background-color:#A4A6B3; ">Close</button>
+                                                        style="color:#CF8029; background-color:#f3f3f3; ">Close</button>
                                                 </div>
                                                 <div class="col">
                                                     <button type="submit" class="btn  w-100"
@@ -134,7 +136,6 @@
             </div>
         </div>
     </div>
-
     <!-- END MODAL ADD -->
 
     <!-- START MODAL EDIT -->
@@ -143,59 +144,64 @@
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
-                    <form id="deductiontype_update" class="g-3 needs-validation" novalidate>
-                        @csrf
-                        <div class="card-border shadow bg-white h-100" style="padding:20px">
-                            <div class="card-body">
-                                <div class="row " id="header">
-                                    <div class="col-md-12 w-100">
-                                        <div class="row">
-                                            <div class="col bottom20">
-                                                <span class="fs-3 fw-bold">Update Deduction Type </span>
-                                            </div>
-                                        </div>
-                                        <input type="text" id="deduction_id" hidden>
-
-                                        <div class="row">
-                                            <div class="col bottom20">
-                                                <div class="form-group-profile">
-                                                    <label for="edit_deduction_name" style="color:#A4A6B3">Deduction
-                                                        Name</label>
-                                                    <input id="edit_deduction_name" type="text" class="form-control"
-                                                        placeholder="Deduction Name" required>
-                                                    <div class="invalid-feedback">This field is required.</div>
+                    <div class="row">
+                        <form id="deductiontype_update" class="g-3 needs-validation" novalidate>
+                            @csrf
+                            <div class="card-border shadow bg-white h-100" style="padding:20px">
+                                <div class="card-body">
+                                    <div class="row " id="header">
+                                        <div class="col-md-12 w-100">
+                                            <div class="row">
+                                                <div class="col bottom20">
+                                                    <span class="fs-3 fw-bold">Update Deduction Type </span>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <input type="text" id="deduction_id" hidden>
 
-                                        <div class="row">
-                                            <div class="col bottom20">
-                                                <div class="form-group-profile">
-                                                    <label for="edit_deduction_amount"
-                                                        style="color:#A4A6B3">Amount</label>
-                                                    <input id="edit_deduction_amount" type="text" class="form-control"
-                                                        placeholder="Amount" required maxlength="6">
-                                                    <div class="invalid-feedback">This field is required.</div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_deduction_name" style="color:#A4A6B3">Deduction
+                                                            Name</label>
+                                                        <input id="edit_deduction_name" type="text"
+                                                            class="form-control" placeholder="Deduction Name"
+                                                            onblur="editValidateDeductionname(this)" required>
+                                                        <div id="error_edit_deduction_name" class="invalid-feedback">This
+                                                            field is required.</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <button type="button" class="btn  w-100"
-                                                    style="color:white; background-color:#A4A6B3;"
-                                                    id="closedeductiontype_update">Close</button>
+                                            <div class="row">
+                                                <div class="col bottom10">
+                                                    <div class="form-group-profile">
+                                                        <label for="edit_deduction_amount"
+                                                            style="color:#A4A6B3">Amount</label>
+                                                        <input id="edit_deduction_amount" type="text"
+                                                            class="form-control" placeholder="Amount" required
+                                                            maxlength="6">
+                                                        <div class="invalid-feedback">This field is required.</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <button type="submit" class="btn  w-100"
-                                                    style="color:White; background-color:#CF8029; ">Update</button>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn  w-100"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
+                                                        id="closedeductiontype_update">Close</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="submit" class="btn  w-100"
+                                                        style="color:White; background-color:#CF8029; ">Update</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,6 +292,85 @@
             decimal: '.',
             separator: ','
         });
+
+        // VALIDATE UPDATE
+        function editValidateDeductionname(e) {
+            let deduction_id = $('#deduction_id').val();
+            let data = {
+                id: deduction_id,
+                deduction_name: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateDeductionname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#edit_deduction_name").removeClass('is-invalid');
+                    $("#error_edit_deduction_name").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#edit_deduction_name").removeClass('is-invalid');
+                    $("#error_edit_deduction_name").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.deduction_name) {
+                    if (error.response.data.errors.deduction_name.length > 0) {
+                        $error = error.response.data.errors.deduction_name[0];
+                        if ($("#edit_deduction_name").val() == "") {
+                            $("#error_edit_deduction_name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The deduction name has already been taken.") {
+                                $("#error_edit_deduction_name").addClass('invalid-feedback').html(
+                                    "The deduction name has already been taken.").show();
+                            }
+                        }
+                        $("#edit_deduction_name").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+        // VALIDATE ON SAVE
+        function validateDeductionname(e) {
+            console.log("VALIDATE", e.value);
+            let data = {
+                deduction_name: e.value
+            }
+            axios.post(apiUrl + "/api/validateDeductionname", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#deduction_name").removeClass('is-invalid');
+                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors.deduction_name) {
+                    if (error.response.data.errors.deduction_name.length > 0) {
+                        $error = error.response.data.errors.deduction_name[0];
+                        if ($("#deduction_name").val() == "") {
+                            $("#error_deduction_name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The deduction name has already been taken.") {
+                                $("#error_deduction_name").addClass('invalid-feedback').html(
+                                    "The deduction name has already been taken.").show();
+                            }
+                        }
+                        $("#deduction_name").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
+
+
         $(document).ready(function() {
             // Get the current page's URL path
             var path = window.location.pathname;
@@ -542,13 +627,19 @@
             })
 
             $('#deduction_amount').focusout(function() {
-                if ($(this).val().length > 0) {
+                if ($(this).val().length == "") {
+                    let amount = $(this).val();
+                    $('#deduction_amount').val(PHP(amount).format());
+                } else {
                     let amount = $(this).val();
                     $('#deduction_amount').val(PHP(amount).format());
                 }
             })
             $('#edit_deduction_amount').focusout(function() {
-                if ($(this).val().length > 0) {
+                if ($(this).val().length == "") {
+                    let amount = $(this).val();
+                    $('#edit_deduction_amount').val(PHP(amount).format());
+                } else {
                     let amount = $(this).val();
                     $('#edit_deduction_amount').val(PHP(amount).format());
                 }
@@ -619,8 +710,6 @@
                         let data = response.data;
                         if (data.success) {
                             $('#editModal').modal('hide');
-                            $('#edit_deduction_name').val('');
-                            $('#edit_deduction_amount').val('');
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
@@ -630,8 +719,8 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 toast1.toast('show');
-                                $('#deductiontype_store').trigger('reset');
-                                $('#deductiontype_store').removeClass('was-validated');
+                                $('#deductiontype_update').trigger('reset');
+                                $('#deductiontype_update').removeClass('was-validated');
                                 show_data();
                             }, 1500)
                         }

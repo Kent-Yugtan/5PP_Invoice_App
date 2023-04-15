@@ -39,7 +39,8 @@
                                             <div class="form-group-profile">
                                                 <label for="invoice_email" style="color: #A4A6B3;">Invoice Email</label>
                                                 <input id="invoice_email" name="invoice_email" type="text"
-                                                    class="form-control" placeholder="Invoice Email" required>
+                                                    class="form-control" placeholder="Invoice Email"
+                                                    onblur="validateInvoiceEmail(this)" required>
                                                 <div id="error_invoice_email" class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -167,8 +168,9 @@
                                                         Email</label>
                                                     <input id="edit_invoice_email" name="edit_invoice_email"
                                                         type=" text" class="form-control" placeholder="Invoice Email"
-                                                        required>
-                                                    <div id="error_edit_email_address" class="invalid-feedback"></div>
+                                                        onblur="editValidateInvoiceEmail(this)" required>
+                                                    <div id="error_edit_email_address" class="invalid-feedback">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,8 +276,93 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        function editValidateInvoiceEmail(e) {
+            let invoice_config_id = $('#invoice_config_id').val();
+            let data = {
+                id: invoice_config_id,
+                invoice_email: e.value
+            }
+            axios.post(apiUrl + "/api/editValidateInvoiceEmail", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#edit_invoice_email").removeClass('is-invalid');
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                } else {
+                    $("#edit_invoice_email").removeClass('is-invalid');
+                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.invoice_email) {
+                    if (error.response.data.errors.invoice_email.length > 0) {
+                        $error = error.response.data.errors.invoice_email[0];
+                        if ($("#edit_invoice_email").val() == "") {
+                            $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+                            if ($error == "The invoice email has already been taken.") {
+                                $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                    "The email address has already been taken.").show();
+                            }
+                            if ($error == "The invoice email must be a valid email address.") {
+                                $("#error_edit_email_address").addClass('invalid-feedback').html(
+                                    "The email address must be a valid").show();
+                            }
+                        }
+                        $("#edit_invoice_email").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+        }
 
+        function validateInvoiceEmail(e) {
+            let data = {
+                invoice_email: e.value
+            }
+            axios.post(apiUrl + "/api/validateInvoiceEmail", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#invoice_email").removeClass('is-invalid');
+                    $("#error_invoice_email").removeClass('invalid-feedback').html("").show();
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error);
+                if (error.response.data.errors.invoice_email) {
+                    if (error.response.data.errors.invoice_email.length > 0) {
+                        $error = error.response.data.errors.invoice_email[0];
+                        if ($("#invoice_email").val() == "") {
+                            $("#error_invoice_email").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                        } else {
+
+                            if ($error == "The invoice email has already been taken.") {
+                                $("#error_invoice_email").addClass('invalid-feedback').html(
+                                    "The email address has already been taken.").show();
+                            }
+
+                            if ($error == "The invoice email must be a valid email address.") {
+                                $("#error_invoice_email").addClass('invalid-feedback').html(
+                                    "The email address must be a valid").show();
+                            }
+                        }
+                        $("#invoice_email").addClass('is-invalid');
+                        console.log("Error");
+                    }
+                }
+            })
+
+        }
+
+        $(document).ready(function() {
 
             var currentPage = window.location.href;
             $('#collapseLayouts4 a').each(function() {
