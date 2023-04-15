@@ -68,6 +68,14 @@
             </div>
         </div>
 
+        <div class="row d-none" id="invoice_inactive">
+            <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="btn w-100"
+                    style="color:white; background-color: #CF8029;width:30%" id="inactiveButton">Inactive</button>
+            </div>
+        </div>
+
+
         <div class="row ">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
@@ -77,7 +85,8 @@
                                 <thead>
                                     <tr>
                                         <th class="active fit" style="width: 10px">
-                                            <input type="checkbox" class="select-all form-check-input" id="select-all" />
+                                            <input type="checkbox" class="d-none select-all form-check-input"
+                                                id="select-all" />
                                         </th>
                                         <th class="fit">Invoice #</th>
                                         <th class="fit">Profile Name</th>
@@ -110,6 +119,53 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal FOR Inactive Profile -->
+    <div class="modal fade" id="inactiveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="top:30px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" style="padding:20px">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <img class="" src="{{ URL('images/Info.png') }}"
+                                    style="width: 50%; padding:10px" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <h3> Are you sure?</h3>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col bottom20">
+                            <span id="inactiveInvoice" hidden></span>
+                            <span class="text-muted"> Do you really want to set this Invoice to Inactive?</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
+                                id="cancelInactive">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" id="inactive_button" class="btn  w-100"
+                                style="color:white;background-color: #CF8029;">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
     <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
@@ -214,8 +270,192 @@
                     active_count_pending();
                     check_pendingInvoicesStatus();
                     show_data();
-
                 }, 1500)
+            })
+
+            function selectShow() {
+                var numCheckboxes = $('.select-item').length;
+                console.log("numCheckboxes", numCheckboxes);
+                if (numCheckboxes > 0) {
+                    $('#select-all').removeClass('d-none');
+                } else {
+                    $('#select-all').addClass('d-none');
+                }
+            }
+
+            let array_all = [];
+            $(document).on('change', '#select-all', function() {
+                array_all = []; // Reset the array
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+                if ($(this).is(":checked")) {
+                    $(this).closest('table').find('td').each(function() {
+                        let cellValue = $(this).text(); // get the text content of the td element
+                        if ($(this).hasClass('invoice_id')) {
+                            array_all.push(cellValue);
+                        }
+                    });
+                    console.log("CHECK", array_all);
+
+                    $('#invoice_inactive').removeClass('d-none');
+                } else {
+                    console.log("UNCHECK", array_all);
+
+                    $('#invoice_inactive').addClass('d-none');
+                }
+            });
+
+            $(document).on('change', '.select-item', function() {
+                let profile_id_item = $(this).closest('tr').find('.invoice_id').text();
+                if ($(this).is(":checked")) {
+                    // Checkbox is checked, add the value to the array
+                    array_all.push(profile_id_item);
+                    console.log("ITEM", array_all);
+                } else {
+                    // Checkbox is unchecked, remove the value from the array
+                    let index = array_all.indexOf(profile_id_item);
+                    if (index > -1) {
+                        array_all.splice(index, 1);
+                    }
+                    console.log("ITEM", array_all);
+                }
+
+                var numCheckboxes = $('.select-item').length;
+                if ($('.select-item:checked').length === numCheckboxes) {
+                    // All checkboxes are checked
+                    $('#select-all').prop('checked', true);
+                } else {
+                    // Not all checkboxes are checked
+                    $('#select-all').prop('checked', false);
+                }
+
+                if ($('.select-item:checked').length === 0) {
+                    // Add your code here for when no checkbox is checked
+                    $('#invoice_inactive').addClass('d-none');
+                } else {
+                    $('#invoice_inactive').removeClass('d-none');
+                }
+            });
+
+            $(document).on('click', '#inactiveLink', function(e) {
+                e.preventDefault();
+                let invoice_id = $(this).closest('tr').find('.invoice_id').text();
+                $("#inactiveInvoice").html(invoice_id);
+
+            })
+
+            $('#inactive_button').on('click', function(e) {
+                e.preventDefault();
+                let invoice_id = $('#inactiveInvoice').html();
+                if (invoice_id) {
+                    let data = {
+                        invoice_id: invoice_id
+                    }
+                    axios.post(apiUrl + "/api/updateInactiveInvoice", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                // location.href = apiUrl + "/admin/current"
+                                window.location.reload();
+                            }, 3000)
+                            toast1.toast('show');
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                } else {
+                    let data = {
+                        multipleId: array_all
+                    }
+                    axios.post(apiUrl + "/api/updateInactiveInvoice", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                // location.href = apiUrl + "/admin/current"
+                                window.location.reload();
+                            }, 3000)
+                            toast1.toast('show');
+                            console.log("SUCCESS", data);
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                }
+            })
+
+            $('#cancelInactive').on('click', function(e) {
+                e.preventDefault();
+                $('#inactiveModal').modal('hide');
+                setTimeout(function() {
+                    location.reload(true);
+                }, 500)
             })
 
             var currentPage = window.location.href;
@@ -262,22 +502,6 @@
                 })
             }
 
-            // $("#tbl_pagination_invoice").on('click', '.page-item', function() {
-            //   $('html,body').animate({
-            //     scrollTop: $('#sb-nav-fixed').offset().top
-            //   }, 'slow');
-
-            //   $("div.spanner").addClass("show");
-            //   setTimeout(function() {
-            //           $("div.spanner").removeClass("show");
-            // 
-            // 
-            //     $('html,body').animate({
-            //       scrollTop: $('#sb-nav-fixed').offset().top
-            //     }, 'slow');
-            //   }, 1500);
-            // })
-
             function active_count_pending() {
                 axios.get(apiUrl + '/api/active_pending_invoice_count', {
                     headers: {
@@ -301,7 +525,6 @@
                     search: $('#search').val() ? $('#search').val() : '',
                     filter_all_invoices: $('#filter_invoices').val(),
                     ...filters
-
                 }
                 // console.log("page", page);
                 $('#dataTable_invoice tbody').empty();
@@ -328,7 +551,8 @@
                                 var yy2 = due_date2.getFullYear();
 
                                 let tr = '<tr style="vertical-align: middle;">';
-                                tr += '<td hidden>' + item.id + '</td>'
+                                tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
+                                    '</td>'
                                 tr +=
                                     '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
@@ -424,14 +648,23 @@
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
-                                // tr +=
-                                //     '<td class="text-center"> <a href="' +
-                                //     apiUrl +
-                                //     '/invoice/editInvoice/' +
-                                //     item.id +
-                                //     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr +=
-                                    '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
+                                    '<td  class="text-center">';
+                                tr +=
+                                    `<div class="dropdown">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                    <li><a class="dropdown-item" href=` + apiUrl +
+                                    '/invoice/editInvoice/' +
+                                    item.id +
+                                    `>View</a></li>
+                                                </ul>
+                                            </div>`;
+                                tr += '</td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
@@ -480,13 +713,16 @@
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            selectShow();
                         } else {
+                            selectShow();
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+
                         }
                     }
                 }).catch(function(error) {
@@ -601,7 +837,8 @@
                                 var yy2 = due_date2.getFullYear();
 
                                 let tr = '<tr style="vertical-align: middle;">';
-                                tr += '<td hidden>' + item.id + '</td>'
+                                tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
+                                    '</td>'
                                 tr +=
                                     '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
@@ -656,7 +893,22 @@
                                 //     item.id +
                                 //     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr +=
-                                    '<td  class=" text-center"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
+                                    '<td  class="text-center">';
+                                tr +=
+                                    `<div class="dropdown">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                    <li><a class="dropdown-item" href=` + apiUrl +
+                                    '/invoice/editInvoice/' +
+                                    item.id +
+                                    `>View</a></li>
+                                                </ul>
+                                            </div>`;
+                                tr += '</td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
@@ -706,14 +958,18 @@
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            selectShow();
                         } else {
+                            selectShow();
                             $("#dataTable_invoice tbody").append(
                                 '<tr><td colspan="8" class="text-center">No data</td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+
                         }
+
                     }
                 }).catch(function(error) {
                     console.log("ERROR DISPLAY", error);
@@ -848,8 +1104,6 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     $('#tbl_pagination_invoice').empty();
                     search_statusActive_invoice();
                 }, 1500)

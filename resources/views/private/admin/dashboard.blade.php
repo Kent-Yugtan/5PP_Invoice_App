@@ -683,7 +683,7 @@
                             })
                         } else {
                             $('#profile_id').append(
-                                '<option value="" class="text-center" disabled="true">No Data</option>');
+                                '<option value="" disabled="true">No Data</option>');
                         }
                     }
                 }).catch(function(error) {

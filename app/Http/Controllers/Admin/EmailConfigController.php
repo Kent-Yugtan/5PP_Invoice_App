@@ -150,6 +150,74 @@ class EmailConfigController extends Controller
       }
     }
   }
+  // VALIDATE UPDATE
+  public function editValidateFullname(Request $request)
+  {
+    $id = $request->id;
+    $data = EmailConfig::find($id);
+    if ($id) {
+      if ($data) {
+        if ($data->fullname != $request->fullname) {
+          $editValidateFullname = $request->validate([
+            'fullname' => 'required|unique:email_configs',
+          ]);
+
+          return response()->json([
+            'success' => true,
+            'data' => $editValidateFullname,
+          ], 200);
+        }
+      }
+    }
+  }
+
+  // VALIDATE UPDATE
+  public function editValidateEmailConfig(Request $request)
+  {
+    $id = $request->id;
+    $data = EmailConfig::find($id);
+    if ($id) {
+      if ($data) {
+        if ($data->email_address != $request->email_address) {
+          $editvalidateEmail = $request->validate([
+            'email_address' => 'required|email|unique:email_configs',
+          ]);
+          return response()->json([
+            'success' => true,
+            'data' => $editvalidateEmail,
+          ], 200);
+        }
+      }
+    }
+  }
+
+
+  // VALIDATION
+  public function validateFullname(Request $request)
+  {
+    $validateFullname = $request->validate([
+      'fullname' => 'required|unique:email_configs',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateFullname,
+    ], 200);
+  }
+
+  // VALIDATION
+  public function validateEmailConfig(Request $request)
+  {
+    $validateEmail = $request->validate([
+      'email_address' => 'required|email|unique:email_configs',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateEmail,
+    ], 200);
+  }
+
 
   public function show_edit(Request $request)
   {

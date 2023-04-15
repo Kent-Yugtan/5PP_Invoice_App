@@ -80,6 +80,40 @@ class DeductionTypeController extends Controller
     }
   }
 
+  // VALIDATE EDIT
+  public function editValidateDeductionname(Request $request)
+  {
+    $deductionType_id = $request->id;
+    $data = DeductionType::find($deductionType_id);
+    if ($deductionType_id) {
+      if ($data) {
+        if ($data->deduction_name != $request->deduction_name) {
+          $editValidateDeductionname = $request->validate([
+            'deduction_name' => 'required|unique:deduction_types',
+          ]);
+
+          return response()->json([
+            'success' => true,
+            'data' => $editValidateDeductionname,
+          ], 200);
+        }
+      }
+    }
+  }
+
+  // VALIDATION
+  public function validateDeductionname(Request $request)
+  {
+    $validateDeductionname = $request->validate([
+      'deduction_name' => 'required|unique:deduction_types',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateDeductionname,
+    ], 200);
+  }
+
   /**
    * Display the specified resource.
    *

@@ -38,10 +38,50 @@ Route::middleware(['auth:api'])->group(function () {
   Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
   Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
 
+  Route::post('updateInactiveProfile', [ProfileController::class, 'updateInactiveProfile']);
+  Route::post('updateActiveProfile', [ProfileController::class, 'updateActiveProfile']);
+
+  Route::post('updateInactiveInvoice', [InvoiceController::class, 'updateInactiveInvoice']);
+  Route::post('updateActiveInvoice', [InvoiceController::class, 'updateActiveInvoice']);
+
   // FOR PROFILE TABLE
   Route::resource('admin/profile', ProfileController::class);
   Route::post('saveprofile', [ProfileController::class, 'store']);
   Route::get('show_profile', [ProfileController::class, 'show_profile']);
+
+  //  VALIDATION FOR PROFILE
+  Route::post('validateEmail', [ProfileController::class, 'validateEmail']);
+  Route::post('validateUsername', [ProfileController::class, 'validateUsername']);
+  Route::post('validateAcctno', [ProfileController::class, 'validateAcctno']);
+  Route::post('validateAcctname', [ProfileController::class, 'validateAcctname']);
+  Route::post('validateGcashno', [ProfileController::class, 'validateGcashno']);
+
+  //  VALIDATION FOR EDIT PROFILE
+  Route::post('editValidateEmail', [ProfileController::class, 'editValidateEmail']);
+  Route::post('editValidateUsername', [ProfileController::class, 'editValidateUsername']);
+  Route::post('editValidateAcctno', [ProfileController::class, 'editValidateAcctno']);
+  Route::post('editValidateAcctname', [ProfileController::class, 'editValidateAcctname']);
+  Route::post('editValidateGCASHno', [ProfileController::class, 'editValidateGCASHno']);
+
+  //  VALIDATION FOR DEDUCTION TYPE
+  Route::post('validateDeductionname', [DeductionTypeController::class, 'validateDeductionname']);
+
+  //  VALIDATION FOR EDIT DEDUCTION TYPE
+  Route::post('editValidateDeductionname', [DeductionTypeController::class, 'editValidateDeductionname']);
+
+  //  VALIDATION FOR EMAIL CONFIG
+  Route::post('validateFullname', [EmailConfigController::class, 'validateFullname']);
+  Route::post('validateEmailConfig', [EmailConfigController::class, 'validateEmailConfig']);
+
+  //  VALIDATION FOR EDIT EMAIL CONFIG
+  Route::post('editValidateFullname', [EmailConfigController::class, 'editValidateFullname']);
+  Route::post('editValidateEmailConfig', [EmailConfigController::class, 'editValidateEmailConfig']);
+
+  //  VALIDATION FOR INVOICE CONFIG
+  Route::post('validateInvoiceEmail', [InvoiceConfigController::class, 'validateInvoiceEmail']);
+
+  //  VALIDATION FOR EDIT INVOICE CONFIG
+  Route::post('editValidateInvoiceEmail', [InvoiceConfigController::class, 'editValidateInvoiceEmail']);
 
   // SHOW DEDUCTION TYPE IN PROFILE
   Route::get('show_deduction_type', [ProfileController::class, 'show_deduction_types']);
@@ -101,8 +141,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('admin/show_pendingInvoices', [InvoiceController::class, 'show_pendingInvoices']);
   Route::get('get_quickInvoice_PDT/{id}', [InvoiceController::class, 'get_quickInvoice_PDT']);
 
-  Route::get('statusInactive_paid_invoice_count', [InvoiceController::class, 'statusInactive_paid_invoice_count']);
-  Route::get('statusInactive_pending_invoice_count', [InvoiceController::class, 'statusInactive_pending_invoice_count']);
+  Route::get('activeInvoiceCount', [InvoiceController::class, 'activeInvoiceCount']);
+  Route::get('inactiveInvoiceCount', [InvoiceController::class, 'inactiveInvoiceCount']);
+
 
   // FOR EMAIL CONFIG TABLE
   Route::get('get_name', [EmailConfigController::class, 'get_name']);

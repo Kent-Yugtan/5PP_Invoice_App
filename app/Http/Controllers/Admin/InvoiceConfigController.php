@@ -91,8 +91,6 @@ class InvoiceConfigController extends Controller
           $incoming_data,
         )->save();
 
-
-
         return response()->json([
           'success' => true,
           'message' => 'The invoice Configuration has been updated successfully.',
@@ -136,6 +134,39 @@ class InvoiceConfigController extends Controller
         ], 200);
       }
     }
+  }
+  // VALIDATE ON UPDATE
+  public function editValidateInvoiceEmail(Request $request)
+  {
+    $id = $request->id;
+    $data = InvoiceConfig::find($id);
+    if ($id) {
+      if ($data) {
+        if ($data->invoice_email != $request->invoice_email) {
+          $editValidateInvoiceEmail = $request->validate([
+            'invoice_email' => 'required|email|unique:invoice_configs',
+          ]);
+          return response()->json([
+            'success' => true,
+            'data' => $editValidateInvoiceEmail,
+          ], 200);
+        }
+      }
+    }
+  }
+
+  // VALIDATE ON SAVE
+  public function validateInvoiceEmail(Request $request)
+  {
+
+    $validateInvoiceEmail = $request->validate([
+      'invoice_email' => 'required|email|unique:invoice_configs',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $validateInvoiceEmail,
+    ], 200);
   }
 
   /**

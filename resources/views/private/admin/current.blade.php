@@ -49,8 +49,8 @@
 
         <div class="row d-none" id="button_inactive">
             <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
-                <button type="button" class="btn w-100" style="color:white; background-color: #CF8029;width:30%"
-                    id="button-submit">Inactive</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="btn w-100"
+                    style="color:white; background-color: #CF8029;width:30%" id="inactiveButton">Inactive</button>
             </div>
         </div>
 
@@ -64,7 +64,8 @@
                                     <!-- style="border-bottom: 2px solid #f7f8f9 !important;" -->
                                     <tr>
                                         <th class="active fit" style="width: 10px">
-                                            <input type="checkbox" class="select-all form-check-input" id="select-all" />
+                                            <input type="checkbox" class="d-none select-all form-check-input"
+                                                id="select-all" />
                                         </th>
                                         <th class="fit">User</th>
                                         <th class="fit">Status</th>
@@ -93,16 +94,72 @@
             </div>
         </div>
 
-        <div class="form-popup" id="viewButton">
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeButton()">Close</button>
+
+    </div>
+
+    <!-- Modal FOR Inactive Profile -->
+    <div class="modal fade" id="inactiveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" style="padding:20px">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <img class="" src="{{ URL('images/Info.png') }}"
+                                    style="width: 50%; padding:10px" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <h3> Are you sure?</h3>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col bottom20">
+                            <span id="inactiveProfileId" hidden></span>
+                            <span class="text-muted"> Do you really want to set this Profile to Inactive?</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
+                                id="cancelInactive">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" id="inactive_button" class="btn  w-100"
+                                style="color:white;background-color: #CF8029;">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-
-
-
-
+    <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
+        <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <div id="notifyIcon"></i></div>
+                <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
+                <div>
+                    <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="toast-body">
+                Hello, you can push notifications to your visitors with this toast feature.
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript">
         function input_group_focus(option, id) {
@@ -115,68 +172,204 @@
             }
         }
 
-        function openButton() {
-            $("#viewButton").show();
-        }
-
-        function closeButton() {
-            $("#viewButton").hide();
-        }
-
         $(document).ready(function() {
-            let profile_id_all = [];
+
+            let toast1 = $('.toast1');
+            toast1.toast({
+                delay: 3000,
+                animation: true,
+
+            });
+
+            $('.close').on('click', function(e) {
+                e.preventDefault();
+                toast1.toast('hide');
+            });
+
+            function selectShow() {
+                var numCheckboxes = $('.select-item').length;
+                console.log("numCheckboxes", numCheckboxes);
+                if (numCheckboxes > 0) {
+                    $('#select-all').removeClass('d-none');
+                } else {
+                    $('#select-all').addClass('d-none');
+                }
+            }
+
             let array_all = [];
-            let profile_id_item = [];
-            let array_item = [];
-            $('#select-all').click(function(e) {
+            $(document).on('change', '#select-all', function() {
+                array_all = []; // Reset the array
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-                $(this).closest('table').find('td').each(function() {
-                    let cellValue = $(this).text(); // get the text content of the td element
-                    if ($(this).hasClass('profile_id')) {
-                        array_all.push(cellValue);
-                    }
-                    profile_id_all = array_all; // assign the updated array to profile_id
-                });
-                if (this.checked) {
+                if ($(this).is(":checked")) {
+                    $(this).closest('table').find('td').each(function() {
+                        let cellValue = $(this).text(); // get the text content of the td element
+                        if ($(this).hasClass('profile_id')) {
+                            array_all.push(cellValue);
+                        }
+                    });
+                    console.log("CHECK", array_all);
+
                     $('#button_inactive').removeClass('d-none');
                 } else {
+                    console.log("UNCHECK", array_all);
+
                     $('#button_inactive').addClass('d-none');
                 }
-                console.log("CELLVALUE", profile_id_all);
-                array_all = [];
             });
 
             $(document).on('change', '.select-item', function() {
+                let profile_id_item = $(this).closest('tr').find('.profile_id').text();
                 if ($(this).is(":checked")) {
-                    // Add your code here for when the checkbox is checked
-                    var profileId = $(this).closest('tr').find('.profile_id').text();
-                    array_item.push(profileId);
-                    $('#button_inactive').removeClass('d-none');
+                    // Checkbox is checked, add the value to the array
+                    array_all.push(profile_id_item);
+                    console.log("ITEM", array_all);
                 } else {
-                    // Add your code here for when the checkbox is unchecked
-                    var profileId = $(this).closest('tr').find('.profile_id').text();
-                    array_item.pop(profileId);
-                }
-                if ($('.select-item:checked').length === 0) {
-                    // Add your code here for when no checkbox is checked
-                    $('#button_inactive').addClass('d-none');
-                    array_item = [];
+                    // Checkbox is unchecked, remove the value from the array
+                    let index = array_all.indexOf(profile_id_item);
+                    if (index > -1) {
+                        array_all.splice(index, 1);
+                    }
+                    console.log("ITEM", array_all);
                 }
 
                 var numCheckboxes = $('.select-item').length;
                 if ($('.select-item:checked').length === numCheckboxes) {
-                    // Add your code here for when all checkboxes are checked
-                    $('#select-all').prop('checked', this.checked);
+                    // All checkboxes are checked
+                    $('#select-all').prop('checked', true);
                 } else {
+                    // Not all checkboxes are checked
                     $('#select-all').prop('checked', false);
                 }
 
-                profile_id_item = array_item;
-                console.log("profile_id_item", profile_id_item);
+                if ($('.select-item:checked').length === 0) {
+                    // Add your code here for when no checkbox is checked
+                    $('#button_inactive').addClass('d-none');
+                } else {
+                    $('#button_inactive').removeClass('d-none');
+                }
             });
 
+            $(document).on('click', '#inactiveLink', function(e) {
+                e.preventDefault();
+                let profile_id = $(this).closest('tr').find('.profile_id').text();
+                $("#inactiveProfileId").html(profile_id);
 
+            })
 
+            $('#inactive_button').on('click', function(e) {
+                e.preventDefault();
+                let profile_id = $('#inactiveProfileId').html();
+                if (profile_id) {
+                    let data = {
+                        profile_id: profile_id
+                    }
+                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                // location.href = apiUrl + "/admin/current"
+                                window.location.reload();
+                            }, 3000)
+                            toast1.toast('show');
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                } else {
+                    let data = {
+                        multipleId: array_all
+                    }
+                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                // location.href = apiUrl + "/admin/current"
+                                window.location.reload();
+                            }, 3000)
+                            toast1.toast('show');
+                            console.log("SUCCESS", data);
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                }
+            })
+
+            $('#cancelInactive').on('click', function(e) {
+                e.preventDefault();
+                $('#inactiveModal').modal('hide');
+                setTimeout(function() {
+                    location.reload(true);
+                }, 500)
+            })
 
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {
@@ -248,16 +441,8 @@
 
             })
 
-            // FUNCTIOIN FOR DATE DIFFERENCE
-            function datediff(first, second) {
-                return Math.round((second - first) / (1000 * 60 * 60 * 24));
-            }
 
-            // FUNCTIOIN FOR DATE DIFFERENCE
-            function parseDate(str) {
-                var mdy = str.split('/');
-                return new Date(mdy[2], mdy[0] - 1, mdy[1]);
-            }
+
 
             function show_data(filters) {
                 let page = $("#tbl_user_pagination .page-item.active .page-link").html();
@@ -281,7 +466,9 @@
                             if (res.data.data.length > 0) {
                                 res.data.data.map((item) => {
                                     let tr = '<tr style="vertical-align:middle;">';
-                                    tr += '<td class="profile_id">' + item.profile.id + '</td>';
+                                    tr += '<td id="profile_id" class="profile_id" hidden>' + item
+                                        .profile.id +
+                                        '</td>';
                                     tr +=
                                         '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                     if (item.file_path) {
@@ -300,7 +487,8 @@
                                     tr += '<td class="fit">' + item.position + '</td>';
 
                                     if (item.profile.invoice.length > 0) {
-                                        let latest_invoice = item.profile.invoice[item.profile.invoice
+                                        let latest_invoice = item.profile.invoice[item.profile
+                                            .invoice
                                             .length - 1]
                                         var date_1 = new Date(latest_invoice.created_at);
                                         var todate1 = new Date(date_1).getDate();
@@ -319,19 +507,34 @@
                                         // console.log("DIFF", Math.round(diff));
                                         tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
                                             ' Days ago</td>';
-                                        // tr +=
-                                        //     '<td  class="text-center"> <a href="' + apiUrl +
-                                        //     '/admin/activeProfile/' +
-                                        //     item.id + "/" + item.profile.id +
-                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+
                                         tr +=
-                                            '<td  class="text-center" onclick="openButton()"><i class="fa-solid fa-ellipsis-vertical"></i></td>';
+                                            '<td  class="text-center">';
+                                        tr +=
+                                            `<div class="dropdown">
+                                                <a class="btn dropdown-toggle border-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                    <li ><a class="dropdown-item" href=` + apiUrl +
+                                            '/admin/activeProfile/' +
+                                            item.id + "/" + item.profile.id +
+                                            `>View</a></li>
+                                                </ul>
+                                            </div>`;
+                                        tr += '</td>';
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);
                                         return ''
 
                                     } else {
                                         let tr = '<tr style="vertical-align:middle;">';
+                                        tr += '<td id="profile_id" class="profile_id" hidden>' + item
+                                            .profile
+                                            .id +
+                                            '</td>';
                                         tr +=
                                             '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                         if (item.file_path) {
@@ -345,33 +548,29 @@
                                                 item.file_path + '">&nbsp;' + item.full_name +
                                                 '</div></td>';
                                         }
-                                        tr += '<td class="fit">' + item.profile_status + '</td>';
+                                        tr += '<td class="fit">' + item.profile_status +
+                                            '</td>';
                                         tr += '<td class="fit">' + item
                                             .phone_number + '</td>';
                                         tr += '<td class="fit">' + item.position + '</td>';
                                         tr += '<td class="fit"> No Latest Invoice</td>';
 
-                                        // tr +=
-                                        //     '<td  class="text-center"> <a href="' + apiUrl +
-                                        //     '/admin/activeProfile/' +
-                                        //     item.id + "/" + item.profile.id +
-                                        //     '" class="" style="color:#CF8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                         tr +=
                                             '<td  class="text-center">';
                                         tr +=
                                             `<div class="dropdown">
-                                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="#">INACTIVE</a></li>
-                                                    <li><a class="dropdown-item" href="#">VIEW</a></li>
+                                                  <li ><a id="inactiveLink" class="dropdown-item" href="#">Inactive</a></li>
+                                                    <li><a class="dropdown-item" href=` + apiUrl +
+                                            '/admin/activeProfile/' +
+                                            item.id + "/" + item.profile.id +
+                                            `>View</a></li>
                                                 </ul>
                                             </div>`;
-
-                                        // tr +=
-                                        //     '<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button> '
                                         tr += '</td>';
                                         tr += '</tr>';
                                         $("#tbl_user tbody").append(tr);
@@ -390,11 +589,14 @@
                                 if (res.data.links.length) {
                                     let lastPage = res.data.links[res.data.links.length - 1];
                                     if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
-                                        $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
+                                        $('#tbl_user_pagination .page-item:last-child').addClass(
+                                            'disabled');
                                     }
                                     let PreviousPage = res.data.links[0];
-                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
-                                        $('#tbl_user_pagination .page-item:first-child').addClass('disabled');
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
+                                        $('#tbl_user_pagination .page-item:first-child').addClass(
+                                            'disabled');
                                     }
                                 }
 
@@ -402,7 +604,8 @@
                                     $("#tbl_user_pagination .page-item").removeClass('active');
                                     let url = $(this).data('url')
                                     $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name + "=([^&#]*)")
+                                        var results = new RegExp("[?&]" + name +
+                                                "=([^&#]*)")
                                             .exec(
                                                 url
                                             );
@@ -418,12 +621,15 @@
                                 let tbl_user_showing =
                                     `Showing ${res.data.from} to ${res.data.to} of ${res.data.total} entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
+                                selectShow();
                             } else {
+                                selectShow();
                                 $("#tbl_user tbody").append(
                                     '<tr><td colspan="6" class="text-center">No data</td></tr>');
                                 let tbl_user_showing =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
+
                             }
                         }
                     })
