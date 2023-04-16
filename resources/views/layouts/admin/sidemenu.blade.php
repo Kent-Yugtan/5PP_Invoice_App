@@ -6,15 +6,17 @@
         </div>
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link" id="admindashboard" href="{{ url('admin/dashboard') }}">
+                <a class="nav-link" onmouseover="colorIcon1()" onmouseout="removeColorIcon1()" id="admindashboard"
+                    href="{{ url('admin/dashboard') }}">
                     <div class="sb-nav-link-icon">
                         <i style="color:#909294;width:20px" class="fa-solid fa-chart-pie"></i>
                     </div>
                     Dashboard
                 </a>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
-                    aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed" onmouseover="colorIcon2()" onmouseout="removeColorIcon2()" href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
+                    aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                         <i style="color:#909294;width:20px" class="fas fa-users"></i>
                     </div>
@@ -31,8 +33,9 @@
                         <a class="nav-link" href="{{ url('admin/inactive') }}">Inactive Profiles</a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
+                <a class="nav-link collapsed" onmouseover="colorIcon3()" onmouseout="removeColorIcon3()" href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false"
+                    aria-controls="collapseLayouts2">
                     <div class="sb-nav-link-icon">
                         <i style="color:#909294;width:20px" class="fas fa-dollar-sign"></i>
                     </div>
@@ -51,7 +54,8 @@
                 </div>
 
 
-                <a class="nav-link" id="settingsdeductiontype" href="{{ url('settings/deductiontype') }}">
+                <a class="nav-link" id="settingsdeductiontype" onmouseover="colorIcon4()"
+                    onmouseout="removeColorIcon4()" href="{{ url('settings/deductiontype') }}">
                     <div class="sb-nav-link-icon">
                         <i style="color:#909294;width:20px" class="fa-solid fa-plus-minus"></i>
 
@@ -59,8 +63,9 @@
                     Deductions
                 </a>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
+                <a class="nav-link collapsed" onmouseover="colorIcon5()" onmouseout="removeColorIcon5()" href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false"
+                    aria-controls="collapseLayouts3">
                     <div class="sb-nav-link-icon">
                         <i style="color:#909294;width:20px" class="fas fa-table"></i>
                     </div>
@@ -77,10 +82,11 @@
                     </nav>
                 </div>
                 <hr>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                <a class="nav-link collapsed" onmouseover="colorIcon6()" onmouseout="removeColorIcon6()" href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false"
+                    aria-controls="collapseLayouts4">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fas fa-cogs"></i>
+                        <i style="color:#909294;width:20px" class="fas fa-gears"></i>
                     </div>
                     Settings
                     <div class="sb-sidenav-collapse-arrow">
@@ -101,6 +107,54 @@
 </div>
 
 <script>
+    function colorIcon1() {
+        $(".fa-chart-pie").css('color', '#CF8029');
+    }
+
+    function removeColorIcon1() {
+        $(".fa-chart-pie").css('color', '#909294');
+    }
+
+    function colorIcon2() {
+        $(".fa-users").css('color', '#CF8029');
+    }
+
+    function removeColorIcon2() {
+        $(".fa-users").css('color', '#909294');
+    }
+
+    function colorIcon3() {
+        $(".fa-dollar-sign").css('color', '#CF8029');
+    }
+
+    function removeColorIcon3() {
+        $(".fa-dollar-sign").css('color', '#909294');
+    }
+
+    function colorIcon4() {
+        $(".fa-plus-minus").css('color', '#CF8029');
+    }
+
+    function removeColorIcon4() {
+        $(".fa-plus-minus").css('color', '#909294');
+    }
+
+    function colorIcon5() {
+        $(".fa-table").css('color', '#CF8029');
+    }
+
+    function removeColorIcon5() {
+        $(".fa-table").css('color', '#909294');
+    }
+
+    function colorIcon6() {
+        $(".fa-gears").css('color', '#CF8029');
+    }
+
+    function removeColorIcon6() {
+        $(".fa-gears").css('color', '#909294');
+    }
+
     $(document).ready(function() {
         var windowWidth = $(window).width();
         if (windowWidth < 768) {

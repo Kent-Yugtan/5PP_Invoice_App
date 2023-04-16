@@ -117,11 +117,11 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" id="close" class="btn  w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; ">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" class="btn  w-100"
                                                         style="color:White; background-color:#CF8029; ">Save</button>
                                                 </div>
@@ -186,12 +186,12 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn  w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; "
                                                         id="closedeductiontype_update">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" class="btn  w-100"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
@@ -228,7 +228,7 @@
     <!-- Modal FOR DELETE -->
     <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>

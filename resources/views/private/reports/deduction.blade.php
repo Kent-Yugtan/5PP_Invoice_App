@@ -95,6 +95,7 @@
                     $(this).parent().parent().addClass("show");
                     $(this).parent().parent().addClass("active");
                     $('[data-bs-target="#collapseLayouts3"]').addClass('active');
+                    console.log($(this).parent().parent());
                 }
             });
 

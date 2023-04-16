@@ -1,9 +1,8 @@
 @extends('layouts.private')
 @section('content-dashboard')
-    <div class="container-fluid content-header" id="loader_load">
-
+    <div class="container-fluid container-header" id="loader_load">
         <div class="row" style="padding-top:10px">
-            <div class="col-lg-12 col-xl-8 bottom10">
+            <div class="col-lg-12 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
 
@@ -87,7 +86,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                      <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -137,11 +136,7 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                      <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                        <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                      <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                        </div> -->
                                         </div>
 
 
@@ -195,65 +190,68 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 col-xl-4 h-50 bottom10">
+            <div class="col-lg-12 col-xl-4 h-50 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white ">
                     <div style="padding:20px">
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="back" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Back</button>
+                        <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="back" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Back</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-6" style="padding-right:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
-                                    class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                            <div class="row bottom10">
+                                <div class="col-6" style="padding-right:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
+                                        class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                                </div>
+                                <div class="col-6" style="padding-left:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
+                                        class="btn w-100"
+                                        style="color: White; background-color: #A4A6B3;">Inactive</button>
+                                </div>
                             </div>
-                            <div class="col-6" style="padding-left:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
-                                    class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
-                            </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
-                                    class="btn  w-100" style="color: White; background-color: #198754;">Paid
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
+                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
-                                    class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
+                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="delete_button" data-bs-toggle='modal'
-                                    data-bs-target='#deleteModal' class="btn  w-100"
-                                    style="color: White; background-color: #dc3545;">Delete
-                                    Invoice</button>
+                            <div class="row">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="delete_button" data-bs-toggle='modal'
+                                        data-bs-target='#deleteModal' class="btn  w-100"
+                                        style="color: White; background-color: #dc3545;">Delete
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="pdfDownload" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Download</button>
+                            <div class="row" style="padding-top:2.5rem">
+                                <div class="col-12 w-100 bottom10">
+                                    <button type="button" id="pdfDownload" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Download</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12 w-100 ">
-                                <button type="button" id="edit_invoice" data-bs-toggle="modal"
-                                    data-bs-target="#updateModal" class="btn w-100"
-                                    style="color: White; background-color: #CF8029;">Edit
-                                    Invoice</button>
+                            <div class="row">
+                                <div class="col-12 w-100 ">
+                                    <button type="button" id="edit_invoice" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" class="btn w-100"
+                                        style="color: White; background-color: #CF8029;">Edit
+                                        Invoice</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,7 +280,7 @@
     <!-- Modal FOR Active Invoice -->
     <div class="modal fade" id="activeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
@@ -328,7 +326,7 @@
     <!-- Modal FOR Inactive Invoice -->
     <div class="modal fade" id="inactiveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
@@ -374,7 +372,7 @@
     <!-- Modal FOR Paid Invoice -->
     <div class="modal fade" id="paidModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
@@ -421,7 +419,7 @@
     <!-- Modal FOR Cancel Invoice -->
     <div class="modal fade" id="cancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
@@ -468,7 +466,7 @@
     <!-- Modal FOR DELETE INVOICE -->
     <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
@@ -716,12 +714,12 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-6 ">
+                                                    <div class="col-6 bottom20">
                                                         <button type="button" id="UpdateModalClose" class="btn w-100"
-                                                            style="color:white; background-color:#A4A6B3; "
+                                                            style="color:#CF8029; background-color:#f3f3f3; "
                                                             data-bs-dismiss="modal">Close</button>
                                                     </div>
-                                                    <div class="col-6 ">
+                                                    <div class="col-6 bottom20">
                                                         <button type="submit" id="update" class="btn w-100"
                                                             style="color:White; background-color:#CF8029;">Update</button>
                                                     </div>
