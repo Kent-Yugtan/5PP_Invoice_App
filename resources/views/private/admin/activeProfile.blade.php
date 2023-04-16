@@ -480,7 +480,7 @@
                         <form id="invoice_items" class="g-3 needs-validation" novalidate>
                             @csrf
                             <div class="row " id="header">
-                                <div class="col-md-6 w-100 bottom10" style="padding-right:5px;padding-left:5px;">
+                                <div class="col-md-6 w-100" style="padding-right:5px;padding-left:5px;">
                                     <div class="card-border shadow bg-white h-100" style="padding:20px">
                                         <div class="card-body">
 
@@ -678,13 +678,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-6">
+                                                    <div class="row ">
+                                                        <div class="col-6 bottom20">
                                                             <button type="button" class="btn w-100"
-                                                                style="color:white; background-color:#A4A6B3;"
+                                                                style="color:#CF8029; background-color:#f3f3f3;"
                                                                 data-bs-dismiss="modal">Close</button>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-6 bottom20 ">
                                                             <button type="submit" id="save" class="btn w-100"
                                                                 style="color:White; background-color:#CF8029;">Save</button>
                                                         </div>
@@ -760,13 +760,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="row pt-3">
-                                            <div class="col">
+                                        <div class="row">
+                                            <div class="col bottom20">
                                                 <button type="button" class="btn w-100"
-                                                    style="color:white; background-color:#A4A6B3; "
+                                                    style="color:#CF8029; background-color:#f3f3f3; "
                                                     data-bs-dismiss="modal">Close</button>
                                             </div>
-                                            <div class="col">
+                                            <div class="col bottom20">
                                                 <button type="submit" id="createDeduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
@@ -829,18 +829,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row pt-3">
-                                                <div class="col">
+                                            <div class="row">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn w-100" id="cancelProfileDeduction"
-                                                        style="color:white; background-color:#A4A6B3;">Cancel</button>
+                                                        style="color:#CF8029; background-color:#f3f3f3;">Cancel</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal" id="deleteProfileDeduction"
                                                         class="btn btn-danger w-100"
                                                         style="color:White; background-color:#dc3545;">Delete</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" class="btn w-100"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
@@ -879,7 +879,7 @@
                                             <input type="text" id="updateStatus_invoiceNo" hidden>
 
                                             <div class="row">
-                                                <div class="col bottom20">
+                                                <div class="col">
                                                     <div class="form-group">
                                                         <label for="select_invoice_status"
                                                             style="color:#A4A6B3">Status</label>
@@ -896,12 +896,12 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn w-100"
-                                                        style="background-color:#A4A6B3;color:white"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
                                                         data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" id="update" class="btn w-100"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
@@ -922,7 +922,7 @@
     <!-- Modal FOR DELETE -->
     <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>

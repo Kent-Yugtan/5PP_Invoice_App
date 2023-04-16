@@ -207,8 +207,6 @@
                                             </div>
                                         </div>
 
-
-
                                     </div>
                                     <!-- </div> -->
                                 </div>
@@ -219,7 +217,7 @@
 
             <div class="col-lg-4 bottom10 h-12-5 " style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white ">
-                    <div class="card-body">
+                    <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
                         <div style="padding:20px">
                             <div class="row ">
                                 <div class="col-sm-12 bottom20">
@@ -228,7 +226,7 @@
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-sm-12 ">
+                                <div class="col-sm-12  ">
                                     <button type="button" id="close_back" class="btn w-100"
                                         style="width:100%;color:#CF8029; background-color: #f3f3f3;">Close</button>
 

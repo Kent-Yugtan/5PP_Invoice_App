@@ -286,7 +286,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom10 ">
+                                        <div class="col-12 bottom10">
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
                                                 <input id="date_hired" name="date_hired" type="text"
@@ -307,7 +307,7 @@
                                                 style="width:100%;color:#CF8029; background-color: #f3f3f3;"
                                                 class="btn d-none">Cancel</button>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 bottom20">
                                             <button type="submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn">Save</button>
@@ -747,9 +747,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -825,20 +825,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row pt-3">
-                                                <div class="col">
+                                            <div class="row">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn w-100"
-                                                        style=" color:white; background-color:#A4A6B3; "
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
                                                         data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal" id="deleteProfileDeduction"
                                                         class="btn btn-danger w-100"
                                                         style="color:White; background-color:#dc3545;"
                                                         disabled>Delete</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" class="btn  w-100"
                                                         style="color:White; background-color:#CF8029; "
                                                         data-bs-dismiss="modal" disabled>Update</button>
@@ -878,7 +878,7 @@
                                             <input type="text" id="updateStatus_invoiceNo" hidden>
 
                                             <div class="row">
-                                                <div class="col bottom20">
+                                                <div class="col">
                                                     <div class="form-group">
                                                         <label for="select_invoice_status"
                                                             style="color:#A4A6B3">Status</label>
@@ -896,12 +896,12 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn  w-100"
-                                                        style="background-color:#A4A6B3;color:white"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
                                                         data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" id="update" class="btn  w-100"
                                                         style="color:White; background-color:#CF8029; "
                                                         disabled="true">Update</button>
@@ -922,7 +922,7 @@
     <!-- Modal FOR DELETE -->
     <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>

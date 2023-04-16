@@ -67,12 +67,12 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-6">
+                                        <div class="col-6 bottom20">
                                             <button type="button" id="cancel"
                                                 style="color:#CF8029; background-color:#f3f3f3; "
                                                 class="btn w-100">Cancel</button>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 bottom20">
                                             <button type="submit"
                                                 style="width:100%; color:white; background-color: #CF8029;"
                                                 class="btn">Save</button>
@@ -232,12 +232,12 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="button" class="btn w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; "
                                                         id="closeUpdate">Close</button>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col bottom20">
                                                     <button type="submit" class="btn w-100"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
@@ -274,7 +274,7 @@
     <!-- Modal FOR DELETE Email Configuration -->
     <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>

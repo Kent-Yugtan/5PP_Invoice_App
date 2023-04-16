@@ -318,7 +318,7 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-12 ">
+                                        <div class="col-12 bottom20">
                                             <button type="submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn ">Add

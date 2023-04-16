@@ -41,7 +41,7 @@
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
                             src="/images/default.png"></button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"></a></li>
+                        {{-- <li><a class="dropdown-item"></a></li> --}}
                         <div class="webLayout d-none">
                             <li><a class="dropdown-item">{{ session('data')->first_name }}
                                     {{ session('data')->last_name }}</a>
