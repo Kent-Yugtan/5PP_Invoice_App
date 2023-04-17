@@ -669,23 +669,27 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-12 bottom20">
-                                                            <label for="floatingTextarea"
-                                                                style="color:#A4A6B3">Notes</label>
-                                                            <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 bottom20">
+                                                                <label for="floatingTextarea"
+                                                                    style="color:#A4A6B3">Notes</label>
+                                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row ">
-                                                        <div class="col-6 bottom20">
-                                                            <button type="button" class="btn w-100"
-                                                                style="color:#CF8029; background-color:#f3f3f3;"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                        <div class="col-6 bottom20 ">
-                                                            <button type="submit" id="save" class="btn w-100"
-                                                                style="color:White; background-color:#CF8029;">Save</button>
+                                                    <div class="col-12">
+                                                        <div class="row ">
+                                                            <div class="col-6 bottom20">
+                                                                <button type="button" class="btn w-100"
+                                                                    style="color:#CF8029; background-color:#f3f3f3;"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                            <div class="col-6 bottom20 ">
+                                                                <button type="submit" id="save" class="btn w-100"
+                                                                    style="color:White; background-color:#CF8029;">Save</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

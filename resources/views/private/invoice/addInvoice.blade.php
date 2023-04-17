@@ -198,10 +198,12 @@
                                         </div>
 
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
-                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
+                                                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -979,11 +981,9 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-sm-1 col-remove-deductions" style="display:flex;justify-content:center">';
-                                    add_rows += '<div class="">';
+                                        '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center" >';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
-                                    add_rows += '</div>';
+                                        '<button type="button" class="btn remove_deductions" ><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
 
 

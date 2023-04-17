@@ -86,7 +86,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                      <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -130,7 +130,7 @@
 
                                     <div class="col-md-7 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col">
                                                 <label class="text-muted " style="text-align:right"> Subtotal: </label>
                                             </div>
                                             <div class="col mx-2 h6" id="sub_total" style="text-align:end"></div>
@@ -138,19 +138,19 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
                                         </div>
 
 
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col">
                                                 <label class="text-muted"> Total:</label>
                                             </div>
                                             <div class="col mx-2 h6" id="total" style="text-align:end"></div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-8 col-sm-8">
+                                            <div class="col">
                                                 <label class="text-muted fw-bold">Converted Amount: <label
                                                         class="text-muted" id="peso_rate"></label></label>
                                             </div>
@@ -180,10 +180,10 @@
                                 </div>
 
                                 <div class="row pb-5">
-                                    <div class="col-5" id="notes"></div>
-                                    <div class="col">
-
+                                    <div class="col-12">
+                                        <span style="word-wrap: break-word; text-align:right" id="notes"></span>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -706,22 +706,27 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-12 bottom20">
-                                                        <label for="floatingTextarea">Notes</label>
-                                                        <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-12 bottom20">
+                                                            <label for="floatingTextarea">Notes</label>
+                                                            <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-6 bottom20">
-                                                        <button type="button" id="UpdateModalClose" class="btn w-100"
-                                                            style="color:#CF8029; background-color:#f3f3f3; "
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    </div>
-                                                    <div class="col-6 bottom20">
-                                                        <button type="submit" id="update" class="btn w-100"
-                                                            style="color:White; background-color:#CF8029;">Update</button>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-6 bottom20">
+                                                            <button type="button" id="UpdateModalClose"
+                                                                class="btn w-100"
+                                                                style="color:#CF8029; background-color:#f3f3f3; "
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        <div class="col-6 bottom20">
+                                                            <button type="submit" id="update" class="btn w-100"
+                                                                style="color:White; background-color:#CF8029;">Update</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1082,38 +1087,39 @@
             $(document).on('click', '.remove_items_button', function(e) {
                 e.preventDefault();
                 let parent = $(this).closest('.row');
-                let invoiceItems_id = parent.find('.item_id').val();
+                let invoiceItems_id = parent.find('.item_id').val() ? parent.find('.item_id').val() : 0;
                 let sub_total = parent.find('.subtotal').val();
                 let row_item = $(this).parent().parent().parent();
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
-                    $.confirm({
-                        columnClass: 'col-md-5',
-                        icon: 'fa fa-warning',
-                        draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
-                        title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
-                        buttons: {
-                            removeDeductions: {
-                                btnClass: 'btn btn-danger',
-                                text: 'Confirm',
-                                action: function() {
-                                    $(row_item).remove();
-                                    displayResults();
-                                    Additems_total();
-                                    subtotal();
-                                    DeductionItems_total();
-                                }
-                            },
-                            Cancel: function() {}
-                        },
-                        onClose: function() {
-                            // before the modal is hidden.
-                            $('#updateModal').removeClass('d-none');
-                        },
-                    });
+                    console.log("row_item", row_item);
+                    // $.confirm({
+                    //     columnClass: 'col-md-5',
+                    //     icon: 'fa fa-warning',
+                    //     draggable: false,
+                    //     animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+                    //     title: 'Are you sure?',
+                    //     content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                    //     autoClose: 'Cancel|5000',
+                    //     buttons: {
+                    //         removeDeductions: {
+                    //             btnClass: 'btn btn-danger',
+                    //             text: 'Confirm',
+                    //             action: function() {
+                    //                 $(row_item).remove();
+                    //                 displayResults();
+                    //                 Additems_total();
+                    //                 subtotal();
+                    //                 DeductionItems_total();
+                    //             }
+                    //         },
+                    //         Cancel: function() {}
+                    //     },
+                    //     onClose: function() {
+                    //         // before the modal is hidden.
+                    //         $('#updateModal').removeClass('d-none');
+                    //     },
+                    // });
                 }
 
             });
@@ -1214,9 +1220,9 @@
                     // add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-lg-1 topbottom20">';
                     add_rows +=
-                        '<div class="col-remove-item d-none" style="display:flex;justify-content:center">';
+                        '<div class="col-lg-1 d-flex justify-content-center align-items-center topbottom20">';
+                    add_rows += '<div class="col-remove-item d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
                         '<button class="btn remove_items"><i class="fa fa-trash" style="color:red"></i></button>';
@@ -1356,10 +1362,10 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-md-1">';
+                                        '<div class="col-md-1 d-flex justify-content-center align-items-center">';
                                     // add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button class="btn remove_items_button  col-remove-item d-none"  style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button class="btn remove_items_button col-remove-item" ><i class="fa fa-trash" style="color:red"></i></button>';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
 
@@ -1377,6 +1383,7 @@
                                             .removeClass('d-none').addClass(
                                                 'd-none');
                                     }
+                                    x++;
                                 })
                             }
 
@@ -1417,7 +1424,7 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-sm-1 col-remove-deductions" style="display:flex;justify-content:center">';
+                                        '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
                                     add_rows += '<div class="">';
                                     add_rows +=
                                         '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
@@ -1594,7 +1601,7 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-md-8 col-sm-8 h6'>"
+                                            div += "<div class='col h6'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
@@ -1613,7 +1620,7 @@
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-md-8 col-sm-8 h6'>"
+                                            div += "<div class='col h6'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data

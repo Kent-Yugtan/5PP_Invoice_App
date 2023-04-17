@@ -147,7 +147,7 @@
                     </div>
                     <div class="row">
                         <div class="col bottom20">
-                            <span id="inactiveInvoice" hidden></span>
+                            <span id="inactiveInvoice hidden"></span>
                             <span class="text-muted"> Do you really want to set this Invoice to Inactive?</span>
                         </div>
                     </div>

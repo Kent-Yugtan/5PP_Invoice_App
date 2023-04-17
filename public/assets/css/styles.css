@@ -2189,6 +2189,7 @@ progress {
 .dataTable-wrapper .dataTable-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    
 }
 
 @media (max-width: 575.98px) {
@@ -13769,3 +13770,16 @@ font-size: 14px;
   color:#909294;
   width:20px;
 }
+
+/* TABLE NO DATA */
+/* .no-data {
+  display: flex; 
+  justify-content: center;
+}
+
+.no-data .table-responsive::-webkit-scrollbar {
+  display: none !important;
+} */
+/* display: flex; */
+/* justify-content: center; */
+

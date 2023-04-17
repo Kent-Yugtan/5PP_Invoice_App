@@ -2236,4 +2236,29 @@ class InvoiceController extends Controller
       }
     }
   }
+  public function updateInactiveInvoice(Request $request)
+  {
+    $error = false;
+    $invoice_id = $request->invoice_id;
+    $multipleId = $request->multipleId;
+    if ($error === false) {
+      if ($invoice_id) {
+        $data = Invoice::find($invoice_id);
+        $data->status = 'Inactive';
+        $data->save();
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Invoice has been successfully updated to the database.',
+        ], 200);
+      } else {
+
+        $multipleData = Invoice::whereIn('id', $multipleId)
+          ->update(['status' => 'Inactive']);
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Invoice has been successfully updated to the database.',
+        ], 200);
+      }
+    }
+  }
 }

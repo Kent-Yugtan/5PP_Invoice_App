@@ -188,21 +188,25 @@
                                         </div>
 
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
-                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
+                                                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="row ">
-                                            <div class="col-6">
-                                                <button type="button" id="close_back" class="btn w-100"
-                                                    style="color:white; background-color:#A4A6B3;">Close</button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button type="submit" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029;">Save</button>
+                                        <div class="col-12">
+                                            <div class="row ">
+                                                <div class="col-6">
+                                                    <button type="button" id="close_back" class="btn w-100"
+                                                        style="color:white; background-color:#A4A6B3;">Close</button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029;">Save</button>
+                                                </div>
                                             </div>
                                         </div>
 

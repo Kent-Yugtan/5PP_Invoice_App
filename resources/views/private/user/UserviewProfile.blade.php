@@ -59,12 +59,12 @@
                                     disabled="true">
                             </div>
                             <!--
-                                    <div class="mb-3">
-                                        <label mb-2 style="color: #A4A6B3;">Password</label>
-                                        <input id="password" name="password" type="text"
-                                            class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                        >
-                                    </div> -->
+                                        <div class="mb-3">
+                                            <label mb-2 style="color: #A4A6B3;">Password</label>
+                                            <input id="password" name="password" type="text"
+                                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
+                                            >
+                                        </div> -->
 
                             <div class="mb-3">
                                 <label mb-2 style="color: #A4A6B3;">Position</label>

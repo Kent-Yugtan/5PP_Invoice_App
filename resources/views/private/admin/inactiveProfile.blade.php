@@ -68,7 +68,7 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateEmail" class="form-group-profile">
                                                 <label for="email" style="color: #A4A6B3;">Email Address</label>
                                                 <input id="email" name="email" type="email" class="form-control"
                                                     placeholder="Email" disabled="true" onblur="editValidateEmail(this)"
@@ -80,7 +80,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateUsername" class="form-group-profile">
                                                 <label for="username" style="color: #A4A6B3;">Username</label>
                                                 <input id="username" name="username" type="text" class="form-control"
                                                     placeholder="Username" disabled="true"
@@ -170,7 +170,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateAcctno" class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input id="acct_no" name="acct_no" type="text" class="form-control"
                                                     placeholder="Account Number" disabled="true"
@@ -183,7 +183,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateAcctname" class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input id="acct_name" name="acct_name" type="text"
                                                     class="form-control" placeholder="Account Name"
@@ -273,7 +273,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateGCASHno" class="form-group-profile">
                                                 <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input id="gcash_no" name="gcash_no" type="text"
                                                     class="form-control" placeholder="Gcash Number"
@@ -341,14 +341,14 @@
                                 <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel"
                                     aria-labelledby="pills-invoice-tab">
                                     <div class="row">
-                                        <div class="col-sm-4 bottom20" style="padding-right:5px">
+                                        <div class="col-sm-4 bottom20">
                                             <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal" type="submit" id="button-addon2"
                                                 name="button-addon2" class="btn form-check-inline pe-3 w-100" disabled><i
-                                                    class="fa fa-plus pe-1"></i>Add
+                                                    class="fa fa-plus pe-1"></i>Create
                                                 Invoice</button>
                                         </div>
-                                        <div class="col-sm-4 bottom20" style="padding-right:5px;padding-left:5px;">
+                                        <div class="col-sm-4 bottom20">
                                             <select class="form-check-inline form-select" id="filter_all_invoices">
                                                 <!-- <option selected value="" disabled>Filter</option> -->
                                                 <option value="All">All</option>
@@ -359,7 +359,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-sm-4 bottom20" style="padding-left:5px;">
+                                        <div class="col-sm-4 bottom20">
                                             <div class="has-search">
                                                 <span class="fa fa-search form-control-feedback"
                                                     style="color:#CF8029"></span>
@@ -403,6 +403,7 @@
                                         </ul>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="pills-deduction" role="tabpanel"
                                     aria-labelledby="pills-deduction-tab">
                                     <div class="row">
@@ -413,7 +414,7 @@
                                                 data-bs-target="#modal-create-deduction"
                                                 style="color:white; background-color: #CF8029;width:100%" disabled>
                                                 <i class="fa fa-plus pe-1"></i>
-                                                Add Deduction
+                                                Create Invoice
                                             </button>
 
                                         </div>
@@ -743,9 +744,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -1043,9 +1044,13 @@
                     console.log("VALIDATE", data);
                     $("#email").removeClass('is-invalid');
                     $("#error_email").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateEmail').removeClass('form-group-adjust');
+
                 } else {
                     $("#email").removeClass('is-invalid');
                     $("#error_email").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateEmail').removeClass('form-group-adjust');
+
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.email) {
@@ -1054,14 +1059,17 @@
                         if ($("#email").val() == "") {
                             $("#error_email").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateEmail').removeClass('form-group-adjust');
                         } else {
                             if ($error == "The email must be a valid email address.") {
                                 $("#error_email").addClass('invalid-feedback').html(
                                     "The email address must be valid.").show();
+                                $('#mobileValidateEmail').removeClass('form-group-adjust');
                             }
                             if ($error == "The email has already been taken.") {
                                 $("#error_email").addClass('invalid-feedback').html(
-                                    "The email has already been taken.").show();
+                                    "The email address has already been taken.").show();
+                                $('#mobileValidateEmail').addClass('form-group-adjust');
                             }
                         }
                         $("#email").addClass('is-invalid');
@@ -1086,9 +1094,11 @@
                 if (data.success) {
                     $("#username").removeClass('is-invalid');
                     $("#error_username").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateUsername').removeClass('form-group-adjust');
                 } else {
                     $("#username").removeClass('is-invalid');
                     $("#error_username").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateUsername').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.username) {
@@ -1097,11 +1107,13 @@
                         if ($("#username").val() == "") {
                             $("#error_username").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateUsername').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The username has already been taken.") {
                                 $("#error_username").addClass('invalid-feedback').html(
                                     "The username has already been taken.").show();
+                                $('#mobileValidateUsername').addClass('form-group-adjust');
                             }
                         }
                         $("#username").addClass('is-invalid');
@@ -1127,9 +1139,11 @@
                 if (data.success) {
                     $("#acct_no").removeClass('is-invalid');
                     $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctno').removeClass('form-group-adjust');
                 } else {
                     $("#acct_no").removeClass('is-invalid');
                     $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctno').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.acct_no) {
@@ -1138,11 +1152,13 @@
                         if ($("#acct_no").val() == "") {
                             $("#error_acct_no").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateAcctno').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The acct no has already been taken.") {
                                 $("#error_acct_no").addClass('invalid-feedback').html(
                                     "The account number has already been taken.").show();
+                                $('#mobileValidateAcctno').addClass('form-group-adjust');
                             }
                         }
                         $("#acct_no").addClass('is-invalid');
@@ -1167,9 +1183,11 @@
                 if (data.success) {
                     $("#acct_name").removeClass('is-invalid');
                     $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctname').removeClass('form-group-adjust');
                 } else {
                     $("#acct_name").removeClass('is-invalid');
                     $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctname').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.acct_name) {
@@ -1178,11 +1196,13 @@
                         if ($("#acct_name").val() == "") {
                             $("#error_acct_name").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateAcctname').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The acct name has already been taken.") {
                                 $("#error_acct_name").addClass('invalid-feedback').html(
                                     "The account name has already been taken.").show();
+                                $('#mobileValidateAcctname').addClass('form-group-adjust');
                             }
                         }
                         $("#acct_name").addClass('is-invalid');
@@ -1207,9 +1227,11 @@
                 if (data.success) {
                     $("#gcash_no").removeClass('is-invalid');
                     $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                 } else {
                     $("#gcash_no").removeClass('is-invalid');
                     $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.gcash_no) {
@@ -1218,15 +1240,18 @@
                         if ($("#gcash_no").val() == "") {
                             $("#error_gcash_no").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The gcash no has already been taken.") {
                                 $("#error_gcash_no").addClass('invalid-feedback').html(
                                     "The GCASH number has already been taken.").show();
+                                $('#mobileValidateGCASHno').addClass('form-group-adjust');
                             }
                             if ($error == "The gcash no must be a number.") {
                                 $("#error_gcash_no").addClass('invalid-feedback').html(
                                     "The given data is invalid.").show();
+                                $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                             }
                         }
                         $("#gcash_no").addClass('is-invalid');
