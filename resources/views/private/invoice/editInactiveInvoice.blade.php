@@ -87,7 +87,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                  <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -96,30 +96,32 @@
                                 </div>
 
                                 <div class="row pt-3">
-                                    <div class="col-md-12">
-                                        <table class="table table-responsive-sm" id="table_invoiceItems"
-                                            style="table-layout: fixed;">
-                                            <thead class="thead-dark"
-                                                style="border-radius: 3px; background-color: black; color: white;">
-                                                <tr>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 55px;">
-                                                        Description</th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                        Quantity</th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                        Rate
-                                                    </th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
-                                                        Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
-                                            </tbody>
-                                        </table>
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover" id="table_invoiceItems">
+                                                <thead class="thead-dark"
+                                                    style="border-radius: 3px; background-color: black; color: white;">
+                                                    <tr>
+                                                        <th class="fit"
+                                                            style="width:52%;border-right: 2px solid rgb(255,255,255);">
+                                                            Description</th>
+                                                        <th class="fit"
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Quantity</th>
+                                                        <th class="fit"
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Rate
+                                                        </th>
+                                                        <th class="fit"
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="px-3"
+                                                    style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -137,11 +139,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                          <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                                                            <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                          <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                  <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                                                                    <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                  <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                                                                </div> -->
                                         </div>
 
 
@@ -572,15 +574,13 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12 ">
-                                                    <div class="row">
-                                                        <div class="col-lg-12 d-flex justify-content-end">
-                                                            <div class="w-25">
-                                                                <button class="btn "
-                                                                    style="width:100%;color:white; background-color: #CF8029;"
-                                                                    id="add_item">Add
-                                                                    Item</button>
-                                                            </div>
+                                                <div class="col-12">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-4">
+                                                            <button class="btn "
+                                                                style="width:100%;color:white; background-color: #CF8029;"
+                                                                id="add_item">Add
+                                                                Item</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1220,10 +1220,11 @@
                     add_rows += '</div>';
 
                     add_rows += '<div class="col-lg-1 topbottom20">';
-                    add_rows += '<div class="form-group" style="display:flex;justify-content:center">';
+                    add_rows +=
+                        '<div class="col-remove-item d-none" style="display:flex;justify-content:center">';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items col-remove-item d-none"><i class="fa fa-trash" style="color:red"></i></button>';
+                        '<button class="btn remove_items "><i class="fa fa-trash" style="color:red"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1423,7 +1424,7 @@
                                     add_rows += '<div class="col-1 col-remove-deductions">';
                                     add_rows += '<div class="">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
@@ -1642,24 +1643,25 @@
 
                                     data.data.invoice_items.map((item) => {
                                         // console.log("tem.item_description", item.item_description);
-                                        let tr = '<tr>';
+                                        let tr = '<tr >';
                                         if (item.item_description) {
-                                            tr += '<td class="scope" style="word-wrap: break-word;">' +
+                                            tr +=
+                                                '<td class="fit scope" style="word-wrap: break-word;">' +
                                                 item.item_description + '</td>'
                                         } else {
-                                            tr += '<td class="scope">N/A</td>'
+                                            tr += '<td class="fit scope">N/A</td>'
                                         }
-                                        tr += '<td class="scope" style="text-align:end">' + item
+                                        tr += '<td class="fit scope" style="text-align:end">' + item
                                             .quantity +
                                             '</td>'
-                                        tr += '<td class="scope" style="text-align:end">' + item
+                                        tr += '<td class="fit scope" style="text-align:end">' + item
                                             .rate
                                             .toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'
                                             }) +
                                             '</td>'
-                                        tr += '<td class="scope" style="text-align:end">' + item
+                                        tr += '<td class="fit scope" style="text-align:end">' + item
                                             .total_amount.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'

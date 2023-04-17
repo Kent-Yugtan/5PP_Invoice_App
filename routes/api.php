@@ -69,6 +69,9 @@ Route::middleware(['auth:api'])->group(function () {
   //  VALIDATION FOR EDIT DEDUCTION TYPE
   Route::post('editValidateDeductionname', [DeductionTypeController::class, 'editValidateDeductionname']);
 
+  //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
+  Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
+
   //  VALIDATION FOR EMAIL CONFIG
   Route::post('validateFullname', [EmailConfigController::class, 'validateFullname']);
   Route::post('validateEmailConfig', [EmailConfigController::class, 'validateEmailConfig']);

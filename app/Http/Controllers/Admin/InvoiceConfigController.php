@@ -216,7 +216,7 @@ class InvoiceConfigController extends Controller
     $delete_data = InvoiceConfig::where('id', $invoiceConfig_id)->delete();
     return response()->json([
       'success' => true,
-      'message' => 'Data deleted successfully',
+      'message' => 'The invoice Configuration has been deleted successfully.',
       'data' => $delete_data,
     ], 200);
   }

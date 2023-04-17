@@ -29,9 +29,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-6 pt-3 bottom20">
+                                <div class="col-md-6 col-lg-6 pt-3">
                                     <div class="row">
-                                        <div class="col bottom20">
+                                        <div class="col ">
                                             <input class="form-check-input" type="checkbox" id="profile_status"
                                                 name="profile_status" disabled="true">
                                             <label class="form-check-label" for="status">
@@ -527,17 +527,13 @@
                                                 <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                             </div>
 
-                                            <div class="col-8 bottom20"></div>
-                                            <div class="col-4 bottom20">
-                                                <div class="row">
-                                                    <div class="col-4 md-2 w-100">
-                                                        <div class="form-group">
-                                                            </br>
-                                                            <button class="btn "
-                                                                style="width:100%;color:white; background-color: #CF8029;"
-                                                                id="add_item">Add
-                                                                Item</button>
-                                                        </div>
+                                            <div class="col-12">
+                                                <div class="row justify-content-end">
+                                                    <div class="col-sm-4">
+                                                        <button class="btn "
+                                                            style="width:100%;color:white; background-color: #CF8029;"
+                                                            id="add_item">Add
+                                                            Item</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -747,9 +743,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </select> -->
                                 </div>
 
                                 <div class="form-group">

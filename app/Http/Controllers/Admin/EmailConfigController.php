@@ -90,7 +90,7 @@ class EmailConfigController extends Controller
     if ($email_config) {
       return response()->json([
         'success' => true,
-        'message' => 'Data is successfully deleted.'
+        'message' => 'The email configuration has been deleted successfully.'
       ], 200);
     }
   }

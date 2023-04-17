@@ -6116,7 +6116,7 @@ fieldset:disabled .btn {
 
 @media (min-width: 576px) {
     .modal-dialog {
-        max-width: 500px;
+        max-width: 550px;
         margin: 1.75rem auto;
     }
 
@@ -12990,6 +12990,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Media Query for Large screens */
 @media (min-width: 1281px) {
+
+
     .profile-pic-div_InactiveProfile {
         height: 200px;
         width: 200px;
@@ -13031,6 +13033,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {
+
+  .toast {
+    width: 93%;
+    font-size: 14px;
+  }
     .profile-pic-div_InactiveProfile {
         height: 200px;
         width: 200px;
@@ -13054,6 +13061,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Media Query for Tablets, Ipads and below  */
 @media (max-width: 768px) {
+  .toast {
+    width: 93%;
+    font-size: 14px;
+  }
     .profile-pic-div_InactiveProfile {
         height: 200px;
         width: 200px;
@@ -13085,6 +13096,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* Media Query for low resolution  Tablets, Ipads */
 @media (min-width: 576px) and (max-width: 767px) {
+  .toast {
+    width: 93%;
+    font-size: 14px;
+  }
     .profile-pic-div_InactiveProfile {
         height: 200px;
         width: 200px;
@@ -13292,6 +13307,9 @@ body.hide-brand .navbar-brand  {
 }
 
 @media (max-width: 375px) {
+  .form-group-adjust{
+    height: 108px !important;
+  }
     .profile-pic-div_adminProfile {
         height: 200px;
         width: 200px;
@@ -13617,7 +13635,7 @@ button.dt-button, div.dt-button, a.dt-button, input.dt-button{
   height: 87px !important;
 }
 .form-group-profile{
-  height: 82px !important;
+  height: 82px;
 }
 
 .custom-badge{

@@ -9,6 +9,7 @@ use App\Models\DeductionType;
 use App\Models\Invoice;
 use App\Models\Profile;
 use App\Models\ProfileDeductionTypes;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class ProfileDeductionTypesController extends Controller
@@ -54,14 +55,14 @@ class ProfileDeductionTypesController extends Controller
 
         return response()->json([
           'success' => 'true',
-          'message' => 'Deduction has been successfully added to this profile.',
+          'message' => 'The profile deduction has been added successfully..',
           'data' => $storeData,
         ]);
       } else {
         // $data = ProfileDeductionTypes::find($profileDeductionTypes_id);
         $request->validate([
           'amount' => 'required',
-          'deduction_type_name' => 'required',
+          'deduction_type_name' => 'required|unique:profile_deduction_types',
         ]);
         $store_data = ProfileDeductionTypes::where('id', $profileDeductionTypes_id)->update(
           [
@@ -71,8 +72,33 @@ class ProfileDeductionTypesController extends Controller
         );
         return response()->json([
           'success' => true,
-          'message' => 'The profile deduction type has been updated successfully.',
+          'message' => 'The profile deduction has been updated successfully.',
           'data' => $store_data,
+        ], 200);
+      }
+    }
+  }
+
+  // VALIDATE EDIT
+  public function editValidateProfileDeductionname(Request $request)
+  {
+    $id = $request->id;
+    $data = ProfileDeductionTypes::find($id);
+    if ($id && $data) {
+      if ($data->deduction_type_name != $request->deduction_type_name) {
+        $profileId = $data->profile_id;
+        $editValidateProfileDeductionname = $request->validate([
+          'deduction_type_name' => [
+            'required',
+            Rule::unique('profile_deduction_types')
+              ->where('profile_id', $profileId)
+              ->ignore($id),
+          ],
+        ]);
+
+        return response()->json([
+          'success' => true,
+          'data' => $editValidateProfileDeductionname,
         ], 200);
       }
     }

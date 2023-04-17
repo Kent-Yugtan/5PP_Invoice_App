@@ -19,7 +19,7 @@
 
                                 <div class="row">
                                     <input type="text" id="profileId" hidden>
-                                    <div class="col-6">
+                                    <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group-profile">
@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group-profile">
@@ -66,14 +66,12 @@
 
                                     <!-- <div class="col-6"></div> -->
                                     <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-lg-12 d-flex justify-content-end">
-                                                <div class=" w-25">
-                                                    <button class="btn "
-                                                        style="width:100%;color:white; background-color: #CF8029;"
-                                                        id="add_item">Add
-                                                        Item</button>
-                                                </div>
+                                        <div class="row justify-content-end">
+                                            <div class="col-sm-4">
+                                                <button class="btn "
+                                                    style="width:100%;color:white; background-color: #CF8029;"
+                                                    id="add_item">Add
+                                                    Item</button>
                                             </div>
                                         </div>
                                     </div>
@@ -672,11 +670,12 @@
                     // add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-lg-1 topbottom20">';
-                    add_rows += '<div class="form-group" style="display:flex;justify-content:center">';
+                    add_rows +=
+                        '<div class="col-lg-1 topbottom20 " style="display:flex;justify-content:center">';
+                    add_rows += '<div class="col-remove-item d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items col-remove-item d-none"><i class="fa fa-trash" style="color:red"></i></button>';
+                        '<button class="btn remove_items " ><i class="fa fa-trash" style="color:red"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -947,7 +946,7 @@
                                 data.data.profile_deduction_types.map((item) => {
                                     add_rows = '';
                                     add_rows += '<div class="row">';
-                                    add_rows += '<div class="col-lg-7">';
+                                    add_rows += '<div class="col-sm-6">';
                                     add_rows += '<div class="form-group w-100">';
                                     add_rows +=
                                         '<input type="text" class="profile_deduction_type_id" value=' +
@@ -967,7 +966,7 @@
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-lg-4">';
+                                    add_rows += '<div class="col-sm-5">';
                                     add_rows += '<div class="form-group ">';
                                     add_rows +=
                                         '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
@@ -980,10 +979,10 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-lg-1 col-remove-deductions" style="display:flex;justify-content:flex-end">';
-                                    add_rows += '<div class="form-group">';
+                                        '<div class="col-sm-1 col-remove-deductions" style="display:flex;justify-content:center">';
+                                    add_rows += '<div class="">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
