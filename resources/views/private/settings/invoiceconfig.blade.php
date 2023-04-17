@@ -66,8 +66,8 @@
                                         </div>
                                         <div class="col-6 bottom20">
                                             <button type="submit"
-                                                style="width:100%; color:white; background-color: #CF8029;"
-                                                class="btn ">Save
+                                                style="width:100%; color:white; background-color: #CF8029;" class="btn"
+                                                id="button-submit">Save
                                             </button>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
 
                                         <div class="row">
                                             <div class="col-12 ">
-                                                <div class="form-group-profile">
+                                                <div id="editValidateEmail" class="form-group-profile">
                                                     <label for="edit_invoice_email" style="color:#A4A6B3">Invoice
                                                         Email</label>
                                                     <input id="edit_invoice_email" name="edit_invoice_email"
@@ -208,7 +208,7 @@
         </div>
     </div>
 
-    <div style="position: fixed; top: 60px; right: 20px;z-index:9999;">
+    <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <div id='notifyIcon'></div>
@@ -291,9 +291,11 @@
                 if (data.success) {
                     $("#edit_invoice_email").removeClass('is-invalid');
                     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                    $('#editValidateEmail').removeClass('form-group-adjust');
                 } else {
                     $("#edit_invoice_email").removeClass('is-invalid');
                     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                    $('#editValidateEmail').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 console.log("ERROR", error);
@@ -303,6 +305,7 @@
                         if ($("#edit_invoice_email").val() == "") {
                             $("#error_edit_email_address").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#editValidateEmail').removeClass('form-group-adjust');
                         } else {
                             if ($error == "The invoice email has already been taken.") {
                                 $("#error_edit_email_address").addClass('invalid-feedback').html(
@@ -311,6 +314,7 @@
                             if ($error == "The invoice email must be a valid email address.") {
                                 $("#error_edit_email_address").addClass('invalid-feedback').html(
                                     "The email address must be a valid").show();
+                                $('#editValidateEmail').addClass('form-group-adjust');
                             }
                         }
                         $("#edit_invoice_email").addClass('is-invalid');
@@ -420,14 +424,15 @@
 
             $('#closeUpdate').on('click', function(e) {
                 e.preventDefault();
-                $("div.spanner").addClass("show");
-                $('#editModal').modal('hide');
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    $('#invoice_config_update').trigger('reset');
-                    $('#invoice_config_update').removeClass('was-validated');
-                    $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
-                }, 1500)
+                location.reload(true);
+                // $("div.spanner").addClass("show");
+                // $('#editModal').modal('hide');
+                // setTimeout(function() {
+                //     $("div.spanner").removeClass("show");
+                //     $('#invoice_config_update').trigger('reset');
+                //     $('#invoice_config_update').removeClass('was-validated');
+                //     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                // }, 1500)
             })
 
             toast1.toast({
@@ -484,7 +489,7 @@
                 axios.post(apiUrl + '/api/saveInvoiceConfig', formData, {
                     headers: {
                         Authorization: token,
-                        // "Content-Type": "multipart/form-data",
+                        "Content-Type": "multipart/form-data",
                     }
                 }).then(function(response) {
                     let data = response.data;
@@ -505,7 +510,7 @@
                                 .html(
                                     "")
                                 .show();
-                            show_data();
+                            // show_data();
                         }, 1500)
                     }
 
@@ -530,7 +535,7 @@
                                     "The invoice email must be a valid email address.") {
                                     $("#error_edit_email_address").addClass('invalid-feedback')
                                         .html(
-                                            "The invoice email must be a valid email address.")
+                                            "The invoice email must be a valid.")
                                         .show();
                                 }
                                 if ($error_edit_email_address ==
@@ -692,7 +697,7 @@
 
             function show_data(filters) {
                 let filter = {
-                    page_size: 4,
+                    page_size: 5,
                     page: 1,
                     ...filters,
                 }
@@ -733,7 +738,6 @@
                                 $('#tbl_pagination').append(li)
                                 return ""
                             })
-
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
                                 if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
@@ -765,8 +769,11 @@
                             let table_invoieConfig =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing').html(table_invoieConfig);
-
+                            // Disable button
+                            $('#button-submit').prop('disabled', true);
                         } else {
+                            // Enable button
+                            $('#button-submit').prop('disabled', false);
                             $("#table_invoiceconfig tbody").append(
                                 '<tr style="vertical-align: middle;"><td colspan="5" class="text-center">No data</td></tr>'
                             );

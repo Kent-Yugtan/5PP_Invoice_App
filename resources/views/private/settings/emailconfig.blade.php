@@ -3,7 +3,7 @@
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
-            <div class="col-sm-12 col-md-12 col-lg-4 " style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-4 bottom10" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <div class="header fs-3">
@@ -16,7 +16,7 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateFullname" class="form-group-profile">
                                                 <label for="fullname" style=" color: #A4A6B3;">Fullname</label>
                                                 <input id="fullname" name="fullname" type="text"
                                                     onblur="validateFullname(this)" class="form-control"
@@ -29,7 +29,7 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateEmail" class="form-group-profile">
                                                 <label for="email_address" style=" color: #A4A6B3;">Email Address</label>
                                                 <input id="email_address" name="email_address" type="email"
                                                     class="form-control" placeholder="Email Address"
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-8" style="padding-right:5px;padding-left:5px">
+            <div class="col-sm-12 col-md-12 col-lg-8 bottom10" style="padding-right:5px;padding-left:5px">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <div class="header ">
@@ -174,7 +174,7 @@
 
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="form-group-profile">
+                                                    <div id="editMobileValidateFullname" class="form-group-profile">
                                                         <label for="edit_fullname" style="color:#A4A6B3">Fullname</label>
                                                         <input id="edit_fullname" name="edit_fullname" type="text"
                                                             class="form-control" placeholder="Fullname"
@@ -189,7 +189,7 @@
 
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="form-group-profile">
+                                                    <div id="editMobileValidateEmail" class="form-group-profile">
                                                         <label for="edit_email_address" style="color:#A4A6B3">Email
                                                             Address</label>
                                                         <input id="edit_email_address" name="edit_email_address"
@@ -254,7 +254,7 @@
         </div>
     </div>
 
-    <div style="position: fixed; top: 60px; right: 20px;z-index:9999;">
+    <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <div id='notifyIcon'></div>
@@ -344,9 +344,11 @@
                 if (data.success) {
                     $("#edit_fullname").removeClass('is-invalid');
                     $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
+                    $('#editMobileValidateFullname').removeClass('form-group-adjust');
                 } else {
                     $("#edit_fullname").removeClass('is-invalid');
                     $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
+                    $('#editMobileValidateFullname').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 console.log("ERROR", error);
@@ -361,6 +363,7 @@
                             if ($error == "The fullname has already been taken.") {
                                 $("#error_edit_fullname").addClass('invalid-feedback').html(
                                     "The fullname has already been taken.").show();
+                                $('#editMobileValidateFullname').addClass('form-group-adjust');
                             }
                         }
                         $("#edit_fullname").addClass('is-invalid');
@@ -385,9 +388,11 @@
                 if (data.success) {
                     $("#edit_email_address").removeClass('is-invalid');
                     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                    $('#editMobileValidateEmail').removeClass('form-group-adjust');
                 } else {
                     $("#edit_email_address").removeClass('is-invalid');
                     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+                    $('#editMobileValidateEmail').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 console.log("ERROR", error);
@@ -401,10 +406,12 @@
                             if ($error == "The email address has already been taken.") {
                                 $("#error_edit_email_address").addClass('invalid-feedback').html(
                                     "The email address has already been taken.").show();
+                                $('#editMobileValidateEmail').addClass('form-group-adjust');
                             }
                             if ($error == "The email address must be a valid email address.") {
                                 $("#error_edit_email_address").addClass('invalid-feedback').html(
                                     "The email address must be a valid").show();
+                                $('#editMobileValidateEmail').removeClass('form-group-adjust');
                             }
                         }
                         $("#edit_email_address").addClass('is-invalid');
@@ -428,6 +435,7 @@
                 if (data.success) {
                     $("#fullname").removeClass('is-invalid');
                     $("#error_fullname").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateFullname').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 console.log("ERROR", error);
@@ -442,6 +450,7 @@
                             if ($error == "The fullname has already been taken.") {
                                 $("#error_fullname").addClass('invalid-feedback').html(
                                     "The fullname has already been taken.").show();
+                                $('#mobileValidateFullname').addClass('form-group-adjust');
                             }
                         }
                         $("#fullname").addClass('is-invalid');
@@ -464,6 +473,7 @@
                 if (data.success) {
                     $("#email_address").removeClass('is-invalid');
                     $("#error_email_address").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateEmail').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 console.log("ERROR", error);
@@ -478,11 +488,13 @@
                             if ($error == "The email address has already been taken.") {
                                 $("#error_email_address").addClass('invalid-feedback').html(
                                     "The email address has already been taken.").show();
+                                $('#mobileValidateEmail').addClass('form-group-adjust');
                             }
 
                             if ($error == "The email address must be a valid email address.") {
                                 $("#error_email_address").addClass('invalid-feedback').html(
                                     "The email address must be a valid").show();
+                                $('#mobileValidateEmail').removeClass('form-group-adjust');
                             }
                         }
                         $("#email_address").addClass('is-invalid');
@@ -518,20 +530,27 @@
             });
 
             let toast1 = $('.toast1');
+            toast1.toast({
+                delay: 5000,
+                animation: true
+            });
+
+            toast1.toast({
+                delay: 3000,
+                animation: true
+            });
+
+            $('.close').on('click', function(e) {
+                e.preventDefault();
+                toast1.toast('hide');
+            })
+
+            $("#error_msg").hide();
+            $("#success_msg").hide();
 
             $('#closeUpdate').on('click', function(e) {
                 e.preventDefault();
-                $('#editModal').modal('hide');
-                $('div.spanner').addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    $('#emailconfigs_update').trigger('reset');
-                    $('#emailconfigs_update').removeClass('was-validated');
-                    $("#error_edit_fullname").removeClass('invalid-feedback').html("").show();
-                    $("#error_edit_email_address").removeClass('invalid-feedback').html("")
-                        .show();
-                    show_data();
-                }, 1500)
+                location.reload(true);
             })
 
             $('#cancel').on('click', function(e) {
@@ -554,23 +573,7 @@
                     });
                 }, 1500)
             })
-            toast1.toast({
-                delay: 5000,
-                animation: true
-            });
 
-            toast1.toast({
-                delay: 3000,
-                animation: true
-            });
-
-            $('.close').on('click', function(e) {
-                e.preventDefault();
-                toast1.toast('hide');
-            })
-
-            $("#error_msg").hide();
-            $("#success_msg").hide();
 
             // SHOW DATA
             function show_data(filters) {
@@ -688,7 +691,8 @@
                         let data = response.data;
                         console.log("SUCCESS", data.data);
                         if (data.success) {
-
+                            $('#emailconfigs_store').trigger('reset');
+                            $('#emailconfigs_store').removeClass('was-validated');
                             $('#edit_fullname').val(data.data.fullname);
                             $('#edit_email_address').val(data.data.email_address);
                             $('#edit_title').val(data.data.title);
@@ -705,6 +709,9 @@
 
             $(document).on('click', '#table_emailconfigs .deleteButton', function(e) {
                 e.preventDefault();
+
+                $('#emailconfigs_store').trigger('reset');
+                $('#emailconfigs_store').removeClass('was-validated');
                 let row = $(this).closest('td');
                 let email_configId = row.find(".deleteButton").val();
                 $("#email_configId").html(email_configId);
@@ -712,6 +719,7 @@
 
             // DELETE EMAIL CONFIG
             $("#email_configDelete").on('click', function(e) {
+
                 e.preventDefault();
                 let id = $('#email_configId').html();
                 console.log("ID", id);
@@ -792,9 +800,11 @@
                                 );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
-                                toast1.toast('show');
                                 $('#emailconfigs_store').trigger('reset');
                                 $('#emailconfigs_store').removeClass('was-validated');
+                                $('#mobileValidateFullname').removeClass('form-group-adjust');
+                                $('#mobileValidateEmail').removeClass('form-group-adjust');
+                                toast1.toast('show');
                                 show_data();
                             }, 1500)
                         }
@@ -845,7 +855,7 @@
                                     if ($error_email_address ==
                                         "The email address must be a valid email address.") {
                                         $("#error_email_address").addClass('invalid-feedback').html(
-                                                "The email address must be a valid email address.")
+                                                "The email address must be a valid.")
                                             .show();
                                     }
                                     if ($error_email_address ==
@@ -922,9 +932,12 @@
                                 );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
-                                toast1.toast('show');
                                 $('#emailconfigs_update').trigger('reset');
                                 $('#emailconfigs_update').removeClass('was-validated');
+                                $('#editMobileValidateFullname').removeClass(
+                                    'form-group-adjust');
+                                $('#editMobileValidateEmail').removeClass('form-group-adjust');
+                                toast1.toast('show');
                                 show_data();
                             }, 1500)
 

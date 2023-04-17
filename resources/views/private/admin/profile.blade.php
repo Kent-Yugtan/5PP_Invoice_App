@@ -67,7 +67,7 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateEmail" class="form-group-profile">
                                                 <label for="email" style="color: #A4A6B3;">Email Address</label>
                                                 <input id="email" name="email" type="email" class="form-control"
                                                     placeholder="Email Address" onblur="validateEmail(this)" required>
@@ -78,7 +78,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateUsername" class="form-group-profile">
                                                 <label for="username" style="color: #A4A6B3;">Username</label>
                                                 <input id="username" name="username" onblur="validateUsername(this)"
                                                     type="text" class="form-control" placeholder="Username" required>
@@ -184,7 +184,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateAcctno" class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input name="acct_no" id="acct_no" type="text" class="form-control"
                                                     placeholder="Account Number" onblur="validateAcctno(this)" required
@@ -196,7 +196,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateAcctname" class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input name="acct_name" id="acct_name" type="text"
                                                     class="form-control" onblur="validateAcctname(this)"
@@ -285,7 +285,7 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile">
+                                            <div id="mobileValidateGCASHno" class="form-group-profile">
                                                 <label for="city" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input name="gcash_no" type="text" class="form-control"
                                                     id="gcash_no" onblur="validateGcashno(this)"
@@ -339,7 +339,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div id="notifyIcon"></div>
+                <div id='notifyIcon'></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -421,6 +421,7 @@
                 if (data.success) {
                     $("#email").removeClass('is-invalid');
                     $("#error_email").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateEmail').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.email) {
@@ -429,14 +430,17 @@
                         if ($("#email").val() == "") {
                             $("#error_email").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateEmail').removeClass('form-group-adjust');
                         } else {
                             if ($email_error == "The email must be a valid email address.") {
                                 $("#error_email").addClass('invalid-feedback').html(
                                     "The email address must be valid.").show();
+                                $('#mobileValidateEmail').removeClass('form-group-adjust');
                             }
                             if ($email_error == "The email has already been taken.") {
                                 $("#error_email").addClass('invalid-feedback').html(
-                                    "The email has already been taken.").show();
+                                    "The email address has already been taken.").show();
+                                $('#mobileValidateEmail').addClass('form-group-adjust');
                             }
                         }
                         $("#email").addClass('is-invalid');
@@ -460,6 +464,8 @@
                 if (data.success) {
                     $("#username").removeClass('is-invalid');
                     $("#error_username").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateUsername').removeClass('form-group-adjust');
+
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.username) {
@@ -468,11 +474,13 @@
                         if ($("#username").val() == "") {
                             $("#error_username").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateUsername').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The username has already been taken.") {
                                 $("#error_username").addClass('invalid-feedback').html(
                                     "The username has already been taken.").show();
+                                $('#mobileValidateUsername').addClass('form-group-adjust');
                             }
                         }
                         $("#username").addClass('is-invalid');
@@ -496,6 +504,7 @@
                 if (data.success) {
                     $("#acct_no").removeClass('is-invalid');
                     $("#error_acct_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctno').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.acct_no) {
@@ -504,10 +513,12 @@
                         if ($("#acct_no").val() == "") {
                             $("#error_acct_no").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateAcctno').removeClass('form-group-adjust');
                         } else {
                             if ($error == "The acct no has already been taken.") {
                                 $("#error_acct_no").addClass('invalid-feedback').html(
                                     "The account number has already been taken.").show();
+                                $('#mobileValidateAcctno').addClass('form-group-adjust');
                             }
 
                         }
@@ -532,6 +543,9 @@
                 if (data.success) {
                     $("#acct_name").removeClass('is-invalid');
                     $("#error_acct_name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateAcctname').removeClass('form-group-adjust');
+
+
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.acct_name) {
@@ -540,11 +554,15 @@
                         if ($("#acct_name").val() == "") {
                             $("#error_acct_name").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateAcctname').removeClass('form-group-adjust');
+
                         } else {
 
                             if ($error == "The acct name has already been taken.") {
                                 $("#error_acct_name").addClass('invalid-feedback').html(
                                     "The account name has already been taken.").show();
+                                $('#mobileValidateAcctname').addClass('form-group-adjust');
+
                             }
                         }
                         $("#acct_name").addClass('is-invalid');
@@ -568,6 +586,7 @@
                 if (data.success) {
                     $("#gcash_no").removeClass('is-invalid');
                     $("#error_gcash_no").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.gcash_no) {
@@ -576,15 +595,18 @@
                         if ($("#gcash_no").val() == "") {
                             $("#error_gcash_no").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The gcash no has already been taken.") {
                                 $("#error_gcash_no").addClass('invalid-feedback').html(
                                     "The GCASH number has already been taken.").show();
+                                $('#mobileValidateGCASHno').addClass('form-group-adjust');
                             }
                             if ($error == "The gcash no must be a number.") {
                                 $("#error_gcash_no").addClass('invalid-feedback').html(
                                     "The given data was invalid").show();
+                                $('#mobileValidateGCASHno').removeClass('form-group-adjust');
                             }
                         }
                         $("#gcash_no").addClass('is-invalid');

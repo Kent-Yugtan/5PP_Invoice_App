@@ -93,7 +93,7 @@
 
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="form-group-profile">
+                                                    <div class="mobileValidate form-group-profile">
                                                         <label for="deduction_name" style="color:#A4A6B3">Deduction
                                                             Name</label>
                                                         <input id="deduction_name" name="deduction_name" type="text"
@@ -160,7 +160,7 @@
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <div class="form-group-profile">
+                                                    <div class="mobileValidate form-group-profile">
                                                         <label for="edit_deduction_name" style="color:#A4A6B3">Deduction
                                                             Name</label>
                                                         <input id="edit_deduction_name" type="text"
@@ -208,7 +208,7 @@
     </div>
 
     <!-- END MODAL EDIT -->
-    <div style="position: fixed; top: 60px; right: 20px; z-index:9999;">
+    <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <div id='notifyIcon'></div>
@@ -309,23 +309,29 @@
                 if (data.success) {
                     $("#edit_deduction_name").removeClass('is-invalid');
                     $("#error_edit_deduction_name").removeClass('invalid-feedback').html("").show();
+                    $('.mobileValidate').removeClass('form-group-adjust');
                 } else {
                     $("#edit_deduction_name").removeClass('is-invalid');
                     $("#error_edit_deduction_name").removeClass('invalid-feedback').html("").show();
+                    $('.mobileValidate').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
+                console.log("ERROR", error)
                 if (error.response.data.errors.deduction_name) {
                     if (error.response.data.errors.deduction_name.length > 0) {
+
                         $error = error.response.data.errors.deduction_name[0];
                         if ($("#edit_deduction_name").val() == "") {
                             $("#error_edit_deduction_name").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('.mobileValidate').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The deduction name has already been taken.") {
                                 $("#error_edit_deduction_name").addClass('invalid-feedback').html(
                                     "The deduction name has already been taken.").show();
                             }
+                            $('.mobileValidate').addClass('form-group-adjust');
                         }
                         $("#edit_deduction_name").addClass('is-invalid');
                         console.log("Error");
@@ -348,6 +354,7 @@
                 if (data.success) {
                     $("#deduction_name").removeClass('is-invalid');
                     $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
+                    $('.mobileValidate').removeClass('form-group-adjust');
                 }
             }).catch(function(error) {
                 if (error.response.data.errors.deduction_name) {
@@ -356,12 +363,14 @@
                         if ($("#deduction_name").val() == "") {
                             $("#error_deduction_name").addClass('invalid-feedback').html(
                                 "This field is required.").show();
+                            $('.mobileValidate').removeClass('form-group-adjust');
                         } else {
 
                             if ($error == "The deduction name has already been taken.") {
                                 $("#error_deduction_name").addClass('invalid-feedback').html(
                                     "The deduction name has already been taken.").show();
                             }
+                            $('.mobileValidate').addClass('form-group-adjust');
                         }
                         $("#deduction_name").addClass('is-invalid');
                         console.log("Error");
@@ -524,16 +533,7 @@
 
             $("#closedeductiontype_update").on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $('#editModal').modal('hide');
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $('#deductiontype_update').trigger('reset');
-                    $('#deductiontype_update').removeClass('was-validated');
-                    $("div.spanner").removeClass("show");
-                }, 1500)
+                location.reload(true);
             });
 
 
@@ -583,9 +583,10 @@
                                     '<i class="fa-solid fa-check" style="color:green"></i>');
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
-                                toast1.toast('show');
                                 $('#deductiontype_store').trigger('reset');
                                 $('#deductiontype_store').removeClass('was-validated');
+                                $('.mobileValidate').removeClass('form-group-adjust');
+                                toast1.toast('show');
                             }, 1500)
                         }
                     })
@@ -718,9 +719,10 @@
                                     '<i class="fa-solid fa-check" style="color:green"></i>');
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
-                                toast1.toast('show');
                                 $('#deductiontype_update').trigger('reset');
                                 $('#deductiontype_update').removeClass('was-validated');
+                                $('.mobileValidate').removeClass('form-group-adjust');
+                                toast1.toast('show');
                                 show_data();
                             }, 1500)
                         }

@@ -86,7 +86,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                                      <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -136,11 +136,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                                      <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                                                                        <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                                      <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                          <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                                                                            <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                                                                          <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                                                                        </div> -->
                                         </div>
 
 
@@ -561,16 +561,13 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12 bottom20">
-                                                    <div class="row">
-                                                        <div class="col-lg-12 d-flex justify-content-end">
-                                                            <div class="form-group w-50">
-                                                                <!-- </br> -->
-                                                                <button class="btn "
-                                                                    style="width:100%;color:white; background-color: #CF8029;"
-                                                                    id="add_item">Add
-                                                                    Item</button>
-                                                            </div>
+                                                <div class="col-12">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-4">
+                                                            <button class="btn "
+                                                                style="width:100%;color:white; background-color: #CF8029;"
+                                                                id="add_item">Add
+                                                                Item</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1200,9 +1197,9 @@
                     add_rows += '</div>';
 
                     add_rows += '<div class="col-md-1 bottom20">';
-                    add_rows += '<div class="form-group">';
+                    add_rows += '<div class="col-remove-item d-none">';
                     add_rows +=
-                        '<button class="btn remove_items col-remove-item d-none" style="margin-top:22px;display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                        '<button class="btn remove_items " style="margin-top:22px;display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1360,6 +1357,7 @@
                                             .removeClass('d-none').addClass(
                                                 'd-none');
                                     }
+                                    x++;
                                 })
                             }
 
@@ -1402,7 +1400,7 @@
                                     add_rows += '<div class="col-1 col-remove-deductions">';
                                     add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';

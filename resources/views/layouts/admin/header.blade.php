@@ -20,7 +20,7 @@
             <span class="icons" style="margin-right:30px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
                 <div class="icons mobileLayout d-none">
                     <span class="custom-badge position-absolute"
-                        style="font-size: 6px;top:16px;right:248px;background-color:#f8f9fa"><i
+                        style="font-size: 6px;top:16px;right:216px;background-color:#f8f9fa"><i
                             class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
                 <div class="icons webLayout d-none">
@@ -29,13 +29,13 @@
                             class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
             </span>
-            <span class="icons d-none" style="margin-right:60px"><i style="color:#A4A6B3;"
+            <span class="icons d-none" style="padding-right:20px"><i style="color:#A4A6B3;"
                     class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
             <div class="icons mobileLayout d-none">
                 <span style="margin-right:15px">{{ session('data')->first_name }}
                     {{ session('data')->last_name }}</span>
             </div>
-            <ul class="navbar-nav ms-auto ms-sm-0 ">
+            <ul class="navbar-nav ms-auto ms-sm-0 pe-2">
                 <li class="nav-item dropdown">
                     <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
@@ -65,7 +65,7 @@
     $(document).ready(function() {
 
         var windowWidth = $(window).width();
-        if (windowWidth < 400) {
+        if (windowWidth < 445) {
             $('.icons').removeClass("d-flex").addClass("d-none");
         } else {
             $('.icons').removeClass("d-none").addClass("d-flex");
@@ -87,7 +87,7 @@
 
         $(window).resize(function() {
             var windowWidth = $(window).width();
-            if (windowWidth < 400) {
+            if (windowWidth < 445) {
                 $('.icons').removeClass("d-flex").addClass("d-none");
             } else {
                 $('.icons').removeClass("d-none").addClass("d-flex");

@@ -59,12 +59,12 @@
                                     disabled="true">
                             </div>
                             <!--
-                                <div class="mb-3">
-                                    <label mb-2 style="color: #A4A6B3;">Password</label>
-                                    <input id="password" name="password" type="text"
-                                        class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                    >
-                                </div> -->
+                                        <div class="mb-3">
+                                            <label mb-2 style="color: #A4A6B3;">Password</label>
+                                            <input id="password" name="password" type="text"
+                                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
+                                            >
+                                        </div> -->
 
                             <div class="mb-3">
                                 <label mb-2 style="color: #A4A6B3;">Position</label>
@@ -394,17 +394,13 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-8 mb-3"></div>
-                                                <div class="col-4 mb-3">
-                                                    <div class="row">
-                                                        <div class="col-4 md-2 w-100">
-                                                            <div class="form-group">
-                                                                </br>
-                                                                <button class="btn "
-                                                                    style="width:100%;color:white; background-color: #CF8029;"
-                                                                    id="add_item">Add
-                                                                    Item</button>
-                                                            </div>
+                                                <div class="col-12">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-sm-4">
+                                                            <button class="btn "
+                                                                style="width:100%;color:white; background-color: #CF8029;"
+                                                                id="add_item">Add
+                                                                Item</button>
                                                         </div>
                                                     </div>
                                                 </div>

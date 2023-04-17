@@ -270,9 +270,8 @@
 
             let toast1 = $('.toast1');
             toast1.toast({
-                delay: 3000,
+                // delay: 3000,
                 animation: true,
-
             });
 
             $('.close').on('click', function(e) {

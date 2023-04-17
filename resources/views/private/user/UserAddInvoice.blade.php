@@ -56,16 +56,13 @@
                                         <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                     </div>
 
-                                    <!-- <div class="col-6 bottom20"></div> -->
-                                    <div class="col-12 bottom20">
-                                        <div class="row">
-                                            <div class="col-lg-12 d-flex justify-content-end">
-                                                <div class="form-group w-50">
-                                                    <button class="btn "
-                                                        style="width:100%;color:white; background-color: #CF8029;"
-                                                        id="add_item">Add
-                                                        Item</button>
-                                                </div>
+                                    <div class="col-12">
+                                        <div class="row justify-content-end">
+                                            <div class="col-sm-4">
+                                                <button class="btn "
+                                                    style="width:100%;color:white; background-color: #CF8029;"
+                                                    id="add_item">Add
+                                                    Item</button>
                                             </div>
                                         </div>
                                     </div>
@@ -191,21 +188,25 @@
                                         </div>
 
 
-                                        <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
-                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12 bottom20">
+                                                    <label for="floatingTextarea" style="color:#A4A6B3">Notes</label>
+                                                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="row ">
-                                            <div class="col-6">
-                                                <button type="button" id="close_back" class="btn w-100"
-                                                    style="color:white; background-color:#A4A6B3;">Close</button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button type="submit" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029;">Save</button>
+                                        <div class="col-12">
+                                            <div class="row ">
+                                                <div class="col-6">
+                                                    <button type="button" id="close_back" class="btn w-100"
+                                                        style="color:white; background-color:#A4A6B3;">Close</button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029;">Save</button>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -641,9 +642,10 @@
                     add_rows += '</div>';
 
                     add_rows += '<div class="col-md-1 ">';
-                    add_rows += '<div class="form-group" style="display:flex;justify-content:flex-end">';
                     add_rows +=
-                        '<button class="btn remove_items col-remove-item d-none"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                        '<div class="col-remove-item d-none" style="display:flex;justify-content:flex-end">';
+                    add_rows +=
+                        '<button class="btn remove_items "><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -701,7 +703,7 @@
                                 data.data.profile_deduction_types.map((item) => {
                                     add_rows = '';
                                     add_rows += '<div class="row bottom20">';
-                                    add_rows += '<div class="col-lg-7 bottom20">';
+                                    add_rows += '<div class="col-sm-6 bottom20">';
                                     add_rows += '<div class="form-group w-100">';
                                     add_rows +=
                                         '<input type="text" class="profile_deduction_type_id" value=' +
@@ -721,7 +723,7 @@
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-lg-4 bottom20">';
+                                    add_rows += '<div class="col-sm-5 bottom20">';
                                     add_rows += '<div class="form-group ">';
                                     add_rows +=
                                         '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
@@ -734,10 +736,10 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-lg-1 col-remove-deductions bottom20" style="display:flex;justify-content:flex-end">';
-                                    add_rows += '<div class="form-group">';
+                                        '<div class="col-sm-1 col-remove-deductions" style="display:flex;justify-content:center">';
+                                    add_rows += '<div class="">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;margin-top:25px"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
