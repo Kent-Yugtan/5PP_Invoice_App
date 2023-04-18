@@ -385,7 +385,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="6">Loading...</td>
+                                                            <td class="text-center" colspan="6">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                                  width +
+                                                  'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -446,7 +454,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="5">Loading...</td>
+                                                            <td class="text-center" colspan="5">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                                  width +
+                                                  'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -1330,6 +1346,60 @@
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
 
+
+            let width = window.innerWidth; // Set the initial value of width
+            window.addEventListener("load", () => {
+                width = window.innerWidth;
+
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 425 && width <= 570) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 570) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+
+            });
+
+            window.addEventListener("resize", () => {
+                width = window.innerWidth;
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 425 && width <= 570) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 570) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+            });
+
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
                 $('#previewModal').modal('show');
@@ -1993,7 +2063,9 @@
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             } else {
                                 $("#dataTable_invoice tbody").append(
-                                    '<tr><td colspan="6" class="text-center">No data</td></tr>'
+                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 let tbl_showing_invoice =
                                     `Showing 0 to 0 of 0 entries`;
@@ -3388,7 +3460,9 @@
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                 } else {
                                     $("#dataTable_deduction tbody").append(
-                                        '<tr><td colspan="6" class="text-center pb-2">No data</td></tr>'
+                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                     );
                                     let tbl_showing_deduction =
                                         `Showing 0 to 0 of 0 entries`;

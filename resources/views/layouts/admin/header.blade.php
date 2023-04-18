@@ -9,7 +9,7 @@
         <i style="color:#CF8029" class="fas fa-bars"></i>
     </button>
     <div class="d-flex flex-sm-wrap">
-        <span id='header_title' class="fs-3 fw-bold"></span>
+        <span id='header_title' class="fw-bold" style="font-size:18px"></span>
     </div>
 
 

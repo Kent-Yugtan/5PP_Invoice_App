@@ -97,7 +97,15 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-center" colspan="4">Loading...</td>
+                                                <td class="text-center" colspan="4">
+                                                    <div class="noData"
+                                                        style="width:' +
+                  width +
+                  'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                        <i class="fas fa-spinner"></i>
+                                                        <div></div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -367,6 +375,61 @@
         }
 
         $(document).ready(function() {
+
+            let width = window.innerWidth; // Set the initial value of width
+            window.addEventListener("load", () => {
+                width = window.innerWidth;
+
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 425 && width <= 768) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+
+                if (width > 768) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+
+            });
+
+            window.addEventListener("resize", () => {
+                width = window.innerWidth;
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 425 && width <= 768) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 768) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+            });
 
             var currentPage = window.location.href;
             $('#collapseLayouts4 a').each(function() {
@@ -775,7 +838,9 @@
                             // Enable button
                             $('#button-submit').prop('disabled', false);
                             $("#table_invoiceconfig tbody").append(
-                                '<tr style="vertical-align: middle;"><td colspan="5" class="text-center">No data</td></tr>'
+                                '<tr style="vertical-align: middle;"><td colspan="5" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             let table_invoieConfig =
                                 `Showing 0 to 0 of 0 entries`;

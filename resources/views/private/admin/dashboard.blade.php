@@ -133,7 +133,15 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-center" colspan="4">Loading...</td>
+                                    <td class="text-center" colspan="4">
+                                        <div class="noData"
+                                            style="width:' +
+                                      width +
+                                      'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                            <i class="fas fa-spinner"></i>
+                                            <div></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -169,7 +177,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-center" colspan="4">Loading...</td>
+                                    <td class="text-center" colspan="4">
+                                        <div class="noData"
+                                            style="width:' +
+                                  width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                            <i class="fas fa-spinner"></i>
+                                            <div></div>
+                                        </div>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -214,6 +231,51 @@
             separator: ','
         });
         $(document).ready(function() {
+
+            let width = window.innerWidth; // Set the initial value of width
+            window.addEventListener("load", () => {
+                width = window.innerWidth;
+
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 425) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+
+            });
+
+            window.addEventListener("resize", () => {
+                width = window.innerWidth;
+                if (width <= 320) {
+                    width = window.innerWidth - 110;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 320 && width <= 375) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+                if (width > 375 && width <= 425) {
+                    width = window.innerWidth - 115;
+                    $('.noData').css('width', width + 'px');
+                }
+
+                if (width > 425) {
+                    width = 'auto';
+                    $('.noData').css('width', width);
+                }
+            });
             var path = window.location.pathname;
             var segments = path.split('/');
             var id = '#' + segments[1] + segments[2];
@@ -521,7 +583,10 @@
                             $('#tbl_showing_pendingInvoice').html(tbl_showing_pendingInvoice);
                         } else {
                             $("#pendingInvoices tbody").append(
-                                '<tr><td colspan="4" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+
                             );
 
                         }
@@ -653,7 +718,9 @@
                             $('#tbl_showing_overdueInvoice').html(tbl_showing_overdueInvoice);
                         } else {
                             $("#overdueInvoices tbody").append(
-                                '<tr><td colspan="4" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                         }
                     }
