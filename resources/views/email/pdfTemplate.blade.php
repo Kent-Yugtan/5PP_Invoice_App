@@ -301,7 +301,8 @@
                                 </td>
                                 <td class="scope" style="text-align:start;"><strong>SubTotal:</strong></td>
                                 <td class="scope" style="text-align:end;">
-                                    <strong>${{ $content['sub_total'] }}</strong> </td>
+                                    <strong>${{ $content['sub_total'] }}</strong>
+                                </td>
                             </tr>
 
                             <tr>
@@ -317,7 +318,7 @@
                                     <td class="scope" style="text-align:start;"> Discount Type:
                                         @if ($content['discount_type'] === 'Fixed')
                                             <span class="text-muted" id="discountType">
-                                                Fxd
+                                                Fixed
                                             </span>
                                         @else
                                             <span class="text-muted" id="discountAmount">
@@ -344,7 +345,8 @@
                                 <tr>
                                     <td style="padding-top:15px"></td>
                                     <td style="text-align:left;padding-top:15px" colspan="2">
-                                        <strong>Deductions</strong></td>
+                                        <strong>Deductions</strong>
+                                    </td>
                                 </tr>
 
                                 @php
@@ -369,7 +371,8 @@
                                     <td></td>
                                     <td><strong>Total Deductions<strong></td>
                                     <td style="text-align:end;color:red;">
-                                        <strong>P{{ number_format($total_deduction, 2) }}<strong></td>
+                                        <strong>P{{ number_format($total_deduction, 2) }}<strong>
+                                    </td>
                                 </tr>
 
                             @endif
@@ -379,7 +382,8 @@
                                     <strong>Grand Total:</strong>
                                 </td>
                                 <td style="text-align: end;padding-top:15px">
-                                    <strong>P{{ $content['grand_total_amount'] }}</strong></td>
+                                    <strong>P{{ $content['grand_total_amount'] }}</strong>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align:left" colspan="3"><strong>Notes:</strong></td>

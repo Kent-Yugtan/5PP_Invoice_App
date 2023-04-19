@@ -2,7 +2,7 @@
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
 
-        <div class="row bottom10">
+        <div class="row " style="padding-top:10px;padding-bottom:10px">
             <div class="col-12 col-md-6 column1  bottom10" style="padding-right:5px;padding-left:5px;">
                 <div>
                     <div class="row text-center py-3">
@@ -10,7 +10,7 @@
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Active</div>
+                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Activate</div>
                 </div>
             </div>
 
@@ -28,21 +28,25 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-8 bottom10" style="padding-right:8px;padding-left:8px;">
+            <div class="col-sm-9 bottom10" style="padding-right:8px;padding-left:8px;">
                 <div class="w-100">
-                    <div class="input-group" id="input-group-search">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text search-right-icon border-search" id="border-search"><i
-                                    class="fas fa-search"></i></span>
+                    <div class="has-search">
+                        <span class="fa fa-search form-control-feedback" style="color:#A4A6B3"></span>
+                        <input type="text" class="form-control" id="search" name="search" placeholder="Search">
+                    </div>
+                    {{-- <div class="input-group" id="input-group-search">
+                        <div class="input-group-prepend input-group-text" id="border-search">
+                            <i style="color:#A4A6B3" class="fas fa-search"></i>
                         </div>
                         <input id="search" name="search" type="text"
-                            class="search-left-icon form-control form-check-inline" placeholder="Search"
-                            onfocus="input_group_focus('in','input-group-search')"
-                            onfocusout="input_group_focus('out','input-group-search')">
-                    </div>
+                            class="search-left-icon form-control form-check-inline "
+                            onfocusout="input_group_focus('out','input-group-search')"
+                            onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
+                    </div> --}}
                 </div>
             </div>
-            <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
+
+            <div class="col-sm-3 bottom10" style="padding-right:8px;padding-left:8px;">
                 <button class="btn w-100" style="color:white; background-color: #CF8029" id="button-submit"><i
                         class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
@@ -51,7 +55,7 @@
         <div class="row d-none" id="button_active">
             <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal" class="btn w-100"
-                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Active</button>
+                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Activate</button>
             </div>
         </div>
 
@@ -79,17 +83,26 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center" colspan="6">Loading...</td>
+                                        <td class="text-center" colspan="6">
+                                            <div class="noData"
+                                                style="width:' +
+                              width +
+                              'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                <i class="fas fa-spinner"></i>
+                                                <div></div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                                id="tbl_user_showing"></div>
-                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                <ul style="display:flex;align-items:center;margin-top:15px"
-                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
-                                </ul>
-                            </div>
+                        </div>
+
+                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                            id="tbl_user_showing"></div>
+                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                            <ul style="display:flex;align-items:center;margin-top:15px"
+                                class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
+                            </ul>
                         </div>
                     </div>
 
@@ -126,7 +139,7 @@
                     <div class="row">
                         <div class="col bottom20">
                             <span id="activeProfileId" hidden></span>
-                            <span class="text-muted"> Do you really want to set this Profile to Active?</span>
+                            <span class="text-muted"> Do you really want to set this Profile to Activate?</span>
                         </div>
                     </div>
                     <div class="row ">
@@ -165,25 +178,78 @@
     <script type="text/javascript">
         function input_group_focus(option, id) {
             if (option == "out") {
-                $('#' + id).removeClass('input-group-focused');
+                $('#border-search').removeClass('border-search2');
                 $('#border-search').addClass('border-search');
+                $('#' + id).removeClass('input-group-focused');
             } else {
                 $('#border-search').removeClass('border-search');
+                $('#border-search').addClass('border-search2');
                 $('#' + id).addClass('input-group-focused');
             }
         }
+
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
+
         $(document).ready(function() {
 
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    show_data();
-                    active_profile_count();
-                    inactive_profile_count();
-                }, 1500)
-
-            })
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                show_data();
+                active_profile_count();
+                inactive_profile_count();
+            }, 1500)
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -213,7 +279,8 @@
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
                 if ($(this).is(":checked")) {
                     $(this).closest('table').find('td').each(function() {
-                        let cellValue = $(this).text(); // get the text content of the td element
+                        let cellValue = $(this)
+                            .text(); // get the text content of the td element
                         if ($(this).hasClass('profile_id')) {
                             array_all.push(cellValue);
                         }
@@ -372,7 +439,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:red"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -423,7 +491,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:red"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -466,7 +535,8 @@
                             if (res.data.data.length > 0) {
                                 res.data.data.map((item) => {
                                     let tr = '<tr style="vertical-align:middle;">';
-                                    tr += '<td id="profile_id" class="profile_id" hidden>' + item
+                                    tr += '<td id="profile_id" class="profile_id" hidden>' +
+                                        item
                                         .profile.id +
                                         '</td>';
                                     tr +=
@@ -486,7 +556,8 @@
                                     tr += '<td class="fit">' + item.phone_number + '</td>';
                                     tr += '<td class="fit">' + item.position + '</td>';
                                     if (item.profile.invoice.length > 0) {
-                                        let latest_invoice = item.profile.invoice[item.profile.invoice
+                                        let latest_invoice = item.profile.invoice[item.profile
+                                            .invoice
                                             .length - 1]
                                         var date_1 = new Date(latest_invoice.created_at);
                                         var todate1 = new Date(date_1).getDate();
@@ -510,12 +581,12 @@
                                             '<td  class="text-center">';
                                         tr +=
                                             `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Active</a></li>
+                                                    <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Activate</a></li>
                                                     <li ><a class="dropdown-item" href=` + apiUrl +
                                             '/admin/inactiveProfile/' +
                                             item.id + "/" + item.profile.id +
@@ -529,7 +600,8 @@
 
                                     } else {
                                         let tr = '<tr style="vertical-align:middle;">';
-                                        tr += '<td id="profile_id" class="profile_id" hidden>' + item
+                                        tr += '<td id="profile_id" class="profile_id" hidden>' +
+                                            item
                                             .profile
                                             .id +
                                             '</td>';
@@ -546,7 +618,8 @@
                                                 item.file_path + '">&nbsp;' + item.full_name +
                                                 '</div></td>';
                                         }
-                                        tr += '<td class="fit">' + item.profile_status + '</td>';
+                                        tr += '<td class="fit">' + item.profile_status +
+                                            '</td>';
                                         tr += '<td class="fit">' + item
                                             .phone_number + '</td>';
                                         tr += '<td class="fit">' + item.position + '</td>';
@@ -556,12 +629,12 @@
                                             '<td  class="text-center">';
                                         tr +=
                                             `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li ><a id="activeLink" class="dropdown-item" href="#">Active</a></li>
+                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Activate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                             '/admin/inactiveProfile/' +
                                             item.id + "/" + item.profile.id +
@@ -585,18 +658,22 @@
                                 if (res.data.links.length) {
                                     let lastPage = res.data.links[res.data.links.length - 1];
                                     if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
-                                        $('#tbl_user_pagination .page-item:last-child').addClass('disabled');
+                                        $('#tbl_user_pagination .page-item:last-child').addClass(
+                                            'disabled');
                                     }
                                     let PreviousPage = res.data.links[0];
-                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
-                                        $('#tbl_user_pagination .page-item:first-child').addClass('disabled');
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
+                                        $('#tbl_user_pagination .page-item:first-child').addClass(
+                                            'disabled');
                                     }
                                 }
 
                                 $("#tbl_user_pagination .page-item .page-link").on('click', function() {
                                     let url = $(this).data('url')
                                     $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+                                        var results = new RegExp("[?&]" + name +
+                                            "=([^&#]*)").exec(
                                             url
                                         );
 
@@ -616,8 +693,12 @@
 
                             } else {
                                 selectShow();
+
                                 $("#tbl_user tbody").append(
-                                    '<tr><td colspan="6" class="text-center">No data</td></tr>');
+                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                );
                                 let tbl_user_showing =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);

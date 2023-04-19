@@ -70,19 +70,14 @@
         });
 
         $(document).ready(function() {
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                $('html, body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset.top
-                }, 'smooth');
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    show_data_load()
-                    from();
-                    to();
-                }, 1500);
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                show_data_load()
+                from();
+                to();
+            }, 1500);
 
-            })
 
             var currentPage = window.location.href;
             $('#collapseLayouts3 a').each(function() {
@@ -191,10 +186,9 @@
                                     var value = parseFloat(cell.text());
                                     cell.attr('s', '5');
                                     cell.attr('t', 'n');
-                                    var valueNode = cell.children('v');
-                                    valueNode.text(PHP(value).format());
-                                    valueNode[0].childNodes[0].nodeValue = PHP(value)
-                                        .format(); // Update existing cell value
+                                    // var valueNode = cell.children('v');
+                                    // valueNode.text(PHP(value).format());
+                                    // valueNode[0].childNodes[0].nodeValue = PHP(value).format(); // Update existing cell value
                                     cell.attr('s', '2'); // Align right
                                     cell.attr('t', 'n');
                                 }

@@ -102,7 +102,6 @@
                                                             <i class="fa fa-eye d-none" id="hide"></i>
                                                         </a>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -299,9 +298,9 @@
                                         <div class="col-12 ">
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
-                                                <input name="date_hired" type="text" onblur="(this.type='text')"
-                                                    class="form-control" id="date_hired" placeholder="Date Hired"
-                                                    required>
+                                                <input type="text" id="date_hired" name="date_hired"
+                                                    class="datepicker_input form-control" placeholder="Date Hired"
+                                                    required autocomplete="off">
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
@@ -617,6 +616,24 @@
         }
 
         $(document).ready(function() {
+
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+            }, 1500)
+
+
+            $('#date_hired').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
+
+
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
                 $('#previewModal').modal('show');
@@ -747,27 +764,6 @@
                 separator: ','
             });
 
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                }, 1500)
-            })
-
-            // Get the input field
-            var dateInput = $("#date_hired");
-            // Set the datepicker options
-            dateInput.datepicker({
-                dateFormat: "yy/mm/dd",
-                onSelect: function(dateText, inst) {
-                    // Update the input value with the selected date
-                    dateInput.val(dateText);
-                }
-            });
-            // Set the input value to the current system date in the specified format
-            var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-            dateInput.val(currentDate);
-            // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
 
             let toast1 = $('.toast1');
             toast1.toast({

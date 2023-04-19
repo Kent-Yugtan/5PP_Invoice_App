@@ -289,9 +289,10 @@
                                         <div class="col-12 bottom10">
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
-                                                <input id="date_hired" name="date_hired" type="text"
-                                                    onblur="(this.type='text')" class="form-control"
-                                                    placeholder="Date Hired" disabled="true" required>
+                                                <input type="text" id="date_hired" name="date_hired"
+                                                    class="datepicker_input form-control" placeholder="Date Hired"
+                                                    required autocomplete="off">
+
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
@@ -361,8 +362,7 @@
 
                                         <div class="col-sm-4 bottom20">
                                             <div class="has-search">
-                                                <span class="fa fa-search form-control-feedback"
-                                                    style="color:#CF8029"></span>
+                                                <span class="fa fa-search form-control-feedback"></span>
                                                 <input type="text" class="form-control" id="search_invoice"
                                                     placeholder="Search">
                                             </div>
@@ -386,7 +386,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="6">Loading...</td>
+                                                            <td class="text-center" colspan="6">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                            width +
+                                            'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -420,8 +428,7 @@
                                         </div>
                                         <div class="col-sm-6 bottom20">
                                             <div class="has-search">
-                                                <span class="fa fa-search form-control-feedback"
-                                                    style="color:#CF8029"></span>
+                                                <span class="fa fa-search form-control-feedback"></span>
                                                 <input type="text" class="form-control" id="search_deduction"
                                                     placeholder="Search">
                                             </div>
@@ -454,7 +461,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="5">Loading...</td>
+                                                            <td class="text-center" colspan="5">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                            width +
+                                            'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -551,13 +566,13 @@
                                                             <input class="form-check-input" type="radio"
                                                                 name="discount_type" id="discount_type" value="Fixed">
                                                             <label class="formGroupExampleInput2">
-                                                                Fxd &nbsp; &nbsp;
+                                                                Fixed &nbsp; &nbsp;
                                                             </label>
                                                             <input class="discount_type form-check-input" type="radio"
                                                                 name="discount_type" id="discount_type"
                                                                 value="Percentage">
                                                             <label class="formGroupExampleInput2">
-                                                                %
+                                                                Percentage
                                                             </label>
                                                             <!-- <input type="text" id="discount_type" class="form-control" /> -->
 
@@ -744,9 +759,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -1262,8 +1277,86 @@
         }
 
 
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
+
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
+
+            // REFRESH WHEN THIS PAGE IS LOAD
+            $('#cancel_edit_profile').addClass('d-none');
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                check_InactivependingInvoicesStatus();
+                show_profileDeductionType_Button();
+                show_Profilededuction_Table_Active();
+                show_edit();
+                show_data();
+            }, 1500)
+
+            $('#date_hired').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
+
+
+
 
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
@@ -1367,22 +1460,6 @@
 
 
 
-            // REFRESH WHEN THIS PAGE IS LOAD
-            $('#cancel_edit_profile').addClass('d-none');
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    date_hired();
-                    due_date();
-                    check_InactivependingInvoicesStatus();
-                    show_profileDeductionType_Button();
-                    show_Profilededuction_Table_Active();
-                    show_edit();
-                    show_data();
-                }, 1500)
-
-            })
 
             var currentPage = apiUrl + "/admin/inactive";
             $('#collapseLayouts a').each(function() {
@@ -1397,45 +1474,6 @@
                     $('[data-bs-target="#collapseLayouts"]').addClass('active');
                 }
             });
-
-            function due_date() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var due_date = $("#due_date");
-                // Set the datepicker options
-                due_date.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        due_date.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                due_date.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-
-            }
-
-            function date_hired() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var date_hired = $("#date_hired");
-                // Set the datepicker options
-                date_hired.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        date_hired.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                date_hired.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
-
-
 
             $('#cancel_edit_profile').on('click', function(e) {
                 e.preventDefault();
@@ -1896,7 +1934,7 @@
                                         apiUrl +
                                         '/admin/editInactiveInvoice/' +
                                         item.id +
-                                        '"style="color: #cf8029"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                        '"style="color: #cf8029"><i class="fa-solid fa-eye"></i></a> </td>';
                                     tr += '</tr>';
                                     $("#dataTable_invoice tbody").append(tr);
                                     return ''
@@ -1950,7 +1988,9 @@
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             } else {
                                 $("#dataTable_invoice tbody").append(
-                                    '<tr><td colspan="6" class="text-center">No data</td></tr>'
+                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 let tbl_showing_invoice =
                                     `Showing 0 to 0 of 0 entries`;
@@ -3500,7 +3540,9 @@
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                 } else {
                                     $("#dataTable_deduction tbody").append(
-                                        '<tr><td colspan="6" class="text-center pb-2">No data</td></tr>'
+                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                     );
                                     let tbl_showing_deduction =
                                         `Showing 0 to 0 of 0 entries`;

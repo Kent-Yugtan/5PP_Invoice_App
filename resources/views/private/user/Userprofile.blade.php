@@ -467,13 +467,13 @@
                                                                     name="discount_type" id="discount_type"
                                                                     value="Fixed">
                                                                 <label class="formGroupExampleInput2">
-                                                                    Fxd &nbsp;
+                                                                    Fixed &nbsp;
                                                                 </label>
                                                                 <input class="discount_type form-check-input"
                                                                     type="radio" name="discount_type"
                                                                     id="discount_type" value="Percentage">
                                                                 <label class="formGroupExampleInput2">
-                                                                    %
+                                                                    Percentage
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1255,7 +1255,7 @@
                                     apiUrl +
                                     '/user/profileEditInvoice/' +
                                     item.id +
-                                    '"  style="color: #cf8029" ><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                    '"  style="color: #cf8029" ><i class="fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''

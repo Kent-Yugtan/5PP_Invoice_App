@@ -2083,11 +2083,25 @@ progress {
     color: var(--bs-table-active-color);
 }
 
-.table-hover > tbody > tr:hover > *,
-.dataTable-table > tbody > tr:hover > * {
-    --bs-table-accent-bg: var(--bs-table-hover-bg);
-    color: var(--bs-table-hover-color);
-}
+.table-hover > tbody > tr:hover > * ,
+.dataTable-table > tbody > tr:hover > *{
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+} 
+
+ .table-hover > tbody > tr:hover > td > div.dropdown > a,
+ .dataTable-table > tbody > tr:hover > td > div.dropdown > a  {
+   /* Your CSS styles here */
+   --bs-table-accent-bg: var(--bs-table-hover-bg);
+   color: var(--bs-table-hover-color) !important;
+ }
+ 
+
+/* .table-hover > tbody > tr:hover > td > div.dropdown > a,
+.dataTable-table > tbody > tr:hover > td > div.dropdown > a {
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+} */
 
 .table-primary {
     --bs-table-bg: #cfe2ff;
@@ -2289,7 +2303,7 @@ progress {
     color: #212529;
     background-color: #fff;
     /* border-color: #CF8029; */
-    border:2px solid #CF8029;
+    border:1px solid #CF8029;
     /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
     outline: 0;
 }
@@ -2517,7 +2531,7 @@ textarea.form-control-lg {
     line-height: 1.5;
     color: #212529;
     background-color: #fff;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='rgb(207, 128,41)' stroke='rgb(207, 128,41)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='transparent' stroke='rgb(207, 128,41)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 16px 12px;
@@ -2536,7 +2550,7 @@ textarea.form-control-lg {
 }
 .form-select:focus,
 .dataTable-selector:focus {
-  border:2px solid #CF8029;
+  border:1px solid #CF8029;
   /* border-color: #CF8029; */
     /* box-shadow: 0 0 0 0.25rem rgb(255, 154, 96); */
     outline: 0;
@@ -2876,7 +2890,7 @@ textarea.form-control-lg {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
+    /* align-items: stretch; */
     width: 100%;
 }
 .input-group > .form-control,
@@ -2903,18 +2917,18 @@ textarea.form-control-lg {
 }
 
 .input-group-text {
-    display: flex;
-    align-items: center;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #e9ecef;
-    /* border: 1px solid #ced4da; */
-    border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  white-space: nowrap;
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 }
 
 .input-group-lg > .form-control,
@@ -12929,6 +12943,7 @@ z-index: 9999;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
+    /* display: inline-block; DEFAULT */
     display: none;
 }
 
@@ -13656,13 +13671,13 @@ button.dt-button, div.dt-button, a.dt-button, input.dt-button{
   margin-right: 1px;
   border-radius: 0.25em;
   margin-left: -11px !important;
-  border-left: hidden;
+  border-left: none !important;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .input-group-focused{
-  border: 2px solid #CF8029;
+  border: 1px solid #CF8029;
   border-radius: 0.25em;
 }
 
@@ -13672,7 +13687,11 @@ button.dt-button, div.dt-button, a.dt-button, input.dt-button{
 }
 
 .border-search{
-  border: 1px solid #ced4da !important;
+  border: 1px solid #ced4da ;
+}
+
+.border-search2{
+  border: none !important;
 }
 
 .search-right-icon{
@@ -13771,15 +13790,11 @@ font-size: 14px;
   width:20px;
 }
 
-/* TABLE NO DATA */
-/* .no-data {
-  display: flex; 
-  justify-content: center;
+.datepicker-input.in-edit{
+  border: none !important;
 }
 
-.no-data .table-responsive::-webkit-scrollbar {
-  display: none !important;
-} */
-/* display: flex; */
-/* justify-content: center; */
-
+.datepicker-input.in-edit:active, .datepicker-input.in-edit:focus {
+  border: 1px solid #CF8029 !important;
+      box-shadow: none !important;
+}

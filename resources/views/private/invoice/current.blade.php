@@ -34,19 +34,20 @@
 
         <div class="row">
             <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
-                <div class="input-group">
-                    <div class="w-100">
-                        <div class="input-group" id="input-group-search">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text search-right-icon border-search" id="border-search"><i
-                                        class="fas fa-search"></i></span>
-                            </div>
-                            <input id="search" name="search" type="text"
-                                class="search-left-icon form-control form-check-inline" placeholder="Search"
-                                onfocus="input_group_focus('in','input-group-search')"
-                                onfocusout="input_group_focus('out','input-group-search')">
-                        </div>
+                <div class="w-100">
+                    <div class="has-search">
+                        <span class="fa fa-search form-control-feedback" style="color:#A4A6B3"></span>
+                        <input type="text" class="form-control" id="search" name="search" placeholder="Search">
                     </div>
+                    {{-- <div class="input-group" id="input-group-search">
+                        <div class="input-group-prepend input-group-text" id="border-search">
+                            <i style="color:#A4A6B3" class="fas fa-search"></i>
+                        </div>
+                        <input id="search" name="search" type="text"
+                            class="search-left-icon form-control form-check-inline "
+                            onfocusout="input_group_focus('out','input-group-search')"
+                            onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
+                    </div> --}}
                 </div>
             </div>
 
@@ -100,20 +101,27 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center" colspan="8">Loading...</td>
+                                        <td class="text-center" colspan="8">
+                                            <div class="noData"
+                                                style="width:' +
+                            width +
+                            'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                <i class="fas fa-spinner"></i>
+                                                <div></div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                                id="tbl_showing_invoice"></div>
-                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
-                                </ul>
-                            </div>
-
                         </div>
+                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                            id="tbl_showing_invoice"></div>
+                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                            <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -251,27 +259,101 @@
     <script type="text/javascript">
         function input_group_focus(option, id) {
             if (option == "out") {
-                $('#' + id).removeClass('input-group-focused');
+                $('#border-search').removeClass('border-search2');
                 $('#border-search').addClass('border-search');
+                $('#' + id).removeClass('input-group-focused');
             } else {
                 $('#border-search').removeClass('border-search');
+                $('#border-search').addClass('border-search2');
                 $('#' + id).addClass('input-group-focused');
             }
         }
+
+
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
         $(document).ready(function() {
+
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $('div.spanner').removeClass('show');
+                active_count_paid();
+                active_count_pending();
+                check_pendingInvoicesStatus();
+                show_data();
+            }, 1500)
+
+
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
             });
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $('div.spanner').removeClass('show');
-                    active_count_paid();
-                    active_count_pending();
-                    check_pendingInvoicesStatus();
-                    show_data();
-                }, 1500)
-            })
+
 
             function selectShow() {
                 var numCheckboxes = $('.select-item').length;
@@ -717,7 +799,9 @@
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
-                                '<tr><td colspan="8" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="9" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
@@ -886,12 +970,6 @@
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
 
-                                // tr +=
-                                //     '<td class="text-center"> <a href="' +
-                                //     apiUrl +
-                                //     '/invoice/editInvoice/' +
-                                //     item.id +
-                                //     '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
                                 tr +=
                                     '<td  class="text-center">';
                                 tr +=
@@ -962,7 +1040,9 @@
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
-                                '<tr><td colspan="8" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="9" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;

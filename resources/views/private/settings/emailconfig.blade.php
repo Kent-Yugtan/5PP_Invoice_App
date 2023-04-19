@@ -94,16 +94,20 @@
                         <div class="row  pt-3">
                             <div class="col-sm-6 bottom20">
                                 <div class="w-100">
-                                    <div class="input-group" id="input-group-search">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text search-right-icon border-search"
-                                                id="border-search"><i class="fas fa-search"></i></span>
+                                    <div class="has-search">
+                                        <span class="fa fa-search form-control-feedback" style="color:#A4A6B3"></span>
+                                        <input type="text" class="form-control" id="search" name="search"
+                                            placeholder="Search">
+                                    </div>
+                                    {{-- <div class="input-group" id="input-group-search">
+                                        <div class="input-group-prepend input-group-text" id="border-search">
+                                            <i style="color:#A4A6B3" class="fas fa-search"></i>
                                         </div>
                                         <input id="search" name="search" type="text"
-                                            class="search-left-icon form-control form-check-inline" placeholder="Search"
-                                            onfocus="input_group_focus('in','input-group-search')"
-                                            onfocusout="input_group_focus('out','input-group-search')">
-                                    </div>
+                                            class="search-left-icon form-control form-check-inline "
+                                            onfocusout="input_group_focus('out','input-group-search')"
+                                            onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="col-sm-6 bottom20">
@@ -128,23 +132,28 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-center" colspan="5">Loading...</td>
+                                                <td class="text-center" colspan="5">
+                                                    <div class="noData"
+                                                        style="width:' +
+                        width +
+                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                        <i class="fas fa-spinner"></i>
+                                                        <div></div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div style="display:flex;justify-content:center;"
+                                    class="page_showing pagination-alignment " id="tbl_showing"></div>
+                                <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                                    <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                        class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-
-                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                            id="tbl_showing"></div>
-                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                            <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
-                            </ul>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -320,10 +329,12 @@
     <script type="text/javascript">
         function input_group_focus(option, id) {
             if (option == "out") {
-                $('#' + id).removeClass('input-group-focused');
+                $('#border-search').removeClass('border-search2');
                 $('#border-search').addClass('border-search');
+                $('#' + id).removeClass('input-group-focused');
             } else {
                 $('#border-search').removeClass('border-search');
+                $('#border-search').addClass('border-search2');
                 $('#' + id).addClass('input-group-focused');
             }
         }
@@ -505,15 +516,70 @@
         }
 
 
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
 
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+
+            if (width > 768) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 768) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
         $(document).ready(function() {
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    show_data();
-                }, 1500)
-            })
+
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                show_data();
+            }, 1500)
+
+
+
 
             var currentPage = window.location.href;
             $('#collapseLayouts4 a').each(function() {
@@ -609,7 +675,7 @@
                                     tr +=
                                         '<td class="text-center" style="width:20px" > <button value=' +
                                         item.id +
-                                        ' class="editButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#editModal" ><i style="color:#CF8029" class="fa-sharp fa-solid fa-eye"></i></button></td>';
+                                        ' class="editButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#editModal" ><i style="color:#CF8029" class="fa-solid fa-eye"></i></button></td>';
                                     tr +=
                                         '<td class="text-center " style="width:20px"> <button value=' +
                                         item.id +
@@ -661,7 +727,9 @@
                                 $('#tbl_showing').html(table_emailconfigs);
                             } else {
                                 $("#table_emailconfigs tbody").append(
-                                    '<tr style="vertical-align: middle;"><td colspan="6" class="text-center">No data</td></tr>'
+                                    '<tr style="vertical-align: middle;"><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 let table_emailconfigs =
                                     `Showing 0 to 0 of 0 entries`;

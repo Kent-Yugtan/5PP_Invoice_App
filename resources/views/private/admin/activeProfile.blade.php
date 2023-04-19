@@ -289,9 +289,9 @@
                                         <div class="col-12 bottom10">
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
-                                                <input id="date_hired" name="date_hired" type="text"
-                                                    onblur="(this.type='text')" class="form-control"
-                                                    placeholder="Date Hired" disabled="true" required>
+                                                <input type="text" id="date_hired" name="date_hired"
+                                                    class="datepicker_input form-control" placeholder="Date Hired"
+                                                    required autocomplete="off" disabled="true">
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
@@ -385,7 +385,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="6">Loading...</td>
+                                                            <td class="text-center" colspan="6">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                                  width +
+                                                  'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -446,7 +454,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td class="text-center" colspan="5">Loading...</td>
+                                                            <td class="text-center" colspan="5">
+                                                                <div class="noData"
+                                                                    style="width:' +
+                                                  width +
+                                                  'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                                    <i class="fas fa-spinner"></i>
+                                                                    <div></div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -499,9 +515,9 @@
                                                             <div class="form-group-profile">
                                                                 <label for="due_date" style="color:#A4A6B3">Due
                                                                     Date</label>
-                                                                <input type="text" placeholder="Due Date"
-                                                                    id="due_date" onblur="(this.type='text')"
-                                                                    name="due_date" class="form-control" required>
+                                                                <input type="text" id="due_date" name="due_date"
+                                                                    class="datepicker_input form-control"
+                                                                    placeholder="Due Date" required autocomplete="off">
                                                                 <div class="invalid-feedback">This field is required.</div>
                                                             </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
@@ -551,13 +567,13 @@
                                                                     name="discount_type" id="discount_type"
                                                                     value="Fixed">
                                                                 <label class="formGroupExampleInput2">
-                                                                    Fxd &nbsp;
+                                                                    Fixed &nbsp;
                                                                 </label>
                                                                 <input class="discount_type form-check-input"
                                                                     type="radio" name="discount_type"
                                                                     id="discount_type" value="Percentage">
                                                                 <label class="formGroupExampleInput2">
-                                                                    %
+                                                                    Percentage
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1325,10 +1341,90 @@
             })
         }
 
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
 
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
 
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
+
+            // due_datee();
+            // date_hired();
+            setTimeout(function() {
+                display_item_rows();
+                check_ActivependingInvoices();
+                show_profileDeductionType_Button();
+                show_Profilededuction_Table_Active();
+                show_edit()
+                show_data();
+            }, 1500)
+
+            $('#due_date').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
+            $('#date_hired').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
 
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
@@ -1431,18 +1527,7 @@
 
             $('#cancel_edit_profile').addClass('d-none');
             // REFRESH WHEN THIS PAGE IS LOAD
-            due_datee();
-            $(window).on('load', function() {
-                setTimeout(function() {
-                    display_item_rows();
-                    date_hired();
-                    check_ActivependingInvoices();
-                    show_profileDeductionType_Button();
-                    show_Profilededuction_Table_Active();
-                    show_edit()
-                    show_data();
-                }, 1500)
-            })
+
 
 
             var currentPage = apiUrl + "/admin/current";
@@ -1471,25 +1556,6 @@
                 e.preventDefault();
                 toast1.toast('hide');
             });
-
-
-            function due_datee() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var due_date = $("#due_date");
-                // Set the datepicker options
-                due_date.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        due_date.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                due_date.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
 
             function date_hired() {
                 // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
@@ -1941,7 +2007,7 @@
                                         apiUrl +
                                         '/admin/editInvoice/' +
                                         item.id +
-                                        '" style="color: #cf8029" ><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                        '" style="color: #cf8029" ><i class="fa-solid fa-eye"></i></a> </td>';
                                     tr += '</tr>';
                                     $("#dataTable_invoice tbody").append(tr);
                                     return ''
@@ -1993,7 +2059,9 @@
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             } else {
                                 $("#dataTable_invoice tbody").append(
-                                    '<tr><td colspan="6" class="text-center">No data</td></tr>'
+                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 let tbl_showing_invoice =
                                     `Showing 0 to 0 of 0 entries`;
@@ -2861,7 +2929,6 @@
             });
 
             $("#button-addon2").click(function(e) {
-                due_datee();
 
                 $('html, body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
@@ -3388,7 +3455,9 @@
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                 } else {
                                     $("#dataTable_deduction tbody").append(
-                                        '<tr><td colspan="6" class="text-center pb-2">No data</td></tr>'
+                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                     );
                                     let tbl_showing_deduction =
                                         `Showing 0 to 0 of 0 entries`;
