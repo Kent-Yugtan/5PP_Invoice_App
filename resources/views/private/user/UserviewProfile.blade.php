@@ -59,12 +59,12 @@
                                     disabled="true">
                             </div>
                             <!--
-                                        <div class="mb-3">
-                                            <label mb-2 style="color: #A4A6B3;">Password</label>
-                                            <input id="password" name="password" type="text"
-                                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                            >
-                                        </div> -->
+                                            <div class="mb-3">
+                                                <label mb-2 style="color: #A4A6B3;">Password</label>
+                                                <input id="password" name="password" type="text"
+                                                    class="form-control @error('password') is-invalid @enderror" placeholder="Password"
+                                                >
+                                            </div> -->
 
                             <div class="mb-3">
                                 <label mb-2 style="color: #A4A6B3;">Position</label>
@@ -418,7 +418,7 @@
                                                                     name="discount_type" id="user_discount_type"
                                                                     value="fixed">
                                                                 <label class="formGroupExampleInput2">
-                                                                    Fxd &nbsp; &nbsp;
+                                                                    Fixed &nbsp; &nbsp;
                                                                 </label>
                                                                 <input class="discount_type form-check-input"
                                                                     type="radio" name="discount_type"

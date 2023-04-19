@@ -29,8 +29,9 @@
                             class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
             </span>
-            <span class="icons d-none" style="padding-right:20px"><i style="color:#A4A6B3;"
-                    class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
+            <span class="icons d-none" style="padding-right:20px">
+                <i style="color:#A4A6B3;" class="fa-solid fa-grip-lines-vertical"></i>
+            </span>
             <div class="icons mobileLayout d-none">
                 <span style="margin-right:15px">{{ session('data')->first_name }}
                     {{ session('data')->last_name }}</span>
@@ -63,6 +64,8 @@
 
 <script>
     $(document).ready(function() {
+        show_user_data();
+        header_title();
 
         var windowWidth = $(window).width();
         if (windowWidth < 445) {
@@ -107,7 +110,7 @@
             }
         });
 
-        header_title();
+
 
         function header_title() {
             let url = window.location.pathname;
@@ -220,6 +223,6 @@
                     console.log('catch', error);
                 });
         })
-        show_user_data();
+
     });
 </script>

@@ -188,10 +188,9 @@
                                     var value = parseFloat(cell.text());
                                     cell.attr('s', '5');
                                     cell.attr('t', 'n');
-                                    var valueNode = cell.children('v');
-                                    valueNode.text(PHP(value).format());
-                                    valueNode[0].childNodes[0].nodeValue = PHP(value)
-                                        .format(); // Update existing cell value
+                                    // var valueNode = cell.children('v');
+                                    // valueNode.text(PHP(value).format());
+                                    // valueNode[0].childNodes[0].nodeValue = PHP(value).format(); // Update existing cell value
                                     cell.attr('s', '2'); // Align right
                                     cell.attr('t', 'n');
                                 }

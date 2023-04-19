@@ -111,13 +111,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                                id="tbl_showing_invoice"></div>
-                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
-                                </ul>
-                            </div>
+                        </div>
+                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                            id="tbl_showing_invoice"></div>
+                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                            <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -260,89 +260,90 @@
                 $('#' + id).addClass('input-group-focused');
             }
         }
+
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
         $(document).ready(function() {
-            let width = window.innerWidth; // Set the initial value of width
-            window.addEventListener("load", () => {
-                width = window.innerWidth;
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $('div.spanner').removeClass('show');
+                invoiceCount_active();
+                invoiceCount_inactive();
+                show_statusInactiveinvoice();
 
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
+                // check_InactiveStatusInvoice();
+            }, 1500)
 
-                if (width > 425 && width <= 768) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-
-                if (width > 768 && width <= 991) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width);
-                }
-                if (width > 992 && width <= 1127) {
-                    width = window.innerWidth - 341;
-                    $('.noData').css('width', width);
-                }
-                if (width > 1127) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-
-            });
-
-            window.addEventListener("resize", () => {
-                width = window.innerWidth;
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 425 && width <= 768) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 768 && width <= 991) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width);
-                }
-                if (width > 992 && width <= 1127) {
-                    width = window.innerWidth - 341;
-                    $('.noData').css('width', width);
-                }
-                if (width > 1127) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-            });
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
             });
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $('div.spanner').removeClass('show');
-                    invoiceCount_active();
-                    invoiceCount_inactive();
-                    show_statusInactiveinvoice();
 
-                    // check_InactiveStatusInvoice();
-                }, 1500)
-            })
 
             function selectShow() {
                 var numCheckboxes = $('.select-item').length;

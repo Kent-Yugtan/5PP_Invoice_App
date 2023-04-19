@@ -12943,6 +12943,7 @@ z-index: 9999;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
+    /* display: inline-block; DEFAULT */
     display: none;
 }
 
@@ -13789,15 +13790,11 @@ font-size: 14px;
   width:20px;
 }
 
-/* TABLE NO DATA */
-/* .no-data {
-  display: flex; 
-  justify-content: center;
+.datepicker-input.in-edit{
+  border: none !important;
 }
 
-.no-data .table-responsive::-webkit-scrollbar {
-  display: none !important;
-} */
-/* display: flex; */
-/* justify-content: center; */
-
+.datepicker-input.in-edit:active, .datepicker-input.in-edit:focus {
+  border: 1px solid #CF8029 !important;
+      box-shadow: none !important;
+}

@@ -38,9 +38,9 @@
                                             <div class="col">
                                                 <div class="form-group-profile">
                                                     <label for="due_date" style="color: #A4A6B3;">Due Date</label>
-                                                    <input type="text" placeholder="Due Date" id="due_date"
-                                                        onblur="(this.type='text')" name="due_date" class="form-control"
-                                                        required>
+                                                    <input type="text" id="due_date" name="due_date"
+                                                        class="datepicker_input form-control" placeholder="Due Date"
+                                                        required autocomplete="off">
                                                     <div class="invalid-feedback">This field is required.</div>
                                                 </div>
                                             </div>
@@ -86,12 +86,12 @@
                                                     <input class="form-check-input" type="radio" name="discount_type"
                                                         id="discount_type" value="Fixed">
                                                     <label class="formGroupExampleInput2">
-                                                        Fxd &nbsp; &nbsp;
+                                                        Fixed &nbsp; &nbsp;
                                                     </label>
                                                     <input class="discount_type form-check-input" type="radio"
                                                         name="discount_type" id="discount_type" value="Percentage">
                                                     <label class="formGroupExampleInput2">
-                                                        %
+                                                        Percentage
                                                     </label>
                                                     <!-- <input type="text" id="discount_type" class="form-control" /> -->
                                                 </div>
@@ -271,33 +271,22 @@
         $(document).ready(function() {
             const api = "https://api.exchangerate-api.com/v4/latest/USD";
 
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $('div.spanner').removeClass('show');
-                    due_datee();
-                    display_item_rows();
-                    selectProfile();
-                }, 1500)
-            })
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $('div.spanner').removeClass('show');
+                display_item_rows();
+                selectProfile();
+            }, 1500)
 
-            function due_datee() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var due_date = $("#due_date");
-                // Set the datepicker options
-                due_date.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        due_date.val(dateText);
-                    }
+            $('#due_date').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
                 });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                due_date.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
 
             var currentPage = window.location.href;
             console.log("CURRENT", currentPage);

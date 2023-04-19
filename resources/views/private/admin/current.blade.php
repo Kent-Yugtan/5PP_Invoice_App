@@ -92,13 +92,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                                id="tbl_user_showing"></div>
-                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
-                                </ul>
-                            </div>
+                        </div>
+                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                            id="tbl_user_showing"></div>
+                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                            <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                class="pagination pagination-sm flex-sm-wrap" id="tbl_user_pagination">
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -184,60 +184,72 @@
                 $('#' + id).addClass('input-group-focused');
             }
         }
+
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 570) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 570) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
+
         $(document).ready(function() {
 
-            let width = window.innerWidth; // Set the initial value of width
-            window.addEventListener("load", () => {
-                width = window.innerWidth;
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                active_count_paid();
+                active_count_pending()
+                show_data();
+            }, 1500)
 
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
 
-                if (width > 425 && width <= 570) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
 
-                if (width > 570) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-
-            });
-
-            window.addEventListener("resize", () => {
-                width = window.innerWidth;
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 425 && width <= 570) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 570) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-            });
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -450,15 +462,6 @@
                 }
             });
 
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    active_count_paid();
-                    active_count_pending()
-                    show_data();
-                }, 1500)
-            })
 
             function active_count_paid() {
                 axios.get(apiUrl + '/api/active_paid_invoice_count', {

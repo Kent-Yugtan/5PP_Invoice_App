@@ -31,46 +31,50 @@
                                 </div>
 
                                 <div class="row pt-3">
-                                    <div class="col-sm-6">
-                                        <span class="text-muted">Bill To:</span>
-                                    </div>
-                                    <div class="col-md-3 text-md-start">
-                                        <span class="text-muted">Date:</span>
-                                    </div>
-                                    <div class="col-md-3 text-md-end">
-                                        <div id="date_created"></div>
-                                    </div>
-                                </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="text-muted">Bill To:</span>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Date:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="date_created"></div>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-6">
-                                        <div class="fw-bolder" id="invoice_title"></div>
-                                    </div>
-                                    <div class="col-sm-3 col-lg-3 text-md-start">
-                                        <span class="text-muted">Due Date:</span>
-                                    </div>
-                                    <div class="col-sm-3 col-lg-3 text-md-end">
-                                        <div id="show_due_date"></div>
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="fw-bolder" id="invoice_title"></div>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Due Date:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="show_due_date"></div>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6 text-md-start">
-                                        <div id="bill_to_address"></div>
-                                    </div>
-                                    <div class="col-sm-3 text-md-start">
-                                        <span class="text-muted">Invoice Status:</span>
-                                    </div>
-                                    <div class="col-sm-3 text-md-end">
-                                        <div id="invoice_status"></div>
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col text-sm-start">
+                                                <div id="bill_to_address"></div>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Invoice Status:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="invoice_status"></div>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-3 text-muted text-md-start" id="text_date_received">
-                                    </div>
-                                    <div class="col-sm-3 text-md-end" id="date_received">
+                                        <div class="row">
+                                            <div class="col"></div>
+                                            <div class="col text-muted text-sm-start" id="text_date_received">
+                                            </div>
+                                            <div class="col text-sm-end" id="date_received">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -86,7 +90,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -138,7 +142,7 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
                                         </div>
 
 
@@ -541,9 +545,9 @@
                                                             <div class="form-group-profile">
                                                                 <label for="due_date" style="color:#A4A6B3">Due
                                                                     Date</label>
-                                                                <input type="text" placeholder="Due Date"
-                                                                    id="due_date" onblur="(this.type='text')"
-                                                                    name="due_date" class="form-control" required>
+                                                                <input type="text" id="due_date" name="due_date"
+                                                                    class="datepicker_input form-control"
+                                                                    placeholder="Due Date" required autocomplete="off">
                                                                 <div class="invalid-feedback">This field is required.</div>
                                                             </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
@@ -593,13 +597,13 @@
                                                                     name="discount_type" id="discount_type"
                                                                     value="Fixed">
                                                                 <label class="formGroupExampleInput2">
-                                                                    Fxd &nbsp; &nbsp;
+                                                                    Fixed &nbsp; &nbsp;
                                                                 </label>
                                                                 <input class="discount_type form-check-input"
                                                                     type="radio" name="discount_type"
                                                                     id="discount_type" value="Percentage">
                                                                 <label class="formGroupExampleInput2">
-                                                                    %
+                                                                    Percentage
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -758,15 +762,13 @@
 
 
         $(document).ready(function() {
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    due_date();
-                    show_invoice();
-                    show_invoice_config();
-                }, 1500)
-            })
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+
+                show_invoice();
+                show_invoice_config();
+            }, 1500)
 
             var currentPage = apiUrl + "/invoice/inactive";
             $('#collapseLayouts2 a').each(function() {
@@ -781,25 +783,6 @@
                     $('[data-bs-target="#collapseLayouts2"]').addClass('active');
                 }
             });
-
-            function due_date() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var due_date = $("#due_date");
-                // Set the datepicker options
-                due_date.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        due_date.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                due_date.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-
-            }
 
 
             let toast1 = $('.toast1');

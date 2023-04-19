@@ -53,18 +53,15 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-                                    <div style="display:flex;justify-content:center;"
-                                        class="page_showing pagination-alignment " id="tbl_showing"></div>
-                                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                            class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
-                                        </ul>
-                                    </div>
-
+                                </div>
+                                <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                                    id="tbl_showing"></div>
+                                <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                                    <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                        class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination">
+                                    </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

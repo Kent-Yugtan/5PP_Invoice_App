@@ -92,16 +92,16 @@
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
-                                id="tbl_showing_invoice"></div>
-                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                    class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
-                                </ul>
-                            </div>
-
                         </div>
+
+                        <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                            id="tbl_showing_invoice"></div>
+                        <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                            <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                class="pagination pagination-sm flex-sm-wrap" id="tbl_pagination_invoice">
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -399,7 +399,7 @@
                                     apiUrl +
                                     '/user/activeEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
@@ -537,7 +537,7 @@
                                     apiUrl +
                                     '/user/activeEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-eye"></i></a> </td>';
+                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i></a> </td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''

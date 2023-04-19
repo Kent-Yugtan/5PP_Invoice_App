@@ -77,12 +77,12 @@
                                                     <input class="form-check-input" type="radio" name="discount_type"
                                                         id="discount_type" value="Fixed">
                                                     <label class="formGroupExampleInput2">
-                                                        Fxd &nbsp; &nbsp;
+                                                        Fixed &nbsp; &nbsp;
                                                     </label>
                                                     <input class="discount_type form-check-input" type="radio"
                                                         name="discount_type" id="discount_type" value="Percentage">
                                                     <label class="formGroupExampleInput2">
-                                                        %
+                                                        Percentage
                                                     </label>
                                                     <!-- <input type="text" id="discount_type" class="form-control" /> -->
                                                 </div>

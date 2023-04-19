@@ -65,7 +65,7 @@
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <label for="profile_id" style="color: #A4A6B3;">Profile</label>
-                                        <select class="form-select" name="selectProfile" id="profile_id" required>
+                                        <select class="form-select " name="selectProfile" id="profile_id" required>
                                             <option value="" selected disabled style="color: #A4A6B3;">Select Profile
                                             </option>
                                         </select>
@@ -76,8 +76,10 @@
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <label for="due_date" style="color: #A4A6B3;">Due Date</label>
-                                        <input type="text" placeholder="Due Date" onblur="(this.type='text')"
-                                            id="due_date" name="due_date" class="form-control" required>
+
+                                        <input type="text" id="due_date" name="due_date"
+                                            class="datepicker_input form-control" placeholder="Due Date" required
+                                            autocomplete="off">
                                         <div class="invalid-feedback">This field is required.</div>
                                     </div>
                                 </div>
@@ -224,58 +226,83 @@
 
 
 
-    <script type="text/javascript">
+    <script>
         const PHP = value => currency(value, {
             symbol: '',
             decimal: '.',
             separator: ','
         });
+
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
         $(document).ready(function() {
+            const api = "https://api.exchangerate-api.com/v4/latest/USD";
+            setTimeout(function() {
+                profile_id();
+                check_ActivependingInvoices();
+                pendingInvoices();
+                overdueInvoices();
+                active_count_paid();
+                active_count_pending();
+                active_count_overdue();
+                active_count_cancelled();
+                // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
+                getResults_Converted();
+            }, 1500)
 
-            let width = window.innerWidth; // Set the initial value of width
-            window.addEventListener("load", () => {
-                width = window.innerWidth;
-
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-
-                if (width > 425) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-
+            $('#due_date').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
             });
 
-            window.addEventListener("resize", () => {
-                width = window.innerWidth;
-                if (width <= 320) {
-                    width = window.innerWidth - 110;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 320 && width <= 375) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
-                if (width > 375 && width <= 425) {
-                    width = window.innerWidth - 115;
-                    $('.noData').css('width', width + 'px');
-                }
 
-                if (width > 425) {
-                    width = 'auto';
-                    $('.noData').css('width', width);
-                }
-            });
+
             var path = window.location.pathname;
             var segments = path.split('/');
             var id = '#' + segments[1] + segments[2];
@@ -289,46 +316,27 @@
             let converted_amount = 0;
             let sumObj = 0;
             //  For creating invoice codes
-            const api = "https://api.exchangerate-api.com/v4/latest/USD";
             $("div.spanner").addClass("show");
-            $(window).on('load', function() {
-                setTimeout(function() {
-                    // $("div.spanner").removeClass("show");
-                    // 
-                    // 
-                    profile_id();
-                    check_ActivependingInvoices();
-                    pendingInvoices();
-                    overdueInvoices();
-                    active_count_paid();
-                    active_count_pending();
-                    active_count_overdue();
-                    active_count_cancelled();
-                    due_date();
-                    // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
-                    getResults_Converted();
-                }, 1500);
 
-            });
 
-            function due_date() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#due_date");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        // dateInput.val(dateText);
-                        $('#due_date').val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
+            // function due_date() {
+            // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
+            // Get the input field
+            // var dateInput = $("#due_date");
+            // Set the datepicker options
+            // dateInput.datepicker({
+            // dateFormat: "yy/mm/dd",
+            // onSelect: function(dateText, inst) {
+            // Update the input value with the selected date
+            // dateInput.val(dateText);
+            // $('#due_date').val(dateText);
+            // }
+            // });
+            // Set the input value to the current system date in the specified format
+            // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
+            // dateInput.val(currentDate);
+            // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
+            // }
 
             let toast1 = $('.toast1');
             toast1.toast({
