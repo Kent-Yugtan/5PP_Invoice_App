@@ -679,7 +679,7 @@ class InvoiceController extends Controller
     $invoiceItems = $request->invoiceItems;
 
     if ($error == false) {
-      $incoming_data = $request->validate([
+      $request->validate([
         'profile_id' => 'required',
         'due_date' => 'required',
         'description' => 'required',
@@ -687,7 +687,10 @@ class InvoiceController extends Controller
       ]);
 
       if ($profile_id) {
-        $incoming_data += [
+        $incoming_data = [
+          'profile_id' => $request->profile_id,
+          'due_date' => $request->due_date,
+          'description' => $request->description,
           'peso_rate' => $request->peso_rate,
           'converted_amount' => $request->converted_amount,
           'discount_type' => $request->discount_type,
@@ -799,6 +802,7 @@ class InvoiceController extends Controller
 
           $this->sendEmail_admin();
           $this->sendEmail_profile();
+
           return response()->json([
             'success' => true,
             'message' => "The invoice has been created successfully and sent to your email.",
