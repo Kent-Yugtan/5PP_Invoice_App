@@ -3,16 +3,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 p-4" style="display:flex;justify-content:center">
-                <div class="card-border shadow" style="min-height: 450px; width:450px; background-color:white">
+                <div class="card-border shadow" style="min-height: 450px; width:375px; background-color:white">
                     <div
-                        style="text-align: center;height: 100px; padding-top: 20px;font-size:40px;display: flex;justify-content: center;align-items: center;">
+                        style="text-align: center;height: 100px;font-size:40px;display: flex;justify-content: center;align-items: center;">
                         <img src="{{ URL('images/Invoices-logo.png') }}" style="width: 65px" />
                     </div>
-                    <div class="input-color" style="text-align: center; font-size:30px;">
+                    <div class="input-color bottom10" style="text-align: center; font-size:22px;font-weight:600">
                         {{ __('5PP Invoicing App') }}
                     </div>
-                    <div style="text-align: center;font-size:25px">
-                        <strong> Login </strong>
+                    <div style="text-align: center;font-size:22px">
+                        <label style="color: #A4A6B3;"> Login </label>
                     </div>
 
                     <div class="input-color" style="text-align: center;">
@@ -29,37 +29,43 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-12" style="padding-top:10px">
-                                    <label class="form-label" for="email">Email Address</label>
-                                    <input id="email" placeholder="Enter Email Address" type="text"
+                                <div class="col-md-12">
+                                    <label for="email"
+                                        style="color: #A4A6B3;font-size:12px;font-weight:600">EMAIL</label>
+                                    <input id="email" placeholder="Email Address" type="text" autocomplete="off"
                                         class="form-control" name="email">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-12" style="padding-top:10px">
-                                    <div class="form-group-profile has-toggle">
-                                        <label for="password" style="color: #A4A6B3;">Password</label>
+                                <div class="col-md-12">
+                                    <div class="has-toggle">
+                                        <div class="d-flex justify-content-between">
+                                            <label for="password"
+                                                style="color: #A4A6B3;font-size:12px;font-weight:600">PASSWORD</label>
+                                            <a style="text-decoration:none;color: #A4A6B3;font-size:12px;font-weight:600"
+                                                class="input-color" href="{{ url('forgotPassword') }}">Forgot
+                                                password?</a>
+                                        </div>
+
                                         <div class="input-group" id="show_hide_password">
                                             <input class="form-control" id="password" name="password" type="password"
-                                                placeholder="Password" style="border-radius: 0.25rem" required>
+                                                placeholder="Password" style="border-radius: 0.25rem" autocomplete="off"
+                                                required>
                                             <div class="invalid-feedback">This field is required.</div>
                                             <div class="form-control-feedback" id="toggle_password">
-                                                <a href="#" id="eye" class="" style="color:#CF8029">
+                                                <a href="#" id="eye" class="" style="color:#A4A6B3">
                                                     <i class="fa fa-eye-slash" id="show"></i>
                                                     <i class="fa fa-eye d-none" id="hide"></i>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <label class="form-label" for="password">Password</label>
-                                    <input id="password" placeholder="Enter password" type="password" class="form-control"
-                                        name="password"> --}}
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-12" style="padding-top:10px">
+                                <div class="col-md-12">
                                     <button type="submit" id="button-submit"
                                         style="width:100%; color:white; background-color: #CF8029;" class="btn">
                                         Login
@@ -70,10 +76,10 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-12" style="text-align: center;padding-top:10px">
-                                    <!-- <label class="input-color">{{ __('Don\'t have an account?') }} </label> -->
-                                    <a style="text-decoration:none;" class="input-color"
-                                        href="{{ url('forgotPassword') }}">Forgot
-                                        password</a>
+                                    <label class="input-color">{{ __('Don\'t have an account?') }} <label
+                                            style="color: #CF8029">Signup</label>
+                                    </label>
+
                                 </div>
                             </div>
                         </form>

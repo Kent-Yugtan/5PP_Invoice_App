@@ -52,6 +52,7 @@ Route::middleware(['auth:api'])->group(function () {
   //  VALIDATION FOR PROFILE
   Route::post('validateEmail', [ProfileController::class, 'validateEmail']);
   Route::post('validateUsername', [ProfileController::class, 'validateUsername']);
+  Route::post('vallidateConfirmPassword', [ProfileController::class, 'vallidateConfirmPassword']);
   Route::post('validateAcctno', [ProfileController::class, 'validateAcctno']);
   Route::post('validateAcctname', [ProfileController::class, 'validateAcctname']);
   Route::post('validateGcashno', [ProfileController::class, 'validateGcashno']);

@@ -757,7 +757,7 @@
 
             function show_data(filters) {
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: 1,
                     ...filters,
                 }

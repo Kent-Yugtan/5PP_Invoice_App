@@ -2986,7 +2986,7 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-sm-1 col-remove-deductions " style="display:flex;justify-content:center">';
+                                        '<div class="col-sm-1 col-remove-deductions " style="display:flex;justify-content:center;align-items:center">';
                                     add_rows += '<div class="">';
                                     add_rows +=
                                         '<button type="button" class="btn remove_deductions"><i class="fa fa-trash pe-1" style="color:red"></i></button>';

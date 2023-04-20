@@ -98,7 +98,7 @@
                                             </div>
 
                                             <div class="col-lg-4">
-                                                <div>
+                                                <div id="col_discount_amount" class="d-none">
                                                     <label for="discount_amount" class="label_discount_amount"
                                                         style="color: #A4A6B3;">Discount
                                                         Amount ($)</label>
@@ -108,7 +108,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
-                                                <div>
+                                                <div id="col_discount_total" class="d-none">
                                                     <label style="color: #A4A6B3;" for="discount_total"
                                                         class="label_discount_total">Discount
                                                         Total ($)</label>
@@ -123,13 +123,21 @@
 
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-lg-12 d-flex justify-content-end w-100">
-                                                <div>
-                                                    <label for="sub_total" style="color:#A4A6B3">Subtotal ($): </label>
-                                                    <input type="text"
-                                                        style="font-weight: bold;text-align:right;border:none;background-color:white"
-                                                        name="sub_total" id="sub_total"
-                                                        class="form-control no-outline sub_total" readonly tabindex="-1">
+                                            <div class="col-sm-12 d-flex justify-content-end w-100">
+                                                <div class="topBottom20" style="width: 290px !important;">
+                                                    <div class="input-group">
+                                                        <label class="d-flex align-items-center" for="sub_total"
+                                                            style="color:#A4A6B3">Subtotal ($):
+                                                        </label>
+                                                        <input type="text"
+                                                            style="font-weight: bold; text-align:right;border:none;background-color:white "
+                                                            name="sub_total" id="sub_total"
+                                                            class="form-control sub_total" readonly>
+                                                        <div class="invalid-feedback"
+                                                            style="padding-left: 85px;
+                                                      ">
+                                                            This field is required.</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,10 +195,11 @@
 
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-lg-12 d-flex justify-content-end w-100">
+                                            <div class="col-sm-12 d-flex justify-content-end">
                                                 <!-- border-style:none -->
-                                                <div>
-                                                    <label for="grand_total" class="fw-bold">Grand Total(Php):</label>
+                                                <div class="input-group" style="width: 290px">
+                                                    <label class="d-flex align-items-center fw-bold"
+                                                        for="grand_total">Grand Total(Php):</label>
                                                     <input type="text" id="grand_total" class="form-control fw-bold"
                                                         style="text-align:right;border:0;background-color:white;" disabled>
                                                 </div>
@@ -317,8 +326,8 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
-            $("#discount_amount").addClass('d-none');
-            $("#discount_total").addClass('d-none');
+            $("#col_discount_amount").addClass('d-none');
+            $("#col_discount_total").addClass('d-none');
             $(".label_discount_amount").addClass('d-none');
             $(".label_discount_total").addClass('d-none');
 
@@ -326,16 +335,16 @@
             $('input[type=radio][id=discount_type]').change(function() {
 
                 if (subtotal == 0) {
-                    $("#discount_amount").addClass('d-none');
-                    $("#discount_total").addClass('d-none');
+                    $("#col_discount_amount").addClass('d-none');
+                    $("#col_discount_total").addClass('d-none');
                     $(".label_discount_amount").addClass('d-none');
                     $(".label_discount_total").addClass('d-none');
                 } else {
                     if (this.value == 'Fixed') {
                         //write your logic here
                         // console.log("FIXED");
-                        $("#discount_amount").removeClass('d-none');
-                        $("#discount_total").removeClass('d-none');
+                        $("#col_discount_amount").removeClass('d-none');
+                        $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
 
@@ -345,8 +354,8 @@
                     } else if (this.value == 'Percentage') {
                         //write your logic here
                         // console.log("PERCENTAGE");
-                        $("#discount_amount").removeClass('d-none');
-                        $("#discount_total").removeClass('d-none');
+                        $("#col_discount_amount").removeClass('d-none');
+                        $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
 
@@ -401,9 +410,11 @@
                     let parent = $(this).closest('.row1');
                     let quantity = parent.find('.quantity').val();
                     let rate = parent.find('.rate').val();
+                    let amount = parent.find('.amount').val();
 
                     parent.find('.quantity').val(PHP(quantity).format());
                     parent.find('.rate').val(PHP(rate).format());
+                    parent.find('.amount').val(PHP(amount).format());
                 })
                 DeductionItems_total();
             })
@@ -635,9 +646,9 @@
                     add_rows += '<div class="form-group-profile">';
                     add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
                     add_rows +=
-                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" required />';
+                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity"  />';
                     // add_rows += '</div>';
-                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    // add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
                     add_rows += ' </div>';
 
@@ -646,19 +657,18 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
                     add_rows +=
-                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" required/>';
+                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" />';
                     // add_rows += '</div>';
-                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    // add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
                     add_rows += '<div class="col-lg-2 bottom20">';
-                    // add_rows += '<div class="form-floating form-group">';
-                    // style="text-align:right;border:none;background-color:white"
-                    add_rows += '<label for="amount" style="color:#A4A6B3">Amount</label>';
+                    add_rows +=
+                        '<label for="amount" style="color:#A4A6B3;display:grid;justify-content:end">Amount</label>';
                     add_rows +=
                         '<input type="text" style="text-align:right;border:none;background-color:white" readonly name="amount" id="amount" class="form-control amount" />';
-                    // add_rows += '</div>';
+
                     add_rows += '</div>';
 
                     add_rows +=
@@ -751,7 +761,7 @@
                 let invoice_notes = $('#notes').val();
 
                 // INVOICE ITEMS TABLE
-                let invoiceItem = [];
+                let invoiceItems = [];
                 $('#show_items .row').each(function() {
                     let item_description = $(this).find('.item_description').val() ? $(
                             this)
@@ -767,9 +777,9 @@
                             ',', '') ?
                         $(
                             this).find('.amount')
-                        .val().replaceAll(',', '') : 0;
+                        .val().replaceAll(',', '') : "0.00";
 
-                    invoiceItem.push({
+                    invoiceItems.push({
                         item_description,
                         item_rate,
                         item_qty,
@@ -805,7 +815,7 @@
                     discount_total: invoice_discount_total ? invoice_discount_total : 0,
                     grand_total_amount: invoice_total_amount ? invoice_total_amount : 0,
                     notes: invoice_notes,
-                    invoiceItem,
+                    invoiceItems,
                     Deductions,
                 }
 
@@ -842,13 +852,14 @@
                             toast1.toast('show');
                             $('#invoice_items').trigger('reset');
                             $('#invoice_items').removeClass('was-validated');
-                            due_datee();
+                            $('#show_items').empty();
+                            display_item_rows();
                         }, 1500)
 
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    // if (error.response.data.errors) {
+                    // if () {
                     //     $('input').removeClass('is-invalid');
                     //     $('input, select').removeClass('is-invalid');
                     //     $('.invalid-feedback').remove();

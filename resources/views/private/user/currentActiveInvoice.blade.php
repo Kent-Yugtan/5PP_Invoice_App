@@ -270,7 +270,7 @@
             function search_userstatusActive_invoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     filter_all_invoices: $('#filter_invoices').val(),
@@ -454,7 +454,7 @@
             function show_data(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: page ? page : 1,
                     filter_all_invoices: $('#filter_invoices').val(),
                     search: $('#search').val(),
