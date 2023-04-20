@@ -284,7 +284,7 @@
     </div>
 
     <!-- Modal FOR Active Invoice -->
-    <div class="modal fade" id="activeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="activeModal"  data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -330,7 +330,7 @@
     </div>
 
     <!-- Modal FOR Inactive Invoice -->
-    <div class="modal fade" id="inactiveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="inactiveModal"  data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -376,7 +376,7 @@
     </div>
 
     <!-- Modal FOR Paid Invoice -->
-    <div class="modal fade" id="paidModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="paidModal"  data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -423,7 +423,7 @@
     </div>
 
     <!-- Modal FOR Cancel Invoice -->
-    <div class="modal fade" id="cancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="cancelModal"  data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -470,7 +470,7 @@
     </div>
 
     <!-- Modal FOR DELETE INVOICE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal"  data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -518,7 +518,7 @@
 
 
     <!-- MODAL FOR EDIT INVOICE -->
-    <div class="modal fade" id="updateModal" data-bs-backdrop="static" tabindex="-1"
+    <div class="modal fade" id="updateModal"  tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="hide-content">

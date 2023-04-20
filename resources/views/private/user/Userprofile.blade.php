@@ -395,8 +395,7 @@
     </div>
 
     <!-- START CREATE INVOICE MODAL -->
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="hide-content">
                 <div class="modal-body">
@@ -638,7 +637,7 @@
     </div>
 
     <!-- START MODAL ADD -->
-    <div class="modal fade" id="modal-create-deduction" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
@@ -696,7 +695,7 @@
 
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
-    <div class="modal fade" id="ProfileDeductioneditModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
@@ -766,8 +765,8 @@
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
@@ -826,8 +825,8 @@
     <!-- START MODAL UPDATE INVOICE STATUS -->
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -874,7 +873,7 @@
     </div>
 
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">

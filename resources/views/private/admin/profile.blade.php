@@ -378,7 +378,7 @@
 
     <!-- Modal FOR CROPING IMAGE-->
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">

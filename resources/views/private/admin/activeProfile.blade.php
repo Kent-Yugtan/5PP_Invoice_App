@@ -487,8 +487,7 @@
     </div>
 
     <!-- START CREATE INVOICE MODAL -->
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="hide-content">
                 <div class="modal-body">
@@ -579,24 +578,28 @@
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <label for="discount_amount" class="label_discount_amount"
-                                                                style="color:#A4A6B3">Discount
-                                                                Amount ($)</label>
-                                                            <input type="text" step="any"
-                                                                style="text-align:right;" name="discount_amount"
-                                                                id="discount_amount" class="form-control"
-                                                                maxlength="6" />
+                                                            <div id="col_discount_amount" class="d-none">
+                                                                <label for="discount_amount" class="label_discount_amount"
+                                                                    style="color:#A4A6B3">Discount
+                                                                    Amount ($)</label>
+                                                                <input type="text" step="any"
+                                                                    style="text-align:right;" name="discount_amount"
+                                                                    id="discount_amount" class="form-control"
+                                                                    maxlength="6" />
+                                                            </div>
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <label for="discount_total" class="label_discount_total"
-                                                                style="color:#A4A6B3">Discount
-                                                                Total ($)</label>
-                                                            <input type="text" disabled
-                                                                style="text-align:right; border:0px;background-color:white;"
-                                                                onkeypress="return onlyNumberKey(event)"
-                                                                name="discount_total" id="discount_total"
-                                                                class="form-control" />
+                                                            <div id="col_discount_total" class="d-none">
+                                                                <label for="discount_total" class="label_discount_total"
+                                                                    style="color:#A4A6B3">Discount
+                                                                    Total ($)</label>
+                                                                <input type="text" disabled
+                                                                    style="text-align:right; border:0px;background-color:white;"
+                                                                    onkeypress="return onlyNumberKey(event)"
+                                                                    name="discount_total" id="discount_total"
+                                                                    class="form-control" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -740,7 +743,7 @@
     </div>
 
     <!-- START MODAL ADD -->
-    <div class="modal fade" id="modal-create-deduction" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
@@ -801,7 +804,7 @@
     </div>
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
-    <div class="modal fade" id="ProfileDeductioneditModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
@@ -879,8 +882,8 @@
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
@@ -939,8 +942,8 @@
     <!-- START MODAL UPDATE INVOICE STATUS -->
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -987,7 +990,7 @@
     </div>
 
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">
@@ -2426,24 +2429,24 @@
             //  For creating invoice codes
             const api = "https://api.exchangerate-api.com/v4/latest/USD";
 
-            $("#discount_amount").addClass('d-none');
-            $("#discount_total").addClass('d-none');
+            $("#col_discount_amount").addClass('d-none');
+            $("#col_discount_total").addClass('d-none');
             $(".label_discount_amount").addClass('d-none');
             $(".label_discount_total").addClass('d-none');
 
             $('input[type=radio][id=discount_type]').change(function() {
                 console.log("DISCOUNT TYPE", $(this).val());
                 if (sub_total == 0) {
-                    $("#discount_amount").addClass('d-none');
-                    $("#discount_total").addClass('d-none');
+                    $("#col_discount_amount").addClass('d-none');
+                    $("#col_discount_total").addClass('d-none');
                     $(".label_discount_amount").addClass('d-none');
                     $(".label_discount_total").addClass('d-none');
                 } else {
                     if ($(this).val() === 'Fixed') {
                         //write your logic here
                         // console.log("FIXED");
-                        $("#discount_amount").removeClass('d-none');
-                        $("#discount_total").removeClass('d-none');
+                        $("#col_discount_amount").removeClass('d-none');
+                        $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
 
@@ -2453,8 +2456,8 @@
                     } else if ($(this).val() === 'Percentage') {
                         //write your logic here
                         // console.log("PERCENTAGE");
-                        $("#discount_amount").removeClass('d-none');
-                        $("#discount_total").removeClass('d-none');
+                        $("#col_discount_amount").removeClass('d-none');
+                        $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
 
@@ -2873,17 +2876,12 @@
 
             // CHECK IF THE USER HAVE THE PROFILE
             $("#exampleModal").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    location.reload(true);
-                    $("div.spanner").removeClass("show");
-                    $('#invoice_items').trigger('reset'); // reset the form
-                    show_data();
-                }, 3500)
-
+                $("#col_discount_amount").addClass('d-none');
+                $("#col_discount_total").addClass('d-none');
+                $('#show_items').empty();
+                display_item_rows();
+                $("div.spanner").removeClass("show");
+                $('#invoice_items').trigger('reset'); // reset the form
                 $('#show_deduction_items').empty();
                 $('textarea').val('');
             });

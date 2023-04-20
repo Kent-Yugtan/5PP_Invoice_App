@@ -759,9 +759,9 @@
 
                                 <div class="form-group mt-3" id="select_deduction_name">
                                     <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </select> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option selected disabled value="">Please Select Deductions</option>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </select> -->
                                 </div>
 
                                 <div class="form-group">
@@ -869,8 +869,8 @@
     <!-- START MODAL DEDUCTION EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
@@ -932,7 +932,7 @@
     <!-- START MODAL UPDATE INVOICE STATUS -->
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -979,7 +979,7 @@
     </div>
 
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">
