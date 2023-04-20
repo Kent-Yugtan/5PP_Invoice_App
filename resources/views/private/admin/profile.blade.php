@@ -89,12 +89,12 @@
 
                                     <div class="row">
                                         <div class="col-12 ">
-                                            <div class="form-group-profile has-toggle">
+                                            <div id="mobileValidatePassword" class="form-group-profile has-toggle">
                                                 <label for="password" style="color: #A4A6B3;">Password</label>
                                                 <div class="input-group" id="show_hide_password">
                                                     <input class="form-control" id="password" name="password"
                                                         type="password" placeholder="Password" required>
-                                                    <div class="invalid-feedback">This field is required.</div>
+                                                    <div id="error_password" class="invalid-feedback"></div>
                                                     <div class="form-control-feedback" id="toggle_password">
                                                         <a href="#" id="eye" class=""
                                                             style="color:#CF8029">
@@ -102,6 +102,30 @@
                                                             <i class="fa fa-eye d-none" id="hide"></i>
                                                         </a>
                                                     </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 ">
+                                            <div id="mobileValidateConfirmPassword" class="form-group-profile has-toggle">
+                                                <label for="confirm-password" style="color: #A4A6B3;">Confirm
+                                                    Password</label>
+                                                <div class="input-group" id="confirm_show_hide_password">
+                                                    <input class="form-control" id="password_confirmation"
+                                                        name="password_confirmation" type="password"
+                                                        placeholder="Confirm password" required>
+                                                    <div id="error_confirm_password" class="invalid-feedback"></div>
+                                                    <div class="form-control-feedback" id="confirm_toggle_password">
+                                                        <a href="#" id="eye" class=""
+                                                            style="color:#CF8029">
+                                                            <i class="fa fa-eye-slash" id="confirm_show"></i>
+                                                            <i class="fa fa-eye d-none" id="confirm_hide"></i>
+                                                        </a>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -489,6 +513,126 @@
             })
         }
 
+        function vallidateConfirmPassword(a, b) {
+            console.log("A", a.val());
+            console.log("B", b.val());
+            let data = {
+                password: $(a).val(),
+                password_confirmation: $(b).val(),
+            }
+            axios.post(apiUrl + "/api/vallidateConfirmPassword", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#password").removeClass('is-invalid');
+                    $("#password_confirmation").removeClass('is-invalid');
+
+                    $("#error_password").removeClass('invalid-feedback').html("").show();
+                    $("#error_confirm_password").removeClass('invalid-feedback').html("").show();
+
+                    $('#mobileValidatePassword').removeClass('form-group-adjust');
+                    $('#mobileValidateConfirmPassword').removeClass('form-group-adjust');
+
+                    $("#toggle_password").css("margin-right", "0px");
+                    $("#confirm_toggle_password").css("margin-right", "0px");
+
+                }
+            }).catch(function(error) {
+                console.log("Error", error);
+
+                if (error.response.data.errors.password && error.response.data.errors.password_confirmation) {
+                    $error_password = error.response.data.errors.password[0];
+                    $error_confirm_password = error.response.data.errors.password_confirmation[0];
+                    if (error.response.data.errors.password.length > 0 && error.response.data.errors
+                        .password_confirmation.length > 0) {
+                        if ($error_password == "The password field is required." && $error_confirm_password ==
+                            "The password confirmation field is required.") {
+
+                            $("#error_password").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            $("#error_confirm_password").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            $('#mobileValidatePassword').removeClass('form-group-adjust');
+
+                            $('#mobileValidateConfirmPassword').removeClass('form-group-adjust');
+
+                            $("#password").addClass('is-invalid');
+                            $("#password_confirmation").addClass('is-invalid');
+                            $("#toggle_password").css("margin-right", "20px");
+                            $("#confirm_toggle_password").css("margin-right", "20px");
+                            console.log(
+                                "The password field is required. && The password confirmation field is required."
+                            );
+                        } else if ($error_password == "The password field is required." &&
+                            $error_confirm_password ==
+                            "The password does not match.") {
+                            $("#error_password").addClass('invalid-feedback').html(
+                                "").show();
+                            $("#error_confirm_password").addClass('invalid-feedback').html(
+                                "").hide();
+                            $("#password").addClass('is-invalid');
+                            $("#password_confirmation").removeClass('is-invalid');
+                            $('#mobileValidateConfirmPassword').removeClass('form-group-adjust');
+                            $("#toggle_password").css("margin-right", "20px");
+                            $("#confirm_toggle_password").css("margin-right", "20px");
+                            console.log("The password field is required. && The password does not match.");
+                        } else if ($error_password == "The password confirmation does not match." &&
+                            $error_confirm_password ==
+                            "The password confirmation field is required.") {
+
+                            $("#error_password").addClass('invalid-feedback').html(
+                                "The password confirmation does not match.").show();
+                            $("#error_confirm_password").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+
+                            $("#password").addClass('is-invalid');
+                            $("#password_confirmation").addClass('is-invalid');
+                            $('#mobileValidatePassword').addClass('form-group-adjust');
+
+                            $("#toggle_password").css("margin-right", "20px");
+                            $("#confirm_toggle_password").css("margin-right", "20px");
+                            console.log(
+                                "The password confirmation does not match. && The password confirmation field is required."
+                            );
+                        }
+                    }
+                } else {
+                    $error_password = error.response.data.errors.password[0];
+                    if (error.response.data.errors.password.length > 0) {
+                        if ($error_password == "The password field is required.") {
+                            $("#error_password").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            $("#error_confirm_password").addClass('invalid-feedback').html(
+                                "").show();
+
+                            $("#password").addClass('is-invalid');
+                            $("#password_confirmation").removeClass('is-invalid');
+                            $("#toggle_password").css("margin-right", "20px");
+                            $("#confirm_toggle_password").css("margin-right", "0px");
+                            console.log(
+                                "This field is required."
+                            );
+                        } else if ($error_password == "The password confirmation does not match.") {
+                            $("#error_password").addClass('invalid-feedback').html(
+                                "").show();
+                            $("#error_confirm_password").addClass('invalid-feedback').html(
+                                "The password confirmation does not match.").show();
+
+                            $('#mobileValidateConfirmPassword').addClass('form-group-adjust');
+
+                            $("#password").removeClass('is-invalid');
+                            $("#password_confirmation").addClass('is-invalid');
+                            $("#toggle_password").css("margin-right", "0px");
+                            $("#confirm_toggle_password").css("margin-right", "20px");
+                        }
+                    }
+                }
+            })
+        }
+
         function validateAcctno(e) {
             console.log("VALIDATE", e.value);
             let data = {
@@ -616,6 +760,11 @@
         }
 
         $(document).ready(function() {
+            $('#password, #password_confirmation').on('blur', function() {
+                // Call vallidateConfirmPassword with the input fields as arguments
+                vallidateConfirmPassword($('#password'), $('#password_confirmation'));
+
+            });
 
             $("div.spanner").addClass("show");
             setTimeout(function() {
@@ -631,8 +780,6 @@
                     datepicker.hide();
                 });
             });
-
-
 
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
@@ -744,6 +891,20 @@
                 }
             });
 
+            $("#confirm_show_hide_password a").on('click', function(e) {
+                e.preventDefault();
+                if ($('#confirm_show_hide_password input').attr("type") == "text") {
+                    $('#confirm_show_hide_password input').attr('type', 'password');
+                    $('#confirm_hide').addClass("d-none");
+                    $('#confirm_show').removeClass("d-none");
+                } else if ($('#confirm_show_hide_password input').attr("type") == "password") {
+                    $('#confirm_show_hide_password input').attr('type', 'text');
+                    $('#confirm_show').addClass("d-none");
+                    $('#confirm_hide').removeClass("d-none");
+                }
+            });
+
+
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {
                 // Compare the href attribute of the link to the current page URL
@@ -784,13 +945,7 @@
                 toast1.toast('hide');
             })
 
-            $('#password').on('keyup', function() {
-                if ($(this).val() != "") {
-                    $("#toggle_password").css("margin-right", "0px");
-                } else {
-                    $("#toggle_password").css("margin-right", "20px");
-                }
-            })
+
 
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.querySelectorAll('.needs-validation')
@@ -810,11 +965,12 @@
 
             $('#ProfileStore').submit(function(e) {
                 e.preventDefault();
-                // $('html,body').animate({
-                //   scrollTop: $('#sb-nav-fixed').offset().top
-                // }, 'slow');
-                if ($('#password').val() == "") {
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                if ($('#password').val() == "" && $('#password_confirmation').val() == "") {
                     $("#toggle_password").css("margin-right", "20px");
+                    $("#confirm_toggle_password").css("margin-right", "20px");
                 }
 
                 let first_name = $("#first_name").val();
@@ -822,6 +978,7 @@
                 let email = $("#email").val();
                 let username = $("#username").val();
                 let password = $("#password").val();
+                let password_confirmation = $("#password_confirmation").val();
                 let position = $("#position").val();
                 let phone_number = $("#phone_number").val();
                 let address = $("#address").val();
@@ -884,7 +1041,8 @@
                     email: email,
                     username: username,
                     password: password,
-                    position: position,
+                    password_confirmation: password_confirmation,
+                    position: position ? position : "",
                     phone_number: phone_number,
                     address: address,
                     province: province,
@@ -898,10 +1056,11 @@
                     gcash_no: gcash_no,
                     date_hired: date_hired,
                     deduction_type_id: JSON.stringify(deduction_type_id),
-                    file_original_name: file_original_name,
-                    file_name: file_name,
-                    file_path: file_path,
+                    file_original_name: file_original_name ? file_original_name : "",
+                    file_name: file_name ? file_name : "",
+                    file_path: file_path ? file_path : "",
                 }
+                console.log("data", data);
 
                 axios.post(apiUrl + '/api/saveprofile', data, {
                         headers: {
@@ -1004,6 +1163,35 @@
                                 }
                             } else {
                                 $("#error_username").removeClass('invalid-feedback').html("").show();
+                            }
+
+                            // ERROR PASSWORD
+                            if (error.response.data.errors.password) {
+                                if (error.response.data.errors.password.length > 0) {
+                                    $error_password = error.response.data.errors.password[0];
+                                    if ($error_password == "The password field is required.") {
+                                        $("#error_password").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_password").removeClass('invalid-feedback').html("").show();
+                            }
+
+                            // ERROR CONFIRM PASSWORD
+                            if (error.response.data.errors.password_confirmation) {
+                                if (error.response.data.errors.password_confirmation.length > 0) {
+                                    $error_confirm_password = error.response.data.errors
+                                        .password_confirmation[0];
+                                    if ($error_confirm_password ==
+                                        "The password confirmation field is required.") {
+                                        $("#error_confirm_password").addClass('invalid-feedback').html(
+                                            "This field is required.").show();
+                                    }
+                                }
+                            } else {
+                                $("#error_confirm_password").removeClass('invalid-feedback').html("")
+                                    .show();
                             }
 
                             // ERROR ACCT_NO

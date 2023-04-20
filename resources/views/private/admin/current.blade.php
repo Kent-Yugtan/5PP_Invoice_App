@@ -515,7 +515,7 @@
             function show_data(filters) {
                 let page = $("#tbl_user_pagination .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     ...filters,
@@ -546,8 +546,8 @@
                                             '</div></td>';
                                     } else {
                                         tr +=
-                                            '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
-                                            item.file_path + '">&nbsp;' + item.full_name +
+                                            '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="/images/default.png">&nbsp;' +
+                                            item.full_name +
                                             '</div></td>';
                                     }
                                     tr += '<td class="fit">' + item.profile_status + '</td>';
@@ -611,9 +611,10 @@
                                                 item.file_path + '">&nbsp;' + item.full_name +
                                                 '</div></td>';
                                         } else {
+
                                             tr +=
-                                                '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
-                                                item.file_path + '">&nbsp;' + item.full_name +
+                                                '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill"     src="/images/default.png">&nbsp;' +
+                                                item.full_name +
                                                 '</div></td>';
                                         }
                                         tr += '<td class="fit">' + item.profile_status +
@@ -691,7 +692,7 @@
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
                             } else {
-                                selectShow();
+
                                 $("#tbl_user tbody").append(
                                     '<tr><td colspan="7" class="text-center"><div class="noData" style="width:' +
                                     width +
@@ -700,6 +701,7 @@
                                 let tbl_user_showing =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
+                                selectShow();
 
                             }
                         }

@@ -500,7 +500,7 @@
                 let page = $("#tbl_pagination_pendingInvoice .page-item.active .page-link").html();
 
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: page ? page : 1,
                     ...filters,
                 }
@@ -607,7 +607,7 @@
             function overdueInvoices(filters) {
                 let page = $("#tbl_pagination_overdueInvoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: page ? page : 1,
                     ...filters
                 }

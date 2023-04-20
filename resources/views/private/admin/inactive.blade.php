@@ -516,7 +516,7 @@
 
             function show_data(filters) {
                 let filter = {
-                    page_size: 5,
+                    page_size: 10,
                     page: 1,
                     search: $('#search').val(),
                     ...filters,
@@ -548,8 +548,8 @@
                                             '</div></td>';
                                     } else {
                                         tr +=
-                                            '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
-                                            item.file_path + '">&nbsp;' + item.full_name +
+                                            '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="/images/default.png">&nbsp;' +
+                                            item.full_name +
                                             '</div></td>';
                                     }
                                     tr += '<td class="fit">' + item.profile_status + '</td>';
@@ -613,9 +613,10 @@
                                                 item.file_path + '">&nbsp;' + item.full_name +
                                                 '</div></td>';
                                         } else {
+
                                             tr +=
-                                                '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill" src="' +
-                                                item.file_path + '">&nbsp;' + item.full_name +
+                                                '<td class="fit"><div class="row w-100" ><div class="col" ><img style="height:40px;width:40px" class="rounded-pill"     src="/images/default.png">&nbsp;' +
+                                                item.full_name +
                                                 '</div></td>';
                                         }
                                         tr += '<td class="fit">' + item.profile_status +

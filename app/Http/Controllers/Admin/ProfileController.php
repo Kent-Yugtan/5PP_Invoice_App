@@ -99,7 +99,8 @@ class ProfileController extends Controller
         'last_name' => 'required',
         'email' => 'required|unique:users|email',
         'username' => 'required|unique:users',
-        'password' => 'required',
+        'password' => 'required|confirmed',
+        'password_confirmation' => 'required',
         'acct_no' => 'required|unique:profiles',
         'acct_name' => 'required|unique:profiles',
         'gcash_no' => 'required|unique:profiles|numeric',
@@ -429,6 +430,21 @@ class ProfileController extends Controller
       'data' => $validateUsername,
     ], 200);
   }
+
+  // VALIDATION
+  public function vallidateConfirmPassword(Request $request)
+  {
+    $confirmPassword = $request->validate([
+      'password' => 'required|confirmed',
+      'password_confirmation' => 'required',
+    ]);
+
+    return response()->json([
+      'success' => true,
+      'data' => $confirmPassword,
+    ], 200);
+  }
+
 
 
   // VALIDATION
@@ -915,13 +931,13 @@ class ProfileController extends Controller
       if (!$userId) {
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully added to the database.',
+          'message' => 'Your Profile has been added successfully.',
           'data' => $userCreate,
         ], 200);
       } else {
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your Profile has been updated successfully.',
           'data' => $userCreate,
         ], 200);
       }
@@ -954,7 +970,7 @@ class ProfileController extends Controller
         $data->save();
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your Profile has been updated successfully .',
         ], 200);
       } else {
 
@@ -962,7 +978,7 @@ class ProfileController extends Controller
           ->update(['profile_status' => 'Inactive']);
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your Profile has been updated successfully .',
         ], 200);
       }
     }
@@ -980,7 +996,7 @@ class ProfileController extends Controller
         $data->save();
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your Profile has been updated successfully.',
         ], 200);
       } else {
 
@@ -988,7 +1004,7 @@ class ProfileController extends Controller
           ->update(['profile_status' => 'Active']);
         return response()->json([
           'success' => true,
-          'message' => 'Your Profile has been successfully updated to the database.',
+          'message' => 'Your Profile has been updated successfully.',
         ], 200);
       }
     }
