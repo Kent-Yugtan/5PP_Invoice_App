@@ -802,7 +802,7 @@ class InvoiceController extends Controller
 
           $this->sendEmail_admin();
           $this->sendEmail_profile();
-          
+
           return response()->json([
             'success' => true,
             'message' => "The invoice has been created successfully and sent to your email.",
