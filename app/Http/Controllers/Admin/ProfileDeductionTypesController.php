@@ -38,15 +38,14 @@ class ProfileDeductionTypesController extends Controller
     if ($error === false) {
       if (!$profileDeductionTypes_id) {
         $incoming_data = $request->validate([
-          'deduction_type_id' => 'required',
+          'deduction_type_name' => 'required',
           'amount' => 'required',
         ]);
 
-        $deductionType = DeductionType::find($request->deduction_type_id);
+        // $deductionType = DeductionType::find($request->deduction_type_id);
         $incoming_data += [
           'profile_id' => $request->profile_id,
-          // 'deduction_type_id' => $request->deduction_type_id,
-          'deduction_type_name' => $deductionType->deduction_name,
+          'deduction_type_id' => '0',
         ];
 
         $storeData = ProfileDeductionTypes::Create(
@@ -76,6 +75,30 @@ class ProfileDeductionTypesController extends Controller
           'data' => $store_data,
         ], 200);
       }
+    }
+  }
+
+
+  // VALIDATION
+  public function validateProfileDeduction(Request $request)
+  {
+    $id = $request->id;
+    $data = ProfileDeductionTypes::find($id);
+    if ($id && $data) {
+      $profileId = $data->profile_id;
+      $validateProfileDeduction = $request->validate([
+        'deduction_type_name' => [
+          'required',
+          Rule::unique('profile_deduction_types')
+            ->where('profile_id', $profileId)
+            ->ignore($id),
+        ],
+      ]);
+
+      return response()->json([
+        'success' => true,
+        'data' => $validateProfileDeduction,
+      ], 200);
     }
   }
 

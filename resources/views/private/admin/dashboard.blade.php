@@ -118,13 +118,13 @@
 
         <div class="row">
             <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white h-100" style="padding:20px">
+                <div class="card-border shadow bg-white " style="padding:20px">
                     <div class="header fs-3 fw-bold bottom10" style="padding-left:15px">
                         <label> Pending Invoices</label>
                     </div>
 
-                    <div class="card-body table-responsive">
-                        <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="pendingInvoices">
+                    <div class="card-body table-responsive max-height">
+                        <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover " id="pendingInvoices">
                             <thead>
                                 <tr>
                                     <th class="fit">Invoice #</th>
@@ -148,9 +148,23 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-body d-none" id="selectPending">
+                        <div class="input-group" style="width:145px !important">
+                            <select id="tbl_showing_pendingInvoicePages" class="form-select">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="input-group-text border-0">/Page</span>
+                        </div>
+                    </div>
+
                     <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                         id="tbl_showing_pendingInvoice">
                     </div>
+
                     <div class="pagination-alignment" style="display:flex;justify-content:center;">
                         <ul style="display:flex;justify-content:flex-start;margin-top:15px"
                             class="pagination pagination-sm flex-wrap" id="tbl_pagination_pendingInvoice">
@@ -167,7 +181,7 @@
                         <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
                         <label> Overdue Invoices</label>
                     </div>
-                    <div class="card-body table-responsive">
+                    <div class="card-body table-responsive max-height">
                         <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="overdueInvoices">
                             <thead>
                                 <tr>
@@ -192,6 +206,18 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-body d-none" id="selectOverdue">
+                        <div class="input-group" style="width:145px !important">
+                            <select id="tbl_showing_overdueInvoicePages" class="form-select ">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="input-group-text border-0">/Page</span>
+                        </div>
                     </div>
                     <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                         id="tbl_showing_overdueInvoice"></div>
@@ -279,6 +305,7 @@
         });
         $(document).ready(function() {
             const api = "https://api.exchangerate-api.com/v4/latest/USD";
+            let pageSize = 10; // initial page size
             setTimeout(function() {
                 profile_id();
                 check_ActivependingInvoices();
@@ -300,8 +327,6 @@
                     datepicker.hide();
                 });
             });
-
-
 
             var path = window.location.pathname;
             var segments = path.split('/');
@@ -417,38 +442,6 @@
                 })
             }
 
-            // $("#tbl_pagination_pendingInvoice").on('click', '.page-item', function() {
-            //   $('html,body').animate({
-            //     scrollTop: $('#sb-nav-fixed').offset().top
-            //   }, 'slow');
-
-            //   $("div.spanner").addClass("show");
-            //   setTimeout(function() {
-            //           $("div.spanner").removeClass("show");
-            // 
-            // 
-            //     $('html,body').animate({
-            //       scrollTop: $('#pendingInvoices_card').offset().top
-            //     }, 'slow');
-            //   }, 1500);
-            // })
-
-            // $("#tbl_pagination_overdueInvoice").on('click', '.page-item', function() {
-            //   $('html,body').animate({
-            //     scrollTop: $('#sb-nav-fixed').offset().top
-            //   }, 'slow');
-
-            //   $("div.spanner").addClass("show");
-            //   setTimeout(function() {
-            //           $("div.spanner").removeClass("show");
-            // 
-            // 
-            //     $('html,body').animate({
-            //       scrollTop: $('#overdueInvoices_card').offset().top
-            //     }, 'slow');
-            //   }, 1500);
-            // })
-
             // CHECK PENDING INVOICES
             function check_ActivependingInvoices(filters) {
                 axios.get(`${apiUrl}/api/admin/check_ActivependingInvoices?${new URLSearchParams(filters)}`, {
@@ -495,12 +488,31 @@
                 })
             }
 
+            $('#tbl_showing_pendingInvoicePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                pendingInvoices({
+                    page_size: pages
+                });
+            })
+
+            $('#tbl_showing_overdueInvoicePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                overdueInvoices({
+                    page_size: pages
+                });
+            })
+
+
             // View Pending Invoices
             function pendingInvoices(filters) {
                 let page = $("#tbl_pagination_pendingInvoice .page-item.active .page-link").html();
 
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     ...filters,
                 }
@@ -544,14 +556,24 @@
                                 $('#pendingInvoices tbody').append(tr);
                             })
                             $('#tbl_pagination_pendingInvoice').empty();
+
+
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-              <a class="page-link" data-url="${item.url}">${item.label}</a>
-            </li>`
-                                $('#tbl_pagination_pendingInvoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+                                      <a class="page-link" data-url="${item.url}">${label}</a>
+                                      </li>`;
+
+                                $('#tbl_pagination_pendingInvoice').append(li);
+                                return "";
+                            });
+
 
                             // console.log("data.data.links.length", data.data.links)
                             if (data.data.links.length) {
@@ -589,6 +611,7 @@
                             let tbl_showing_pendingInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_pendingInvoice').html(tbl_showing_pendingInvoice);
+                            $('#selectPending').removeClass('d-none');
                         } else {
                             $("#pendingInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
@@ -596,6 +619,7 @@
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
 
                             );
+                            $('#selectPending').addClass('d-none');
 
                         }
                     }
@@ -607,7 +631,7 @@
             function overdueInvoices(filters) {
                 let page = $("#tbl_pagination_overdueInvoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     ...filters
                 }
@@ -649,48 +673,22 @@
                                 $('#overdueInvoices tbody').append(tr);
                             })
                             $('#tbl_pagination_overdueInvoice').empty();
+
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link " data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_overdueInvoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
 
-                            // const nextLink = data.data.links.find(link => link.label === "Next &raquo;");
-                            // // console.log("data.data.links", data.data.links);
-                            // // Check if the "next" link item is disabled
-                            // if (nextLink.label == "Next &raquo;" && nextLink.url == null) {
-                            //   // Disable the "next" button in the UI
-                            //   $('#tbl_pagination_overdueInvoice').empty()
-                            //   let dataLink = []
-                            //   dataLink = data.data.links.pop();
-                            //   data.data.links.map(item => {
-                            //     let li =
-                            //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-                        //   <a class="page-link" data-url="${item.url}">${item.label}</a>
-                        //   </li>`
-                            //     $('#tbl_pagination_overdueInvoice').append(li)
-                            //     return ""
-                            //   })
-                            // }
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
 
-                            // const prevLink = data.data.links.find(link => link.label === "&laquo; Previous");
-                            // // console.log("data.data.links", data.data.links);
-                            // // Check if the "next" link item is disabled
-                            // if (prevLink.label == "&laquo; Previous" && prevLink.url == null) {
-                            //   // Disable the "next" button in the UI
-                            //   $('#tbl_pagination_overdueInvoice').empty()
-                            //   let dataLink = []
-                            //   dataLink = data.data.links.shift();
-                            //   data.data.links.map(item => {
-                            //     let li =
-                            //       `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-                        //   <a class="page-link" data-url="${item.url}">${item.label}</a>
-                        //   </li>`
-                            //     $('#tbl_pagination_overdueInvoice').append(li)
-                            //     return ""
-                            //   })
-                            // }
+                                $('#tbl_pagination_overdueInvoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -724,12 +722,14 @@
                             let tbl_showing_overdueInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_overdueInvoice').html(tbl_showing_overdueInvoice);
+                            $('#selectOverdue').removeClass('d-none');
                         } else {
                             $("#overdueInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
                                 width +
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
+                            $('#selectOverdue').addClass('d-none');
                         }
                     }
                 }).catch(function(error) {
@@ -836,15 +836,16 @@
             })
 
             var forms = document.querySelectorAll('.needs-validation');
-            Array.prototype.slice.call(forms).forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
+            Array.prototype.slice.call(forms).forEach(
+                function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
 
             $('#quick_invoice').submit(function(e) {
                 e.preventDefault();

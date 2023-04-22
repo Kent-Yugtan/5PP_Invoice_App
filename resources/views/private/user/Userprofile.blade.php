@@ -1260,12 +1260,22 @@
                                 return ''
                             })
                             $('#tbl_pagination_invoice').empty();
+
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_invoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                $('#tbl_pagination_invoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -2082,10 +2092,10 @@
                 // console.log("row_item", row_item);
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -2126,10 +2136,10 @@
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -2763,11 +2773,20 @@
                                     })
                                     $('#tbl_pagination_deduction').empty();
                                     data.data.links.map(item => {
-                                        let li =
-                                            `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                        $('#tbl_pagination_deduction').append(li)
-                                        return ""
-                                    })
+                                        let label = item.label;
+                                        if (label === "&laquo; Previous") {
+                                            label = "&laquo;";
+                                        } else if (label === "Next &raquo;") {
+                                            label = "&raquo;";
+                                        }
+
+                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                        $('#tbl_pagination_deduction').append(li);
+                                        return "";
+                                    });
 
                                     if (data.data.links.length) {
                                         let lastPage = data.data.links[data.data.links.length - 1];

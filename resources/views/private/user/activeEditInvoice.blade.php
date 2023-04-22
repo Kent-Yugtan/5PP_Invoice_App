@@ -80,13 +80,13 @@
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <div class="rounded-3" style="background-color: #A4A6B3;">
+                                        <div class="rounded-3" style="background-color: #d4d4d4;">
                                             <div class="row">
                                                 <div class="col"
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                                                                                  <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                                                                      <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -99,7 +99,7 @@
                                         <table class="table table-responsive-sm" id="table_invoiceItems"
                                             style="table-layout: fixed;">
                                             <thead class="thead-dark"
-                                                style="border-radius: 3px; background-color: black; color: white;">
+                                                style="border-radius: 3px; background-color: #515964; color: white;">
                                                 <tr>
                                                     <th class="fit"
                                                         style="border-right: 2px solid rgb(255,255,255);width: 55px;">
@@ -116,7 +116,7 @@
                                                         Amount</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="px-3" style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
+                                            <tbody class="px-3">
                                             </tbody>
                                         </table>
                                     </div>
@@ -136,11 +136,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                  <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                                                                                                                    <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                                  <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                                                                                                                      <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                                                                                                                        <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                                                                                                                      <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                                                                                                                    </div> -->
                                         </div>
 
 
@@ -1032,10 +1032,10 @@
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -1078,10 +1078,10 @@
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -1118,10 +1118,10 @@
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',

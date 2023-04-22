@@ -3,7 +3,7 @@
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
-            <div class="col-md-12 col-lg-12 col-xl-5 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-md-12 col-lg-12 col-xl-4 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <div class="row">
@@ -20,7 +20,7 @@
                                 <input type="text" id="profile_id_show" hidden>
 
                                 <div class="col-md-6 col-lg-6">
-                                    <div class="profile-pic-div_adminProfile-wrapper bottom20">
+                                    <div class="profile-pic-div_adminProfile-wrapper ">
                                         <div class="profile-pic-div_adminActiveProfile">
                                             <img src="/images/default.png" id="photo">
                                             <!-- id="file" ORIGINAL ID -->
@@ -320,7 +320,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-lg-12 col-xl-7 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-md-12 col-lg-12 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <ul class="nav nav-pills bottom20" id="pills-tab" role="tablist">
@@ -340,6 +340,7 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-invoice" role="tabpanel"
                                     aria-labelledby="pills-invoice-tab">
+
                                     <div class="row">
                                         <div class="col-sm-4 bottom20">
                                             <button style="color:white; background-color: #CF8029;" data-bs-toggle="modal"
@@ -370,16 +371,16 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="max-height:1232px !important">
                                                 <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
                                                     id="dataTable_invoice">
                                                     <thead>
                                                         <tr>
                                                             <th class="fit">Invoice #</th>
                                                             <th class="fit text-center">Payment Status</th>
-                                                            <th class="fit">Total Amount</th>
-                                                            <th class="fit">Date Created</th>
-                                                            <th class="fit">Due Date</th>
+                                                            <th class="fit text-end">Total Amount</th>
+                                                            <th class="fit text-end">Date Created</th>
+                                                            <th class="fit text-end">Due Date</th>
                                                             <th class="fit text-center">Action</th>
                                                         </tr>
                                                     </thead>
@@ -398,13 +399,27 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="d-none" id="selectActive">
+                                                <div class="input-group" style="width:145px !important">
+                                                    <select id="tbl_showing_activeProfilePages" class="form-select">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="75">75</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <span class="input-group-text border-0">/Page</span>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;justify-content:center;"
+                                                class="page_showing pagination-alignment " id="tbl_showing_invoice"></div>
+                                            <div class="pagination-alignment"
+                                                style="display:flex;justify-content:center;">
+                                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                                    class="pagination pagination-sm flex-wrap"
+                                                    id="tbl_pagination_invoice">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:center;"
-                                        class="page_showing pagination-alignment " id="tbl_showing_invoice"></div>
-                                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                            class="pagination pagination-sm flex-wrap" id="tbl_pagination_invoice">
                                     </div>
                                 </div>
 
@@ -412,14 +427,11 @@
                                     aria-labelledby="pills-deduction-tab">
                                     <div class="row">
                                         <div class="col-sm-6 bottom20">
-                                            <button type="button" id="submit-create-deduction"
-                                                class="btn form-check-inline pe-3" data-bs-toggle="modal"
-                                                data-bs-target="#modal-create-deduction"
-                                                style="color:white; background-color: #CF8029;width:100%">
-                                                <i class="fa fa-plus pe-1"></i>
-                                                Add Deduction
-                                            </button>
+                                            <select id="deductionDropSearch" class="form-select">
+
+                                            </select>
                                         </div>
+
                                         <div class="col-sm-6 bottom20">
                                             <div class=" has-search">
                                                 <span class="fa fa-search form-control-feedback"
@@ -431,8 +443,21 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label for="date_hired" style="color: #A4A6B3;margin-left:7px">Deduction
-                                                Types</label>
+                                            <div class="d-flex justify-content-between">
+                                                <label class="d-flex align-items-center" for="deductionButton"
+                                                    style="color: #A4A6B3;margin-left:7px">Deduction
+                                                    Types</label>
+                                                {{-- <button type="button" id="submit-create-deduction" class="btn"
+                                                    data-bs-toggle="modal" data-bs-target="#modal-create-deduction"
+                                                    style="color:white; background-color: #CF8029;width:10%">
+                                                    <i class="fa-solid fa-circle-plus "></i>
+                                                </button> --}}
+
+                                                <label type="button" id="submit-create-deduction" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-create-deduction"
+                                                    style="font-size:25px;color:#CF8029">
+                                                    <i class="fa-solid fa-circle-plus "></i></label>
+                                            </div>
                                             <div id="deductionButton" style="word-wrap: break-word;">
                                             </div>
                                         </div>
@@ -440,14 +465,14 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="max-height:1147px !important">
                                                 <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
                                                     id="dataTable_deduction">
                                                     <thead>
                                                         <tr>
                                                             <th class="fit">Invoice #</th>
                                                             <th class="fit text-center">Payment Status</th>
-                                                            <th class="fit">Deduction Name</th>
+                                                            <th class="fit text-end">Deduction Name</th>
                                                             <th class="fit text-end">Amount</th>
                                                             <th class="fit text-end">Date Created</th>
                                                         </tr>
@@ -467,14 +492,28 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="d-none" id="selectDeductionTypes">
+                                                <div class="input-group" style="width:145px !important">
+                                                    <select id="tbl_showing_deductionTypesPages" class="form-select">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="75">75</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <span class="input-group-text border-0">/Page</span>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;justify-content:center;"
+                                                class="page_showing pagination-alignment " id="tbl_showing_deduction">
+                                            </div>
+                                            <div class="pagination-alignment"
+                                                style="display:flex;justify-content:center;">
+                                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                                    class="pagination pagination-sm flex-wrap"
+                                                    id="tbl_pagination_deduction"></ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:center;"
-                                        class="page_showing pagination-alignment " id="tbl_showing_deduction">
-                                    </div>
-                                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                            class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction"></ul>
                                     </div>
                                 </div>
                             </div>
@@ -554,7 +593,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
                                                         <div class="col-lg-4 bottom20"
                                                             style="display: flex;align-items: start;">
@@ -607,15 +646,18 @@
                                                 <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col-lg-12" style="justify-content:end;display:flex">
-                                                            <div>
-                                                                <label for="sub_total" style="color:#A4A6B3">Subtotal
-                                                                    ($):
-                                                                </label>
-                                                                <input type="text"
-                                                                    style="font-weight: bold;text-align:right;border:none;background-color:white"
-                                                                    name="sub_total" id="sub_total"
-                                                                    class="form-control no-outline sub_total"
-                                                                    tabindex="-1" readonly>
+                                                            <div class="topBottom20" style="width: 290px !important;">
+                                                                <div class="input-group">
+                                                                    <label class="d-flex align-items-center"
+                                                                        for="sub_total" style="color:#A4A6B3">Subtotal
+                                                                        ($):
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        style="font-weight: bold;text-align:right;border:none;background-color:white"
+                                                                        name="sub_total" id="sub_total"
+                                                                        class="form-control no-outline sub_total"
+                                                                        tabindex="-1" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -675,10 +717,10 @@
 
                                                 <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-lg-12" style="justify-content:end;display:flex">
-                                                            <!-- border-style:none -->
-                                                            <div>
-                                                                <label for="grand_total" class="fw-bold">Grand
+                                                        <div class="col-sm-12 d-flex justify-content-end">
+                                                            <div class="input-group" style="width: 290px">
+                                                                <label for="grand_total"
+                                                                    class="fw-bold d-flex align-items-center">Grand
                                                                     Total(Php):</label>
                                                                 <input type="text" id="grand_total"
                                                                     class="form-control fw-bold"
@@ -762,8 +804,22 @@
 
                                         <div class="row">
                                             <div class="col-12  ">
-                                                <input type="text" id="createDeduction_profile_id" hidden>
-                                                <div class="form-group" id="select_deduction_name"></div>
+                                                <div id="mobileValidateStoreDeductionname" class="form-group-profile">
+                                                    <input type="text" id="createDeduction_profile_id" hidden>
+                                                    {{-- <div class="form-group" id="select_deduction_name"></div> --}}
+                                                    <div class="form-group-profile">
+                                                        <label for="createDeduction_deduction_name"
+                                                            style="color:#A4A6B3">Dedution Name:</label>
+                                                        <input id="createDeduction_deduction_name"
+                                                            name="createDeduction_deduction_name" type="text"
+                                                            class="createDeduction_deduction_name form-control"
+                                                            onblur="validateProfileDeduction(this)"
+                                                            placeholder="Deduction Name" required>
+                                                        <div id="invalid-feedback-storeDeduction-name"
+                                                            class="invalid-feedback">
+                                                            This field is required.</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -815,7 +871,7 @@
                             <div class="card-border shadow bg-white h-100" style="padding:20px">
                                 <div class="card-body">
                                     <div class="row " id="header">
-                                        <div class="col-md-12  w-100">
+                                        <div class="col-md-12 w-100">
                                             <div class="row">
                                                 <div class="col bottom20">
                                                     <span class="fs-3 fw-bold"> Update Profile Deduction</span>
@@ -853,17 +909,18 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-sm-auto bottom20">
+                                                <div class="col-sm-4 bottom20">
                                                     <button type="button" class="btn w-100" id="cancelProfileDeduction"
+                                                        data-bs-dismiss="modal"
                                                         style="color:#CF8029; background-color:#f3f3f3;">Cancel</button>
                                                 </div>
-                                                <div class="col-sm-auto bottom20">
+                                                <div class="col-sm-4 bottom20">
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal" id="deleteProfileDeduction"
                                                         class="btn btn-danger w-100"
                                                         style="color:White; background-color:#dc3545;">Delete</button>
                                                 </div>
-                                                <div class="col-sm-auto bottom20">
+                                                <div class="col-sm-4 bottom20">
                                                     <button type="submit" class="btn w-100"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
@@ -1044,7 +1101,7 @@
 
     <script type="text/javascript">
         let total_deduction_amount = 0
-        let x = 0;
+        let x = 1;
 
         const PHP = value => currency(value, {
             symbol: '',
@@ -1052,15 +1109,62 @@
             separator: ','
         });
 
-        // VALIDATE UPDATE
-        function editValidateProfileDeductionname(e) {
-            console.log("edit_profileDeductionType_name", e.value);
-            let PDT = $('#profileDeductionType_id').val();
-            console.log("PDT", PDT);
+        // VALIDATE STORE PROFILE DEDUCTION TYPE NAME
+        // invalid-feedback-storeDeduction-name
+        function validateProfileDeduction(e) {
+            let PDT = $('#createDeduction_profile_id').val();
             let data = {
                 id: PDT,
                 deduction_type_name: e.value
             }
+            console.log("createDeduction_deduction_name", data);
+            axios.post(apiUrl + "/api/validateProfileDeduction", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#createDeduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateStoreDeductionname').removeClass('form-group-adjust');
+                } else {
+                    $("#createDeduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateStoreDeductionname').removeClass('form-group-adjust');
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error)
+                if (error.response.data.errors.deduction_type_name) {
+                    if (error.response.data.errors.deduction_type_name.length > 0) {
+                        $error = error.response.data.errors.deduction_type_name[0];
+                        if ($("#createDeduction_deduction_name").val() == "") {
+                            $("#invalid-feedback-storeDeduction-name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            $('#mobileValidateStoreDeductionname').removeClass('form-group-adjust');
+                        } else {
+
+                            if ($error == "The deduction type name has already been taken.") {
+                                $("#invalid-feedback-storeDeduction-name").addClass('invalid-feedback').html(
+                                    "The deduction name has already been taken.").show();
+                                $('#mobileValidateStoreDeductionname').addClass('form-group-adjust');
+                            }
+                        }
+                        $("#createDeduction_deduction_name").addClass('is-invalid');
+                    }
+                }
+            })
+        }
+
+        // VALIDATE UPDATE
+        function editValidateProfileDeductionname(e) {
+            console.log("edit_profileDeductionType_name", e.value);
+            let PDT = $('#profileDeductionType_id').val();
+            let data = {
+                id: PDT,
+                deduction_type_name: e.value
+            }
+            console.log("PDT", data);
             axios.post(apiUrl + "/api/editValidateProfileDeductionname", data, {
                 headers: {
                     Authorization: token
@@ -1399,7 +1503,9 @@
 
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
-
+            let pageSize = 10; // initial page size
+            //  For creating invoice codes
+            const api = "https://api.exchangerate-api.com/v4/latest/USD";
             // due_datee();
             // date_hired();
             setTimeout(function() {
@@ -1407,9 +1513,57 @@
                 check_ActivependingInvoices();
                 show_profileDeductionType_Button();
                 show_Profilededuction_Table_Active();
+                show_profileDeductionType_select();
                 show_edit()
                 show_data();
             }, 1500)
+
+            function show_profileDeductionType_select() {
+                let url = window.location.pathname;
+                let urlSplit = url.split('/');
+
+                if (urlSplit.length === 5) {
+                    let profile_id = urlSplit[4];
+                    // console.log("profile_id", profile_id);
+                    $('#deductionDropSearch').empty();
+                    axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {
+                            headers: {
+                                Authorization: token,
+                            },
+                        })
+                        .then(function(response) {
+                            let data = response.data;
+                            if (data.success) {
+                                let label = '';
+                                label +=
+                                    `<option value="">Please Select Deduction Types</option>`;
+                                if (data.data.profile_deduction_types.length > 0) {
+
+                                    data.data.profile_deduction_types.map((item) => {
+                                        label +=
+                                            "<option value=" +
+                                            item.deduction_type_name + ">" + item.deduction_type_name +
+                                            "</option>";
+                                    })
+                                    $("#deductionDropSearch").append(label);
+                                    return '';
+                                } else {
+                                    let label = '';
+                                    label +=
+                                        `<option value="">Please Select Deduction Types</option>`;
+                                    label +=
+                                        `<option value="" class="text-start">No Data</option>`;
+                                    $("#deductionDropSearch").append(label);
+                                    return '';
+                                }
+                            }
+                        })
+                        .catch(function(error) {
+
+                            console.log("catch error", error);
+                        });
+                }
+            }
 
             $('#due_date').each(function() {
                 const datepicker = new Datepicker(this, {
@@ -1435,13 +1589,11 @@
             })
 
             $("#previewModal").on('hide.bs.modal', function() {
-
                 document.getElementById("upload_image").value = "";
                 $('#imageRow').addClass('d-none')
             });
 
             $('#upload_image').on('change', function() {
-
                 $('#imageRow').removeClass('d-none')
                 var reader = new FileReader();
                 reader.onload = function(event) {
@@ -1508,10 +1660,12 @@
                                     '{{ asset('storage/images') }}/' + data
                                     .image);
                                 // console.log("data.image", data);
-                                file_original_name = data.image ? data.image : "";
+                                file_original_name = data.image ? data.image :
+                                    "";
                                 file_name = data.image ? data.image : "";;
                                 file_path = data.path ? data.path : "";
-                                document.getElementById("upload_image").value = "";
+                                document.getElementById("upload_image").value =
+                                    "";
                                 $('#imageRow').addClass('d-none')
                                 // toast1.toast('show');
                             }, 1500)
@@ -1527,11 +1681,8 @@
             });
             // END CODE FOR CROPING IMAGE
 
-
             $('#cancel_edit_profile').addClass('d-none');
             // REFRESH WHEN THIS PAGE IS LOAD
-
-
 
             var currentPage = apiUrl + "/admin/current";
             $('#collapseLayouts a').each(function() {
@@ -1560,24 +1711,6 @@
                 toast1.toast('hide');
             });
 
-            function date_hired() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var date_hired = $("#date_hired");
-                // Set the datepicker options
-                date_hired.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        date_hired.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                date_hired.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
-
             $('#cancel_edit_profile').on('click', function(e) {
                 e.preventDefault();
                 $('html, body').animate({
@@ -1599,7 +1732,8 @@
                 $('div.spanner').addClass("show");
                 setTimeout(function() {
                     $('div.spanner').removeClass("show");
-                    const imgDiv = document.querySelector(".profile-pic-div_adminActiveProfile");
+                    const imgDiv = document.querySelector(
+                        ".profile-pic-div_adminActiveProfile");
                     //if user hover on img div
                     imgDiv.addEventListener("mouseenter", function() {
                         uploadBtn.style.display = "block";
@@ -1692,7 +1826,8 @@
                             $("div.spanner").removeClass("show");
 
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             // show_data();
@@ -1700,6 +1835,7 @@
                             $('#dataTable_deduction tbody').html(
                                 show_Profilededuction_Table_Active());
                             toast1.toast('show');
+                            show_data();
                         }, 1500);
 
                     }
@@ -1775,7 +1911,8 @@
                             } else {
                                 $("#photo").attr("src", "/images/default.png");
                             }
-                            old_file_original_name = data.data.profile.file_original_name ? data.data.profile
+                            old_file_original_name = data.data.profile.file_original_name ? data.data
+                                .profile
                                 .file_original_name :
                                 "";
                             old_file_name = data.data.profile.file_name ? data.data.profile.file_name : "";
@@ -1795,8 +1932,6 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     $('#tbl_pagination_invoice').empty();
                     show_data();
                 }, 1500);
@@ -1809,10 +1944,20 @@
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     $('#tbl_pagination_deduction').empty();
                     show_Profilededuction_Table_Active();
+                }, 1500);
+            })
+
+            $('#deductionDropSearch').on('change', function() {
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $("div.spanner").removeClass("show");
+                    $('#tbl_pagination_deduction').empty();
+                    show_Profilededuction_Table_Active_Select();
                 }, 1500);
             })
 
@@ -1923,6 +2068,15 @@
                 })
             }
 
+            $('#tbl_showing_activeProfilePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
+
             // SHOW DATA ON TABLE
             function show_data(filters) {
                 let url = window.location.pathname;
@@ -1932,7 +2086,7 @@
                     // console.log("sddsadsa", urlSplit.length);
                     let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                     let filter = {
-                        page_size: 30,
+                        page_size: pageSize,
                         page: page ? page : 1,
                         user_id: urlSplit[3],
                         search: $('#search_invoice').val(),
@@ -1999,7 +2153,8 @@
                                                 minimumFractionDigits: 2
                                             }) +
                                         '</td>';
-                                    tr += '<td class="fit text-end">' + moment.utc(item.created_at)
+                                    tr += '<td class="fit text-end">' + moment.utc(item
+                                            .created_at)
                                         .tz('Asia/Manila')
                                         .format('MM/DD/YYYY') +
                                         '</td>';
@@ -2016,12 +2171,22 @@
                                     return ''
                                 })
                                 $('#tbl_pagination_invoice').empty();
+
                                 data.data.links.map(item => {
-                                    let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                    $('#tbl_pagination_invoice').append(li)
-                                    return ""
-                                })
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
+                                    let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                    $('#tbl_pagination_invoice').append(li);
+                                    return "";
+                                });
 
                                 if (data.data.links.length) {
                                     let lastPage = data.data.links[data.data.links.length - 1];
@@ -2037,29 +2202,31 @@
                                     }
                                 }
 
-                                $("#tbl_pagination_invoice .page-item .page-link").on('click', function() {
-                                    $("#tbl_pagination_invoice .page-item").removeClass(
-                                        'active');
-                                    let url = $(this).data('url');
-                                    $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name +
-                                                "=([^&#]*)")
-                                            .exec(
-                                                url
-                                            );
-                                        return results !== null ? results[1] || 0 : 0;
-                                    };
+                                $("#tbl_pagination_invoice .page-item .page-link").on('click',
+                                    function() {
+                                        $("#tbl_pagination_invoice .page-item").removeClass(
+                                            'active');
+                                        let url = $(this).data('url');
+                                        $.urlParam = function(name) {
+                                            var results = new RegExp("[?&]" + name +
+                                                    "=([^&#]*)")
+                                                .exec(
+                                                    url
+                                                );
+                                            return results !== null ? results[1] || 0 : 0;
+                                        };
 
-                                    let search = $('#search_invoice').val();
-                                    show_data({
-                                        search: search,
-                                        page: $.urlParam('page')
-                                    });
+                                        let search = $('#search_invoice').val();
+                                        show_data({
+                                            search: search,
+                                            page: $.urlParam('page')
+                                        });
 
-                                })
+                                    })
                                 let tbl_showing_invoice =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                                $('#selectActive').removeClass('d-none');
                             } else {
                                 $("#dataTable_invoice tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -2069,6 +2236,7 @@
                                 let tbl_showing_invoice =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                                $('#selectActive').addClass('d-none');
                             }
                         }
                     }).catch(function(error) {
@@ -2294,7 +2462,8 @@
                                             $("#error_username").addClass('invalid-feedback').html(
                                                 "This field is required.").show();
                                         }
-                                        if ($username_error == "The username has already been taken.") {
+                                        if ($username_error ==
+                                            "The username has already been taken.") {
                                             $("#error_username").addClass('invalid-feedback').html(
                                                 "The username has already been taken.").show();
                                         }
@@ -2302,7 +2471,8 @@
                                 } else {
                                     $check = $('#username').val();
                                     if ($check.length > 0) {
-                                        $("#error_username").removeClass('invalid-feedback').html("")
+                                        $("#error_username").removeClass('invalid-feedback').html(
+                                                "")
                                             .show();
                                     } else {
                                         $("#error_username").addClass('invalid-feedback').html(
@@ -2352,7 +2522,8 @@
                                 } else {
                                     $check = $('#acct_name').val();
                                     if ($check.length > 0) {
-                                        $("#error_acct_name").removeClass('invalid-feedback').html("")
+                                        $("#error_acct_name").removeClass('invalid-feedback').html(
+                                                "")
                                             .show();
                                     } else {
                                         $("#error_acct_name").addClass('invalid-feedback').html(
@@ -2377,7 +2548,8 @@
                                 } else {
                                     $check = $('#gcash_no').val();
                                     if ($check.length > 0) {
-                                        $("#error_gcash_no").removeClass('invalid-feedback').html("")
+                                        $("#error_gcash_no").removeClass('invalid-feedback').html(
+                                                "")
                                             .show();
                                     } else {
                                         $("#error_gcash_no").addClass('invalid-feedback').html(
@@ -2426,8 +2598,7 @@
                 // allowClear: true
             });
 
-            //  For creating invoice codes
-            const api = "https://api.exchangerate-api.com/v4/latest/USD";
+
 
             $("#col_discount_amount").addClass('d-none');
             $("#col_discount_total").addClass('d-none');
@@ -2476,7 +2647,8 @@
             function subtotal() {
                 let discount_type = $("input[id='discount_type']:checked").val();
                 let discount_amount = $('#discount_amount').val();
-                let newDiscount_amount = discount_amount.replace(/[^\d.]/g, ''); // Remove non-numeric characters
+                let newDiscount_amount = discount_amount.replace(/[^\d.]/g,
+                    ''); // Remove non-numeric characters
                 let discount_total = $('#discount_total').val();
                 let sub_total = $('#sub_total').val();
                 var sum = 0;
@@ -2527,7 +2699,8 @@
                         setTimeout(function() {
                             $('div.spanner').removeClass("show");
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
 
@@ -2632,9 +2805,11 @@
                     let parent = $(this).closest('.row1');
                     let quantity = parent.find('.quantity').val();
                     let rate = parent.find('.rate').val();
+                    let amount = parent.find('.amount').val();
 
                     parent.find('.quantity').val(PHP(quantity).format());
                     parent.find('.rate').val(PHP(rate).format());
+                    parent.find('.amount').val(PHP(amount).format());
                 })
                 DeductionItems_total();
             })
@@ -2711,10 +2886,9 @@
                 // console.log("row_item", row_item);
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -2723,13 +2897,13 @@
                                 btnClass: 'btn btn-danger',
                                 text: 'Confirm',
                                 action: function() {
-                                    $(row_item).remove();
                                     if ($('#show_items > .row').length === 1) {
                                         $('#show_items > .row').find('.col-remove-item')
                                             .removeClass('d-none')
                                             .addClass(
                                                 'd-none');
                                     }
+                                    $(row_item).remove();
                                     getResults_Converted();
                                     Additems_total();
                                     subtotal();
@@ -2743,6 +2917,7 @@
                             // before the modal is hidden.
                             $('#exampleModal').removeClass('d-none');
                         },
+
                     });
                 }
             });
@@ -2755,10 +2930,10 @@
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -2795,7 +2970,7 @@
             // INITIALIZE DISPLAY ITEM ROWS
             function display_item_rows() {
                 let max_fields = 5;
-                if (x < max_fields) {
+                if (x <= max_fields) {
                     let wrapper = $('#show_items');
                     add_rows = '';
                     add_rows += '<div class="row row1">';
@@ -2815,7 +2990,7 @@
                     add_rows += '<div class="form-group-profile">';
                     add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
                     add_rows +=
-                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" required />';
+                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -2826,7 +3001,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
                     add_rows +=
-                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" required/>';
+                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6"/>';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -2835,7 +3010,8 @@
                     add_rows += '<div class="col-lg-2 bottom20">';
                     // add_rows += '<div class="form-floating form-group">';
                     // style="text-align:right;border:none;background-color:white"
-                    add_rows += '<label for="amount" style="color:#A4A6B3">Amount</label>';
+                    add_rows +=
+                        '<label for="amount" style="color:#A4A6B3;display:grid;justify-content:end">Amount</label>';
                     add_rows +=
                         '<input type="text" style="text-align:right;border:none;background-color:white" readonly name="amount" id="amount" class="form-control amount" />';
                     // add_rows += '</div>';
@@ -2861,6 +3037,7 @@
                         $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
                             'd-none');
                     }
+
                     x++;
                 }
             }
@@ -2878,12 +3055,15 @@
             $("#exampleModal").on('hide.bs.modal', function() {
                 $("#col_discount_amount").addClass('d-none');
                 $("#col_discount_total").addClass('d-none');
-                $('#show_items').empty();
-                display_item_rows();
                 $("div.spanner").removeClass("show");
                 $('#invoice_items').trigger('reset'); // reset the form
                 $('#show_deduction_items').empty();
                 $('textarea').val('');
+
+                if ($('#show_items > .row').length > 1) {
+                    $('#show_items').empty();
+                    display_item_rows();
+                }
             });
 
             $("#modal-create-deduction").on('hide.bs.modal', function() {
@@ -2904,26 +3084,26 @@
 
             $("#cancelProfileDeduction").on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $('#ProfileDeductioneditModal').modal('hide');
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $('#ProfileDeductiontype_update').trigger('reset');
-                    $('#ProfileDeductiontype_update').removeClass('was-validated');
-                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
-                    $("div.spanner").removeClass("show");
-                }, 1500)
+                $('#ProfileDeductiontype_update').trigger('reset');
+                $('#ProfileDeductiontype_update').removeClass('was-validated');
+                $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
+                // $('#ProfileDeductioneditModal').modal('hide');
+                // $("div.spanner").addClass("show");
+                // setTimeout(function() {
+                // $("div.spanner").removeClass("show");
+                // }, 1500)
             });
 
             $("#invoice_status").on('hide.bs.modal', function() {
                 // window.location.reload();
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    show_data();
-                }, 1500)
+                // $("div.spanner").addClass("show");
+                // setTimeout(function() {
+                //     $("div.spanner").removeClass("show");
+                //     show_data();
+                // }, 1500)
             });
 
             $("#button-addon2").click(function(e) {
@@ -3092,7 +3272,8 @@
                     let profile_deduction_type_id = $(this).find('.profile_deduction_type_id')
                         .val();
                     let deduction_type_name = $(this).find('.deduction_type_name').val();
-                    let deduction_amount = $(this).find('.deduction_amount').val().replaceAll(',',
+                    let deduction_amount = $(this).find('.deduction_amount').val().replaceAll(
+                        ',',
                         '');
 
                     Deductions.push({
@@ -3133,76 +3314,41 @@
                         }, 'slow');
                         $('#exampleModal').modal('hide');
 
-                        $('#invoice_items').trigger('reset'); // reset the form
-                        $('#show_deduction_items').empty();
-                        $('textarea').val('');
-                        $('#dataTable_deduction tbody').empty();
-                        $('#dataTable_deduction tbody').html(
-                            show_Profilededuction_Table_Active());
-                        $(".label_discount_amount").addClass('d-none');
-                        $(".label_discount_total").addClass('d-none');
-                        toast1.toast('show');
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-
-                        $('#notifyIcon').html(
-                            '<i class="fa-solid fa-check" style="color:green"></i>');
-                        $('.toast1 .toast-title').html('Success');
-                        $('.toast1 .toast-body').html(response.data.message);
+                        $('div.spanner').addClass('show');
                         setTimeout(function() {
-                            window.location.reload();
-                        }, 3000)
+                            $('div.spanner').removeClass('show');
 
+                            $('#invoice_items').trigger('reset'); // reset the form
+                            $('#show_deduction_items').empty();
+                            $('textarea').val('');
+                            $('#dataTable_deduction tbody').empty();
+                            $('#dataTable_deduction tbody').html(
+                                show_Profilededuction_Table_Active());
+                            $(".label_discount_amount").addClass('d-none');
+                            $(".label_discount_total").addClass('d-none');
+                            toast1.toast('show');
+                            $('input').removeClass('is-invalid');
+                            $('input, select').removeClass('is-invalid');
+                            $('.invalid-feedback').remove();
+
+                            $("#col_discount_amount").addClass('d-none');
+                            $("#col_discount_total").addClass('d-none');
+                            $("div.spanner").removeClass("show");
+                            $('#invoice_items').removeClass('was-validated');
+                            if ($('#show_items > .row').length > 1) {
+                                $('#show_items').empty();
+                                display_item_rows();
+                            }
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(response.data.message);
+                            show_data();
+                        }, 1500)
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    // if (error.response.data.errors) {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    //     var errors = error.response.data.errors;
-                    //     var errorContainer = $('#error-container');
-                    //     errorContainer.empty();
-                    //     console.log("errors", errors)
 
-                    //     for (var key in errors) {
-                    //         var inputName = key.replace('_', ' ');
-                    //         inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                    //         var errorMsg = errors[key][0];
-                    //         $('#' + key).addClass('is-invalid');
-                    //         $('#' + key).parent().append('<span class="invalid-feedback">' +
-                    //             errorMsg + '</span>');
-                    //     }
-                    // } else {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    // }
-                    // console.log('ERRORS', error);
-                    // if (error.response.data.errors) {
-                    //   let errors = error.response.data.errors;
-                    //   console.log("errors", errors);
-                    //   let fieldnames = Object.keys(errors);
-
-                    //   Object.values(errors).map((item, index) => {
-                    //     fieldname = fieldnames[0].split('_');
-                    //     fieldname.map((item2, index2) => {
-                    //       fieldname['key'] = capitalize(item2);
-                    //       return ""
-                    //     });
-                    //     fieldname = fieldname.join(" ");
-
-                    //     $('.toast1 .toast-title').html(fieldname);
-                    //     $('.toast1 .toast-body').html(Object.values(errors)[
-                    //       0].join(
-                    //       "\n\r"));
-                    //     setTimeout(function() {
-                    //       $('div.spanner').removeClass('show');
-                    //       toast1.toast('show');
-                    //     }, 1500);
-                    //   })
-                    // }
                 });
 
             });
@@ -3217,13 +3363,13 @@
                 e.preventDefault();
 
                 let profile_id = $("#createDeduction_profile_id").val();
-                let deduction_type_id = $("#createDeduction_deduction_name").val();
+                let deduction_name = $("#createDeduction_deduction_name").val();
                 let amount = $("#createDeduction_deduction_amount").val().replaceAll(',', '');
 
                 let data = {
                     profile_id: profile_id,
-                    deduction_type_id: deduction_type_id ? deduction_type_id : '',
                     amount: amount,
+                    deduction_type_name: deduction_name
                 };
                 axios
                     .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
@@ -3238,103 +3384,44 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(data.message);
                                 $('#deductiontype_store').trigger('reset');
                                 $('#deductiontype_store').removeClass('was-validated');
                                 toast1.toast('show');
+                                $('#deductionDropSearch').empty();
+                                show_profileDeductionType_select();
                             }, 1500)
                         }
                     }).catch(function(error) {
                         let errors = error.response.data.errors;
                         console.log(errors);
                         console.log("ERROR", error);
-
                     });
             })
 
+            $('#submit-create-deduction').on('click', function(e) {
+                e.preventDefault();
 
-            function show_profile_deductions_onSelect() {
                 let url = window.location.pathname;
                 let urlSplit = url.split('/');
                 if (urlSplit.length === 5) {
                     let profile_id = urlSplit[4];
                     $('#createDeduction_profile_id').val(profile_id);
-                    axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        console.log("show_deduction_data", data);
-                        if (data.success) {
-                            $('#select_deduction_name').empty();
-                            let option = '';
-                            option += '<div class="form-group-profile">'
-                            option +=
-                                '<label for="createDeduction_deduction_name" style="color:#A4A6B3">Deduction Name:</label>';
-                            option +=
-                                '<select class="createDeduction_deduction_name form-select" id="createDeduction_deduction_name" name="createDeduction_deduction_name" required>';
-                            option +=
-                                '<option selected disabled value="">Please Select Deductions</option>';
-
-                            if (data.data.length > 0) {
-                                data.data.filter(f => f.profile_deduction_types.length === 0)
-                                    .map((item) => {
-                                        option += "<option value=" + item.id + ">" +
-                                            item
-                                            .deduction_name + "</option>";
-                                    })
-                            }
-                            option += '</select>';
-                            option +=
-                                ' <div id="invalid-feedback-deduction-name" class="invalid-feedback">This field is required.</div>';
-                            option += '</div>';
-                            $('#select_deduction_name').append(
-                                option);
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error.response.data);
-                    })
-                }
-            }
-
-            $('#submit-create-deduction').on('click', function(e) {
-                e.preventDefault();
-                show_profile_deductions_onSelect();
-                $('#createDeduction_deduction_amount').val('');
-            })
-
-            $(document).on('change', '#createDeduction_deduction_name', function() {
-                let deduction_id = $(this).val();
-                // console.log("SELECT", deduction_id);
-                if (deduction_id) {
-                    axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        console.log("SUCCESS", data);
-                        if (data.success) {
-                            {
-                                $('#createDeduction_deduction_amount').val(PHP(data.data
-                                    .deduction_amount).format());
-                            }
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                    })
-
                 }
             })
 
-            // $('#filter_all_deductions').on('change', function() {
-            //     show_deduction_dataOnDeductions();
-            // });
 
-            // RESERVE FOR DISPLAY STATUS ON DEDUCTION
+            $('#tbl_showing_deductionTypesPages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_Profilededuction_Table_Active({
+                    page_size: pages
+                });
+            })
 
             // ORIGINAL
             function show_Profilededuction_Table_Active(filters) {
@@ -3345,7 +3432,7 @@
                     let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
 
                     let filter = {
-                        page_size: 30,
+                        page_size: pageSize,
                         page: page ? page : 1,
                         profile_id: urlSplit[4],
                         search: $('#search_deduction').val() ? $('#search_deduction').val() : '',
@@ -3372,7 +3459,8 @@
 
                                         let tr = '<tr style="vertical-align: middle;">';
 
-                                        tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
+                                        tr += '<td class="fit">' + item.invoice.invoice_no +
+                                            '</td>';
                                         if (item.invoice.invoice_status == "Cancelled") {
                                             tr +=
                                                 '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
@@ -3391,12 +3479,14 @@
                                                 '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
                                         }
 
-                                        tr += '<td class="fit">' + item.deduction_type_name +
+                                        tr += '<td class="fit text-end">' + item
+                                            .deduction_type_name +
                                             '</td>';
                                         tr += '<td class="fit text-end">' + PHP(item
                                                 .amount)
                                             .format() + '</td>';
-                                        tr += '<td class="fit text-end">' + moment.utc(item.created_at)
+                                        tr += '<td class="fit text-end">' + moment.utc(item
+                                                .created_at)
                                             .tz(
                                                 'Asia/Manila').format(
                                                 'MM/DD/YYYY') + '</td>';
@@ -3407,12 +3497,22 @@
                                         return ''
                                     })
                                     $('#tbl_pagination_deduction').empty();
+
                                     data.data.links.map(item => {
-                                        let li =
-                                            `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                        $('#tbl_pagination_deduction').append(li)
-                                        return ""
-                                    })
+                                        let label = item.label;
+                                        if (label === "&laquo; Previous") {
+                                            label = "&laquo;";
+                                        } else if (label === "Next &raquo;") {
+                                            label = "&raquo;";
+                                        }
+
+                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                        $('#tbl_pagination_deduction').append(li);
+                                        return "";
+                                    });
 
                                     if (data.data.links.length) {
                                         let lastPage = data.data.links[data.data.links.length - 1];
@@ -3444,6 +3544,153 @@
                                             };
                                             let search = $('#search_deduction').val();
                                             show_Profilededuction_Table_Active({
+                                                search: search,
+                                                page: $.urlParam('page')
+                                            })
+                                        })
+                                    let tbl_showing_deduction =
+                                        `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
+                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#selectDeductionTypes').removeClass('d-none');
+                                } else {
+                                    $("#dataTable_deduction tbody").append(
+                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                    );
+                                    let tbl_showing_deduction =
+                                        `Showing 0 to 0 of 0 entries`;
+                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#selectDeductionTypes').addClass('d-none');
+                                }
+                            }
+                        })
+                        .catch(function(error) {
+                            console.log("catch error", error);
+                        });
+                }
+            }
+
+            function show_Profilededuction_Table_Active_Select(filters) {
+                let url = window.location.pathname;
+                let urlSplit = url.split('/');
+                // console.log(urlSplit.length);
+                if (urlSplit.length === 5) {
+                    let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
+
+                    let filter = {
+                        page_size: 30,
+                        page: page ? page : 1,
+                        profile_id: urlSplit[4],
+                        search: $('#deductionDropSearch').val() ? $('#deductionDropSearch').val() : '',
+                        ...filters
+                    }
+
+                    $('#dataTable_deduction tbody').empty();
+                    axios.get(
+                            `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
+                                headers: {
+                                    Authorization: token,
+                                },
+                            })
+                        .then(function(response) {
+                            data = response.data;
+                            if (data.success) {
+                                console.log("PROFILE DEDUCTION SUCCESS", data);
+                                if (data.data.data.length > 0) {
+                                    data.data.data.map((item) => {
+                                        let newdate = new Date(item.created_at);
+                                        var mm = newdate.getMonth() + 1;
+                                        var dd = newdate.getDate();
+                                        var yy = newdate.getFullYear();
+
+                                        let tr = '<tr style="vertical-align: middle;">';
+
+                                        tr += '<td class="fit">' + item.invoice.invoice_no +
+                                            '</td>';
+                                        if (item.invoice.invoice_status == "Cancelled") {
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
+                                        } else if (item.invoice.invoice_status ==
+                                            "Paid") {
+
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
+                                        } else if (item.invoice.invoice_status ==
+                                            "Pending") {
+
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
+                                        } else {
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
+                                        }
+
+                                        tr += '<td class="fit text-end">' + item
+                                            .deduction_type_name +
+                                            '</td>';
+                                        tr += '<td class="fit text-end">' + PHP(item
+                                                .amount)
+                                            .format() + '</td>';
+                                        tr += '<td class="fit text-end">' + moment.utc(item
+                                                .created_at)
+                                            .tz(
+                                                'Asia/Manila').format(
+                                                'MM/DD/YYYY') + '</td>';
+
+                                        tr += '</tr>';
+
+                                        $("#dataTable_deduction tbody").append(tr);
+                                        return ''
+                                    })
+                                    $('#tbl_pagination_deduction').empty();
+
+                                    data.data.links.map(item => {
+                                        let label = item.label;
+                                        if (label === "&laquo; Previous") {
+                                            label = "&laquo;";
+                                        } else if (label === "Next &raquo;") {
+                                            label = "&raquo;";
+                                        }
+
+                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                        $('#tbl_pagination_deduction').append(li);
+                                        return "";
+                                    });
+
+                                    if (data.data.links.length) {
+                                        let lastPage = data.data.links[data.data.links.length - 1];
+                                        if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                            $('#tbl_pagination_deduction .page-item:last-child').addClass(
+                                                'disabled');
+                                        }
+                                        let PreviousPage = data.data.links[0];
+                                        if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                            null) {
+                                            $('#tbl_pagination_deduction .page-item:first-child').addClass(
+                                                'disabled');
+                                        }
+                                    }
+                                    $("#tbl_pagination_deduction .page-item .page-link").on('click',
+                                        function() {
+                                            $("#tbl_pagination_deduction .page-item")
+                                                .removeClass(
+                                                    'active');
+                                            $(this).closest('.page-item').addClass('active');
+                                            let url = $(this).data('url')
+                                            $.urlParam = function(name) {
+                                                var results = new RegExp("[?&]" + name +
+                                                        "=([^&#]*)")
+                                                    .exec(
+                                                        url
+                                                    );
+                                                return results !== null ? results[1] || 0 : 0;
+                                            };
+                                            let search = $('#deductionDropSearch').val();
+                                            show_Profilededuction_Table_Active_Select({
                                                 search: search,
                                                 page: $.urlParam('page')
                                             })
@@ -3574,9 +3821,10 @@
                 e.preventDefault();
                 let profileDeductionType_id = $('#profileDeductionType_id').val();
                 let profileDeductionType_name = $('#edit_profileDeductionType_name').val();
-                let profileDeductionType_amount = $('#edit_profileDeductionType_amount').val().replaceAll(
-                    ',',
-                    '');
+                let profileDeductionType_amount = $('#edit_profileDeductionType_amount').val()
+                    .replaceAll(
+                        ',',
+                        '');
 
                 let data = {
                     id: profileDeductionType_id,
@@ -3601,12 +3849,14 @@
                             show_profileDeductionType_Button();
                             show_Profilededuction_Table_Active();
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
                             toast1.toast('show');
                             $('#ProfileDeductiontype_update').trigger('reset');
-                            $('#ProfileDeductiontype_update').removeClass('was-validated');
+                            $('#ProfileDeductiontype_update').removeClass(
+                                'was-validated');
                         }, 1500)
 
                     }

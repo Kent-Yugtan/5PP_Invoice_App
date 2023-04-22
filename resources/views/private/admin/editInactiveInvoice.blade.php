@@ -2,10 +2,9 @@
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
         <div class="row" style="padding-top:10px">
-            <div class="col-lg-12 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-lg-8 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
-
                         <div style="padding:20px">
                             <div id="content">
                                 <div class="row bottom20">
@@ -31,6 +30,39 @@
                                 </div>
 
                                 <div class="row pt-3">
+                                    <div class="col-6">Bill To</div>
+                                    <div class="col-3 ">Date:</div>
+                                    <div class="col-3 text-end"><span id="date_created"></span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6"><span id="invoice_title"></span></div>
+                                    <div class="col-3 fit">Due Date:</div>
+                                    <div class="col-3 fit text-end"><span id="show_due_date"></span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <span id="bill_to_address"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-6">Invoice Status:</div>
+                                            <div class="col-6 text-end"><span id="invoice_status"></span></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6" id="text_date_received"></div>
+                                            <div class="col-6 text-end"><span id="date_received"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="row pt-3">
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col">
@@ -76,22 +108,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="row pt-3">
+                                <div class="row">
                                     <div class="col-sm-6">
-                                        <!-- <div id="ship_to_address"></div> -->
                                     </div>
-
                                     <div class="col-md-6 col-sm-12">
-                                        <div class="rounded-3" style="background-color: #A4A6B3;">
+                                        <div class="rounded-3" style="background-color: #d4d4d4;">
                                             <div class="row">
                                                 <div class="col"
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
-                                                    <!-- </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
-                                                    <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                                    <div class="col-6 text-end">
+                                                        <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,28 +130,27 @@
 
                                 <div class="row pt-3">
                                     <div class="col-sm-12">
-                                        <div class="table-responsive">
+                                        <div class="">
                                             <table class="table table-hover" id="table_invoiceItems">
                                                 <thead class="thead-dark"
-                                                    style="border-radius: 3px; background-color: black; color: white;">
+                                                    style="border-radius: 3px; background-color: #515964; color: white;">
                                                     <tr>
-                                                        <th class="fit"
+                                                        <th class=""
                                                             style="width:52%;border-right: 2px solid rgb(255,255,255);">
                                                             Description</th>
-                                                        <th class="fit"
+                                                        <th class=""
                                                             style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                             Quantity</th>
-                                                        <th class="fit"
+                                                        <th class=""
                                                             style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                             Rate
                                                         </th>
-                                                        <th class="fit"
+                                                        <th class=""
                                                             style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                             Amount</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="px-3"
-                                                    style="border-bottom: 2px solid rgba(207, 128, 41, 0.5);">
+                                                <tbody class="px-3">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -129,37 +158,33 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-12" id="quickInvoiceDescription"></div>
-
-
-                                    <div class="col-md-7 col-sm-12">
+                                    <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-7">
                                                 <label class="text-muted " style="text-align:right"> Subtotal: </label>
                                             </div>
-                                            <div class="col mx-2 h6" id="sub_total" style="text-align:end"></div>
+                                            <div class="col  h6" id="sub_total" style="text-align:end"></div>
                                         </div>
 
                                         <div id="displayDiscountType">
-                                            <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
+
                                         </div>
 
-
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-7">
                                                 <label class="text-muted"> Total:</label>
                                             </div>
-                                            <div class="col mx-2 h6" id="total" style="text-align:end"></div>
+                                            <div class="col  h6" id="total" style="text-align:end"></div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-7">
                                                 <label class="text-muted fw-bold">Converted Amount: <label
                                                         class="text-muted" id="peso_rate"></label></label>
                                             </div>
 
-                                            <div class="col mx-2 h6 fw-bold" id="convertedAmount" style="text-align:end">
+                                            <div class="col  h6 fw-bold" id="convertedAmount" style="text-align:end">
                                             </div>
                                         </div>
                                     </div>
@@ -175,11 +200,12 @@
                                 </div>
 
                                 <div class="row pt-3">
-                                    <div class="col-5 fw-bold">Notes:</div>
+                                    <div class="col-6 fw-bold">Notes:</div>
                                     <div class="col">
-                                        <label class="fw-bold">Grand Total: </label>
+                                        <span class="fw-bold">Grand Total: </span>
                                     </div>
-                                    <div class="col mx-2 h6 fw-bold" id="grand_total_amount" style="text-align:end">
+                                    <div class="col" style="text-align:end">
+                                        <span class="h6 fw-bold" id="grand_total_amount"></span>
                                     </div>
                                 </div>
 
@@ -196,7 +222,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 col-xl-4 h-50 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-lg-4 col-xl-4  h-50 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white ">
                     <div style="padding:20px">
                         <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
@@ -547,7 +573,8 @@
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
                                                                     placeholder="Due Date" required autocomplete="off">
-                                                                <div class="invalid-feedback">This field is required.</div>
+                                                                <div class="invalid-feedback">This field is required.
+                                                                </div>
                                                             </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
                                                         </div>
@@ -634,7 +661,8 @@
                                                     <div class="row">
                                                         <div class="col-12" style="justify-content:end;display:flex">
                                                             <div class="">
-                                                                <label for="subtotal" style="color:#A4A6B3">Subtotal ($):
+                                                                <label for="subtotal" style="color:#A4A6B3">Subtotal
+                                                                    ($):
                                                                 </label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;text-align:right;border:none;background-color:white"
@@ -759,6 +787,7 @@
         //  For creating invoice codes
         const api = "https://api.exchangerate-api.com/v4/latest/USD";
 
+
         $(document).ready(function() {
             $("div.spanner").addClass("show");
             setTimeout(function() {
@@ -795,7 +824,6 @@
                 delay: 3000,
                 animation: true,
             });
-
             $('#back').on('click', function(e) {
                 e.preventDefault();
                 let userid = $('#userId').html();
@@ -1027,39 +1055,33 @@
 
             }
 
-            $(document).on('click', '.remove_items', function(e) {
+            // JQUERY CONFIRM FOR REMOVING INVOICE ITEMS ON INVOICE
+            $(document).on('click', '.remove_items_button', function(e) {
                 e.preventDefault();
                 let parent = $(this).closest('.row');
                 let invoiceItems_id = parent.find('.item_id').val();
-                let sub_total = parent.find('.subtotal').val();
+                let amount = parent.find('.amount').val();
                 let row_item = $(this).parent().parent().parent();
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
+                    let remove_row = $(this).parent().parent();
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
                         buttons: {
-                            removeDeductions: {
+                            removeItems: {
                                 btnClass: 'btn btn-danger',
                                 text: 'Confirm',
                                 action: function() {
-                                    $(row_item).remove();
-                                    if ($('#show_items > .row').length === 1) {
-                                        $('#show_items > .row').find('.col-remove-item')
-                                            .removeClass('d-none')
-                                            .addClass(
-                                                'd-none');
-                                    }
+                                    $(remove_row).remove();
                                     displayResults();
                                     Additems_total();
                                     subtotal();
                                     DeductionItems_total();
-                                    x--;
                                 }
                             },
                             Cancel: function() {}
@@ -1069,46 +1091,6 @@
                             $('#updateModal').removeClass('d-none');
                         },
                     });
-                }
-            });
-
-            // JQUERY CONFIRM FOR REMOVING INVOICE ITEMS ON INVOICE
-            $(document).on('click', '.remove_items_button', function(e) {
-                e.preventDefault();
-                let parent = $(this).closest('.row');
-                let invoiceItems_id = parent.find('.item_id').val() ? parent.find('.item_id').val() : 0;
-                let sub_total = parent.find('.subtotal').val();
-                let row_item = $(this).parent().parent().parent();
-                $('#updateModal').addClass('d-none');
-                if (row_item) {
-                    console.log("row_item", row_item);
-                    // $.confirm({
-                    //     columnClass: 'col-md-5',
-                    //     icon: 'fa fa-warning',
-                    //     draggable: false,
-                    //     animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
-                    //     title: 'Are you sure?',
-                    //     content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                    //     autoClose: 'Cancel|5000',
-                    //     buttons: {
-                    //         removeDeductions: {
-                    //             btnClass: 'btn btn-danger',
-                    //             text: 'Confirm',
-                    //             action: function() {
-                    //                 $(row_item).remove();
-                    //                 displayResults();
-                    //                 Additems_total();
-                    //                 subtotal();
-                    //                 DeductionItems_total();
-                    //             }
-                    //         },
-                    //         Cancel: function() {}
-                    //     },
-                    //     onClose: function() {
-                    //         // before the modal is hidden.
-                    //         $('#updateModal').removeClass('d-none');
-                    //     },
-                    // });
                 }
 
             });
@@ -1123,10 +1105,9 @@
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -1141,9 +1122,7 @@
                                     DeductionItems_total();
                                 }
                             },
-                            Cancel: function() {
-                                // $.alert('action is canceled');
-                            },
+                            Cancel: function() {}
                         },
                         onClose: function() {
                             // before the modal is hidden.
@@ -1151,7 +1130,20 @@
                         },
                     });
                 }
+            });
 
+            // CHECK IF THE USER HAVE THE PROFILE
+            $("#updateModal").on('hide.bs.modal', function() {
+                $("div.spanner").removeClass("show");
+                $('#invoice_items').trigger('reset'); // reset the form
+                $('#show_deduction_items').empty();
+                $('textarea').val('');
+                $('#show_items').empty();
+                $('#show_deduction_items').empty();
+                if ($('#show_items > .row').length > 1) {
+                    $('#show_items').empty();
+                    display_item_rows();
+                }
             });
 
             // BUTTON for ADD ITEMS ROWS
@@ -1210,11 +1202,11 @@
                     add_rows += '</div>';
 
                     add_rows +=
-                        '<div class="col-lg-1 d-flex justify-content-center align-items-center topbottom20">';
-                    add_rows += '<div class="col-remove-item d-none" >';
+                        '<div class="col-lg-1 d-flex justify-content-center align-items-center topbottom20 col-remove-item">';
+                    // add_rows += '<div class="d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items"><i class="fa fa-trash" style="color:red"></i></button>';
+                        '<button class="btn remove_items"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1225,9 +1217,11 @@
                         $('#show_items > .row').each(function() {
                             $(this).find('.col-remove-item').removeClass('d-none');
                         })
+                        console.log(">1")
                     } else {
                         $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
                             'd-none');
+                        console.log("<1")
                     }
                     x++;
                 }
@@ -1286,14 +1280,11 @@
 
                             if (data.data.invoice_items.length > 0) {
                                 data.data.invoice_items.map((item) => {
-                                    // console.log(item.item_description + " " + item
-                                    //     .quantity +
-                                    //     " " + item.rate + " " + item.total_amount);
                                     let wrapper = $('#show_items');
                                     add_rows = '';
-                                    add_rows += '<div class="row row1">';
-
-                                    add_rows += '<div class="col-md-4 bottom20">';
+                                    add_rows += '<div class="row">';
+                                    add_rows += '<div class="form-group-profile">';
+                                    add_rows += '<div class="col-md-4">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1305,12 +1296,16 @@
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows += '<input type="text" value="' + item
                                             .item_description +
-                                            '" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     } else {
                                         add_rows +=
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows +=
-                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     }
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
@@ -1351,28 +1346,29 @@
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-md-1 d-flex justify-content-center align-items-center">';
+                                        '<div class="col-md-1 d-flex justify-content-center align-items-center col-remove-item">';
                                     // add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button class="btn remove_items_button col-remove-item" ><i class="fa fa-trash" style="color:red"></i></button>';
+                                        '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows += '</div>'
+                                    add_rows += '</div>'
 
                                     $(wrapper).append(add_rows);
-
-                                    if ($('#show_items > .row1').length > 1) {
-                                        $('#show_items > .row1').each(function() {
-                                            $(this).find('.col-remove-item')
-                                                .removeClass('d-none');
-                                        })
-                                    } else {
-                                        $('#show_items > .row1').find('.col-remove-item')
-                                            .removeClass('d-none').addClass(
-                                                'd-none');
-                                    }
-                                    x++;
+                                    return '';
+                                    // if ($('#show_items > .row1').length > 1) {
+                                    //     $('#show_items > .row1').each(function() {
+                                    //         $(this).find('.col-remove-item')
+                                    //             .removeClass('d-none');
+                                    //     })
+                                    // } else {
+                                    //     $('#show_items > .row1').find('.col-remove-item')
+                                    //         .removeClass('d-none').addClass(
+                                    //             'd-none');
+                                    // }
+                                    // x++;
                                 })
                             }
 
@@ -1416,7 +1412,7 @@
                                         '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
                                     add_rows += '<div class="">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
@@ -1590,33 +1586,27 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col h6'>"
+                                            div += "<div class='col-8 h6'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
                                                 .discount_type + "</span> </div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
-                                            // $('#discountType').html(data.data.discount_type);
-                                            // $('#discountAmount').html(discount_amount.toLocaleString('en-US', {
-                                            //   style: 'currency',
-                                            //   currency: 'USD'
-                                            // }));
+
                                             $('#displayDiscountType').append(div);
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col h6'>"
+                                            div += "<div class='col-8 h6'>"
                                             div +=
-                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
-                                                data.data
-                                                .discount_type + " (" + discount_amount + "%) " +
-                                                "</span></div>";
+                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
+                                                discount_amount + "%) </span></div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1639,22 +1629,21 @@
                                         let tr = '<tr >';
                                         if (item.item_description) {
                                             tr +=
-                                                '<td class="fit scope" style="word-wrap: break-word;">' +
+                                                '<td class=" scope" style="word-wrap: break-word;">' +
                                                 item.item_description + '</td>'
                                         } else {
-                                            tr += '<td class="fit scope">N/A</td>'
+                                            tr += '<td class=" scope">N/A</td>'
                                         }
-                                        tr += '<td class="fit scope" style="text-align:end">' + item
+                                        tr += '<td class=" scope" style="text-align:end">' + item
                                             .quantity +
                                             '</td>'
-                                        tr += '<td class="fit scope" style="text-align:end">' + item
-                                            .rate
-                                            .toLocaleString('en-US', {
+                                        tr += '<td class=" scope" style="text-align:end">' +
+                                            item.rate.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'
                                             }) +
                                             '</td>'
-                                        tr += '<td class="fit scope" style="text-align:end">' + item
+                                        tr += '<td class=" scope" style="text-align:end">' + item
                                             .total_amount.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'
@@ -1688,15 +1677,15 @@
 
                                         let parent0 = $(this).closest('.row .title_deductions');
                                         let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-5 col-sm-12"> </div>';
-                                        div_rows0 += '<div class="col">';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12"> </div>';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12">';
                                         div_rows0 +=
-                                            '<label class="fs-5 fw-bold"> DEDUCTIONS </label class="fs-5 fw-bold">';
+                                            '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
                                         div_rows0 += '</div>';
                                         div_rows0 +=
-                                            '<div class = "col mx-2" style = "text-align:end" > </div>';
-                                        $(".row .title_deductions").append(div_rows0);
+                                            '<div class = "col " style = "text-align:end" > </div>';
 
+                                        $(".row .title_deductions").append(div_rows0);
                                         data.data.deductions.map((item2) => {
                                             let deduction_amount = parseFloat(item2
                                                 .amount ? item2.amount :
@@ -1705,17 +1694,23 @@
                                             let parent = $(this).closest('.deductions');
                                             let div_rows = '';
                                             div_rows += '<div class="row">';
-                                            div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                            div_rows += '<div class="col text-muted">' + item2
-                                                .deduction_type_name + '</div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12">';
+                                            div_rows += '<div class="row">';
+                                            div_rows += '<div class="col"><label class=" text-muted">' +
+                                                item2
+                                                .deduction_type_name + '</label></div>';
                                             div_rows +=
-                                                '<div class="col mx-2 h6" style="text-align:end;color:red;">' +
-                                                deduction_amount
-                                                .toLocaleString('en-US', {
+                                                '<div class="col" style="text-align:end;color:#dc3545;"><label class=" h6">' +
+                                                deduction_amount.toLocaleString('en-US', {
                                                     style: 'currency',
                                                     currency: 'PHP'
-                                                }) + '</div>';
+                                                }) + '</label></div>';
                                             div_rows += '</div>';
+                                            div_rows += '</div>';
+                                            div_rows += '</div>';
+
+
                                             total_deductions += deduction_amount;
                                             $(".row .deductions").append(div_rows);
                                             return '';
@@ -1723,10 +1718,10 @@
 
                                         let parent1 = $(this).closest('.row .total_deductions');
                                         let div_rows1 = '';
-                                        div_rows1 += '<div class="col-md-5 col-sm-12"></div>';
+                                        div_rows1 += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows1 += '<div class="col fw-bold">Total Deductions</div>';
                                         div_rows1 +=
-                                            '<div class="col mx-2 h6 fw-bold" style="text-align:end;color:red;">' +
+                                            '<div class="col  h6 fw-bold" style="text-align:end;color:#dc3545;">' +
                                             total_deductions.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'PHP'
@@ -1739,10 +1734,10 @@
                                         let parent = $(this).closest('.row .deductions');
                                         let div_rows = '';
 
-                                        div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                        div_rows += '<div class="col"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows +=
-                                            '<div class="col mx-2 h6" style="text-align:end;color:red;"></div>';
+                                            '<div class="col  h6" style="text-align:end;color:#dc3545;"></div>';
                                         $(".row .deductions").append(div_rows);
                                         return '';
                                     }
@@ -1896,7 +1891,7 @@
                     //         });
                     //         fieldname = fieldname.join(" ");
                     //         $('#notifyIcon').html(
-                    //             '<i class="fa-solid fa-x" style="color:red"></i>');
+                    //             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                     //         $('.toast1 .toast-title').html("Error");
                     //         $('.toast1 .toast-body').html(Object.values(
                     //                 errors)[0]
@@ -1959,7 +1954,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2026,7 +2022,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2097,7 +2094,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2165,7 +2163,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2229,7 +2228,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]

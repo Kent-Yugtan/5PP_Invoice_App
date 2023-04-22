@@ -70,8 +70,6 @@ Route::middleware(['auth:api'])->group(function () {
   //  VALIDATION FOR EDIT DEDUCTION TYPE
   Route::post('editValidateDeductionname', [DeductionTypeController::class, 'editValidateDeductionname']);
 
-  //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
-  Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
 
   //  VALIDATION FOR EMAIL CONFIG
   Route::post('validateFullname', [EmailConfigController::class, 'validateFullname']);
@@ -86,6 +84,13 @@ Route::middleware(['auth:api'])->group(function () {
 
   //  VALIDATION FOR EDIT INVOICE CONFIG
   Route::post('editValidateInvoiceEmail', [InvoiceConfigController::class, 'editValidateInvoiceEmail']);
+
+  //  VALIDATION FOR Profile Deduction Type
+  Route::post('validateProfileDeduction', [ProfileDeductionTypesController::class, 'validateProfileDeduction']);
+
+  //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
+  Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
+
 
   // SHOW DEDUCTION TYPE IN PROFILE
   Route::get('show_deduction_type', [ProfileController::class, 'show_deduction_types']);
@@ -360,7 +365,149 @@ Route::middleware(['auth:api'])->group(function () {
 //       ],
 //     ]
 //   ];
-//   event(new \App\Events\SendMailEvent($data_email));
+//   // event(new \App\Events\SendMailEvent($data_email));
+//   return view($template, ['content' => $data_email['body_data']['content']]);
+// }
+
+
+// // // TESTING EMAIL PDF 
+// Route::get('testEmailPDF', function () {
+//   $data = Invoice::with(['profile.user', 'deductions.profile_deduction_types.deduction_type', 'invoice_items'])
+//     ->orderBy('id', 'Desc')->first();
+//   $data1 = InvoiceConfig::orderBy('id', 'Desc')->first();
+//   $data2 = EmailConfig::where('status', 'Active')->get();
+//   // echo "<pre>";
+//   // echo $data;
+//   if ($data && $data1) {
+//     foreach ($data2 as $send_admin) {
+//       $data_setup_email_template = [
+//         // 'invoice_logo'           => 'https://shamcey.5ppsite.com/logo.png',
+//         'invoice_logo'           => $data1->invoice_logo,
+//         'full_name'              => $data->profile->user->first_name . " " . $data->profile->user->last_name,
+//         'user_email'             => $data->profile->user->email,
+//         'invoice_no'             => $data->invoice_no,
+//         'invoice_status'         => $data->status,
+//         'address'                => $data->profile->address,
+//         'city'                   => $data->profile->city,
+//         'province'               => $data->profile->province,
+//         'zip_code'               => $data->profile->zip_code,
+//         'date_created'           => CarbonCarbon::parse($data->created_at)->isoFormat('MMMM DD YYYY'),
+//         'invoice_title'          => $data1->invoice_title,
+//         'due_date'               => CarbonCarbon::parse($data->due_date)->isoFormat('MMMM DD YYYY'),
+//         'bill_to_address'        => $data1->bill_to_address,
+//         'payment_status'         => $data->invoice_status,
+//         'date_received'          => CarbonCarbon::parse($data->date_received)->isoFormat('MMMM DD YYYY'),
+//         'ship_to_address'        => $data1->ship_to_address,
+//         'balance_due'            => number_format($data->sub_total, 2),
+//         'invoice_items'          => $data->invoice_items,
+//         'invoice_description'    => $data->description,
+//         'sub_total'              => number_format(($data->sub_total + $data->discount_total), 2),
+//         'discount_type'          => $data->discount_type,
+//         'discount_amount'        => number_format($data->discount_amount, 2),
+//         'discount_total'         => number_format($data->discount_total, 2),
+//         'peso_rate'              => number_format($data->peso_rate, 2),
+//         'converted_amount'       => number_format($data->converted_amount, 2),
+//         'deductions'             => $data->deductions,
+//         'deductions_total'       => number_format($data->deductions->pluck('amount')->sum(), 2),
+//         'notes'                  => $data->notes,
+//         'grand_total_amount'     => number_format($data->grand_total_amount, 2),
+//         'admin_email'            => $send_admin->email_address,
+//         'quick_invoice'          => $data->quick_invoice,
+//       ];
+//     }
+//     echo setup_email_template($data_setup_email_template);
+//   }
+// });
+// function setup_email_template($data)
+// {
+//   $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
+//   $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
+//   $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+//   $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
+//   $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
+//   $address = !empty($data['address']) ? $data['address'] : "";
+//   $city = !empty($data['city']) ? $data['city'] : "";
+//   $province = !empty($data['province']) ? $data['province'] : "";
+//   $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
+//   $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
+//   $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+//   $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
+//   $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
+//   $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
+//   $text_date_received = !empty($data['text_date_received']) ? $data['text_date_received'] : "";
+//   $date_received = !empty($data['date_received']) ? $data['date_received'] : "";
+//   $ship_to_address = !empty($data['ship_to_address']) ? $data['ship_to_address'] : "";
+//   $balance_due = !empty($data['balance_due']) ? $data['balance_due'] : "";
+//   $invoice_items = !empty($data['invoice_items']) ? $data['invoice_items'] : "";
+//   $invoice_description = !empty($data['invoice_description']) ? $data['invoice_description'] : "";
+//   $sub_total = !empty($data['sub_total']) ? $data['sub_total'] : "";
+//   $discount_type = !empty($data['discount_type']) ? $data['discount_type'] : "";
+//   $discount_amount = !empty($data['discount_amount']) ? $data['discount_amount'] : "";
+//   $discount_total = !empty($data['discount_total']) ? $data['discount_total'] : "";
+//   $peso_rate = !empty($data['peso_rate']) ? $data['peso_rate'] : "";
+//   $converted_amount = !empty($data['converted_amount']) ? $data['converted_amount'] : "";
+//   $deductions = !empty($data['deductions']) ? $data['deductions'] : "";
+//   $deductions_total = !empty($data['deductions_total']) ? $data['deductions_total'] : "";
+//   $notes = !empty($data['notes']) ? $data['notes'] : "";
+//   $grand_total_amount = !empty($data['grand_total_amount']) ? $data['grand_total_amount'] : "";
+//   $quick_invoice = !empty($data['quick_invoice']) ? $data['quick_invoice'] : "";
+
+//   $to_name = !empty($data['full_name']) ? $data['full_name'] : "";
+//   $to_email = !empty($data['admin_email']) ? $data['admin_email'] : "";
+//   $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
+//   $from_email = !empty($data['from_email']) ?  $data['from_email'] : "ccg@5ppsite.com";
+//   $template = !empty($data['template']) ?  $data['template'] : 'email.pdfTemplate';
+//   $subject = "5 Pints Productions Invoice";
+
+//   if (!empty($data['subject'])) {
+//     $subject = $data['subject'];
+//   }
+
+//   $data_email = [
+//     'to_name'       => $to_name,
+//     'to_email'      => $to_email,
+//     'subject'       => $subject,
+//     'from_name'     => $from_name,
+//     'from_email'    => $from_email,
+//     'template'      => $template,
+//     'body_data'     => [
+//       "content" => [
+//         'invoice_logo'        => $invoice_logo,
+//         'full_name'           => $full_name,
+//         'user_email'          => $user_email,
+//         'invoice_no'          => $invoice_no,
+//         'invoice_status'      => $invoice_status,
+//         'address'             => $address,
+//         'city'                => $city,
+//         'province'            => $province,
+//         'zip_code'            => $zip_code,
+//         'date_created'        => $date_created,
+//         'invoice_title'       => $invoice_title,
+//         'due_date'            => $due_date,
+//         'bill_to_address'     => $bill_to_address,
+//         'payment_status'      => $payment_status,
+//         'text_date_received'  => $text_date_received,
+//         'date_received'       => $date_received,
+//         'ship_to_address'     => $ship_to_address,
+//         'balance_due'         => $balance_due,
+//         'invoice_items'       => $invoice_items,
+//         'invoice_description' => $invoice_description,
+//         'sub_total'           => $sub_total,
+//         'discount_type'       => $discount_type,
+//         'discount_amount'     => $discount_amount,
+//         'discount_total'      => $discount_total,
+//         'peso_rate'           => $peso_rate,
+//         'converted_amount'    => $converted_amount,
+//         'deductions'          => $deductions,
+//         'deductions_total'    => $deductions_total,
+//         'notes'               => $notes,
+//         'grand_total_amount'  => $grand_total_amount,
+//         'quick_invoice'       => $quick_invoice,
+
+//       ],
+//     ]
+//   ];
+//   // event(new \App\Events\SendMailEvent($data_email));
 //   return view($template, ['content' => $data_email['body_data']['content']]);
 // }
 

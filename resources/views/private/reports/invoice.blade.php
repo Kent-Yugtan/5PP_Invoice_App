@@ -291,7 +291,7 @@
                     },
                     {
                         "title": "Discount Type",
-                        "className": "fit"
+                        "className": "fit text-end"
                     },
                     {
                         "title": "Discount Amount",
@@ -480,6 +480,10 @@
                                     invoiceStatusCell.css("background-color", "#ffc107");
                                     invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
+                                } else if (item.invoice_status == "Cancelled") {
+                                    invoiceStatusCell.css("background-color", "#A4A6B3");
+                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
                                     invoiceStatusCell.css("border-color", "#dc3545");
@@ -574,6 +578,10 @@
                                     invoiceStatusCell.css("background-color", "#ffc107");
                                     invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
+                                } else if (item.invoice_status == "Cancelled") {
+                                    invoiceStatusCell.css("background-color", "#A4A6B3");
+                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
                                     invoiceStatusCell.css("border-color", "#dc3545");

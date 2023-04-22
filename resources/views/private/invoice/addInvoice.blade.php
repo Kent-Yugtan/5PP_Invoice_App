@@ -196,7 +196,6 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-sm-12 d-flex justify-content-end">
-                                                <!-- border-style:none -->
                                                 <div class="input-group" style="width: 290px">
                                                     <label class="d-flex align-items-center fw-bold"
                                                         for="grand_total">Grand Total(Php):</label>
@@ -545,10 +544,10 @@
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',
@@ -587,10 +586,10 @@
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         autoClose: 'Cancel|5000',

@@ -7,23 +7,23 @@
                     <form id="forgotPassword" autocomplete="off">
                         <div class="row">
                             <div class="col mx-3 my-3">
-                                <span class="fs-4 fw-bold">Forgot Password</span>
-                                <hr>
+                                <span class="fs-4 fw-bold text-muted">Forgot Password</span>
+                                <hr class="text-muted">
 
                                 <div id="error_msg"></div>
                                 <!-- class="alert alert-danger text-center" -->
                                 <div id="success_msg"></div>
                                 <!-- class="alert alert-success text-center" -->
                                 @csrf
-                                <p>
+                                <p class="text-muted">
                                     Enter your email address and we will send you a link to reset your password.
                                 </p>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
+                                    <label for="email" class="text-muted">Email</label>
                                     <input type="email" class="form-control" id="email_address"
                                         placeholder="Enter email address" name="email_address">
                                 </div>
-                                <div class="form-group mt-3 mb-3">
+                                <div class="form-group mb-3">
                                     <button type="submit" id="button-submit"
                                         style="width:100%;color:white; background-color: #CF8029;" class="btn">Send
                                         Reset Password Link</button>

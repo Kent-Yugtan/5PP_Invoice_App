@@ -1,43 +1,37 @@
-<div class="row pt-3">
-    <div class="col-sm-6">
-        <span class="text-muted">Bill To:</span>
-    </div>
-    <div class="col-md-3 text-md-start">
-        <span class="text-muted">Date:</span>
-    </div>
-    <div class="col-md-3 text-md-end">
-        <div id="date_created"></div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6 col-lg-6">
-        <div class="fw-bolder" id="invoice_title"></div>
-    </div>
-    <div class="col-sm-3 col-lg-3 text-md-start">
-        <span class="text-muted">Due Date:</span>
-    </div>
-    <div class="col-sm-3 col-lg-3 text-md-end">
-        <div id="show_due_date"></div>
+<div class="d-none" id="selectInactive">
+    <div class="input-group" style="width:145px !important">
+        <select id="tbl_showing_inactivePages" class="form-select">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
+        </select>
+        <span class="input-group-text border-0">/Page</span>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-6 text-md-start">
-        <div id="bill_to_address"></div>
-    </div>
-    <div class="col-sm-3 text-md-start">
-        <span class="text-muted">Invoice Status:</span>
-    </div>
-    <div class="col-sm-3 text-md-end">
-        <div id="invoice_status"></div>
-    </div>
-</div>
+let pageSize = 10; // initial page size
 
-<div class="row">
-    <div class="col-sm-6"></div>
-    <div class="col-sm-3 text-muted text-md-start" id="text_date_received">
-    </div>
-    <div class="col-sm-3 text-md-end" id="date_received">
-    </div>
-</div>
+$('#tbl_showing_pendingInvoicePages').on('change', function() {
+let pages = $(this).val();
+pageSize = pages; // update page size variable
+// Call the pendingInvoices() function with updated filters
+pendingInvoices({
+page_size: pages
+});
+})
+
+let filter = {
+page_size: pageSize,
+page: page ? page : 1,
+...filters,
+}
+
+$('#selectPending').removeClass('d-none');
+
+$('#selectPending').addClass('d-none');
+
+selectEmailConfigs
+
+tbl_showing_emailConfigsPages
