@@ -1,30 +1,33 @@
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
         <div id="sideTitle" class="d-none">
             <img class="img-team" src="{{ URL('images/Invoices-logo.png') }}" style="width: 60px; padding:10px">
             <label class="d-flex align-items-center">Invoicing App</label>
         </div>
+
         <div class="sb-sidenav-menu">
-            <div class="nav">
+            <div class="nav" id="nav">
                 <a class="nav-link" onmouseover="colorIcon1()" onmouseout="removeColorIcon1()" id="admindashboard"
                     href="{{ url('admin/dashboard') }}">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fa-solid fa-chart-pie"></i>
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fa-solid fa-chart-pie"></i>
                     </div>
-                    Dashboard
+                    <span class="labelText">Dashboard </span>
                 </a>
 
-                <a class="nav-link collapsed" onmouseover="colorIcon2()" onmouseout="removeColorIcon2()" href="#"
-                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
+                <a class="nav-link collapsed" id="profile" onmouseover="colorIcon2()" onmouseout="removeColorIcon2()"
+                    href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
                     aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fas fa-users"></i>
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-users"></i>
                     </div>
-                    Profiles
+                    <span class="labelText">Profiles</span>
                     <div class="sb-sidenav-collapse-arrow">
                         <i class="fas fa-angle-down"></i>
                     </div>
                 </a>
+
                 <div class="collapse " id="collapseLayouts" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
@@ -33,13 +36,14 @@
                         <a class="nav-link" href="{{ url('admin/inactive') }}">Inactive Profiles</a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed" onmouseover="colorIcon3()" onmouseout="removeColorIcon3()" href="#"
-                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false"
+
+                <a class="nav-link collapsed" id="invoice" onmouseover="colorIcon3()" onmouseout="removeColorIcon3()"
+                    href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false"
                     aria-controls="collapseLayouts2">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fas fa-dollar-sign"></i>
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-dollar-sign"></i>
                     </div>
-                    Invoices
+                    <span class="labelText">Invoices </span>
                     <div class="sb-sidenav-collapse-arrow">
                         <i class="fas fa-angle-down"></i>
                     </div>
@@ -57,19 +61,18 @@
                 <a class="nav-link" id="settingsdeductiontype" onmouseover="colorIcon4()"
                     onmouseout="removeColorIcon4()" href="{{ url('settings/deductiontype') }}">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fa-solid fa-plus-minus"></i>
-
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fa-solid fa-plus-minus"></i>
                     </div>
-                    Deductions
+                    <span class="labelText">Deductions </span>
                 </a>
 
                 <a class="nav-link collapsed" onmouseover="colorIcon5()" onmouseout="removeColorIcon5()" href="#"
                     data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false"
                     aria-controls="collapseLayouts3">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fas fa-table"></i>
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-table"></i>
                     </div>
-                    Reports
+                    <span class="labelText">Reports </span>
                     <div class="sb-sidenav-collapse-arrow">
                         <i class="fas fa-angle-down"></i>
                     </div>
@@ -82,13 +85,13 @@
                     </nav>
                 </div>
                 <hr>
-                <a class="nav-link collapsed" onmouseover="colorIcon6()" onmouseout="removeColorIcon6()" href="#"
-                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false"
-                    aria-controls="collapseLayouts4">
+                <a class="nav-link collapsed" onmouseover="colorIcon6()" onmouseout="removeColorIcon6()"
+                    href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4"
+                    aria-expanded="false" aria-controls="collapseLayouts4">
                     <div class="sb-nav-link-icon">
-                        <i style="color:#909294;width:20px" class="fas fa-gears"></i>
+                        <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-gears"></i>
                     </div>
-                    Settings
+                    <span class="labelText"> Settings</span>
                     <div class="sb-sidenav-collapse-arrow">
                         <i class="fas fa-angle-down"></i>
                     </div>
@@ -104,6 +107,7 @@
             </div>
         </div>
     </nav>
+
 </div>
 
 <script>

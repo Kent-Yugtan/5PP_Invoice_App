@@ -155,7 +155,7 @@
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelInactive">Cancel</button>
+                                id="cancelInactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="inactive_button" class="btn  w-100"
@@ -367,8 +367,10 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                $('#button_inactive').addClass('d-none');
+                                show_data();
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
                             }, 3000)
                             toast1.toast('show');
                         }
@@ -418,7 +420,9 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
+                                $('#button_inactive').addClass('d-none');
+                                show_data();
                             }, 3000)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
@@ -449,13 +453,13 @@
                 }
             })
 
-            $('#cancelInactive').on('click', function(e) {
-                e.preventDefault();
-                $('#inactiveModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
-            })
+            // $('#cancelInactive').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#inactiveModal').modal('hide');
+            //     setTimeout(function() {
+            //         location.reload(true);
+            //     }, 500)
+            // })
 
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {

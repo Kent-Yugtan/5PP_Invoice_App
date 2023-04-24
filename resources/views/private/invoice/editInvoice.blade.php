@@ -599,7 +599,7 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="row justify-content-end">
                                                         <div class="col-sm-4">
                                                             <button class="btn "
@@ -608,7 +608,7 @@
                                                                 Item</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
@@ -1210,7 +1210,7 @@
                     // add_rows += '<div class="d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
+                        '<button class="btn remove_items_button"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1287,8 +1287,8 @@
                                     let wrapper = $('#show_items');
                                     add_rows = '';
                                     add_rows += '<div class="row">';
-                                    add_rows += '<div class="form-group-profile">';
                                     add_rows += '<div class="col-md-4">';
+                                    add_rows += '<div class="form-group-profile">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1311,7 +1311,7 @@
                                         add_rows +=
                                             '<div class="invalid-feedback">This field is required.</div>';
                                     }
-                                    // add_rows += '</div>';
+                                    add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows += '<div class="col-md-2 bottom20">';

@@ -1,8 +1,229 @@
 @extends('layouts.private')
 @section('content-dashboard')
-    <div class="container-fluid content-header" id="loader_load">
+    <div class="container-fluid container-header" id="loader_load">
         <div class="row" style="padding-top:10px">
-            <div class="col-lg-12 col-xl-8 bottom10">
+            <div class="col-lg-8 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
+                <div class="card-border shadow bg-white h-100">
+                    <div class="card-body">
+                        <div style="padding:20px">
+                            <div id="content">
+                                <div class="row bottom20">
+                                    <span id="userId" hidden></span>
+                                    <span id="profileId" hidden></span>
+                                    <div class="col-sm-6 fw-bolder" style="margin-top:17px">
+                                        <div id="fullname"></div>
+                                        <div id="email"></div>
+                                    </div>
+
+                                    <div class="col-sm-6 fw-bolder text-sm-end">
+                                        <div class="fs-3 fw-bold">INVOICE</div>
+                                        <div class="text-muted" id="invoice_no"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="address"></div>
+                                        <div id="city-province"></div>
+                                        <div id="zip_code"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-6">Bill To</div>
+                                    <div class="col-3 ">Date:</div>
+                                    <div class="col-3 text-end"><span id="date_created"></span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6"><span id="invoice_title"></span></div>
+                                    <div class="col-3 fit">Due Date:</div>
+                                    <div class="col-3 fit text-end"><span id="show_due_date"></span></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <span id="bill_to_address"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-6">Invoice Status:</div>
+                                            <div class="col-6 text-end"><span id="invoice_status"></span></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6" id="text_date_received"></div>
+                                            <div class="col-6 text-end"><span id="date_received"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="row pt-3">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="text-muted">Bill To:</span>
+                                        </div>
+                                        <div class="col text-sm-start">
+                                            <span class="text-muted">Date:</span>
+                                        </div>
+                                        <div class="col text-sm-end">
+                                            <div id="date_created"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="fw-bolder" id="invoice_title"></div>
+                                        </div>
+                                        <div class="col text-sm-start">
+                                            <span class="text-muted">Due Date:</span>
+                                        </div>
+                                        <div class="col text-sm-end">
+                                            <div id="show_due_date"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-sm-start">
+                                            <div id="bill_to_address"></div>
+                                        </div>
+                                        <div class="col text-sm-start">
+                                            <span class="text-muted">Invoice Status:</span>
+                                        </div>
+                                        <div class="col text-sm-end">
+                                            <div id="invoice_status"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col text-muted text-sm-start" id="text_date_received">
+                                        </div>
+                                        <div class="col text-sm-end" id="date_received">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="rounded-3" style="background-color: #d4d4d4;">
+                                            <div class="row">
+                                                <div class="col"
+                                                    style="display:flex; justify-content:space-between;align-items:center">
+                                                    <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
+                                                    <div class="col-6 text-end">
+                                                        <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-sm-12">
+                                        <div class="">
+                                            <table class="table table-hover" id="table_invoiceItems">
+                                                <thead
+                                                    style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                                    <tr>
+                                                        <th class=""
+                                                            style="width:52%;border-right: 2px solid rgb(255,255,255);">
+                                                            Description</th>
+                                                        <th class=""
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Quantity</th>
+                                                        <th class=""
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Rate
+                                                        </th>
+                                                        <th class=""
+                                                            style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                            Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="px-3">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <label class="text-muted " style="text-align:right"> Subtotal: </label>
+                                            </div>
+                                            <div class="col  h6" id="sub_total" style="text-align:end"></div>
+                                        </div>
+
+                                        <div id="displayDiscountType">
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <label class="text-muted"> Total:</label>
+                                            </div>
+                                            <div class="col  h6" id="total" style="text-align:end"></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <label class="text-muted fw-bold">Converted Amount: <label
+                                                        class="text-muted" id="peso_rate"></label></label>
+                                            </div>
+
+                                            <div class="col  h6 fw-bold" id="convertedAmount" style="text-align:end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row title_deductions pt-3">
+                                </div>
+
+                                <div class="deductions">
+                                </div>
+
+                                <div class="row total_deductions" id="total_deductions">
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-6 fw-bold">Notes:</div>
+                                    <div class="col">
+                                        <span class="fw-bold">Grand Total: </span>
+                                    </div>
+                                    <div class="col" style="text-align:end">
+                                        <span class="h6 fw-bold" id="grand_total_amount"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row pb-5">
+                                    <div class="col-12">
+                                        <span style="word-wrap: break-word; text-align:right" id="notes"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- OLD CODE 04-23-2023 --}}
+            {{-- <div class="col-lg-8 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
 
@@ -86,7 +307,7 @@
                                                     style="display:flex; justify-content:space-between;align-items:center">
                                                     <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
                                                     <!-- </div>
-                                                                                                                                                                                                                                                                                                                                          <div class="col-6 text-end"> -->
+                                                                                                                                                                                                                                                                                                                                                              <div class="col-6 text-end"> -->
                                                     <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
                                                 </div>
                                             </div>
@@ -136,11 +357,11 @@
 
                                         <div id="displayDiscountType">
                                             <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                          <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                                                                                                                            <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                                                          <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                              <div class="col-md-7 col-sm-7 h6">
+                                                                                                                                                                                                                                                                                                                                                                <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
+                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                              <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
+                                                                                                                                                                                                                                                                                                                                                            </div> -->
                                         </div>
 
 
@@ -192,67 +413,139 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-12 col-xl-4 h-50 bottom10">
+            {{-- OLD CODES 04-23-2023 --}}
+            {{-- <div class="col-lg-4 col-xl-4  h-50 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white ">
                     <div style="padding:20px">
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="back" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Back</button>
+                        <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="back" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Back</button>
+                                </div>
+                            </div>
+
+                            <div class="row bottom10">
+                                <div class="col-6" style="padding-right:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
+                                        class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                                </div>
+                                <div class="col-6" style="padding-left:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
+                                        class="btn w-100"
+                                        style="color: White; background-color: #A4A6B3;">Inactive</button>
+                                </div>
+                            </div>
+
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
+                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                        Invoice</button>
+                                </div>
+                            </div>
+
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
+                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                        Invoice</button>
+                                </div>
+                            </div>
+
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="delete_button" data-bs-toggle='modal'
+                                        data-bs-target='#deleteModal' class="btn  w-100"
+                                        style="color: White; background-color: #dc3545;">Delete
+                                        Invoice</button>
+                                </div>
+                            </div>
+
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="pdfDownload" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Download</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 w-100 ">
+                                    <button type="button" id="edit_invoice" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" class="btn w-100"
+                                        style="color: White; background-color: #CF8029;">Edit
+                                        Invoice</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div> --}}
 
-                        <div class="row bottom10">
-                            <div class="col-6" style="padding-right:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
-                                    class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+            <div class="col-lg-4 col-xl-4 h-50 bottom10" style="padding-right:5px;padding-left:5px;">
+                <div class="card-border shadow bg-white ">
+                    <div style="padding:20px">
+                        <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="back" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Back</button>
+                                </div>
                             </div>
-                            <div class="col-6" style="padding-left:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
-                                    class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
-                            </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
-                                    class="btn  w-100" style="color: White; background-color: #198754;">Paid
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-6" style="padding-right:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
+                                        class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                                </div>
+                                <div class="col-6" style="padding-left:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
+                                        class="btn w-100"
+                                        style="color: White; background-color: #A4A6B3;">Inactive</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
-                                    class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
+                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="delete_button" data-bs-toggle='modal'
-                                    data-bs-target='#deleteModal' class="btn  w-100"
-                                    style="color: White; background-color: #dc3545;">Delete
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
+                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="pdfDownload" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Download</button>
+                            <div class="row">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="delete_button" data-bs-toggle='modal'
+                                        data-bs-target='#deleteModal' class="btn  w-100"
+                                        style="color: White; background-color: #dc3545;">Delete
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12 w-100 ">
-                                <button type="button" id="edit_invoice" data-bs-toggle="modal"
-                                    data-bs-target="#updateModal" class="btn w-100"
-                                    style="color: White; background-color: #CF8029;">Edit
-                                    Invoice</button>
+                            <div class="row" style="padding-top:2.5rem">
+                                <div class="col-12 w-100 bottom10">
+                                    <button type="button" id="pdfDownload" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Download</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 w-100 ">
+                                    <button type="button" id="edit_invoice" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" class="btn w-100"
+                                        style="color: White; background-color: #CF8029;">Edit
+                                        Invoice</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -515,52 +808,60 @@
     <!-- MODAL FOR EDIT INVOICE -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="hide-content" style="width: 115%;">
+            <div class="hide-content">
                 <div class="modal-body">
                     <div class="row whole_row">
-                        <form id="submit_update_invoice">
+                        <form id="submit_update_invoice" class="g-3 needs-validation" novalidate>
                             @csrf
-                            <div class="row px-4 pt-2" id="header">
-                                <div class="col-md-6 px-2 w-100">
-                                    <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                            <div class="row" id="header">
+                                <div class="col-md-6 w-100 bottom10" style="padding-right:5px;padding-left:5px;">
+                                    <div class="card-border shadow bg-white h-100" style="padding:20px">
                                         <div class="card-body">
-                                            <div class="row px-4 pb-4 pt-4" id="header">
-                                                <!-- <label class="formGroupExampleInput2">Invoice #</label> -->
+                                            <div class="row" id="header">
+                                                <input type="text" id="update_invoice_id" hidden>
 
                                                 <div class="row">
-                                                    <div class="col-xl-12 col-md-12 bottom20">
+                                                    <div class="col-sm-12 bottom20">
                                                         <span class="fs-3 fw-bold">Edit Invoice</span>
                                                     </div>
                                                 </div>
-                                                <input type="text" id="update_invoice_id" hidden>
 
-                                                <div class="col-4 bottom20">
+                                                <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label for="due_date" style="color:#A4A6B3">Due Date</label>
-                                                            <input type="text" placeholder="Due Date" id="due_date"
-                                                                onblur="(this.type='text')" name="due_date"
-                                                                class="form-control">
+                                                            <div class="form-group-profile">
+                                                                <label for="due_date" style="color:#A4A6B3">Due
+                                                                    Date</label>
+                                                                <input type="text" id="due_date" name="due_date"
+                                                                    class="datepicker_input form-control"
+                                                                    placeholder="Due Date" required autocomplete="off">
+                                                                <div class="invalid-feedback">This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-12 bottom20">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <label for="invoice_description"
-                                                                style="color:#A4A6B3">Description</label>
-                                                            <input id="invoice_description" name="invoice_description"
-                                                                type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 bottom20" id="show_items">
-                                                    <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
                                                 <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group-profile">
+                                                                <label for="invoice_description"
+                                                                    style="color:#A4A6B3">Description</label>
+                                                                <input id="invoice_description" name="invoice_description"
+                                                                    type="text" class="form-control" required>
+                                                                <div class="invalid-feedback">This field is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 " id="show_items">
+                                                    <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
+                                                </div>
+
+                                                {{-- <div class="col-12">
                                                     <div class="row justify-content-end">
                                                         <div class="col-sm-4">
                                                             <button class="btn "
@@ -569,12 +870,13 @@
                                                                 Item</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
-                                                        <div class="col" style="display: flex;align-items: start;">
-                                                            <div class="form-group">
+                                                        <div class="col-lg-4 bottom20"
+                                                            style="display: flex;align-items: start;">
+                                                            <div>
                                                                 <label class="formGroupExampleInput2"
                                                                     style="color:#A4A6B3">Discount
                                                                     Type</label>
@@ -591,20 +893,20 @@
                                                                 <label class="formGroupExampleInput2">
                                                                     Percentage
                                                                 </label>
-                                                                <!-- <input type="text" id="discount_type" class="form-control" /> -->
                                                             </div>
                                                         </div>
 
-                                                        <div class="col">
+                                                        <div class="col-lg-4 bottom20">
                                                             <label for="discount_amount" class="label_discount_amount"
                                                                 style="color:#A4A6B3">Discount
                                                                 Amount ($)</label>
                                                             <input type="text" step="any"
                                                                 style="text-align:right;" name="discount_amount"
-                                                                id="discount_amount" class="form-control" />
+                                                                id="discount_amount" maxlength="6"
+                                                                class="form-control" />
                                                         </div>
 
-                                                        <div class="col">
+                                                        <div class="col-lg-4 bottom20">
                                                             <label for="discount_total" class="label_discount_total"
                                                                 style="color:#A4A6B3">Discount
                                                                 Total ($)</label>
@@ -617,17 +919,23 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-12" style="justify-content:end;display:flex">
-                                                            <div class="form-group">
-                                                                <!-- border-style:none -->
-                                                                <label for="subtotal" style="color:#A4A6B3">Subtotal ($):
-                                                                </label>
-                                                                <input type="text"
-                                                                    style="font-weight: bold;text-align:right;border:none;background-color:white"
-                                                                    name="subtotal" id="subtotal"
-                                                                    class="form-control no-outline subtotal" readonly>
+                                                        <div class="col-sm-12 d-flex justify-content-end w-100">
+                                                            <div class="topBottom20" style="width: 290px !important;">
+                                                                <div class="input-group">
+                                                                    <label class="d-flex align-items-center"
+                                                                        for="subtotal" style="color:#A4A6B3">Subtotal ($):
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        style="font-weight: bold; text-align:right;border:none;background-color:white "
+                                                                        name="subtotal" id="subtotal"
+                                                                        class="form-control subtotal" readonly>
+                                                                    <div class="invalid-feedback"
+                                                                        style="padding-left: 85px;
+                                                              ">
+                                                                        This field is required.</div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -635,8 +943,8 @@
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="dollar_amount" style="color:#A4A6B3">Dollar
                                                                     Amount
                                                                     ($)</label>
@@ -647,8 +955,8 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="peso_rate" style="color:#A4A6B3">Peso Rate
                                                                     (Php)</label>
                                                                 <input type="text"
@@ -657,8 +965,8 @@
                                                                     id="edit_peso_rate" class="form-control" disabled />
                                                             </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="converted_amount"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
@@ -681,38 +989,45 @@
 
                                                 <div class="col-12" id="show_deduction_items"></div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-7" style="text-align:right;">
-
-                                                        </div>
-                                                        <div class="col-4" style="justify-content:end;display:flex">
-                                                            <!-- border-style:none -->
-                                                            <div class="form-group">
-                                                                <label for="grand_total" class="fw-bold">Grand
-                                                                    Total(Php):</label>
+                                                        <div class="col-sm-12 d-flex justify-content-end">
+                                                            <div class="input-group" style="width: 290px">
+                                                                <label class="d-flex align-items-center fw-bold"
+                                                                    for="grand_total">Grand Total(Php):</label>
                                                                 <input type="text" id="grand_total"
-                                                                    class="form-control no-outline fw-bold"
+                                                                    class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 bottom20">
+                                                                <label for="floatingTextarea"
+                                                                    style="color:#A4A6B3">Notes</label>
+                                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
-                                                    <label for="floatingTextarea">Notes</label>
-                                                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
-                                                </div>
-
-                                                <div class="col-6 ">
-                                                    <button type="button" id="UpdateModalClose" class="btn w-100"
-                                                        style="color:white; background-color:#A4A6B3; "
-                                                        data-bs-dismiss="modal">Close</button>
-                                                </div>
-                                                <div class="col-6 ">
-                                                    <button type="submit" id="update" class="btn w-100"
-                                                        style="color:White; background-color:#CF8029;">Update</button>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-6 bottom20">
+                                                            <button type="button" id="UpdateModalClose"
+                                                                class="btn w-100"
+                                                                style="color:#CF8029; background-color:#f3f3f3; "
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        <div class="col-6 bottom20">
+                                                            <button type="submit" id="update" class="btn w-100"
+                                                                style="color:White; background-color:#CF8029;">Update</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1270,14 +1585,11 @@
 
                             if (data.data.invoice_items.length > 0) {
                                 data.data.invoice_items.map((item) => {
-                                    // console.log(item.item_description + " " + item
-                                    //     .quantity +
-                                    //     " " + item.rate + " " + item.total_amount);
                                     let wrapper = $('#show_items');
                                     add_rows = '';
                                     add_rows += '<div class="row row1">';
-
-                                    add_rows += '<div class="col-md-4 bottom20">';
+                                    add_rows += '<div class="col-md-4">';
+                                    add_rows += '<div class="form-group-profile">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1289,14 +1601,18 @@
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows += '<input type="text" value="' + item
                                             .item_description +
-                                            '" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     } else {
                                         add_rows +=
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows +=
-                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     }
-                                    // add_rows += '</div>';
+                                    add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows += '<div class="col-md-2 bottom20">';
@@ -1330,43 +1646,47 @@
                                         '<input type="text" value=' + PHP(item
                                             .total_amount)
                                         .format() +
-                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
+                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" multi class="form-control amount" />';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-md-1">';
+                                        '<div class="col-md-1 d-flex justify-content-center align-items-center col-remove-item">';
                                     // add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button class="btn remove_items_button  col-remove-item d-none"  style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
+                                    add_rows += '</div>';
 
-                                    add_rows += '</div>'
+                                    add_rows += '</div>';
 
                                     $(wrapper).append(add_rows);
+                                    return '';
+                                    // if ($('#show_items > .row1').length > 1) {
+                                    //     $('#show_items > .row1').each(function() {
+                                    //         $(this).find('.remove_items_button')
+                                    //             .removeClass('d-none');
+                                    //     })
+                                    // } else {
+                                    //     $('#show_items > .row1').find(
+                                    //             '.remove_items_button')
+                                    //         .removeClass('d-none').addClass(
+                                    //             'd-none');
+                                    // }
 
-                                    if ($('#show_items > .row1').length > 1) {
-                                        $('#show_items > .row1').each(function() {
-                                            $(this).find('.col-remove-item')
-                                                .removeClass('d-none');
-                                        })
-                                    } else {
-                                        $('#show_items > .row1').find('.col-remove-item')
-                                            .removeClass('d-none').addClass(
-                                                'd-none');
-                                    }
-                                    x++;
                                 })
+                                x = data.data.invoice_items.length;
+                                console.log("X", x)
                             }
 
                             if (data.data.deductions.length > 0) {
                                 data.data.deductions.map((item2) => {
                                     let wrapper = $('#show_deduction_items');
                                     add_rows = '';
-                                    add_rows += '<div class="row bottom20">';
-                                    add_rows += '<div class="col-7">';
-                                    add_rows += '<div class="form-group w-100">';
+                                    add_rows += '<div class="row ">';
+                                    add_rows += '<div class="col-sm-6 bottom20">';
+                                    add_rows += '<div class=" w-100">';
                                     add_rows +=
                                         '<input type="text" value=' + item2.id +
                                         ' id="deduction_id" name="deduction_id" class="form-control deduction_id" hidden >'
@@ -1385,23 +1705,25 @@
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-4">';
-                                    add_rows += '<div class="form-group ">';
+                                    add_rows += '<div class="col-sm-5">';
+                                    add_rows += '<div class=" ">';
                                     add_rows +=
                                         '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
                                     add_rows +=
                                         '<input type="text" value="' + PHP(item2.amount)
                                         .format() +
-                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" />';
+                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6" />';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-1 col-remove-deductions">';
-                                    add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
+                                    add_rows += '<div class="">';
+                                    add_rows +=
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
+
                                     add_rows += '</div>';
 
                                     $(wrapper).append(add_rows);
@@ -1460,7 +1782,7 @@
                                 $('#userId').html(data.data.profile.user.id);
                                 $('#profileId').html(data.data.profile.id);
 
-                                $('#full_name').html(data.data.profile.user.first_name + " " + data.data.profile
+                                $('#fullname').html(data.data.profile.user.first_name + " " + data.data.profile
                                     .user.last_name);
                                 $('#email').html(data.data.profile.user.email);
                                 $('#invoice_no').html("#" + data.data.invoice_no);
@@ -1667,15 +1989,15 @@
 
                                         let parent0 = $(this).closest('.row .title_deductions');
                                         let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-5 col-sm-12"> </div>';
-                                        div_rows0 += '<div class="col">';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12"> </div>';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12">';
                                         div_rows0 +=
-                                            '<label class="fs-5 fw-bold"> DEDUCTIONS </label class="fs-5 fw-bold">';
+                                            '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
                                         div_rows0 += '</div>';
                                         div_rows0 +=
-                                            '<div class = "col mx-2" style = "text-align:end" > </div>';
-                                        $(".row .title_deductions").append(div_rows0);
+                                            '<div class = "col " style = "text-align:end" > </div>';
 
+                                        $(".row .title_deductions").append(div_rows0);
                                         data.data.deductions.map((item2) => {
                                             let deduction_amount = parseFloat(item2
                                                 .amount ? item2.amount :
@@ -1684,17 +2006,23 @@
                                             let parent = $(this).closest('.deductions');
                                             let div_rows = '';
                                             div_rows += '<div class="row">';
-                                            div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                            div_rows += '<div class="col text-muted">' + item2
-                                                .deduction_type_name + '</div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12">';
+                                            div_rows += '<div class="row">';
+                                            div_rows += '<div class="col"><label class=" text-muted">' +
+                                                item2
+                                                .deduction_type_name + '</label></div>';
                                             div_rows +=
-                                                '<div class="col mx-2 h6" style="text-align:end;color:red;">' +
-                                                deduction_amount
-                                                .toLocaleString('en-US', {
+                                                '<div class="col" style="text-align:end;color:#dc3545;"><label class=" h6">' +
+                                                deduction_amount.toLocaleString('en-US', {
                                                     style: 'currency',
                                                     currency: 'PHP'
-                                                }) + '</div>';
+                                                }) + '</label></div>';
                                             div_rows += '</div>';
+                                            div_rows += '</div>';
+                                            div_rows += '</div>';
+
+
                                             total_deductions += deduction_amount;
                                             $(".row .deductions").append(div_rows);
                                             return '';
@@ -1702,10 +2030,10 @@
 
                                         let parent1 = $(this).closest('.row .total_deductions');
                                         let div_rows1 = '';
-                                        div_rows1 += '<div class="col-md-5 col-sm-12"></div>';
+                                        div_rows1 += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows1 += '<div class="col fw-bold">Total Deductions</div>';
                                         div_rows1 +=
-                                            '<div class="col mx-2 h6 fw-bold" style="text-align:end;color:red;">' +
+                                            '<div class="col  h6 fw-bold" style="text-align:end;color:#dc3545;">' +
                                             total_deductions.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'PHP'
@@ -1718,10 +2046,10 @@
                                         let parent = $(this).closest('.row .deductions');
                                         let div_rows = '';
 
-                                        div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                        div_rows += '<div class="col"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows +=
-                                            '<div class="col mx-2 h6" style="text-align:end;color:red;"></div>';
+                                            '<div class="col  h6" style="text-align:end;color:#dc3545;"></div>';
                                         $(".row .deductions").append(div_rows);
                                         return '';
                                     }

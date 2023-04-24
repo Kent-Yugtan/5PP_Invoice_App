@@ -72,7 +72,7 @@
         <div class="row d-none" id="invoice_inactive">
             <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="btn w-100"
-                    style="color:white; background-color: #CF8029;width:30%" id="inactiveButton">Inactive</button>
+                    style="color:white; background-color: #CF8029;width:30%" id="inactiveButton">Deactivate</button>
             </div>
         </div>
 
@@ -168,14 +168,14 @@
                     </div>
                     <div class="row">
                         <div class="col bottom20">
-                            <span id="inactiveInvoice hidden"></span>
+                            <span id="inactiveInvoice" hidden></span>
                             <span class="text-muted"> Do you really want to set this Invoice to Inactive?</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelInactive">Cancel</button>
+                                id="cancelInactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="inactive_button" class="btn  w-100"
@@ -464,8 +464,9 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                show_data();
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
                             }, 3000)
                             toast1.toast('show');
                         }
@@ -515,7 +516,8 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
+                                show_data();
                             }, 3000)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
@@ -546,13 +548,13 @@
                 }
             })
 
-            $('#cancelInactive').on('click', function(e) {
-                e.preventDefault();
-                $('#inactiveModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
-            })
+            // $('#cancelInactive').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#inactiveModal').modal('hide');
+            //     setTimeout(function() {
+            //         location.reload(true);
+            //     }, 500)
+            // })
 
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
@@ -753,7 +755,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInvoice/' +
                                     item.id +
@@ -1011,7 +1013,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInvoice/' +
                                     item.id +
@@ -1118,11 +1120,8 @@
             $("#invoice_status").on('hide.bs.modal', function() {
                 // window.location.reload();
                 $("div.spanner").addClass("show");
-
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_data();
                 }, 1500)
             });

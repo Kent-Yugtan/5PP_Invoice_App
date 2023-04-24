@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row ">
             <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <!-- <div class="card"> -->
@@ -60,50 +60,71 @@
                     <!-- <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i> -->
                     <!-- </div> -->
                     <div class="card-body">
-                        <form id="quick_invoice">
+                        <form id="quick_invoice" class="g-3 needs-validation" novalidate>
                             <div class="row">
-                                <div class="col-xl-6 bottom20">
-                                    <label for="profile_id" style="color: #A4A6B3;">Profile</label>
-                                    <select class="form-select" id="profile_id">
-                                        <option value="" selected disabled>Select Profile</option>
-                                    </select>
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="profile_id" style="color: #A4A6B3;">Profile</label>
+                                        <select class="form-select " name="selectProfile" id="profile_id" required>
+                                            <option value="" selected disabled style="color: #A4A6B3;">Select Profile
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
                                 </div>
-                                <div class="col-xl-6 bottom20">
-                                    <label for="due_date" style="color: #A4A6B3;">Due Date</label>
-                                    <input type="text" placeholder="Due Date" onblur="(this.type='text')" id="due_date"
-                                        name="due_date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-6 bottom20">
-                                    <label for="description" style="color: #A4A6B3;">Description</label>
-                                    <input type="text" class="form-control" id="description" placeholder="Description">
-                                </div>
-                                <div class="col-xl-6 bottom20">
-                                    <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
-                                    <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control"
-                                        id="sub_total" placeholder="Subtotal ($)">
-                                </div>
-                            </div>
 
-                            <button type="submit" style="width:100%; color:white; background-color: #CF8029;"
-                                class="btn" class="btn">Create Invoice</button>
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="due_date" style="color: #A4A6B3;">Due Date</label>
+
+                                        <input type="text" id="due_date" name="due_date"
+                                            class="datepicker_input form-control" placeholder="Due Date" required
+                                            autocomplete="off">
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="description" style="color: #A4A6B3;">Description</label>
+                                        <input type="text" class="form-control" name="description" id="description"
+                                            placeholder="Description" required>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
+                                        <input type="text" name="sub_total" pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$"
+                                            class="form-control" id="sub_total" placeholder="Subtotal ($)" required>
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 ">
+                                    <button type="submit" style="width:100%;color:white; background-color: #CF8029;"
+                                        class="btn">Create Invoice</button>
+                                </div>
+                            </div>`
                         </form>
                     </div>
-
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white h-100" style="padding:20px">
+                <div class="card-border shadow bg-white " style="padding:20px">
                     <div class="header fs-3 fw-bold bottom10" style="padding-left:15px">
                         <label> Pending Invoices</label>
                     </div>
 
-                    <div class="card-body table-responsive">
-                        <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="pendingInvoices">
+                    <div class="card-body table-responsive max-height">
+                        <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover " id="pendingInvoices">
                             <thead>
                                 <tr>
                                     <th class="fit">Invoice #</th>
@@ -114,14 +135,36 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-center" colspan="4">Loading...</td>
+                                    <td class="text-center" colspan="4">
+                                        <div class="noData"
+                                            style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                            <i class="fas fa-spinner"></i>
+                                            <div></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-body d-none" id="selectPending">
+                        <div class="input-group" style="width:145px !important">
+                            <select id="tbl_showing_pendingInvoicePages" class="form-select">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="input-group-text border-0">/Page</span>
+                        </div>
+                    </div>
+
                     <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                         id="tbl_showing_pendingInvoice">
                     </div>
+
                     <div class="pagination-alignment" style="display:flex;justify-content:center;">
                         <ul style="display:flex;justify-content:flex-start;margin-top:15px"
                             class="pagination pagination-sm flex-wrap" id="tbl_pagination_pendingInvoice">
@@ -138,7 +181,7 @@
                         <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
                         <label> Overdue Invoices</label>
                     </div>
-                    <div class="card-body table-responsive">
+                    <div class="card-body table-responsive max-height">
                         <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover" id="overdueInvoices">
                             <thead>
                                 <tr>
@@ -150,10 +193,31 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-center" colspan="4">Loading...</td>
+                                    <td class="text-center" colspan="4">
+                                        <div class="noData"
+                                            style="width:' +
+                            width +
+                          'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                            <i class="fas fa-spinner"></i>
+                                            <div></div>
+                                        </div>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-body d-none" id="selectOverdue">
+                        <div class="input-group" style="width:145px !important">
+                            <select id="tbl_showing_overdueInvoicePages" class="form-select ">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="input-group-text border-0">/Page</span>
+                        </div>
                     </div>
                     <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                         id="tbl_showing_overdueInvoice"></div>
@@ -162,10 +226,12 @@
                             id="tbl_pagination_overdueInvoice">
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+
 
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
@@ -191,7 +257,55 @@
             separator: ','
         });
 
+        let width = window.innerWidth; // Set the initial value of width
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
+
         $(document).ready(function() {
+            //  For creating invoice codes
+            const api = "https://api.exchangerate-api.com/v4/latest/USD";
+            let pageSize = 10; // initial page size
             // Get the current page's URL path
             var path = window.location.pathname;
             // Highlight the corresponding menu item
@@ -208,28 +322,27 @@
             let converted_amount = 0;
             let sumObj = 0;
 
-            //  For creating invoice codes
-            const api = "https://api.exchangerate-api.com/v4/latest/USD";
-            $('div.spanner').addClass('show');
-            due_date();
-            $(window).on("load", function() {
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
+            setTimeout(function() {
+                selectUserProfile();
+                check_userActivependingInvoices();
+                pendingInvoices();
+                overdueInvoices();
+                active_user_count_paid();
+                active_user_count_pending();
+                active_user_count_overdue();
+                active_user_count_cancelled();
+                // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
+                getResults_Converted();
+            }, 1500);
 
-
-                    selectUserProfile();
-                    check_userActivependingInvoices();
-                    pendingInvoices();
-                    overdueInvoices();
-                    active_user_count_paid();
-                    active_user_count_pending();
-                    active_user_count_overdue();
-                    active_user_count_cancelled();
-                    // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
-                    getResults_Converted();
-                }, 1500);
+            $('#due_date').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
             });
-
 
             function getResults_Converted() {
                 fetch(`${api}`)
@@ -246,25 +359,6 @@
                 // converted_amount = ((toRate / fromRate) * sub_total);
                 // console.log("peso_rate", peso_rate);
                 // console.log("converted_amount", converted_amount);
-            }
-
-
-            function due_date() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#due_date");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        dateInput.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
             }
 
             let toast1 = $('.toast1');
@@ -394,6 +488,24 @@
                 })
             }
 
+            $('#tbl_showing_pendingInvoicePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                pendingInvoices({
+                    page_size: pages
+                });
+            })
+
+            $('#tbl_showing_overdueInvoicePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                overdueInvoices({
+                    page_size: pages
+                });
+            })
+
             // View Pending Invoices
             function pendingInvoices(filters) {
                 let page = $("#tbl_pagination_pendingInvoice .page-item.active .page-link").html();
@@ -435,7 +547,7 @@
                                     apiUrl +
                                     '/user/profileEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i> </a></td>';
+                                    '" class="btn-table"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
 
                                 $('#pendingInvoices tbody').append(tr);
@@ -489,10 +601,12 @@
                             let tbl_showing_pendingInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_pendingInvoice').html(tbl_showing_pendingInvoice);
+                            $('#selectPending').removeClass('d-none');
                         } else {
                             $("#pendingInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center">No data</td></tr>'
                             );
+                            $('#selectPending').addClass('d-none');
                         }
                     }
                 }).catch(function(error) {
@@ -504,7 +618,7 @@
             function overdueInvoices(filters) {
                 let page = $("#tbl_pagination_overdueInvoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     ...filters
                 }
@@ -540,7 +654,7 @@
                                     apiUrl +
                                     '/user/profileEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i> </a></td>';
+                                    '" class="btn-table"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i></a></td>';
                                 tr += '</tr>';
                                 $('#overdueInvoices tbody').append(tr);
                             })
@@ -594,10 +708,12 @@
                             let tbl_showing_overdueInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_overdueInvoice').html(tbl_showing_overdueInvoice);
+                            $('#selectOverdue').removeClass('d-none');
                         } else {
                             $("#overdueInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center">No data</td></tr>'
                             );
+                            $('#selectOverdue').addClass('d-none');
                         }
                     }
                 }).catch(function(error) {

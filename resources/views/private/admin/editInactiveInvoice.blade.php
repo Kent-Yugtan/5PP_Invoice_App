@@ -281,7 +281,7 @@
                                 <div class="col-12 w-100 ">
                                     <button type="button" id="edit_invoice" data-bs-toggle="modal"
                                         data-bs-target="#updateModal" class="btn w-100"
-                                        style="color: White; background-color: #CF8029;">Edit
+                                        style="color: White; background-color: #CF8029;" disabled="true">Edit
                                         Invoice</button>
                                 </div>
                             </div>
@@ -1206,7 +1206,7 @@
                     // add_rows += '<div class="d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
+                        '<button class="btn remove_items_button"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1283,8 +1283,8 @@
                                     let wrapper = $('#show_items');
                                     add_rows = '';
                                     add_rows += '<div class="row">';
-                                    add_rows += '<div class="form-group-profile">';
                                     add_rows += '<div class="col-md-4">';
+                                    add_rows += '<div class="form-group-profile">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1307,7 +1307,7 @@
                                         add_rows +=
                                             '<div class="invalid-feedback">This field is required.</div>';
                                     }
-                                    // add_rows += '</div>';
+                                    add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows += '<div class="col-md-2 bottom20">';
@@ -1526,8 +1526,8 @@
                                 } else {
                                     $('#text_date_received').html("");
                                     $('#date_received').html("");
-                                    $('#edit_invoice').prop('disabled', false);
-                                    $('#paid_button').prop('disabled', false);
+                                    // $('#edit_invoice').prop('disabled', false);
+                                    // $('#paid_button').prop('disabled', false);
                                 }
 
                                 let redue_date = data.data.due_date;
@@ -2000,11 +2000,11 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
 
-                                $('#table_invoiceItems tbody').empty();
+                                // $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
+                                // $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 1500);
 

@@ -599,7 +599,7 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="row justify-content-end">
                                                         <div class="col-sm-4">
                                                             <button class="btn "
@@ -608,7 +608,7 @@
                                                                 Item</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
@@ -659,15 +659,21 @@
 
                                                 <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-12" style="justify-content:end;display:flex">
-                                                            <div class="">
-                                                                <label for="subtotal" style="color:#A4A6B3">Subtotal
-                                                                    ($):
-                                                                </label>
-                                                                <input type="text"
-                                                                    style="font-weight: bold;text-align:right;border:none;background-color:white"
-                                                                    name="subtotal" id="subtotal"
-                                                                    class="form-control no-outline subtotal" readonly>
+                                                        <div class="col-sm-12 d-flex justify-content-end w-100">
+                                                            <div class="topBottom20" style="width: 290px !important;">
+                                                                <div class="input-group">
+                                                                    <label class="d-flex align-items-center"
+                                                                        for="subtotal" style="color:#A4A6B3">Subtotal ($):
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        style="font-weight: bold; text-align:right;border:none;background-color:white "
+                                                                        name="subtotal" id="subtotal"
+                                                                        class="form-control subtotal" readonly>
+                                                                    <div class="invalid-feedback"
+                                                                        style="padding-left: 85px;
+                                                                ">
+                                                                        This field is required.</div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -723,25 +729,26 @@
 
                                                 <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-lg-12" style="justify-content:end;display:flex">
-                                                            <!-- border-style:none -->
-                                                            <div>
-                                                                <label for="grand_total" class="fw-bold">Grand
-                                                                    Total(Php):</label>
+                                                        <div class="col-sm-12 d-flex justify-content-end">
+                                                            <div class="input-group" style="width: 290px">
+                                                                <label class="d-flex align-items-center fw-bold"
+                                                                    for="grand_total">Grand Total(Php):</label>
                                                                 <input type="text" id="grand_total"
-                                                                    class="form-control no-outline fw-bold"
+                                                                    class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-12 bottom20">
-                                                            <label for="floatingTextarea">Notes</label>
-                                                            <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 bottom20">
+                                                                <label for="floatingTextarea"
+                                                                    style="color:#A4A6B3">Notes</label>
+                                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1175,7 +1182,7 @@
                     add_rows += '<div class="form-group-profile">';
                     add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
                     add_rows +=
-                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" required />';
+                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi "  />';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -1186,7 +1193,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
                     add_rows +=
-                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" required/>';
+                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" />';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -1206,7 +1213,7 @@
                     // add_rows += '<div class="d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
+                        '<button class="btn remove_items_button"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -1282,9 +1289,9 @@
                                 data.data.invoice_items.map((item) => {
                                     let wrapper = $('#show_items');
                                     add_rows = '';
-                                    add_rows += '<div class="row">';
-                                    add_rows += '<div class="form-group-profile">';
+                                    add_rows += '<div class="row row1">';
                                     add_rows += '<div class="col-md-4">';
+                                    add_rows += '<div class="form-group-profile">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1307,7 +1314,7 @@
                                         add_rows +=
                                             '<div class="invalid-feedback">This field is required.</div>';
                                     }
-                                    // add_rows += '</div>';
+                                    add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows += '<div class="col-md-2 bottom20">';
@@ -1341,7 +1348,7 @@
                                         '<input type="text" value=' + PHP(item
                                             .total_amount)
                                         .format() +
-                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
+                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" multi class="form-control amount" />';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
 
@@ -1352,24 +1359,27 @@
                                         '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
+                                    add_rows += '</div>';
 
-                                    add_rows += '</div>'
-                                    add_rows += '</div>'
+                                    add_rows += '</div>';
 
                                     $(wrapper).append(add_rows);
                                     return '';
                                     // if ($('#show_items > .row1').length > 1) {
                                     //     $('#show_items > .row1').each(function() {
-                                    //         $(this).find('.col-remove-item')
+                                    //         $(this).find('.remove_items_button')
                                     //             .removeClass('d-none');
                                     //     })
                                     // } else {
-                                    //     $('#show_items > .row1').find('.col-remove-item')
+                                    //     $('#show_items > .row1').find(
+                                    //             '.remove_items_button')
                                     //         .removeClass('d-none').addClass(
                                     //             'd-none');
                                     // }
-                                    // x++;
+
                                 })
+                                x = data.data.invoice_items.length;
+                                console.log("X", x)
                             }
 
                             if (data.data.deductions.length > 0) {

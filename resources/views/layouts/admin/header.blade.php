@@ -3,9 +3,9 @@
         <img id="image" class="img-team" src="{{ URL('images/Invoices-logo.png') }}"
             style="width: 60px; padding:10px" />
         <a class="navbar-brand" href="{{ url('admin/dashboard') }}">Invoicing App</a>
-        {{-- style="width: 172px;" --}}
     </div>
-    <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!">
+
+    <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!" style="padding-left:20px">
         <i style="color:#CF8029" class="fas fa-bars"></i>
     </button>
     <div class="d-flex flex-sm-wrap">
@@ -15,6 +15,7 @@
 
     <div class="collapse navbar-collapse" style="justify-content: flex-end;margin-right:8px">
         <div class="d-flex align-items-center">
+
             <span class="icons d-none" style="margin-right:30px"><i style="color:#A4A6B3;"
                     class="fa-solid fa-magnifying-glass "></i></span>
             <span class="icons" style="margin-right:30px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
@@ -25,17 +26,20 @@
                 </div>
                 <div class="icons webLayout d-none">
                     <span class="custom-badge position-absolute"
-                        style="font-size: 6px;top:15px;right:141px;background-color:#f8f9fa"><i
+                        style="font-size: 6px;top:15px;right:109px;background-color:#f8f9fa"><i
                             class="fa-solid fa-circle" style="color:#CF8029"></i></span>
                 </div>
             </span>
+
             <span class="icons d-none" style="padding-right:20px">
                 <i style="color:#A4A6B3;" class="fa-solid fa-grip-lines-vertical"></i>
             </span>
+
             <div class="icons mobileLayout d-none">
                 <span style="margin-right:15px">{{ session('data')->first_name }}
                     {{ session('data')->last_name }}</span>
             </div>
+
             <ul class="navbar-nav ms-auto ms-sm-0 pe-2">
                 <li class="nav-item dropdown">
                     <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
@@ -43,23 +47,24 @@
                             src="/images/default.png"></button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         {{-- <li><a class="dropdown-item"></a></li> --}}
-                        <div class="webLayout d-none">
-                            <li><a class="dropdown-item">{{ session('data')->first_name }}
-                                    {{ session('data')->last_name }}</a>
-                        </div>
-                </li>
-                <li><a class="dropdown-item">{{ session('data')->role }}</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li><a class="dropdown-item" id="logout"><span
-                            style="cursor: pointer;">{{ __('Logout') }}</span></a></li>
-            </ul>
-            </li>
-            </ul>
+                        {{-- <div class=""> --}}
+                        <li><a class="dropdown-item webLayout d-none ">{{ session('data')->first_name }}
+                                {{ session('data')->last_name }}</a>
+                            {{-- </div> --}}
+                        </li>
+
+                        <li><a class="dropdown-item">{{ session('data')->role }}</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" id="logout">
+                                <span style="cursor: pointer;">{{ __('Logout') }}</span></a>
+                        </li>
+                    </ul>
+
         </div>
     </div>
-
 </nav>
 
 <script>

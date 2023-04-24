@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" defer />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css"
         defer />
-
 
     @include('layouts.csslink')
 
@@ -43,7 +41,6 @@
         @else
             @include('layouts.employee.sidemenu')
         @endif
-
         <div id="layoutSidenav_content">
             @if (session('data')->role == 'Admin')
                 @include('layouts.admin.header')

@@ -83,7 +83,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center" colspan="6">
+                                        <td class="text-center" colspan="7">
                                             <div class="noData"
                                                 style="width:' +
                               width +
@@ -159,7 +159,7 @@
                     <div class="row ">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelactive">Cancel</button>
+                                id="cancelactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="active_button" class="btn  w-100"
@@ -436,8 +436,10 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
-                                location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                $('#button_active').addClass('d-none');
+                                show_data();
+                                // location.href = apiUrl + "/admin/current"
+                                // window.location.reload();
                             }, 3000)
                             toast1.toast('show');
                         }
@@ -488,7 +490,9 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
+                                show_data();
+                                $('#button_active').addClass('d-none');
                             }, 3000)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
@@ -520,13 +524,13 @@
                 }
             })
 
-            $('#cancelactive').on('click', function(e) {
-                e.preventDefault();
-                $('#activeModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
-            })
+            // $('#cancelactive').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#activeModal').modal('hide');
+            //     setTimeout(function() {
+            //         location.reload(true);
+            //     }, 500)
+            // })
 
             $('#tbl_showing_inactivePages').on('change', function() {
                 let pages = $(this).val();
@@ -719,7 +723,7 @@
                                 selectShow();
 
                                 $("#tbl_user tbody").append(
-                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    '<tr><td colspan="7" class="text-center"><div class="noData" style="width:' +
                                     width +
                                     'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );

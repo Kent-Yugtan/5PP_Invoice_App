@@ -32,19 +32,27 @@ class ProfileDeductionTypesController extends Controller
    */
   public function store(Request $request)
   {
-
     $error = false;
-    $profileDeductionTypes_id = $request->id;
+    $id = $request->id;
+    $profile_id = $request->profile_id;
     if ($error === false) {
-      if (!$profileDeductionTypes_id) {
-        $incoming_data = $request->validate([
-          'deduction_type_name' => 'required',
+      if (!$id) {
+        $request->validate([
+          'deduction_type_name' => 'required'
+        ]);
+        $request->validate([
+          'deduction_type_name' => [
+            'required',
+            Rule::unique('profile_deduction_types')
+              ->where('profile_id', $profile_id)
+          ],
           'amount' => 'required',
         ]);
 
         // $deductionType = DeductionType::find($request->deduction_type_id);
-        $incoming_data += [
+        $incoming_data = [
           'profile_id' => $request->profile_id,
+          'deduction_type_name' => $request->deduction_type_name,
           'deduction_type_id' => '0',
         ];
 
@@ -58,12 +66,29 @@ class ProfileDeductionTypesController extends Controller
           'data' => $storeData,
         ]);
       } else {
-        // $data = ProfileDeductionTypes::find($profileDeductionTypes_id);
         $request->validate([
-          'amount' => 'required',
-          'deduction_type_name' => 'required|unique:profile_deduction_types',
+          'deduction_type_name' => 'required'
         ]);
-        $store_data = ProfileDeductionTypes::where('id', $profileDeductionTypes_id)->update(
+        $data = ProfileDeductionTypes::find($id);
+        if ($data->deduction_type_name != $request->deduction_type_name) {
+          $existingData = ProfileDeductionTypes::where('profile_id', $profile_id)
+            ->where('deduction_type_name', $request->deduction_type_name)
+            ->where('id', '<>', $id)
+            ->get();
+
+          if ($existingData->count() > 0) {
+            $editValidateProfileDeductionname = $request->validate([
+              'deduction_type_name' => [
+                'required',
+                Rule::unique('profile_deduction_types')
+                  ->where('profile_id', $profile_id)
+                  ->ignore($id),
+              ],
+            ]);
+          }
+        }
+
+        $store_data = ProfileDeductionTypes::where('id', $id)->update(
           [
             'amount' => $request->amount,
             'deduction_type_name' => $request->deduction_type_name,
@@ -83,15 +108,13 @@ class ProfileDeductionTypesController extends Controller
   public function validateProfileDeduction(Request $request)
   {
     $id = $request->id;
-    $data = ProfileDeductionTypes::find($id);
-    if ($id && $data) {
-      $profileId = $data->profile_id;
+    $data = ProfileDeductionTypes::where('profile_id', $id)->get();
+    if ($data) {
       $validateProfileDeduction = $request->validate([
         'deduction_type_name' => [
           'required',
           Rule::unique('profile_deduction_types')
-            ->where('profile_id', $profileId)
-            ->ignore($id),
+            ->where('profile_id', $id)
         ],
       ]);
 
@@ -105,26 +128,81 @@ class ProfileDeductionTypesController extends Controller
   // VALIDATE EDIT
   public function editValidateProfileDeductionname(Request $request)
   {
+
     $id = $request->id;
+    $profile_id = $request->profile_id;
+
     $data = ProfileDeductionTypes::find($id);
-    if ($id && $data) {
-      if ($data->deduction_type_name != $request->deduction_type_name) {
-        $profileId = $data->profile_id;
-        $editValidateProfileDeductionname = $request->validate([
+    $existingData = 0;
+    $request->validate([
+      'deduction_type_name' => 'required'
+    ]);
+    if ($data->deduction_type_name != $request->deduction_type_name) {
+      $existingData = ProfileDeductionTypes::where('profile_id', $profile_id)
+        ->where('deduction_type_name', $request->deduction_type_name)
+        ->where('id', '<>', $id)
+        ->get();
+
+      if ($existingData->count() > 0) {
+        $request->validate([
           'deduction_type_name' => [
             'required',
             Rule::unique('profile_deduction_types')
-              ->where('profile_id', $profileId)
+              ->where('profile_id', $profile_id)
               ->ignore($id),
           ],
         ]);
-
-        return response()->json([
-          'success' => true,
-          'data' => $editValidateProfileDeductionname,
-        ], 200);
       }
+      return response()->json([
+        'success' => true,
+        'count' => $existingData,
+      ], 200);
     }
+
+    // $id = $request->id;
+    // $profile_id = $request->profile_id;
+
+    // $data = ProfileDeductionTypes::find($id);
+
+    // if ($data->deduction_type_name != $request->deduction_type_name) {
+    //   $data1 = ProfileDeductionTypes::where('profile_id', $id)->get();
+    //   foreach ($data1 as $item) {
+    //     if ($item->deduction_type_name != $request->deduction_type_name && $item->profile_id == $request->id) {
+    //       $editValidateProfileDeductionname = $request->validate([
+    //         'deduction_type_name' => [
+    //           'required',
+    //           Rule::unique('profile_deduction_types')
+    //             ->where('profile_id', $profile_id)
+    //             ->ignore($request->id),
+    //         ],
+    //       ]);
+    //     }
+    //   }
+    // }
+    // return response()->json([
+    //   'success' => true,
+    // ], 200);
+    // $editValidateProfileDeductionname = null; // Initialize variable outside loop
+
+    // if ($data) {
+    //   foreach ($data as $item) {
+    //     if ($item->deduction_type_name != $request->deduction_type_name && $item->profile_id == $request->id) {
+    //       $editValidateProfileDeductionname = $request->validate([
+    //         'deduction_type_name' => [
+    //           'required',
+    //           Rule::unique('profile_deduction_types')
+    //             ->where('profile_id', $id)
+    //             ->ignore($request->id),
+    //         ],
+    //       ]);
+    //     }
+    //   }
+
+    //   return response()->json([
+    //     'success' => true,
+    //     'data' => $editValidateProfileDeductionname,
+    //   ], 200);
+    // }
   }
 
   /**

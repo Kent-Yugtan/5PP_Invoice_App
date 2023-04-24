@@ -71,7 +71,7 @@
         <div class="row d-none" id="invoice_active">
             <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal" class="btn w-100"
-                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Active</button>
+                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Activate</button>
             </div>
         </div>
 
@@ -249,7 +249,7 @@
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelactive">Cancel</button>
+                                id="cancelactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="active_button" class="btn  w-100"
@@ -453,8 +453,9 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                show_statusInactiveinvoice();
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
                             }, 3000)
                             toast1.toast('show');
                         }
@@ -504,7 +505,8 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
+                                // window.location.reload();
+                                show_statusInactiveinvoice();
                             }, 3000)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
@@ -535,13 +537,13 @@
                 }
             })
 
-            $('#cancelactive').on('click', function(e) {
-                e.preventDefault();
-                $('#activeModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
-            })
+            // $('#cancelactive').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#activeModal').modal('hide');
+            //     setTimeout(function() {
+            //         location.reload(true);
+            //     }, 500)
+            // })
 
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
@@ -972,7 +974,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Active</a></li>
+                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Activate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInactiveInvoice/' +
                                     item.id +

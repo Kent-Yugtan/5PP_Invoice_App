@@ -23,15 +23,6 @@
                                 <input type="text" class="form-control" id="search" name="search"
                                     placeholder="Search">
                             </div>
-                            {{-- <div class="input-group" id="input-group-search">
-                                <div class="input-group-prepend input-group-text" id="border-search">
-                                    <i style="color:#A4A6B3" class="fas fa-search"></i>
-                                </div>
-                                <input id="search" name="search" type="text"
-                                    class="search-left-icon form-control form-check-inline "
-                                    onfocusout="input_group_focus('out','input-group-search')"
-                                    onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
-                            </div> --}}
                         </div>
                     </div>
                     <div class="col-sm-6 bottom10" style="padding-right:8px;padding-left:8px;">
@@ -120,7 +111,8 @@
                                                         <input id="deduction_name" name="deduction_name" type="text"
                                                             class="form-control" placeholder="Deduction Name"
                                                             onblur="validateDeductionname(this)" required>
-                                                        <div id="error_deduction_name"></div>
+                                                        <div id="error_deduction_name" class="invalid-feedback">This field
+                                                            is required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -617,11 +609,24 @@
                 setTimeout(function() {
                     $('#deductiontype_store').trigger('reset');
                     $('#deductiontype_store').removeClass('was-validated');
+                    $('#deduction_name').removeClass('is-invalid');
                     $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
                     $("div.spanner").removeClass("show");
                 }, 1500)
+            })
 
-
+            $("#addModal").on('hide.bs.modal', function() {
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $('#deductiontype_store').trigger('reset');
+                    $('#deductiontype_store').removeClass('was-validated');
+                    $('#deduction_name').removeClass('is-invalid');
+                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
+                    $("div.spanner").removeClass("show");
+                }, 1500)
             })
 
             $("#closedeductiontype_update").on('click', function(e) {

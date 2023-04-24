@@ -71,7 +71,7 @@
                                                 <label for="email" style="color: #A4A6B3;">Email Address</label>
                                                 <input id="email" name="email" type="email" class="form-control"
                                                     placeholder="Email Address" onblur="validateEmail(this)" required>
-                                                <div id="error_email" class="invalid-feedback"></div>
+                                                <div id="error_email" class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +82,8 @@
                                                 <label for="username" style="color: #A4A6B3;">Username</label>
                                                 <input id="username" name="username" onblur="validateUsername(this)"
                                                     type="text" class="form-control" placeholder="Username" required>
-                                                <div id="error_username"></div>
+                                                <div id="error_username" class="invalid-feedback"> This field is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +213,8 @@
                                                 <input name="acct_no" id="acct_no" type="text" class="form-control"
                                                     placeholder="Account Number" onblur="validateAcctno(this)" required
                                                     maxlength="15">
-                                                <div id="error_acct_no"></div>
+                                                <div id="error_acct_no" class="invalid-feedback">This field is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +226,8 @@
                                                 <input name="acct_name" id="acct_name" type="text"
                                                     class="form-control" onblur="validateAcctname(this)"
                                                     placeholder="Account Name" required>
-                                                <div id="error_acct_name"></div>
+                                                <div id="error_acct_name" class="invalid-feedback">This field is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +316,8 @@
                                                 <input name="gcash_no" type="text" class="form-control"
                                                     id="gcash_no" onblur="validateGcashno(this)"
                                                     placeholder="Gcash Number" required maxlength="11">
-                                                <div id="error_gcash_no"></div>
+                                                <div id="error_gcash_no" class="invalid-feedback">This field is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

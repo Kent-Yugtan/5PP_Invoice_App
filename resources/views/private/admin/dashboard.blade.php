@@ -343,26 +343,6 @@
             //  For creating invoice codes
             $("div.spanner").addClass("show");
 
-
-            // function due_date() {
-            // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            // Get the input field
-            // var dateInput = $("#due_date");
-            // Set the datepicker options
-            // dateInput.datepicker({
-            // dateFormat: "yy/mm/dd",
-            // onSelect: function(dateText, inst) {
-            // Update the input value with the selected date
-            // dateInput.val(dateText);
-            // $('#due_date').val(dateText);
-            // }
-            // });
-            // Set the input value to the current system date in the specified format
-            // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-            // dateInput.val(currentDate);
-            // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            // }
-
             let toast1 = $('.toast1');
             toast1.toast({
                 // delay: 3000,
@@ -505,7 +485,6 @@
                     page_size: pages
                 });
             })
-
 
             // View Pending Invoices
             function pendingInvoices(filters) {
@@ -668,7 +647,7 @@
                                     apiUrl +
                                     '/admin/editInvoice/' +
                                     item.id +
-                                    '" class=""><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
+                                    '" class="btn-table"><i class="fa-solid fa-magnifying-glass" style="color:#cf8029"></i> </a></td>';
                                 tr += '</tr>';
                                 $('#overdueInvoices tbody').append(tr);
                             })

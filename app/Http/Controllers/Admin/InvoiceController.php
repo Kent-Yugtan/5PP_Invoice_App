@@ -392,7 +392,6 @@ class InvoiceController extends Controller
       if ($profile_id) {
         $request->validate(
           [
-
             'due_date' => 'required',
             'description' => 'required',
             'invoiceItem.*.item_description' => 'required',
@@ -464,6 +463,7 @@ class InvoiceController extends Controller
           }
         }
       }
+
       if (count($invoiceItem_ids) > 0) {
         InvoiceItems::where('invoice_id', $invoice_id)->whereNotIn('id', $invoiceItem_ids)->delete();
       } else {
@@ -474,15 +474,14 @@ class InvoiceController extends Controller
       if ($invoiceItems_id && $invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
               'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -490,6 +489,9 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
@@ -563,14 +565,14 @@ class InvoiceController extends Controller
       if ($profileDeduction_id && $invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
+              'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -578,10 +580,12 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
-
           $invoice_update_data = $invoice_data->fill($incoming_data)->save();
 
           if ($request->Deductions) {
@@ -607,15 +611,14 @@ class InvoiceController extends Controller
       if ($invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
               'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -623,6 +626,9 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
@@ -2269,7 +2275,6 @@ class InvoiceController extends Controller
           'message' => 'Your Invoice has been updated successfully.',
         ], 200);
       } else {
-
         $multipleData = Invoice::whereIn('id', $multipleId)
           ->update(['status' => 'Inactive']);
         return response()->json([
