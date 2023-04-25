@@ -686,7 +686,7 @@ class InvoiceController extends Controller
   {
     $error = false;
     $profile_id = $request->profile_id;
-    $deductions = $request->deduction;
+    $deductions = $request->Deductions;
     $invoiceItems = $request->invoiceItems;
 
     if ($error == false) {
@@ -717,7 +717,6 @@ class InvoiceController extends Controller
         ];
         $store_data = Invoice::create($incoming_data);
         if ($store_data) {
-
           if ($invoiceItems) {
             foreach ($invoiceItems as $key => $value) {
               $datainvoiceitem = [
@@ -741,16 +740,16 @@ class InvoiceController extends Controller
               $store_data->deductions()->create($dataDeductions);
             }
           }
-
-          $this->sendEmail_admin();
-          $this->sendEmail_profile();
-
-          return response()->json([
-            'success' => true,
-            'message' => "The invoice has been created successfully and sent to your email.",
-            'data' => $store_data,
-          ], 200);
         }
+
+        $this->sendEmail_admin();
+        $this->sendEmail_profile();
+
+        return response()->json([
+          'success' => true,
+          'message' => "The invoice has been created successfully and sent to your email.",
+          'data' => $store_data,
+        ], 200);
       }
     }
   }
@@ -835,7 +834,7 @@ class InvoiceController extends Controller
       }
     }
 
-    $deductions = $deductions->orderby('created_at', 'asc');
+    $deductions = $deductions->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $deductions = $deductions->limit($request->page_size)
@@ -886,7 +885,7 @@ class InvoiceController extends Controller
         }
       }
 
-      $deductions = $deductions->orderby('created_at', 'asc');
+      $deductions = $deductions->orderby('created_at', 'desc');
 
       if ($request->page_size) {
         $deductions = $deductions->limit($request->page_size)
@@ -997,7 +996,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user')
       ->where('invoice_status', 'Pending')
       ->where('status', 'Inactive')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1132,7 +1131,7 @@ class InvoiceController extends Controller
         $query->where('profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1144,7 +1143,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Inactive');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1157,7 +1156,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Active');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1169,7 +1168,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Inactive');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
 
     return response()->json([
       'success' => true,
@@ -1185,7 +1184,7 @@ class InvoiceController extends Controller
         $query->where('profiles.profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Pending');
-    $invoices = $invoices->orderby('created_at', 'asc');
+    $invoices = $invoices->orderby('created_at', 'desc');
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
@@ -1210,7 +1209,7 @@ class InvoiceController extends Controller
         $query->where('profiles.profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Overdue')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
@@ -1379,6 +1378,34 @@ class InvoiceController extends Controller
       ], 200);
     }
   }
+
+  public function userActiveInvoiceCount()
+  {
+    $userId = auth()->user()->id;
+    $profile = Profile::where('user_id', $userId)->first();
+    if (isset($profile)) {
+      $activeCount = Invoice::where('status', 'Active')->where('profile_id', $profile->id)->count();
+      return response()->json([
+        'success' => true,
+        'data' => $activeCount,
+      ], 200);
+    }
+  }
+
+  public function userInactiveInvoiceCount()
+  {
+    $userId = auth()->user()->id;
+    $profile = Profile::where('user_id', $userId)->first();
+    if ($profile->id) {
+      $inActive = Invoice::where('status', 'Inactive')->where('profile_id', $profile->id)->count();
+      return response()->json([
+        'success' => true,
+        'data' => $inActive,
+      ], 200);
+    }
+  }
+
+
 
   // SEND EMAIL FOR STATUS PAID ADMIN
   public function sendEmail_status_admin($invoice_id)
@@ -1739,7 +1766,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1756,7 +1783,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
@@ -1781,7 +1808,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Overdue')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)

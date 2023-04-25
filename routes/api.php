@@ -206,6 +206,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::post('user/updateProfile', [ProfileController::class, 'updateProfile']);
   Route::get('invoice/check_userProfile', [InvoiceController::class, 'check_userProfile']);
 
+  Route::get('userActiveInvoiceCount', [InvoiceController::class, 'userActiveInvoiceCount']);
+  Route::get('userInactiveInvoiceCount', [InvoiceController::class, 'userInactiveInvoiceCount']);
+
   // EDIT INVOICE
   Route::get('user/userEditInvoice/{id}', [InvoiceController::class, 'userEditInvoice']); // EDIT INVOICE VIEW
 

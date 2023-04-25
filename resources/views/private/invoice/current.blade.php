@@ -246,7 +246,6 @@
             </div>
         </div>
     </div>
-    <!-- START MODAL UPDATE INVOICE STATUS -->
 
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
@@ -265,7 +264,6 @@
         </div>
     </div>
 
-
     <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
         <div class="loader"></div>
     </div>
@@ -282,7 +280,6 @@
                 $('#' + id).addClass('input-group-focused');
             }
         }
-
 
         let width = window.innerWidth; // Set the initial value of width
         window.addEventListener("load", () => {
@@ -352,6 +349,7 @@
                 $('.noData').css('width', width);
             }
         });
+
         $(document).ready(function() {
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
@@ -367,7 +365,6 @@
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
             });
-
 
             function selectShow() {
                 var numCheckboxes = $('.select-item').length;
@@ -465,9 +462,13 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 show_data();
+                                active_count_paid();
+                                active_count_pending();
+                                check_pendingInvoicesStatus();
+                                $('#invoice_inactive').addClass('d-none');
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
-                            }, 3000)
+                            }, 1500)
                             toast1.toast('show');
                         }
                     }).catch(function(error) {
@@ -518,7 +519,12 @@
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
                                 show_data();
-                            }, 3000)
+                                show_data();
+                                active_count_paid();
+                                active_count_pending();
+                                check_pendingInvoicesStatus();
+                                $('#invoice_inactive').addClass('d-none');
+                            }, 1500)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
                         }
@@ -777,8 +783,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                          <a class="page-link" data-url="${item.url}">${label}</a>
+                        </li>`;
 
                                 $('#tbl_pagination_invoice').append(li);
                                 return "";
@@ -924,7 +930,7 @@
             function show_data(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     filter_all_invoices: $('#filter_invoices').val(),
                     ...filters
@@ -1035,8 +1041,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                              <a class="page-link" data-url="${item.url}">${label}</a>
+                            </li>`;
 
                                 $('#tbl_pagination_invoice').append(li);
                                 return "";

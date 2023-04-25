@@ -28,13 +28,27 @@
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
                         <div class="table-responsive" style="padding:20px">
-                            <table id="deductionReports" width="100%" style="font-size: 14px;" class="table table-hover">
+                            <table id="deductionReports" width="100%" style="font-size: 14px;"
+                                class="display table table-hover">
                                 <thead>
                                 </thead>
                                 <tbody>
 
                                 </tbody>
-                                <tfoot>
+                                <tfoot align="right">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -528,19 +542,19 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(3)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else if (item.invoice_status == "Cancelled") {
                                     invoiceStatusCell.css("background-color", "#A4A6B3");
-                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    // invoiceStatusCell.css("border-color", "#A4A6B3");
                                     invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
 
@@ -623,19 +637,19 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(3)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else if (item.invoice_status == "Cancelled") {
                                     invoiceStatusCell.css("background-color", "#A4A6B3");
-                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    // invoiceStatusCell.css("border-color", "#A4A6B3");
                                     invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
                             })

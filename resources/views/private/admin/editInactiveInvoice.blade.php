@@ -1071,7 +1071,7 @@
                         draggable: false,
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeItems: {
                                 btnClass: 'btn btn-danger',
@@ -1110,7 +1110,7 @@
                         draggable: false,
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',

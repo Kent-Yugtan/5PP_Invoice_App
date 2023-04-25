@@ -1353,7 +1353,7 @@
 
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -1399,7 +1399,7 @@
 
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -1439,7 +1439,7 @@
 
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -1898,7 +1898,7 @@
                                                 data.data
                                                 .discount_type + "</span> </div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1918,7 +1918,7 @@
                                                 .discount_type + " (" + discount_amount + "%) " +
                                                 "</span></div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";

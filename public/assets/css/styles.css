@@ -13804,3 +13804,11 @@ font-size: 14px;
 .max-height{
   max-height: 424px !important;
 }
+
+tfoot,
+th {
+  /* border-color: rgba(207, 128, 41, 0.5); */
+    border-style: solid;
+    border-width: 0;
+
+}

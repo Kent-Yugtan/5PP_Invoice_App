@@ -34,7 +34,21 @@
                                 </thead>
                                 <tbody>
                                 </tbody>
-                                <tfoot>
+                                <tfoot align="right">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -61,7 +75,6 @@
             </div>
         </div>
     </div>
-
 
     <script type="text/javascript">
         const PHP = value => currency(value, {
@@ -106,7 +119,7 @@
                             i : 0;
                     };
 
-                    // computing column Total of the current page only
+                    //computing column Total of the current page only
                     var discountAmount = api
                         .column(6, {
                             page: 'current'
@@ -142,7 +155,6 @@
                         .reduce(function(a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
-
                     // Update the footer with the calculated values
                     $(api.column(1).footer()).html('Total');
                     $(api.column(6).footer()).html(PHP(discountAmount).format());
@@ -151,6 +163,7 @@
                     $(api.column(9).footer()).html(PHP(netAmount).format());
 
                 },
+
                 responsive: true,
                 // dom: 'Bfrtip',
                 dom: 'lBfrtip',
@@ -343,8 +356,6 @@
             dataTable.buttons().container()
                 .appendTo($('.col-sm-12:eq(0)', dataTable.table().container()));
 
-
-
             function from() {
                 // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
                 // Get the input field
@@ -474,19 +485,19 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(2)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else if (item.invoice_status == "Cancelled") {
                                     invoiceStatusCell.css("background-color", "#A4A6B3");
-                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    // invoiceStatusCell.css("border-color", "#A4A6B3");
                                     invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
 
@@ -572,19 +583,19 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(2)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else if (item.invoice_status == "Cancelled") {
                                     invoiceStatusCell.css("background-color", "#A4A6B3");
-                                    invoiceStatusCell.css("border-color", "#A4A6B3");
+                                    // invoiceStatusCell.css("border-color", "#A4A6B3");
                                     invoiceStatusCell.css("color", "white");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
                             })

@@ -11,7 +11,7 @@
                                 <span class="fs-3 ">Profile Information</span>
                             </div>
                         </div>
-                        <!-- method="POST" action="javascript:void(0)" class="row g-3 needs-validation"novalidate -->
+
                         <form id="ProfileUpdate" class="g-3 needs-validation" novalidate>
                             <div class="row pt-3">
                                 @csrf
@@ -444,6 +444,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between">
@@ -787,8 +788,64 @@
             </div>
         </div>
     </div>
+    {{-- <!-- OLD START MODAL ADD FOR PROFILE DEDUCTION-->
+    <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="hide-content">
+                <div class="modal-body">
+                    <form id="deductiontype_store" method="POST" action="javascript:void(0)">
+                        @csrf
+                        <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                            <div class="card-body">
+                                <div class="row px-4 py-4" id="header">
+                                    <div class="col-md-12 px-2 w-100">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="fs-3 fw-bold">Add Deduction</span>
+                                            </div>
+                                        </div>
 
-    <!-- START MODAL ADD -->
+                                        <div class="row">
+                                            <div class="col-12 bottom20">
+                                                <input type="text" id="createDeduction_profile_id" hidden>
+                                                <div class="form-group mt-3" id="select_deduction_name"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 bottom20">
+                                                <label for="createDeduction_deduction_amount"
+                                                    style="color:#A4A6B3">Amount</label>
+                                                <input id="createDeduction_deduction_amount"
+                                                    name="createDeduction_deduction_amount" type="text"
+                                                    class="createDeduction_deduction_amount form-control"
+                                                    placeholder="Amount">
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col">
+                                                <button type="button" class="btn w-100"
+                                                    style="color:white; background-color:#A4A6B3; "
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" id="createDeduction_button" class="btn w-100"
+                                                    style="color:White; background-color:#CF8029;">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    <!-- NEW START MODAL ADD FOR PROFILE DEDUCTION -->
     <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -862,6 +919,7 @@
             </div>
         </div>
     </div>
+    <!-- END START MODAL ADD FOR PROFILE DEDUCTION -->
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
     <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
@@ -942,7 +1000,7 @@
             </div>
         </div>
     </div>
-    <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
+    <!-- END MODAL PROFILE DEDUCTION TYPE EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
     <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -2600,10 +2658,22 @@
                     let data = response.data;
                     console.log("EDIT FOR UPATE", data);
 
-                    $('#profileDeductionType_profileId').val(data.data.profile_id);
-                    $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
-                    $('#edit_profileDeductionType_amount').val(PHP(data.data.amount).format());
+                    if (data.success) {
+                        if (data.foreign == true) {
+                            $('#profileDeductionType_profileId').val(data.data.profile_id);
+                            $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
+                            $('#edit_profileDeductionType_amount').val(PHP(data.data.amount)
+                                .format());
 
+                            $('#edit_profileDeductionType_name').prop("disabled", true);
+                        } else {
+                            $('#profileDeductionType_profileId').val(data.data.profile_id);
+                            $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
+                            $('#edit_profileDeductionType_amount').val(PHP(data.data.amount)
+                                .format());
+                            $('#edit_profileDeductionType_name').prop("disabled", false);
+                        }
+                    }
                 }).catch(function(error) {
                     console.log("ERROR", error);
                 })
@@ -2618,7 +2688,8 @@
 
             $("#col_discount_amount").addClass('d-none');
             $("#col_discount_total").addClass('d-none');
-            $(".label_discount_amount").addClass('d-none');
+            $(
+                ".label_discount_amount").addClass('d-none');
             $(".label_discount_total").addClass('d-none');
 
             $('input[type=radio][id=discount_type]').change(function() {
@@ -2908,7 +2979,7 @@
                         draggable: false,
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -2953,7 +3024,7 @@
 
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -3125,7 +3196,6 @@
                     $('input').removeClass('is-invalid');
                     $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback').html(
                         "").show();
-
                 }, 1500)
             });
 
@@ -3174,7 +3244,6 @@
             });
 
             $("#button-addon2").click(function(e) {
-
                 $('html, body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');
@@ -3453,6 +3522,7 @@
                     amount: amount,
                     deduction_type_name: deduction_name
                 };
+                console.log("DATADATA", data);
                 axios
                     .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
                         headers: {
@@ -3660,7 +3730,7 @@
                     let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
 
                     let filter = {
-                        page_size: 30,
+                        page_size: pageSize,
                         page: page ? page : 1,
                         profile_id: urlSplit[4],
                         search: $('#deductionDropSearch').val() ? $('#deductionDropSearch').val() : '',
@@ -3735,8 +3805,8 @@
                                         }
 
                                         let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                    <a class="page-link" data-url="${item.url}">${label}</a>
+                  </li>`;
 
                                         $('#tbl_pagination_deduction').append(li);
                                         return "";

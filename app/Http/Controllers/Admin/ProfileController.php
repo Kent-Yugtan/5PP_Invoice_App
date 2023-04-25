@@ -389,7 +389,7 @@ class ProfileController extends Controller
     if ($user_id) {
       if ($findUser) {
         if ($findUser->profile) {
-          if ($findUser->profile->acct_name != $request->acct_name) {
+          if ($findUser->profile->gcash_no != $request->gcash_no) {
             $editvalidateGCASHno = $request->validate([
               'gcash_no' => 'required|unique:profiles|numeric',
             ]);

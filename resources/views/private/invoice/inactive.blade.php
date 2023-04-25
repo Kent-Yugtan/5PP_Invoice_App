@@ -342,6 +342,7 @@
                 $('.noData').css('width', width);
             }
         });
+
         $(document).ready(function() {
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
@@ -356,7 +357,6 @@
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
             });
-
 
             function selectShow() {
                 var numCheckboxes = $('.select-item').length;
@@ -454,9 +454,12 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 show_statusInactiveinvoice();
+                                invoiceCount_active();
+                                invoiceCount_inactive();
+                                $('#invoice_active').addClass('d-none');
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
-                            }, 3000)
+                            }, 1500)
                             toast1.toast('show');
                         }
                     }).catch(function(error) {
@@ -507,7 +510,10 @@
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
                                 show_statusInactiveinvoice();
-                            }, 3000)
+                                invoiceCount_active();
+                                invoiceCount_inactive();
+                                $('#invoice_active').addClass('d-none');
+                            }, 1500)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
                         }
@@ -536,14 +542,6 @@
                     })
                 }
             })
-
-            // $('#cancelactive').on('click', function(e) {
-            //     e.preventDefault();
-            //     $('#activeModal').modal('hide');
-            //     setTimeout(function() {
-            //         location.reload(true);
-            //     }, 500)
-            // })
 
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
@@ -607,7 +605,7 @@
             function search_statusInactive_invoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     filter_all_invoices: $('#filter_invoices').val(),
@@ -765,8 +763,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                        <a class="page-link" data-url="${item.url}">${label}</a>
+                      </li>`;
 
                                 $('#tbl_pagination_invoice').append(li);
                                 return "";
@@ -996,8 +994,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                            <a class="page-link" data-url="${item.url}">${label}</a>
+                          </li>`;
 
                                 $('#tbl_pagination_invoice').append(li);
                                 return "";
@@ -1081,8 +1079,6 @@
 
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_statusInactiveinvoice();
                 }, 1500)
             });
@@ -1118,7 +1114,6 @@
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'smooth');
 
-                var start = performance.now(); // Get the current timestamp
                 // Do your processing here
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();
@@ -1188,8 +1183,6 @@
                     $('#tbl_pagination_invoice').empty();
                     search_statusInactive_invoice();
                     $("div.spanner").removeClass("show");
-
-
                 }, 1500)
             })
         })

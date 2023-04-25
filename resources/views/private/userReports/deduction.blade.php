@@ -28,12 +28,26 @@
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
                         <div class="table-responsive" style="padding:20px">
-                            <table id="deductionReports" width="100%" style="font-size: 14px;" class="table table-hover">
+                            <table id="deductionReports" width="100%" style="font-size: 14px;"
+                                class="display table table-hover">
                                 <thead>
                                 </thead>
                                 <tbody>
                                 </tbody>
-                                <tfoot>
+                                <tfoot align="right">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -604,7 +604,9 @@
                             $('#selectPending').removeClass('d-none');
                         } else {
                             $("#pendingInvoices tbody").append(
-                                '<tr><td colspan="4" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             $('#selectPending').addClass('d-none');
                         }
@@ -711,7 +713,9 @@
                             $('#selectOverdue').removeClass('d-none');
                         } else {
                             $("#overdueInvoices tbody").append(
-                                '<tr><td colspan="4" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             $('#selectOverdue').addClass('d-none');
                         }

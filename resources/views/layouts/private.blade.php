@@ -64,10 +64,11 @@
         }, 1500)
     })
 </script>
-@include('layouts.script')
-
 <!-- JQUERY UI -->
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+
+@include('layouts.script')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
