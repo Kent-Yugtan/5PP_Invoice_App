@@ -46,9 +46,11 @@ class DeductionTypeController extends Controller
         $incoming_data = $request->validate(
           [
             'deduction_name' => 'required|unique:deduction_types',
-            'deduction_amount' => 'required',
           ]
         );
+        $incoming_data += [
+          'deduction_amount' => $request->deduction_amount,
+        ];
         $store_data = DeductionType::Create($incoming_data);
         return response()->json([
           'success' => true,

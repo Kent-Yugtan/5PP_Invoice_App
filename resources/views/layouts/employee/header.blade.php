@@ -147,7 +147,7 @@
                 $("#header_title").html('Inactive Invoice');
             }
             if (path == 'user/userdeductiontype') {
-                $("#header_title").html('Deductions');
+                $("#header_title").html('Deduction Types');
             }
             if (path == 'userReports/deduction') {
                 $("#header_title").html('Deduction Report');

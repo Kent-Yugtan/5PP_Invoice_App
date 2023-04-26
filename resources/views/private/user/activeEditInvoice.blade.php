@@ -1,24 +1,27 @@
 @extends('layouts.private')
 @section('content-dashboard')
-    <div class="container-fluid content-header" id="loader_load">
+    <div class="container-fluid container-header" id="loader_load">
         <div class="row" style="padding-top:10px">
-            <div class="col-lg-12 col-xl-8 bottom10">
+            <div class="col-lg-8 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body">
-
                         <div style="padding:20px">
                             <div id="content">
                                 <div class="row bottom20">
                                     <span id="userId" hidden></span>
                                     <span id="profileId" hidden></span>
-                                    <div class="col-sm-6 fw-bolder" style="margin-top:17px">
-                                        <div id="full_name"></div>
-                                        <div id="email"></div>
-                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6 fw-bolder">
+                                                <div id="fullname" class="top10"></div>
+                                                <div id="email" style="overflow-wrap: break-word"></div>
+                                            </div>
 
-                                    <div class="col-sm-6 fw-bolder text-sm-end">
-                                        <div class="fs-3 fw-bold">INVOICE</div>
-                                        <div class="text-muted" id="invoice_no"></div>
+                                            <div class="col-6 fw-bolder text-end">
+                                                <div class="fs-3 fw-bold">INVOICE</div>
+                                                <div class="text-muted" id="invoice_no"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -30,64 +33,160 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-sm-6 pt-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                Bill To
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label class="fw-bold" id="invoice_title"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label id="bill_to_address"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 pt-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                Date
+                                            </div>
+                                            <div class="col text-end">
+                                                <label id="date_created"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                Due Date
+                                            </div>
+                                            <div class="col text-end">
+                                                <label id="show_due_date"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                Invoice Status
+                                            </div>
+                                            <div class="col text-end">
+                                                <label id="invoice_status"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col text-sm-start">
+                                                <label id="text_date_received"></label>
+                                            </div>
+                                            <div class="col text-end">
+                                                <label id="date_received"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {{-- 
                                 <div class="row pt-3">
-                                    <div class="col-sm-6">
-                                        <span class="text-muted">Bill To:</span>
-                                    </div>
-                                    <div class="col-md-3 text-md-start">
-                                        <span class="text-muted">Date:</span>
-                                    </div>
-                                    <div class="col-md-3 text-md-end">
-                                        <div id="date_created"></div>
-                                    </div>
+                                    <div class="col-6">Bill To</div>
+                                    <div class="col-3 ">Date:</div>
+                                    <div class="col-3 text-end"><span id="date_created"></span></div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-6 col-lg-6">
-                                        <div class="fw-bolder" id="invoice_title"></div>
-                                    </div>
-                                    <div class="col-sm-3 col-lg-3 text-md-start">
-                                        <span class="text-muted">Due Date:</span>
-                                    </div>
-                                    <div class="col-sm-3 col-lg-3 text-md-end">
-                                        <div id="show_due_date"></div>
-                                    </div>
+                                    <div class="col-6"><span id="invoice_title"></span></div>
+                                    <div class="col-3 fit">Due Date:</div>
+                                    <div class="col-3 fit text-end"><span id="show_due_date"></span></div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-6 text-md-start">
-                                        <div id="bill_to_address"></div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <span id="bill_to_address"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3 text-md-start">
-                                        <span class="text-muted">Invoice Status:</span>
-                                    </div>
-                                    <div class="col-sm-3 text-md-end">
-                                        <div id="invoice_status"></div>
-                                    </div>
-                                </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-6">Invoice Status:</div>
+                                            <div class="col-6 text-end"><span id="invoice_status"></span></div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-3 text-muted text-md-start" id="text_date_received">
+                                        <div class="row">
+                                            <div class="col-6" id="text_date_received"></div>
+                                            <div class="col-6 text-end"><span id="date_received"></span></div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3 text-md-end" id="date_received">
+                                </div> --}}
+
+                                {{-- <div class="row pt-3">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="text-muted">Bill To:</span>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Date:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="date_created"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="fw-bolder" id="invoice_title"></div>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Due Date:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="show_due_date"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col text-sm-start">
+                                                <div id="bill_to_address"></div>
+                                            </div>
+                                            <div class="col text-sm-start">
+                                                <span class="text-muted">Invoice Status:</span>
+                                            </div>
+                                            <div class="col text-sm-end">
+                                                <div id="invoice_status"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col"></div>
+                                            <div class="col text-muted text-sm-start" id="text_date_received">
+                                            </div>
+                                            <div class="col text-sm-end" id="date_received">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="row pt-3">
-                                    <div class="col-sm-6">
-                                        <!-- <div id="ship_to_address"></div> -->
-                                    </div>
-
+                                    <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <div class="rounded-3" style="background-color: #d4d4d4;">
+                                        <div class="rounded-3 w-100" style="background-color: #d4d4d4;">
                                             <div class="row">
-                                                <div class="col"
+                                                <div class="col span1"
                                                     style="display:flex; justify-content:space-between;align-items:center">
-                                                    <span class="ms-2 fs-5 fw-bold">Balance Due:</span>
-                                                    <!-- </div>
-                                                                                                                                                                                                                                                                                                                                                              <div class="col-6 text-end"> -->
-                                                    <span class="me-2 fs-5 fw-bold" id="balance_due"></span>
+                                                    <label class="ms-2 fw-bold ">Balance Due:</label>
+                                                    <div class="col-6 text-end span1">
+                                                        <label class="me-2 fw-bold " id="balance_due"></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,24 +194,22 @@
                                 </div>
 
                                 <div class="row pt-3">
-                                    <div class="col-md-12">
-                                        <table class="table table-responsive-sm" id="table_invoiceItems"
-                                            style="table-layout: fixed;">
-                                            <thead class="thead-dark"
-                                                style="border-radius: 3px; background-color: #515964; color: white;">
+                                    <div class="col-sm-12 table-responsive-sm">
+                                        <table class="table table-hover" id="table_invoiceItems">
+                                            <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
                                                 <tr>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 55px;">
+                                                    <th class=""
+                                                        style="width:52%;border-right: 2px solid rgb(255,255,255);">
                                                         Description</th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                    <th class=""
+                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                         Quantity</th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                    <th class=""
+                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                         Rate
                                                     </th>
-                                                    <th class="fit"
-                                                        style="border-right: 2px solid rgb(255,255,255);width: 15px;text-align: end;">
+                                                    <th class=""
+                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
                                                         Amount</th>
                                                 </tr>
                                             </thead>
@@ -123,41 +220,33 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-12" id="quickInvoiceDescription"></div>
-
-
-                                    <div class="col-md-7 col-sm-12">
+                                    <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col-7">
                                                 <label class="text-muted " style="text-align:right"> Subtotal: </label>
                                             </div>
-                                            <div class="col mx-2 h6" id="sub_total" style="text-align:end"></div>
+                                            <div class="col-5 h6" id="sub_total" style="text-align:end"></div>
                                         </div>
 
                                         <div id="displayDiscountType">
-                                            <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                              <div class="col-md-7 col-sm-7 h6">
-                                                                                                                                                                                                                                                                                                                                                                <label class="text-muted"> Discount Type:</label><span class="text-muted" id="discountType"></span>
-                                                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                                              <div class="col mx-2 h6" id="discountAmount" style="text-align:end"></div>
-                                                                                                                                                                                                                                                                                                                                                            </div> -->
+
                                         </div>
 
-
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col-7">
                                                 <label class="text-muted"> Total:</label>
                                             </div>
-                                            <div class="col mx-2 h6" id="total" style="text-align:end"></div>
+                                            <div class="col-5 h6" id="total" style="text-align:end"></div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-8 col-sm-8">
-                                                <label class="text-muted fw-bold">Converted Amount: <label
-                                                        class="text-muted" id="peso_rate"></label></label>
+                                            <div class="col-7">
+                                                <label class="text-muted ">Converted Amount: <label class="text-muted"
+                                                        id="peso_rate"></label></label>
                                             </div>
 
-                                            <div class="col mx-2 h6 fw-bold" id="convertedAmount" style="text-align:end">
+                                            <div class="col-5 h6 " id="convertedAmount" style="text-align:end">
                                             </div>
                                         </div>
                                     </div>
@@ -173,19 +262,24 @@
                                 </div>
 
                                 <div class="row pt-3">
-                                    <div class="col-5 fw-bold">Notes:</div>
+                                    <div class="col-md-6 col-sm-12"></div>
                                     <div class="col">
                                         <label class="fw-bold">Grand Total: </label>
                                     </div>
-                                    <div class="col mx-2 h6 fw-bold" id="grand_total_amount" style="text-align:end">
+                                    <div class="col" style="text-align:end">
+                                        <label class="h6 fw-bold" id="grand_total_amount"></label>
                                     </div>
                                 </div>
 
-                                <div class="row pb-5">
-                                    <div class="col-5" id="notes"></div>
-                                    <div class="col">
+                                <div class="row">
+                                    <div class="col-sm-12 ">Notes:</div>
+                                </div>
 
+                                <div class="row pb-5">
+                                    <div class="col-12">
+                                        <label style="word-wrap: break-word; text-align:right" id="notes"></label>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -194,65 +288,68 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 col-xl-4 h-50 bottom10">
+            <div class="col-lg-4 col-xl-4  h-50 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white ">
                     <div style="padding:20px">
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="back" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Back</button>
+                        <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="back" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Back</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-6" style="padding-right:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
-                                    class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                            <div class="row bottom10">
+                                <div class="col-6" style="padding-right:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
+                                        class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
+                                </div>
+                                <div class="col-6" style="padding-left:5px;">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
+                                        class="btn w-100"
+                                        style="color: White; background-color: #A4A6B3;">Inactive</button>
+                                </div>
                             </div>
-                            <div class="col-6" style="padding-left:5px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
-                                    class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
-                            </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
-                                    class="btn  w-100" style="color: White; background-color: #198754;">Paid
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
+                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
-                                    class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
-                                    Invoice</button>
+                            <div class="row bottom10">
+                                <div class="col-12 w-100">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
+                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="delete_button" data-bs-toggle='modal'
-                                    data-bs-target='#deleteModal' class="btn  w-100"
-                                    style="color: White; background-color: #dc3545;">Delete
-                                    Invoice</button>
+                            <div class="row">
+                                <div class="col-12 w-100">
+                                    <button type="button" id="delete_button" data-bs-toggle='modal'
+                                        data-bs-target='#deleteModal' class="btn  w-100"
+                                        style="color: White; background-color: #dc3545;">Delete
+                                        Invoice</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row bottom10">
-                            <div class="col-12 w-100">
-                                <button type="button" id="pdfDownload" class="btn  w-100"
-                                    style="color: White; background-color: #CF8029;">Download</button>
+                            <div class="row" style="padding-top:2.5rem">
+                                <div class="col-12 w-100 bottom10">
+                                    <button type="button" id="pdfDownload" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Download</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12 w-100 ">
-                                <button type="button" id="edit_invoice" data-bs-toggle="modal"
-                                    data-bs-target="#updateModal" class="btn w-100"
-                                    style="color: White; background-color: #CF8029;">Edit
-                                    Invoice</button>
+                            <div class="row">
+                                <div class="col-12 w-100 ">
+                                    <button type="button" id="edit_invoice" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" class="btn w-100"
+                                        style="color: White; background-color: #CF8029;">Edit
+                                        Invoice</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -515,48 +612,57 @@
     <!-- MODAL FOR EDIT INVOICE -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="hide-content" style="width: 115%;">
+            <div class="hide-content">
                 <div class="modal-body">
                     <div class="row whole_row">
-                        <form id="submit_update_invoice">
+                        <form id="submit_update_invoice" class="g-3 needs-validation" novalidate>
                             @csrf
-                            <div class="row px-4 pt-2" id="header">
-                                <div class="col-md-6 px-2 w-100">
-                                    <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                            <div class="row" id="header">
+                                <div class="col-md-6 w-100 bottom10" style="padding-right:5px;padding-left:5px;">
+                                    <div class="card-border shadow bg-white h-100" style="padding:20px">
                                         <div class="card-body">
-                                            <div class="row px-4 pb-4 pt-4" id="header">
-                                                <!-- <label class="formGroupExampleInput2">Invoice #</label> -->
+                                            <div class="row" id="header">
+                                                <input type="text" id="update_invoice_id" hidden>
 
                                                 <div class="row">
-                                                    <div class="col-xl-12 col-md-12 bottom20">
+                                                    <div class="col-sm-12 bottom20">
                                                         <span class="fs-3 fw-bold">Edit Invoice</span>
                                                     </div>
                                                 </div>
-                                                <input type="text" id="update_invoice_id" hidden>
 
-                                                <div class="col-4 bottom20">
+                                                <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label for="due_date" style="color:#A4A6B3">Due Date</label>
-                                                            <input type="text" placeholder="Due Date" id="due_date"
-                                                                onblur="(this.type='text')" name="due_date"
-                                                                class="form-control">
+                                                            <div class="form-group-profile">
+                                                                <label for="due_date" style="color:#A4A6B3">Due
+                                                                    Date</label>
+                                                                <input type="text" id="due_date" name="due_date"
+                                                                    class="datepicker_input form-control"
+                                                                    placeholder="Due Date" required autocomplete="off">
+                                                                <div class="invalid-feedback">This field is required.
+                                                                </div>
+                                                            </div>
+                                                            <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label for="invoice_description"
-                                                                style="color:#A4A6B3">Description</label>
-                                                            <input id="invoice_description" name="invoice_description"
-                                                                type="text" class="form-control">
+                                                            <div class="form-group-profile">
+                                                                <label for="invoice_description"
+                                                                    style="color:#A4A6B3">Description</label>
+                                                                <input id="invoice_description" name="invoice_description"
+                                                                    type="text" class="form-control" required>
+                                                                <div class="invalid-feedback">This field is required.
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20" id="show_items">
+                                                <div class="col-12 " id="show_items">
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
@@ -573,8 +679,9 @@
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
-                                                        <div class="col" style="display: flex;align-items: start;">
-                                                            <div class="form-group">
+                                                        <div class="col-lg-4 bottom20"
+                                                            style="display: flex;align-items: start;">
+                                                            <div>
                                                                 <label class="formGroupExampleInput2"
                                                                     style="color:#A4A6B3">Discount
                                                                     Type</label>
@@ -591,20 +698,20 @@
                                                                 <label class="formGroupExampleInput2">
                                                                     Percentage
                                                                 </label>
-                                                                <!-- <input type="text" id="discount_type" class="form-control" /> -->
                                                             </div>
                                                         </div>
 
-                                                        <div class="col">
+                                                        <div class="col-lg-4 bottom20">
                                                             <label for="discount_amount" class="label_discount_amount"
                                                                 style="color:#A4A6B3">Discount
                                                                 Amount ($)</label>
                                                             <input type="text" step="any"
                                                                 style="text-align:right;" name="discount_amount"
-                                                                id="discount_amount" class="form-control" />
+                                                                id="discount_amount" maxlength="6"
+                                                                class="form-control" />
                                                         </div>
 
-                                                        <div class="col">
+                                                        <div class="col-lg-4 bottom20">
                                                             <label for="discount_total" class="label_discount_total"
                                                                 style="color:#A4A6B3">Discount
                                                                 Total ($)</label>
@@ -617,17 +724,24 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-12" style="justify-content:end;display:flex">
-                                                            <div class="form-group">
-                                                                <!-- border-style:none -->
-                                                                <label for="subtotal" style="color:#A4A6B3">Subtotal ($):
-                                                                </label>
-                                                                <input type="text"
-                                                                    style="font-weight: bold;text-align:right;border:none;background-color:white"
-                                                                    name="subtotal" id="subtotal"
-                                                                    class="form-control no-outline subtotal" readonly>
+                                                        <div class="col-sm-12 d-flex justify-content-end w-100">
+                                                            <div class="topBottom20" style="width: 290px !important;">
+                                                                <div class="input-group">
+                                                                    <label class="d-flex align-items-center"
+                                                                        for="subtotal" style="color:#A4A6B3">Subtotal
+                                                                        ($):
+                                                                    </label>
+                                                                    <input type="text"
+                                                                        style="font-weight: bold; text-align:right;border:none;background-color:white "
+                                                                        name="subtotal" id="subtotal"
+                                                                        class="form-control subtotal" readonly>
+                                                                    <div class="invalid-feedback"
+                                                                        style="padding-left: 85px;
+                                                                ">
+                                                                        This field is required.</div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -635,8 +749,8 @@
 
                                                 <div class="col-12 bottom20">
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="dollar_amount" style="color:#A4A6B3">Dollar
                                                                     Amount
                                                                     ($)</label>
@@ -647,8 +761,8 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="peso_rate" style="color:#A4A6B3">Peso Rate
                                                                     (Php)</label>
                                                                 <input type="text"
@@ -657,8 +771,8 @@
                                                                     id="edit_peso_rate" class="form-control" disabled />
                                                             </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div>
                                                                 <label for="converted_amount"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
@@ -681,38 +795,45 @@
 
                                                 <div class="col-12" id="show_deduction_items"></div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12">
                                                     <div class="row">
-                                                        <div class="col-7" style="text-align:right;">
-
-                                                        </div>
-                                                        <div class="col-4" style="justify-content:end;display:flex">
-                                                            <!-- border-style:none -->
-                                                            <div class="form-group">
-                                                                <label for="grand_total" class="fw-bold">Grand
-                                                                    Total(Php):</label>
+                                                        <div class="col-sm-12 d-flex justify-content-end">
+                                                            <div class="input-group" style="width: 290px">
+                                                                <label class="d-flex align-items-center fw-bold"
+                                                                    for="grand_total">Grand Total(Php):</label>
                                                                 <input type="text" id="grand_total"
-                                                                    class="form-control no-outline fw-bold"
+                                                                    class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 bottom20">
+                                                                <label for="floatingTextarea"
+                                                                    style="color:#A4A6B3">Notes</label>
+                                                                <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
-                                                    <label for="floatingTextarea">Notes</label>
-                                                    <textarea class="form-control" placeholder="Leave a notes here" id="notes" name="notes"></textarea>
-                                                </div>
-
-                                                <div class="col-6 ">
-                                                    <button type="button" id="UpdateModalClose" class="btn w-100"
-                                                        style="color:white; background-color:#A4A6B3; "
-                                                        data-bs-dismiss="modal">Close</button>
-                                                </div>
-                                                <div class="col-6 ">
-                                                    <button type="submit" id="update" class="btn w-100"
-                                                        style="color:White; background-color:#CF8029;">Update</button>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-6 bottom20">
+                                                            <button type="button" id="UpdateModalClose"
+                                                                class="btn w-100"
+                                                                style="color:#CF8029; background-color:#f3f3f3; "
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        <div class="col-6 bottom20">
+                                                            <button type="submit" id="update" class="btn w-100"
+                                                                style="color:White; background-color:#CF8029;">Update</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -725,7 +846,6 @@
             </div>
         </div>
     </div>
-
 
 
     <script type="text/javascript">
@@ -743,34 +863,39 @@
 
 
         $(document).ready(function() {
-            $(window).on('load', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    due_date();
-                    show_invoice();
-                    show_invoice_config();
-                }, 1500)
+
+            var windowWidth = $(window).width();
+            if (windowWidth <= 320) {
+                $('.span1 label').removeClass('fs-5');
+            } else {
+                $('.span1 label').addClass('fs-5');
+            }
+
+            $(window).resize(function() {
+                var windowWidth = $(window).width();
+                if (windowWidth <= 320) {
+                    $('.span1 label').removeClass('fs-5');
+                } else {
+                    $('.span1 label').addClass('fs-5');
+                }
             })
 
-            function due_date() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var due_date = $("#due_date");
-                // Set the datepicker options
-                due_date.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        due_date.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                due_date.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
 
-            }
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                show_invoice();
+                show_invoice_config();
+            }, 1500)
+
+            $('#due_date').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
 
             var currentPage = apiUrl + "/user/currentActiveInvoice";
             $('#collapseLayouts2 a').each(function() {
@@ -785,7 +910,6 @@
                     $('[data-bs-target="#collapseLayouts2"]').addClass('active');
                 }
             });
-
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -844,7 +968,6 @@
                 subtotal();
 
             });
-
 
             $('#show_items').focusout(".multi", function() {
                 let invoiceItems_sum = 0;
@@ -1023,74 +1146,29 @@
 
             }
 
-            $(document).on('click', '.remove_items', function(e) {
-                e.preventDefault();
-                let parent = $(this).closest('.row');
-                let invoiceItems_id = parent.find('.item_id').val();
-                let sub_total = parent.find('.subtotal').val();
-                let row_item = $(this).parent().parent().parent();
-                $('#updateModal').addClass('d-none');
-                if (row_item) {
-                    $.confirm({
-                        columnClass: 'col-sm-4',
-                        icon: 'fa fa-warning',
-                        draggable: false,
-
-                        title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        //autoClose: 'Cancel|5000',
-                        buttons: {
-                            removeDeductions: {
-                                btnClass: 'btn btn-danger',
-                                text: 'Confirm',
-                                action: function() {
-                                    $(row_item).remove();
-                                    if ($('#show_items > .row').length === 1) {
-                                        $('#show_items > .row').find('.col-remove-item')
-                                            .removeClass('d-none')
-                                            .addClass(
-                                                'd-none');
-                                    }
-                                    displayResults();
-                                    Additems_total();
-                                    subtotal();
-                                    DeductionItems_total();
-                                    x--;
-                                }
-                            },
-                            Cancel: function() {}
-                        },
-                        onClose: function() {
-                            // before the modal is hidden.
-                            $('#updateModal').removeClass('d-none');
-                        },
-                    });
-                }
-            });
-
             // JQUERY CONFIRM FOR REMOVING INVOICE ITEMS ON INVOICE
             $(document).on('click', '.remove_items_button', function(e) {
                 e.preventDefault();
                 let parent = $(this).closest('.row');
                 let invoiceItems_id = parent.find('.item_id').val();
-                let sub_total = parent.find('.subtotal').val();
+                let amount = parent.find('.amount').val();
                 let row_item = $(this).parent().parent().parent();
                 $('#updateModal').addClass('d-none');
                 if (row_item) {
+                    let remove_row = $(this).parent().parent();
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
-                            removeDeductions: {
+                            removeItems: {
                                 btnClass: 'btn btn-danger',
                                 text: 'Confirm',
                                 action: function() {
-                                    $(row_item).remove();
+                                    $(remove_row).remove();
                                     displayResults();
                                     Additems_total();
                                     subtotal();
@@ -1121,7 +1199,6 @@
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
@@ -1136,9 +1213,7 @@
                                     DeductionItems_total();
                                 }
                             },
-                            Cancel: function() {
-                                // $.alert('action is canceled');
-                            },
+                            Cancel: function() {}
                         },
                         onClose: function() {
                             // before the modal is hidden.
@@ -1146,7 +1221,20 @@
                         },
                     });
                 }
+            });
 
+            // CHECK IF THE USER HAVE THE PROFILE
+            $("#updateModal").on('hide.bs.modal', function() {
+                $("div.spanner").removeClass("show");
+                $('#invoice_items').trigger('reset'); // reset the form
+                $('#show_deduction_items').empty();
+                $('textarea').val('');
+                $('#show_items').empty();
+                $('#show_deduction_items').empty();
+                if ($('#show_items > .row').length > 1) {
+                    $('#show_items').empty();
+                    display_item_rows();
+                }
             });
 
             // BUTTON for ADD ITEMS ROWS
@@ -1162,57 +1250,70 @@
                     let wrapper = $('#show_items');
                     add_rows = '';
                     add_rows += '<div class="row row1">';
-                    add_rows += '<div class="col-md-4 bottom20">';
+                    add_rows += '<div class="col-lg-4 ">';
+                    add_rows += '<div class="form-group-profile">';
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" />';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-md-2 bottom20">';
+                    add_rows += '<div class="col-lg-2">';
                     // add_rows += '<div class="form-floating form-group">';
+                    add_rows += '<div class="form-group-profile">';
                     add_rows += '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
                     add_rows +=
-                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
+                        '<input type="text" step="any" maxlength="4" placeholder="Quantity" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity"  />';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += ' </div>';
 
-                    add_rows += '<div class="col-md-3 bottom20">';
+                    add_rows += '<div class="col-lg-3">';
+                    add_rows += '<div class="form-group-profile">';
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="rate" style="color:#A4A6B3">Rate</label>';
                     add_rows +=
-                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" />';
+                        '<input type="text" step="any" name="rate" placeholder="Rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" />';
                     // add_rows += '</div>';
+                    add_rows += '<div class="invalid-feedback">This field is required.</div>';
+                    add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-md-2 bottom20">';
+                    add_rows += '<div class="col-lg-2 bottom20">';
                     // add_rows += '<div class="form-floating form-group">';
                     // style="text-align:right;border:none;background-color:white"
                     add_rows += '<label for="amount" style="color:#A4A6B3">Amount</label>';
                     add_rows +=
-                        '<input type="text" style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
+                        '<input type="text" style="text-align:right;border:none;background-color:white" readonly name="amount" id="amount" class="form-control amount" />';
                     // add_rows += '</div>';
                     add_rows += '</div>';
 
-                    add_rows += '<div class="col-md-1 bottom20">';
-                    add_rows += '<div class="col-remove-item d-none">';
                     add_rows +=
-                        '<button class="btn remove_items " style="margin-top:22px;display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                        '<div class="col-lg-1 d-flex justify-content-center align-items-center topbottom20 col-remove-item">';
+                    // add_rows += '<div class="d-none" >';
+                    // add_rows += '<label></label>';
+                    add_rows +=
+                        '<button class="btn remove_items_button"><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
                     add_rows += '</div>'
                     $(wrapper).append(add_rows);
 
-                    if ($('#show_items > .row').length > 1) {
-                        $('#show_items > .row').each(function() {
-                            $(this).find('.col-remove-item').removeClass('d-none');
-                        })
-                    } else {
-                        $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
-                            'd-none');
-                    }
+                    // if ($('#show_items > .row').length > 1) {
+                    //     $('#show_items > .row').each(function() {
+                    //         $(this).find('.col-remove-item').removeClass('d-none');
+                    //     })
+                    //     console.log(">1")
+                    // } else {
+                    //     $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
+                    //         'd-none');
+                    //     console.log("<1")
+                    // }
                     x++;
                 }
             }
@@ -1270,14 +1371,11 @@
 
                             if (data.data.invoice_items.length > 0) {
                                 data.data.invoice_items.map((item) => {
-                                    // console.log(item.item_description + " " + item
-                                    //     .quantity +
-                                    //     " " + item.rate + " " + item.total_amount);
                                     let wrapper = $('#show_items');
                                     add_rows = '';
                                     add_rows += '<div class="row row1">';
-
-                                    add_rows += '<div class="col-md-4 bottom20">';
+                                    add_rows += '<div class="col-md-4">';
+                                    add_rows += '<div class="form-group-profile">';
                                     // add_rows += '<div class="form-floating form-group">';
 
                                     add_rows +=
@@ -1289,12 +1387,16 @@
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows += '<input type="text" value="' + item
                                             .item_description +
-                                            '" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     } else {
                                         add_rows +=
                                             '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                                         add_rows +=
-                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" />';
+                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" required/>';
+                                        add_rows +=
+                                            '<div class="invalid-feedback">This field is required.</div>';
                                     }
                                     add_rows += '</div>';
                                     add_rows += '</div>';
@@ -1330,43 +1432,47 @@
                                         '<input type="text" value=' + PHP(item
                                             .total_amount)
                                         .format() +
-                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
+                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" multi class="form-control amount" />';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
 
                                     add_rows +=
-                                        '<div class="col-md-1">';
+                                        '<div class="col-md-1 d-flex justify-content-center align-items-center col-remove-item">';
                                     // add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button class="btn remove_items_button  col-remove-item d-none"  style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                                     // add_rows += '</div>';
                                     add_rows += '</div>';
+                                    add_rows += '</div>';
 
-                                    add_rows += '</div>'
+                                    add_rows += '</div>';
 
                                     $(wrapper).append(add_rows);
+                                    return '';
+                                    // if ($('#show_items > .row1').length > 1) {
+                                    //     $('#show_items > .row1').each(function() {
+                                    //         $(this).find('.remove_items_button')
+                                    //             .removeClass('d-none');
+                                    //     })
+                                    // } else {
+                                    //     $('#show_items > .row1').find(
+                                    //             '.remove_items_button')
+                                    //         .removeClass('d-none').addClass(
+                                    //             'd-none');
+                                    // }
 
-                                    if ($('#show_items > .row1').length > 1) {
-                                        $('#show_items > .row1').each(function() {
-                                            $(this).find('.col-remove-item')
-                                                .removeClass('d-none');
-                                        })
-                                    } else {
-                                        $('#show_items > .row1').find('.col-remove-item')
-                                            .removeClass('d-none').addClass(
-                                                'd-none');
-                                    }
-                                    x++;
                                 })
+                                x = data.data.invoice_items.length;
+                                console.log("X", x)
                             }
 
                             if (data.data.deductions.length > 0) {
                                 data.data.deductions.map((item2) => {
                                     let wrapper = $('#show_deduction_items');
                                     add_rows = '';
-                                    add_rows += '<div class="row bottom20">';
-                                    add_rows += '<div class="col-7">';
-                                    add_rows += '<div class="form-group w-100">';
+                                    add_rows += '<div class="row ">';
+                                    add_rows += '<div class="col-sm-6 bottom20">';
+                                    add_rows += '<div class=" w-100">';
                                     add_rows +=
                                         '<input type="text" value=' + item2.id +
                                         ' id="deduction_id" name="deduction_id" class="form-control deduction_id" hidden >'
@@ -1385,23 +1491,25 @@
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-4">';
-                                    add_rows += '<div class="form-group ">';
+                                    add_rows += '<div class="col-sm-5">';
+                                    add_rows += '<div class=" ">';
                                     add_rows +=
                                         '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
                                     add_rows +=
                                         '<input type="text" value="' + PHP(item2.amount)
                                         .format() +
-                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" />';
+                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6" />';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 
-                                    add_rows += '<div class="col-1 col-remove-deductions">';
-                                    add_rows += '<div class="form-group">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
+                                    add_rows += '<div class="">';
+                                    add_rows +=
+                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
+
                                     add_rows += '</div>';
 
                                     $(wrapper).append(add_rows);
@@ -1460,8 +1568,10 @@
                                 $('#userId').html(data.data.profile.user.id);
                                 $('#profileId').html(data.data.profile.id);
 
-                                $('#full_name').html(data.data.profile.user.first_name + " " + data.data.profile
-                                    .user.last_name);
+                                $('#fullname').html(data.data.profile.user.first_name + " " + data.data
+                                    .profile.user
+                                    .last_name);
+
                                 $('#email').html(data.data.profile.user.email);
                                 $('#invoice_no').html("#" + data.data.invoice_no);
                                 // $('#status').html(data.data.status);
@@ -1570,33 +1680,27 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-md-8 col-sm-8 h6'>"
+                                            div += "<div class='col-8 h6'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
                                                 .discount_type + "</span> </div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
-                                            // $('#discountType').html(data.data.discount_type);
-                                            // $('#discountAmount').html(discount_amount.toLocaleString('en-US', {
-                                            //   style: 'currency',
-                                            //   currency: 'USD'
-                                            // }));
+
                                             $('#displayDiscountType').append(div);
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-md-8 col-sm-8 h6'>"
+                                            div += "<div class='col-8 h6'>"
                                             div +=
-                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
-                                                data.data
-                                                .discount_type + " (" + discount_amount + "%) " +
-                                                "</span></div>";
+                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
+                                                discount_amount + "%) </span></div>";
                                             div +=
-                                                "<div class='col mx-2 h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1616,24 +1720,24 @@
 
                                     data.data.invoice_items.map((item) => {
                                         // console.log("tem.item_description", item.item_description);
-                                        let tr = '<tr>';
+                                        let tr = '<tr >';
                                         if (item.item_description) {
-                                            tr += '<td class="scope" style="word-wrap: break-word;">' +
+                                            tr +=
+                                                '<td class=" scope" style="word-wrap: break-word;">' +
                                                 item.item_description + '</td>'
                                         } else {
-                                            tr += '<td class="scope">N/A</td>'
+                                            tr += '<td class=" scope">N/A</td>'
                                         }
-                                        tr += '<td class="scope" style="text-align:end">' + item
+                                        tr += '<td class=" scope" style="text-align:end">' + item
                                             .quantity +
                                             '</td>'
-                                        tr += '<td class="scope" style="text-align:end">' + item
-                                            .rate
-                                            .toLocaleString('en-US', {
+                                        tr += '<td class=" scope" style="text-align:end">' +
+                                            item.rate.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'
                                             }) +
                                             '</td>'
-                                        tr += '<td class="scope" style="text-align:end">' + item
+                                        tr += '<td class=" scope" style="text-align:end">' + item
                                             .total_amount.toLocaleString('en-US', {
                                                 style: 'currency',
                                                 currency: 'USD'
@@ -1644,11 +1748,7 @@
                                         return '';
                                     })
 
-                                    $('#convertedAmount').html(converted_amount.toLocaleString(
-                                        'en-US', {
-                                            style: 'currency',
-                                            currency: 'PHP'
-                                        }));
+                                    $('#convertedAmount').html('P' + PHP(converted_amount).format());
 
                                     $('#peso_rate').html(PHP(data.data.peso_rate).format());
                                     let grand_total_amount = parseFloat(data.data.grand_total_amount ? data
@@ -1656,26 +1756,22 @@
                                         .grand_total_amount : 0);
                                     // console.log("SUCCESS", PHP(data.data.grand_total_amount).format());
 
-                                    $('#grand_total_amount').html(grand_total_amount.toLocaleString(
-                                        'en-US', {
-                                            style: 'currency',
-                                            currency: 'PHP'
-                                        }));
+                                    $('#grand_total_amount').html('P' + PHP(grand_total_amount).format());
 
                                     if (data.data.deductions.length > 0) {
                                         let total_deductions = 0;
 
                                         let parent0 = $(this).closest('.row .title_deductions');
                                         let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-5 col-sm-12"> </div>';
-                                        div_rows0 += '<div class="col">';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12"> </div>';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12">';
                                         div_rows0 +=
-                                            '<label class="fs-5 fw-bold"> DEDUCTIONS </label class="fs-5 fw-bold">';
+                                            '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
                                         div_rows0 += '</div>';
                                         div_rows0 +=
-                                            '<div class = "col mx-2" style = "text-align:end" > </div>';
-                                        $(".row .title_deductions").append(div_rows0);
+                                            '<div class = "col " style = "text-align:end" > </div>';
 
+                                        $(".row .title_deductions").append(div_rows0);
                                         data.data.deductions.map((item2) => {
                                             let deduction_amount = parseFloat(item2
                                                 .amount ? item2.amount :
@@ -1684,17 +1780,21 @@
                                             let parent = $(this).closest('.deductions');
                                             let div_rows = '';
                                             div_rows += '<div class="row">';
-                                            div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                            div_rows += '<div class="col text-muted">' + item2
-                                                .deduction_type_name + '</div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                            div_rows += '<div class="col-md-6 col-sm-12">';
+                                            div_rows += '<div class="row">';
                                             div_rows +=
-                                                '<div class="col mx-2 h6" style="text-align:end;color:red;">' +
-                                                deduction_amount
-                                                .toLocaleString('en-US', {
-                                                    style: 'currency',
-                                                    currency: 'PHP'
-                                                }) + '</div>';
+                                                '<div class="col-7" ><p class="text-muted break-long-words">' +
+                                                item2
+                                                .deduction_type_name + '</p></div>';
+                                            div_rows +=
+                                                '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
+                                                PHP(deduction_amount).format() + '</label></div>';
                                             div_rows += '</div>';
+                                            div_rows += '</div>';
+                                            div_rows += '</div>';
+
+
                                             total_deductions += deduction_amount;
                                             $(".row .deductions").append(div_rows);
                                             return '';
@@ -1702,14 +1802,11 @@
 
                                         let parent1 = $(this).closest('.row .total_deductions');
                                         let div_rows1 = '';
-                                        div_rows1 += '<div class="col-md-5 col-sm-12"></div>';
-                                        div_rows1 += '<div class="col fw-bold">Total Deductions</div>';
+                                        div_rows1 += '<div class="col-md-6 col-sm-12"></div>';
+                                        div_rows1 += '<div class="col">Total Deductions</div>';
                                         div_rows1 +=
-                                            '<div class="col mx-2 h6 fw-bold" style="text-align:end;color:red;">' +
-                                            total_deductions.toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'PHP'
-                                            }) + '</div>';
+                                            '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
+                                            PHP(total_deductions).format() + '</label></div>';
 
                                         $(".row .total_deductions").append(div_rows1);
                                         return '';
@@ -1718,17 +1815,20 @@
                                         let parent = $(this).closest('.row .deductions');
                                         let div_rows = '';
 
-                                        div_rows += '<div class="col-md-5 col-sm-12"></div>';
-                                        div_rows += '<div class="col"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows +=
-                                            '<div class="col mx-2 h6" style="text-align:end;color:red;"></div>';
+                                            '<div class="col  h6" style="text-align:end;color:#dc3545;"></div>';
                                         $(".row .deductions").append(div_rows);
                                         return '';
                                     }
 
                                 } else {
                                     $("#table_invoiceItems tbody").append(
-                                        '<tr><td colspan="4" class="text-center">No data</td></tr>');
+                                        '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                    );
                                 }
                             }
                         }).catch(function(error) {
@@ -1761,21 +1861,20 @@
                 });
             }
 
-            $('#submit_update_invoice').validate({
-                rules: {
-                    due_date: {
-                        required: true,
-                    },
-                    invoice_description: {
-                        required: true,
-                    },
-                    subtotal: {
-                        required: true,
-                    },
 
-                },
-                errorClass: 'is-invalid-red',
-            });
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var invoice_items = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(invoice_items)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
 
             $('#submit_update_invoice').submit(function(e) {
                 e.preventDefault();
@@ -1814,7 +1913,8 @@
                 $('#show_deduction_items .row').each(function() {
                     let deduction_id = $(this).find('.deduction_id').val();
                     let deduction_type_name = $(this).find('.deduction_type_name').val();
-                    let deduction_amount = $(this).find('.deduction_amount').val().replaceAll(',',
+                    let deduction_amount = $(this).find('.deduction_amount').val().replaceAll(
+                        ',',
                         '') ? $(this).find(
                         '.deduction_amount').val().replaceAll(',', '') : 0;
 
@@ -1851,6 +1951,7 @@
                     if (data.success) {
                         console.log("SUCCESS", data.data);
                         $('#updateModal').modal('hide');
+                        $("div.spanner").addClass("show");
 
                         $('#notifyIcon').html(
                             '<i class="fa-solid fa-check" style="color:green"></i>');
@@ -1864,27 +1965,27 @@
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error)
-                    if (error.response.data.errors) {
-                        let errors = error.response.data.errors;
-                        let fieldnames = Object.keys(errors);
-                        Object.values(errors).map((item, index) => {
-                            fieldname = fieldnames[0].split('_');
-                            fieldname.map((item2, index2) => {
-                                fieldname['key'] = capitalize(
-                                    item2);
-                                return ""
-                            });
-                            fieldname = fieldname.join(" ");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
-                            $('.toast1 .toast-title').html("Error");
-                            $('.toast1 .toast-body').html(Object.values(
-                                    errors)[0]
-                                .join(
-                                    "\n\r"));
-                        })
-                        toast1.toast('show');
-                    }
+                    // if (error.response.data.errors) {
+                    //     let errors = error.response.data.errors;
+                    //     let fieldnames = Object.keys(errors);
+                    //     Object.values(errors).map((item, index) => {
+                    //         fieldname = fieldnames[0].split('_');
+                    //         fieldname.map((item2, index2) => {
+                    //             fieldname['key'] = capitalize(
+                    //                 item2);
+                    //             return ""
+                    //         });
+                    //         fieldname = fieldname.join(" ");
+                    //         $('#notifyIcon').html(
+                    //             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
+                    //         $('.toast1 .toast-title').html("Error");
+                    //         $('.toast1 .toast-body').html(Object.values(
+                    //                 errors)[0]
+                    //             .join(
+                    //                 "\n\r"));
+                    //     })
+                    //     toast1.toast('show');
+                    // }
                 })
             })
 
@@ -1939,7 +2040,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2006,7 +2108,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2077,7 +2180,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2145,7 +2249,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2209,7 +2314,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(
                                         errors)[0]
@@ -2228,34 +2334,56 @@
             }
 
             // CONVERT HTML TO PDF THROUGH SCREENSHOT
+            // function pdfContent() {
+            //     window.jsPDF = window.jspdf.jsPDF;
+            //     var scaleFactor = 2;
+            //     // Capture the div element as a screenshot using html2canvas
+            //     html2canvas($('#content')[0], {
+            //         scale: scaleFactor
+            //     }).then(function(canvas) {
+            //         // Create a new jsPDF instance
+            //         var pdf = new jsPDF('p', 'mm', 'a4', false, true, 300);
+
+            //         // Calculate the center of the page
+            //         var centerX = pdf.internal.pageSize.getWidth() / 2;
+            //         var centerY = pdf.internal.pageSize.getHeight() / 2;
+
+            //         // Calculate the position to add the image
+            //         var imageWidth = 'auto'; // or canvas.width / scaleFactor;
+            //         var imageHeight = 'auto'; // or canvas.height / scaleFactor;
+            //         var startX = centerX - (imageWidth / 2);
+            //         var startY = centerY - (imageHeight / 2);
+
+            //         // Add the screenshot to the PDF using the addImage method
+            //         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', startX, 5, imageWidth, imageHeight);
+
+            //         // Save the PDF file
+            //         pdf.save('Invoice ' + $('#invoice_no').html() + '.pdf');
+            //     });
+            // }
+
             function pdfContent() {
-                window.jsPDF = window.jspdf.jsPDF;
-                var scaleFactor = 2;
-                // Capture the div element as a screenshot using html2canvas
-                html2canvas($('#content')[0], {
-                    scale: scaleFactor
-                }).then(function(canvas) {
-                    // Create a new jsPDF instance
-                    var pdf = new jsPDF('p', 'mm', 'a4', false, true, 300);
+                // Set the options for html2pdf
+                var options = {
+                    filename: 'Invoice ' + $('#invoice_no').html() + '.pdf',
+                    margin: [10, 10],
+                    image: {
+                        type: 'jpeg',
+                        quality: 0.98
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                };
 
-                    // Calculate the center of the page
-                    var centerX = pdf.internal.pageSize.getWidth() / 2;
-                    var centerY = pdf.internal.pageSize.getHeight() / 2;
-
-                    // Calculate the position to add the image
-                    var imageWidth = 150; // or canvas.width / scaleFactor;
-                    var imageHeight = 190; // or canvas.height / scaleFactor;
-                    var startX = centerX - (imageWidth / 2);
-                    var startY = centerY - (imageHeight / 2);
-
-                    // Add the screenshot to the PDF using the addImage method
-                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', startX, 5, imageWidth, imageHeight);
-
-                    // Save the PDF file
-                    pdf.save('Invoice ' + $('#invoice_no').html() + '.pdf');
-                });
+                // Generate the PDF from the HTML content using html2pdf
+                html2pdf().from($('#content')[0]).set(options).save();
             }
-
             $('#pdfDownload').on('click', function(e) {
                 e.preventDefault();
                 pdfContent();
@@ -2263,4 +2391,5 @@
 
         })
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 @endsection

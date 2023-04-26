@@ -224,7 +224,7 @@
                         text: "PDF",
                         filename: 'PDF-' + new Date().toLocaleDateString(),
                         className: 'btn btn-success ',
-                        title: 'Invoice Reports',
+                        title: 'Invoice Report',
                         footer: true,
                         exportOptions: {
                             modifier: {
@@ -272,7 +272,7 @@
                                 $(this).css('background-color', '#D0D0D0');
                             });
                             $(doc.document.body).find('h1').html(
-                                '<h2> <center>Invoice Reports </h2 > ');
+                                '<h2> <center>Invoice Report </h2 > ');
                             var style = $('<style>@page {size: landscape;} </style>');
                             $(doc.document.head).append(style);
 
@@ -516,7 +516,7 @@
                                 return ""
                             });
                             fieldname = fieldname.join(" ");
-                            $('.toast1 .toast-title').html("Invoice Reports");
+                            $('.toast1 .toast-title').html("Invoice Report");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                     0]
                                 .join(

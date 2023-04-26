@@ -114,7 +114,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 });
-
+let width = window.innerWidth; // Set the initial value of width
 let apiUrl = window.location.origin;
 let token = localStorage.token ? "Bearer " + localStorage.token : null;
 

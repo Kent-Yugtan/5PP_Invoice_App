@@ -257,7 +257,7 @@
             separator: ','
         });
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -833,7 +833,17 @@
                     $('#sub_total').val(PHP(sub_total).format());
                 }
             })
-
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(
+                function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
 
             $('#quick_invoice').submit(function(e) {
                 e.preventDefault();
@@ -890,11 +900,7 @@
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
 
-
-                            $('#quick_invoice').trigger('reset');
-                            $('input').removeClass('is-invalid');
                             $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
@@ -907,62 +913,16 @@
                             overdueInvoices();
                             // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
                             getResults_Converted();
+                            $('#quick_invoice').trigger('reset');
+                            $('#quick_invoice').removeClass('was-validated');
                             toast1.toast('show');
                         }, 1500)
 
 
                     }
                 }).catch(function(error) {
-                    console.log("ERROR", error);
                     console.log("error.response.data.errors", error.response.data.errors);
-                    if (error.response.data.errors) {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                        var errors = error.response.data.errors;
-                        var errorContainer = $('#error-container');
-                        errorContainer.empty();
-                        console.log("errors", errors)
 
-                        for (var key in errors) {
-                            var inputName = key.replace('_', ' ');
-                            inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                            var errorMsg = errors[key][0];
-                            $('#' + key).addClass('is-invalid');
-                            $('#' + key).parent().append(
-                                '<span class="invalid-feedback">This field is required.</span>');
-                            // $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
-                        }
-                    } else {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                    }
-                    // if (error.response.data.errors) {
-                    //     let errors = error.response.data.errors;
-                    //     console.log("errors", errors);
-                    //     let fieldnames = Object.keys(errors);
-
-                    //     Object.values(errors).map((item, index) => {
-                    //         fieldname = fieldnames[0].split('_');
-                    //         fieldname.map((item2, index2) => {
-                    //             fieldname['key'] = capitalize(item2);
-                    //             return ""
-                    //         });
-                    //         fieldname = fieldname.join(" ");
-
-                    //         $('.toast1 .toast-title').html(fieldname);
-                    //         $('.toast1 .toast-body').html(Object.values(errors)[
-                    //             0].join(
-                    //             "\n\r"));
-                    //     })
-                    //     setTimeout(function() {
-                    //         $("div.spanner").removeClass("show");
-
-
-                    //         toast1.toast('show');
-                    //     }, 1500);
-                    // }
                 });
             })
 

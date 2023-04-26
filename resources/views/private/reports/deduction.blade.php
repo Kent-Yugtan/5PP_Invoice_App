@@ -104,7 +104,6 @@
                     $(this).parent().parent().addClass("show");
                     $(this).parent().parent().addClass("active");
                     $('[data-bs-target="#collapseLayouts3"]').addClass('active');
-                    console.log($(this).parent().parent());
                 }
             });
 
@@ -179,7 +178,7 @@
                         filename: 'Excel-' + new Date().toLocaleDateString(),
                         text: "EXCEL",
                         className: 'btn   ',
-                        messageTop: 'Invoice Report',
+                        messageTop: 'Deduction Report',
                         title: '',
                         exportOptions: {
                             modifier: {
@@ -213,7 +212,7 @@
                         text: "PDF",
                         filename: 'PDF-' + new Date().toLocaleDateString(),
                         className: 'btn btn-success  ',
-                        title: 'Invoice Reports',
+                        title: 'Deduction Report',
                         footer: true,
                         exportOptions: {
                             modifier: {
@@ -266,7 +265,7 @@
                                 $(this).css('background-color', '#D0D0D0');
                             });
                             $(doc.document.body).find('h1').html(
-                                '<h2> <center>Invoice Reports </h2 > ');
+                                '<h2> <center>Deduction Report </h2 > ');
                             var style = $('<style>@page {size: landscape;} </style>');
                             $(doc.document.head).append(style);
 
@@ -299,7 +298,7 @@
                     },
                     {
                         "title": "Status",
-                        "className": "text-center fit"
+                        "className": "text-start fit"
                     },
                     {
                         "title": "Gross Amount",
@@ -366,7 +365,6 @@
                 var row = dataTable.row(tr);
 
                 var invoice_id = $('#deductionReports').DataTable().row(this).data()[1];
-                console.log("INVOICE", invoice_id);
 
                 axios.get(apiUrl + '/api/reports/deductionDetails/' + invoice_id, {
                     headers: {
@@ -386,7 +384,6 @@
                                 // Open this row
                                 row.child(format(data.data)).show();
                                 tr.addClass('shown');
-                                console.log("row.data()", data.data);
                             }
                             // })
                         } else {
@@ -405,7 +402,6 @@
                                 // Open this row
                                 row.child(format(myArray)).show();
                                 tr.addClass('shown');
-                                console.log("row.data()", myArray);
                             }
                         }
                     }
@@ -573,7 +569,7 @@
                                 return ""
                             });
                             fieldname = fieldname.join(" ");
-                            $('.toast1 .toast-title').html("Invoice Reports");
+                            $('.toast1 .toast-title').html("Deduction Report");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                     0]
                                 .join(

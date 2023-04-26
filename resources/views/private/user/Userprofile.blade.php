@@ -480,7 +480,7 @@
                                                         <tr>
                                                             <th class="fit">Invoice #</th>
                                                             <th class="fit text-center">Payment Status</th>
-                                                            <th class="fit">Deduction Name</th>
+                                                            <th class="fit text-end">Deduction Name</th>
                                                             <th class="fit text-end">Amount</th>
                                                             <th class="fit text-end">Date Created</th>
                                                         </tr>
@@ -1526,7 +1526,7 @@
             })
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -3727,7 +3727,7 @@
                                                 '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
                                         }
 
-                                        tr += '<td class="fit">' + item.deduction_type_name +
+                                        tr += '<td class="fit text-end">' + item.deduction_type_name +
                                             '</td>';
                                         tr += '<td class="fit text-end">' + PHP(item
                                                 .amount)

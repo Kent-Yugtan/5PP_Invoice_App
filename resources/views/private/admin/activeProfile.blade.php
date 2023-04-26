@@ -1521,7 +1521,7 @@
             })
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -2663,7 +2663,7 @@
                             $('#profileDeductionType_profileId').val(data.data.profile_id);
                             $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
                             $('#edit_profileDeductionType_amount').val(PHP(data.data.amount)
-                                .format());
+                            .format());
 
                             $('#edit_profileDeductionType_name').prop("disabled", true);
                         } else {

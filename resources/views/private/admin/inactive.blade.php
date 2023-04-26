@@ -202,7 +202,7 @@
             }
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -440,7 +440,7 @@
                                 show_data();
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
-                            }, 3000)
+                            }, 1500)
                             toast1.toast('show');
                         }
                     }).catch(function(error) {
@@ -493,7 +493,7 @@
                                 // window.location.reload();
                                 show_data();
                                 $('#button_active').addClass('d-none');
-                            }, 3000)
+                            }, 1500)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
                         }

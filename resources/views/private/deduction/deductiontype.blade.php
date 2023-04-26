@@ -123,7 +123,7 @@
                                                         <label for="deduction_amount" style="color:#A4A6B3">Amount</label>
                                                         <input id="deduction_amount" name="deduction_amount"
                                                             type="text" class="form-control" maxlength="6"
-                                                            placeholder="Amount" required>
+                                                            placeholder="Amount">
                                                         <div class="invalid-feedback">This field is required.</div>
                                                     </div>
                                                 </div>
@@ -345,6 +345,7 @@
                             if ($error == "The deduction name has already been taken.") {
                                 $("#error_edit_deduction_name").addClass('invalid-feedback').html(
                                     "The deduction name has already been taken.").show();
+                                console.log("YAWA")
                             }
                             $('.mobileValidate').addClass('form-group-adjust');
                         }
@@ -394,7 +395,7 @@
             })
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 

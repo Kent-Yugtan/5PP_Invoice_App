@@ -259,7 +259,7 @@
             separator: ','
         });
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -596,7 +596,6 @@
                                 '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
                                 width +
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
-
                             );
                             $('#selectPending').addClass('d-none');
 
@@ -881,7 +880,6 @@
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
 
-                            // $('input, select').removeClass('is-invalid');
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
@@ -901,49 +899,7 @@
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    // if (error.response.data.errors) {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    //     var errors = error.response.data.errors;
-                    //     var errorContainer = $('#error-container');
-                    //     errorContainer.empty();
-                    //     console.log("errors", errors)
 
-                    //     for (var key in errors) {
-                    //         var inputName = key.replace('_', ' ');
-                    //         inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                    //         var errorMsg = errors[key][0];
-                    //         $('#' + key).addClass('is-invalid');
-                    //         // $('#' + key).parent().append('<span class="invalid-feedback">This field is required.</span>');
-                    //         // $('#' + key).parent().append('<span class="invalid-feedback">' + errorMsg + '</span>');
-                    //     }
-                    // } else {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    // }
-                    // if (error.response.data.errors) {
-                    // let fieldnames = Object.keys(errors);
-                    // // console.log(fieldnames);
-                    // $('#' + fieldnames).addClass('is-invalid');
-                    // Object.values(errors).map((item, index) => {
-                    //   console.log('ITEM', item);
-                    // });
-
-                    // Object.values(errors).map((item, index) => {
-                    //   fieldname = fieldnames[0].split('_');
-                    //   fieldname.map((item2, index2) => {
-                    //     fieldname['key'] = capitalize(item2);
-                    //     return ""
-                    //   });
-                    //   fieldname = fieldname.join(" ");
-                    //   $('.toast1 .toast-title').html(capitalize(fieldname));
-                    //   $('.toast1 .toast-body').html(Object.values(errors)[0].join(
-                    //     "\n\r"));
-                    // })
-                    // toast1.toast('show');
-                    // }
                 });
             })
 
