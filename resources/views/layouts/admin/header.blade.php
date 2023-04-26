@@ -110,6 +110,7 @@
                 // console.log(">=768");
                 $('#header_title').addClass("ps-3");
                 $('#invoiceApp').removeClass("d-none").addClass("d-flex");
+                $('#invoiceApp').addClass("d-flex");
                 $('.mobileLayout').removeClass("d-none").addClass("d-flex");
                 $('.webLayout').removeClass("d-flex").addClass("d-none");
             }

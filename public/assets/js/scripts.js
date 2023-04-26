@@ -30,87 +30,95 @@ window.addEventListener("DOMContentLoaded", (event) => {
             const invoiceApp = document.getElementById("invoiceApp");
             const sideTitle = document.getElementById("sideTitle");
 
+            const ulAdminDashboard =
+                document.querySelector(".nav-link") || null;
+            const ulDashboard = document.getElementById("dashboard") || null;
+
+            const ulsettingsdeductiontype =
+                document.querySelector(".nav-link") || null;
+            const ulDeductions = document.getElementById("deductions") || null;
+
+            const ulUserDashboard = document.querySelector(".nav-link") || null;
+            const ulUDashboard =
+                document.getElementById("dashboarduser") || null;
+
+            const uluseruserdeductiontype =
+                document.querySelector(".nav-link") || null;
+            const uluserdeduction =
+                document.getElementById("udeduction") || null;
+
             let sideWidth = $(
                 ".sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav"
             ).width();
 
-            console.log("width", windowWidth);
-            console.log("side", sideWidth);
-
-            if (windowWidth <= 768) {
+            if (windowWidth < 768) {
                 invoiceApp.classList.add("d-none");
                 sideTitle.classList.add("d-flex");
             } else {
                 sideTitle.classList.add("d-none");
 
                 if (shouldExecuteCode) {
-                    console.log("OPEN");
-
-                    invoiceApp.classList.remove("d-flex");
-                    invoiceApp.classList.add("d-none");
-                } else {
                     console.log("CLOSE");
-
-                    if (windowWidth >= 768) {
-                        // $("#layoutSidenav_nav").css("width", "50px");
-                        console.log("SIDEWIDTH", sideWidth);
+                    if (ulDashboard) {
+                        ulAdminDashboard.classList.remove("collapsed");
+                        ulDashboard.classList.remove("d-none");
+                        $("a#admindashboard").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
                     }
 
-                    invoiceApp.classList.remove("d-none");
-                    invoiceApp.classList.add("d-flex");
+                    if (ulDeductions) {
+                        ulsettingsdeductiontype.classList.remove("collapsed");
+                        ulDeductions.classList.remove("d-none");
+                        $("a#settingsdeductiontype").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+
+                    if (ulUDashboard) {
+                        ulUserDashboard.classList.remove("collapsed");
+                        ulUDashboard.classList.remove("d-none");
+                        $("a#userdashboard").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+
+                    if (uluserdeduction) {
+                        uluseruserdeductiontype.classList.remove("collapsed");
+                        uluserdeduction.classList.remove("d-none");
+                        $("a#useruserdeductiontype").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+                } else {
+                    if (ulDashboard) {
+                        ulDashboard.classList.add("d-none");
+                        $("a#admindashboard").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+                    if (ulDeductions) {
+                        ulDeductions.classList.add("d-none");
+                        $("a#settingsdeductiontype").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+                    if (ulUDashboard) {
+                        ulUDashboard.classList.add("d-none");
+                        $("a#userdashboard").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+                    if (uluserdeduction) {
+                        uluserdeduction.classList.add("d-none");
+                        $("a#useruserdeductiontype").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
                 }
+                invoiceApp.classList.remove("d-none");
+                invoiceApp.classList.add("d-flex");
             }
-
-            // let sideWidth = $(
-            //     ".sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav"
-            // ).width();
-            // if (windowWidth >= 769) {
-            //     console.log(">769");
-            //     $(".sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav").css(
-            //         "width",
-            //         "50px"
-            //     );
-            //     if (sideWidth == "50px") {
-            //         console.log("sideWidth", sideWidth);
-
-            //         $(".labelText").addClass("d-none");
-            //         $("#admindashboard").click(function (event) {
-            //             event.preventDefault();
-            //         });
-            //         $("#settingsdeductiontype").click(function (event) {
-            //             event.preventDefault();
-            //         });
-            //         $("#collapseLayouts").addClass("d-none");
-            //         $("#collapseLayouts2").addClass("d-none");
-            //         $("#collapseLayouts3").addClass("d-none");
-            //         $("#collapseLayouts4").addClass("d-none");
-            //     } else {
-            //         $(".labelText").removeClass("d-none");
-            //         $("#admindashboard").off("click");
-            //         $("#settingsdeductiontype").off("click");
-            //         $("#admindashboard").removeClass("disabled");
-            //         $("#collapseLayouts").removeClass("d-none");
-            //         $("#collapseLayouts2").removeClass("d-none");
-            //         $("#collapseLayouts3").removeClass("d-none");
-            //         $("#collapseLayouts4").removeClass("d-none");
-            //     }
-            // } else if (windowWidth >= 320 && windowWidth <= 768) {
-            //     console.log("sideWidth", sideWidth);
-
-            //     console.log("<769");
-            //     $(".sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav").css(
-            //         "width",
-            //         "225px"
-            //     );
-            //     $(".labelText").removeClass("d-none");
-            //     $("#admindashboard").off("click");
-            //     $("#settingsdeductiontype").off("click");
-            //     $("#admindashboard").removeClass("disabled");
-            //     $("#collapseLayouts").removeClass("d-none");
-            //     $("#collapseLayouts2").removeClass("d-none");
-            //     $("#collapseLayouts3").removeClass("d-none");
-            //     $("#collapseLayouts4").removeClass("d-none");
-            // }
         });
     }
 });
