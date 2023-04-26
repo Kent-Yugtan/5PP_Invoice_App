@@ -34,7 +34,21 @@
                                 </thead>
                                 <tbody>
                                 </tbody>
-                                <tfoot>
+                                <tfoot align="right">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -202,7 +216,7 @@
                         text: "PDF",
                         filename: 'PDF-' + new Date().toLocaleDateString(),
                         className: 'btn btn-success ',
-                        title: 'Invoice Reports',
+                        title: 'Invoice Report',
                         footer: true,
                         exportOptions: {
                             modifier: {
@@ -250,7 +264,7 @@
                                 $(this).css('background-color', '#D0D0D0');
                             });
                             $(doc.document.body).find('h1').html(
-                                '<h2> <center>Invoice Reports </h2 > ');
+                                '<h2> <center>Invoice Report </h2 > ');
                             var style = $('<style>@page {size: landscape;} </style>');
                             $(doc.document.head).append(style);
 
@@ -282,7 +296,7 @@
                     },
                     {
                         "title": "Discount Type",
-                        "className": "fit"
+                        "className": "text-end fit"
                     },
                     {
                         "title": "Discount Amount",
@@ -468,15 +482,15 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(2)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
 
@@ -495,7 +509,7 @@
                                 return ""
                             });
                             fieldname = fieldname.join(" ");
-                            $('.toast1 .toast-title').html("Invoice Reports");
+                            $('.toast1 .toast-title').html("Invoice Report");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                     0]
                                 .join(
@@ -562,15 +576,15 @@
                                 let invoiceStatusCell = $(newRow).find("td:eq(2)");
                                 if (item.invoice_status == "Paid") {
                                     invoiceStatusCell.css("background-color", "#198754");
-                                    invoiceStatusCell.css("border-color", "#198754");
+                                    // invoiceStatusCell.css("border-color", "#198754");
                                     invoiceStatusCell.css("color", "white");
                                 } else if (item.invoice_status == "Pending") {
                                     invoiceStatusCell.css("background-color", "#ffc107");
-                                    invoiceStatusCell.css("border-color", "#ffc107");
+                                    // invoiceStatusCell.css("border-color", "#ffc107");
                                     invoiceStatusCell.css("color", "black");
                                 } else {
                                     invoiceStatusCell.css("background-color", "#dc3545");
-                                    invoiceStatusCell.css("border-color", "#dc3545");
+                                    // invoiceStatusCell.css("border-color", "#dc3545");
                                     invoiceStatusCell.css("color", "white");
                                 }
                             })

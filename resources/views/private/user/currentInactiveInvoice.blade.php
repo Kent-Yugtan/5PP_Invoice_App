@@ -2,17 +2,16 @@
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
 
-
         <div class="row" style="padding-top:10px;padding-bottom:10px">
             <div class="col-12 col-md-6 column1 bottom10" style="padding-right:5px;padding-left:5px;">
                 <!-- <div class="card-hover card shadow p-2 mb-4 bg-white rounded"> -->
                 <div>
                     <div class="row text-center py-3">
-                        <Label class="fs-1" id="paid_invoices">
+                        <Label class="fs-1" id="active_invoices">
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Paid
+                    <div class="card-body text-center py-1" style="border-bottom: none; color: #A4A6B3;">Active
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-between"></div>
@@ -22,11 +21,11 @@
                 <!-- <div class="card-hover card shadow p-2 mb-4 bg-white rounded"> -->
                 <div>
                     <div class="row text-center py-3">
-                        <Label class="fs-1" id="pending_invoices">
+                        <Label class="fs-1" id="inactive_invoices">
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+                    <div class="card-body text-center py-1" style="border-bottom: none;color: #A4A6B3; ">Inactive</div>
                 </div>
                 <div class="d-flex align-items-center justify-content-between"></div>
                 <!-- </div> -->
@@ -35,18 +34,20 @@
 
         <div class="row">
             <div class="col-sm-4 bottom10" style="padding-right:8px;padding-left:8px;">
-                <div class="input-group">
-                    <div class="w-100">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"
-                                    style="height:38px;background-color: white;color: #CF8029;border-right:none"><i
-                                        class="fas fa-search"></i></span>
-                            </div>
-                            <input id="search" name="search" type="text" class="form-control form-check-inline"
-                                style="margin-right: 1px;border-radius: 0.25em;" placeholder="Search">
-                        </div>
+                <div class="w-100">
+                    <div class="has-search">
+                        <span class="fa fa-search form-control-feedback" style="color:#A4A6B3"></span>
+                        <input type="text" class="form-control" id="search" name="search" placeholder="Search">
                     </div>
+                    {{-- <div class="input-group" id="input-group-search">
+                  <div class="input-group-prepend input-group-text" id="border-search">
+                      <i style="color:#A4A6B3" class="fas fa-search"></i>
+                  </div>
+                  <input id="search" name="search" type="text"
+                      class="search-left-icon form-control form-check-inline "
+                      onfocusout="input_group_focus('out','input-group-search')"
+                      onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
+              </div> --}}
                 </div>
             </div>
 
@@ -67,14 +68,25 @@
             </div>
         </div>
 
+        <div class="row d-none" id="invoice_active">
+            <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal" class="btn w-100"
+                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Activate</button>
+            </div>
+        </div>
+
         <div class="row ">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white h-100">
-                    <div class="table-responsive" style="padding:20px">
-                        <div class="card-body">
+                <div class="card-border shadow bg-white h-100" style="padding:20px">
+                    <div class="card-body">
+                        <div class="table-responsive" style="max-height:617px !important">
                             <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
                                 <thead>
                                     <tr>
+                                        <th class="active fit" style="width: 10px">
+                                            <input type="checkbox" class="d-none select-all form-check-input"
+                                                id="select-all" />
+                                        </th>
                                         <th class="fit">Invoice #</th>
                                         <th class="fit">Profile Name</th>
                                         <th class="fit text-center">Payment Status</th>
@@ -82,15 +94,35 @@
                                         <th class="fit text-end">Total Amount</th>
                                         <th class="fit text-end">Date Created</th>
                                         <th class="fit text-end">Due Date</th>
-                                        <th class="text-center fit">Action</th>
+                                        <th class="fit" style="width:10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center" colspan="8">Loading...</td>
+                                        <td class="text-center" colspan="8">
+                                            <div class="noData"
+                                                style="width:' +
+                width +
+                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                <i class="fas fa-spinner"></i>
+                                                <div></div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="d-none" id="selectInactive">
+                            <div class="input-group" style="width:145px !important">
+                                <select id="tbl_showing_inactivePages" class="form-select">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="75">75</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="input-group-text border-0">/Page</span>
+                            </div>
                         </div>
                         <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                             id="tbl_showing_invoice"></div>
@@ -106,52 +138,53 @@
     </div>
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
                     <form id="update_invoice_status">
                         @csrf
                         <div class="row">
-                            <div class="card-border shadow mb-1 p-2 bg-white h-100">
-                                <div class="row px-4 py-4" id="header">
-                                    <div class="col-md-12 px-2 w-100">
-
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <span class="fs-3 fw-bold">Update Payment Status</span>
-                                            </div>
-                                        </div>
-                                        <input type="text" id="updateStatus_invoiceNo" hidden>
-
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <div class="form-group">
-                                                    <label for="select_invoice_status"
-                                                        style="color:#A4A6B3">Status</label>
-                                                    <select class="form-select" id="select_invoice_status">
-                                                        <option value="" Selected disabled>Please choose status
-                                                        </option>
-                                                        <option value="Cancelled">Cancelled</option>
-                                                        <option value="Overdue">Overdue</option>
-                                                        <option value="Paid">Paid</option>
-                                                        <option value="Pending">Pending</option>
-                                                    </select>
+                            <div class="card-border shadow bg-white h-100" style="padding:20px">
+                                <div class="row" id="header">
+                                    <div class="col-md-12 w-100">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col bottom20">
+                                                    <span class="fs-3 fw-bold">Update Payment Status</span>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <input type="text" id="updateStatus_invoiceNo" hidden>
 
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <button type="button" class="btn w-100"
-                                                    style="background-color:#A4A6B3;color:white"
-                                                    data-bs-dismiss="modal">Close</button>
+                                            <div class="row">
+                                                <div class="col ">
+                                                    <div class="form-group">
+                                                        <label for="select_invoice_status"
+                                                            style="color:#A4A6B3">Status</label>
+                                                        <select class="form-select" id="select_invoice_status">
+                                                            <option value="" Selected disabled>Please choose status
+                                                            </option>
+                                                            <option value="Cancelled">Cancelled</option>
+                                                            <option value="Overdue">Overdue</option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Pending">Pending</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <button type="submit" id="update" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029;"
-                                                    disabled="true">Update</button>
+
+                                            <div class="row">
+                                                <div class="col bottom20">
+                                                    <button type="button" class="btn w-100"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                                <div class="col bottom20">
+                                                    <button type="submit" id="update" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029; "
+                                                        disabled="true">Update</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +201,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div><i class="fa fa-newspaper-o"> </i></div>
+                <div id="notifyIcon"></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -182,23 +215,143 @@
         </div>
     </div>
 
-    <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
-        <div class="loader"></div>
+    <!-- Modal FOR Inactive Profile -->
+    <div class="modal fade" id="activeModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="top:30px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" style="padding:20px">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <img class="" src="{{ URL('images/Info.png') }}"
+                                    style="width: 50%; padding:10px" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <h3> Are you sure?</h3>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col bottom20">
+                            <span id="activeInvoice" hidden></span>
+                            <span class="text-muted"> Do you really want to set this Invoice to Active?</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
+                                id="cancelactive" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" id="active_button" class="btn  w-100"
+                                style="color:white;background-color: #CF8029;">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <script type="text/javascript">
+        function input_group_focus(option, id) {
+            if (option == "out") {
+                $('#border-search').removeClass('border-search2');
+                $('#border-search').addClass('border-search');
+                $('#' + id).removeClass('input-group-focused');
+            } else {
+                $('#border-search').removeClass('border-search');
+                $('#border-search').addClass('border-search2');
+                $('#' + id).addClass('input-group-focused');
+            }
+        }
+
+
+        window.addEventListener("load", () => {
+            width = window.innerWidth;
+
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+
+        });
+
+        window.addEventListener("resize", () => {
+            width = window.innerWidth;
+            if (width <= 320) {
+                width = window.innerWidth - 110;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 320 && width <= 375) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 375 && width <= 425) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 425 && width <= 768) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width + 'px');
+            }
+            if (width > 768 && width <= 991) {
+                width = window.innerWidth - 115;
+                $('.noData').css('width', width);
+            }
+            if (width > 992 && width <= 1127) {
+                width = window.innerWidth - 341;
+                $('.noData').css('width', width);
+            }
+            if (width > 1127) {
+                width = 'auto';
+                $('.noData').css('width', width);
+            }
+        });
         $(document).ready(function() {
-            // check_userInactiveStatusInvoice();
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    active_inactiveCount_paid();
-                    active_inactiveCount_pending();
-                    show_userstatusInactiveinvoice();
-                }, 1500)
-            })
+            let pageSize = 10; // initial page size
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+                show_userstatusInactiveinvoice();
+                userInactiveCount();
+                userActiveCount();
+            }, 1500)
 
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
@@ -214,6 +367,195 @@
                 }
             });
 
+            $('#select-all').click(function(e) {
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+            });
+
+            function selectShow() {
+                var numCheckboxes = $('.select-item').length;
+                console.log("numCheckboxes", numCheckboxes);
+                if (numCheckboxes > 0) {
+                    $('#select-all').removeClass('d-none');
+                } else {
+                    $('#select-all').addClass('d-none');
+                }
+            }
+
+            let array_all = [];
+            $(document).on('change', '#select-all', function() {
+                array_all = []; // Reset the array
+                $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+                if ($(this).is(":checked")) {
+                    $(this).closest('table').find('td').each(function() {
+                        let cellValue = $(this).text(); // get the text content of the td element
+                        if ($(this).hasClass('invoice_id')) {
+                            array_all.push(cellValue);
+                        }
+                    });
+                    console.log("CHECK", array_all);
+
+                    $('#invoice_active').removeClass('d-none');
+                } else {
+                    console.log("UNCHECK", array_all);
+
+                    $('#invoice_active').addClass('d-none');
+                }
+            });
+
+            $(document).on('change', '.select-item', function() {
+                let profile_id_item = $(this).closest('tr').find('.invoice_id').text();
+                if ($(this).is(":checked")) {
+                    // Checkbox is checked, add the value to the array
+                    array_all.push(profile_id_item);
+                    console.log("ITEM", array_all);
+                } else {
+                    // Checkbox is unchecked, remove the value from the array
+                    let index = array_all.indexOf(profile_id_item);
+                    if (index > -1) {
+                        array_all.splice(index, 1);
+                    }
+                    console.log("ITEM", array_all);
+                }
+
+                var numCheckboxes = $('.select-item').length;
+                if ($('.select-item:checked').length === numCheckboxes) {
+                    // All checkboxes are checked
+                    $('#select-all').prop('checked', true);
+                } else {
+                    // Not all checkboxes are checked
+                    $('#select-all').prop('checked', false);
+                }
+
+                if ($('.select-item:checked').length === 0) {
+                    // Add your code here for when no checkbox is checked
+                    $('#invoice_active').addClass('d-none');
+                } else {
+                    $('#invoice_active').removeClass('d-none');
+                }
+            });
+
+            $(document).on('click', '#activeLink', function(e) {
+                e.preventDefault();
+                let invoice_id = $(this).closest('tr').find('.invoice_id').text();
+                $("#activeInvoice").html(invoice_id);
+
+            })
+
+            $('#active_button').on('click', function(e) {
+                e.preventDefault();
+                let invoice_id = $('#activeInvoice').html();
+                if (invoice_id) {
+                    let data = {
+                        invoice_id: invoice_id
+                    }
+                    axios.post(apiUrl + "/api/updateActiveInvoice", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#activeModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                show_userstatusInactiveinvoice();
+                                userInactiveCount();
+                                userActiveCount();
+                                $('#invoice_active').addClass('d-none');
+                                // location.href = apiUrl + "/admin/current"
+                                // window.location.reload();
+                            }, 1500)
+                            toast1.toast('show');
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                } else {
+                    let data = {
+                        multipleId: array_all
+                    }
+                    axios.post(apiUrl + "/api/updateActiveInvoice", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#activeModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                // location.href = apiUrl + "/admin/current"
+                                // window.location.reload();
+                                show_userstatusInactiveinvoice();
+                                userInactiveCount();
+                                userActiveCount();
+                                $('#invoice_active').addClass('d-none');
+                            }, 1500)
+                            toast1.toast('show');
+                            console.log("SUCCESS", data);
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                }
+            })
+
             let toast1 = $('.toast1');
             toast1.toast({
                 delay: 3000,
@@ -228,31 +570,32 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
-            function active_inactiveCount_paid() {
-                axios.get(apiUrl + '/api/statusInactive_paid_invoice_count', {
+            function userInactiveCount() {
+                axios.get(apiUrl + '/api/userInactiveInvoiceCount', {
                     headers: {
                         Authorization: token,
                     },
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        // console.log("SUCCESS", data.data.length ? data.data.length : 0);
-                        $('#paid_invoices').html(data.data.length ? data.data.length : 0);
+                        console.log('userInactiveCount', data);
+                        $('#inactive_invoices').html(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
                 })
             }
 
-            function active_inactiveCount_pending() {
-                axios.get(apiUrl + '/api/statusInactive_pending_invoice_count', {
+            function userActiveCount() {
+                axios.get(apiUrl + '/api/userActiveInvoiceCount', {
                     headers: {
                         Authorization: token,
                     },
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        $('#pending_invoices').html(data.data.length ? data.data.length : 0);
+                        console.log('userActiveCount', data);
+                        $('#active_invoices').html(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -262,7 +605,7 @@
             function search_statusInactive_invoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     filter_all_invoices: $('#filter_invoices').val(),
@@ -293,7 +636,10 @@
                                 var yy2 = due_date2.getFullYear();
 
                                 let tr = '<tr style="vertical-align: middle;">';
-                                tr += '<td hidden>' + item.id + '</td>'
+                                tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
+                                    '</td>'
+                                tr +=
+                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -318,7 +664,7 @@
                                             let data = response.data
                                             if (data.success) {
                                                 // show_userstatusInactiveinvoice();
-                                                location.reload(true);
+                                                window.location.reload;
                                             }
                                         }).catch(function(error) {
                                             console.log("ERROR", error);
@@ -341,7 +687,7 @@
                                             let data = response.data
                                             if (data.success) {
                                                 // show_userstatusInactiveinvoice();
-                                                location.reload(true);
+                                                window.location.reload;
                                             }
                                         }).catch(function(error) {
                                             console.log("ERROR", error);
@@ -387,22 +733,42 @@
                                     'MM/DD/YYYY') + '</td>';
 
                                 tr +=
-                                    '<td class="text-center"> <a href="' +
-                                    apiUrl +
+                                    '<td  class="text-center">';
+                                tr +=
+                                    `<div class="dropdown">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Inactive</a></li>
+                                                    <li><a class="dropdown-item" href=` + apiUrl +
                                     '/user/inactiveEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i></a> </td>';
+                                    `>View</a></li>
+                                                </ul>
+                                            </div>`;
+                                tr += '</td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
                             })
                             $('#tbl_pagination_invoice').empty();
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_invoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+                        <a class="page-link" data-url="${item.url}">${label}</a>
+                      </li>`;
+
+                                $('#tbl_pagination_invoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -429,8 +795,7 @@
                                         .exec(
                                             url
                                         );
-                                    return results !== null ? results[1] || 0 :
-                                        0;
+                                    return results !== null ? results[1] || 0 : 0;
                                 };
 
                                 search_statusInactive_invoice({
@@ -441,9 +806,13 @@
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            selectShow();
                         } else {
+                            selectShow();
                             $("#dataTable_invoice tbody").append(
-                                '<tr><td colspan="8" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="9" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
@@ -455,10 +824,19 @@
                 });
             }
 
+            $('#tbl_showing_inactivePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_userstatusInactiveinvoice({
+                    page_size: pages
+                });
+            })
+
             function show_userstatusInactiveinvoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     filter_all_invoices: $('#filter_invoices').val(),
                     search: $("#search").val(),
@@ -473,7 +851,7 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        console.log("SHOW DATA123", data);
+                        console.log("SHOW DATA", data);
                         if (data.data.data.length > 0) {
                             data.data.data.map((item) => {
                                 let newdate = new Date(item.created_at);
@@ -489,7 +867,10 @@
                                 var yy2 = due_date2.getFullYear();
 
                                 let tr = '<tr style="vertical-align: middle;">';
-                                tr += '<td hidden>' + item.id + '</td>'
+                                tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
+                                    '</td>'
+                                tr +=
+                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -513,7 +894,7 @@
                                         }).then(function(response) {
                                             let data = response.data
                                             if (data.success) {
-                                                window.location.reload();
+                                                window.location.reload;
                                             }
                                         }).catch(function(error) {
                                             console.log("ERROR", error);
@@ -535,7 +916,7 @@
                                         }).then(function(response) {
                                             let data = response.data
                                             if (data.success) {
-                                                window.location.reload();
+                                                window.location.reload;
                                             }
                                         }).catch(function(error) {
                                             console.log("ERROR", error);
@@ -581,22 +962,42 @@
                                     'MM/DD/YYYY') + '</td>';
 
                                 tr +=
-                                    '<td class="fit text-center"> <a href="' +
-                                    apiUrl +
+                                    '<td  class="text-center">';
+                                tr +=
+                                    `<div class="dropdown">
+                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Activate</a></li>
+                                                    <li><a class="dropdown-item" href=` + apiUrl +
                                     '/user/inactiveEditInvoice/' +
                                     item.id +
-                                    '" class="btn btn-outline-primary"><i class="fa-solid fa-eye"></i></a> </td>';
+                                    `>View</a></li>
+                                                </ul>
+                                            </div>`;
+                                tr += '</td>';
                                 tr += '</tr>';
                                 $("#dataTable_invoice tbody").append(tr);
                                 return ''
                             })
                             $('#tbl_pagination_invoice').empty();
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_invoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+                            <a class="page-link" data-url="${item.url}">${label}</a>
+                          </li>`;
+
+                                $('#tbl_pagination_invoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -623,8 +1024,7 @@
                                         .exec(
                                             url
                                         );
-                                    return results !== null ? results[1] || 0 :
-                                        0;
+                                    return results !== null ? results[1] || 0 : 0;
                                 };
                                 let search = $('#search').val();
                                 show_userstatusInactiveinvoice({
@@ -635,16 +1035,19 @@
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
-                            // setTimeout(function() {
-                            //   show_userstatusInactiveinvoice();
-                            // }, 3500);
+                            selectShow();
+                            $('#selectInactive').removeClass('d-none');
                         } else {
+                            selectShow();
                             $("#dataTable_invoice tbody").append(
-                                '<tr><td colspan="8" class="text-center">No data</td></tr>'
+                                '<tr><td colspan="9" class="text-center"><div class="noData" style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            $('#selectInactive').addClass('d-none');
                         }
                     }
                 }).catch(function(error) {
@@ -659,9 +1062,7 @@
                 }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-
-
+                    $('div.spanner').removeClass('show');
                     $('#tbl_pagination_invoice').empty();
                     show_userstatusInactiveinvoice();
                     $('html,body').animate({
@@ -676,8 +1077,6 @@
 
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_userstatusInactiveinvoice();
                 }, 1500)
             });
@@ -707,9 +1106,6 @@
             // POST INVOICE STATUS
             $('#update_invoice_status').submit(function(e) {
                 e.preventDefault();
-
-
-                var start = performance.now(); // Get the current timestamp
                 // Do your processing here
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();

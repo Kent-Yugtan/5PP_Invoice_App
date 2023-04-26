@@ -2,8 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <link rel="icon" href="https://invoice.5ppsite.com/images/Invoices-logo.png" type="image/x-icon"
-        style="border-radius:50%">
+    <link rel="icon" href="{{ URL('images/Invoices-logo.png') }}" type="image/x-icon" style="border-radius:50%">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSRF Token -->
@@ -30,10 +29,11 @@
         </main>
     </div>
 </body>
-@include('layouts.script')
-
 <!-- JQUERY UI -->
+
+@include('layouts.script')
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

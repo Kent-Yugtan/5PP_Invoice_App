@@ -62,10 +62,10 @@
 
         <div class="row">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white h-100">
+                <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
 
-                        <div id="tbl_user_wrapper" class="table-responsive" style="padding:20px">
+                        <div class="table-responsive" style="max-height:617px !important">
                             <table style=" color: #A4A6B3; " class="table table-hover" id="tbl_user">
                                 <thead>
                                     <tr>
@@ -83,7 +83,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center" colspan="6">
+                                        <td class="text-center" colspan="7">
                                             <div class="noData"
                                                 style="width:' +
                               width +
@@ -96,6 +96,20 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="d-none" id="selectInactive">
+                            <div class="input-group" style="width:145px !important">
+                                <select id="tbl_showing_inactivePages" class="form-select">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="75">75</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="input-group-text border-0">/Page</span>
+                            </div>
+                        </div>
+
 
                         <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                             id="tbl_user_showing"></div>
@@ -112,8 +126,8 @@
     </div>
 
     <!-- Modal FOR Active Invoice -->
-    <div class="modal fade" id="activeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="activeModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -145,7 +159,7 @@
                     <div class="row ">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelactive">Cancel</button>
+                                id="cancelactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="active_button" class="btn  w-100"
@@ -188,7 +202,7 @@
             }
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -242,6 +256,7 @@
         });
 
         $(document).ready(function() {
+            let pageSize = 10; // initial page size
 
             $("div.spanner").addClass("show");
             setTimeout(function() {
@@ -421,9 +436,11 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
-                                location.href = apiUrl + "/admin/current"
-                                window.location.reload();
-                            }, 3000)
+                                $('#button_active').addClass('d-none');
+                                show_data();
+                                // location.href = apiUrl + "/admin/current"
+                                // window.location.reload();
+                            }, 1500)
                             toast1.toast('show');
                         }
                     }).catch(function(error) {
@@ -473,8 +490,10 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
-                            }, 3000)
+                                // window.location.reload();
+                                show_data();
+                                $('#button_active').addClass('d-none');
+                            }, 1500)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
                         }
@@ -505,18 +524,26 @@
                 }
             })
 
-            $('#cancelactive').on('click', function(e) {
-                e.preventDefault();
-                $('#activeModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
-            })
+            // $('#cancelactive').on('click', function(e) {
+            //     e.preventDefault();
+            //     $('#activeModal').modal('hide');
+            //     setTimeout(function() {
+            //         location.reload(true);
+            //     }, 500)
+            // })
 
+            $('#tbl_showing_inactivePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
 
             function show_data(filters) {
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: 1,
                     search: $('#search').val(),
                     ...filters,
@@ -691,18 +718,19 @@
                                     `Showing ${res.data.from} to ${res.data.to} of ${res.data.total} entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
-
+                                $('#selectInactive').removeClass('d-none');
                             } else {
                                 selectShow();
 
                                 $("#tbl_user tbody").append(
-                                    '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
+                                    '<tr><td colspan="7" class="text-center"><div class="noData" style="width:' +
                                     width +
                                     'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 let tbl_user_showing =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
+                                $('#selectInactive').addClass('d-none');
 
                             }
                         }

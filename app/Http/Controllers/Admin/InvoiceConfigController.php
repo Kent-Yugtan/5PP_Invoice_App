@@ -93,7 +93,7 @@ class InvoiceConfigController extends Controller
 
         return response()->json([
           'success' => true,
-          'message' => 'The invoice Configuration has been updated successfully.',
+          'message' => 'The invoice configuration has been updated successfully.',
           'data' => $data,
         ], 200);
       } else {
@@ -216,7 +216,7 @@ class InvoiceConfigController extends Controller
     $delete_data = InvoiceConfig::where('id', $invoiceConfig_id)->delete();
     return response()->json([
       'success' => true,
-      'message' => 'The invoice Configuration has been deleted successfully.',
+      'message' => 'The invoice configuration has been deleted successfully.',
       'data' => $delete_data,
     ], 200);
   }

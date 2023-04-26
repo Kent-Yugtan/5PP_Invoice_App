@@ -3,7 +3,7 @@
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
-            <div class="col-md-12 col-lg-12 col-xl-5 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-md-12 col-lg-12 col-xl-4 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <div class="row">
@@ -322,7 +322,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-lg-12 col-xl-7 bottom10" style="padding-right:5px;padding-left:5px;">
+            <div class="col-md-12 col-lg-12 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <ul class="nav nav-pills bottom20" id="pills-tab" role="tablist">
@@ -371,7 +371,7 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="max-height:1232px !important">
                                                 <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
                                                     id="dataTable_invoice">
                                                     <thead>
@@ -389,8 +389,8 @@
                                                             <td class="text-center" colspan="6">
                                                                 <div class="noData"
                                                                     style="width:' +
-                                            width +
-                                            'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                width +
+                                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
                                                                     <i class="fas fa-spinner"></i>
                                                                     <div></div>
                                                                 </div>
@@ -399,16 +399,27 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="d-none" id="selectInactive">
+                                                <div class="input-group" style="width:145px !important">
+                                                    <select id="tbl_showing_inactiveProfilePages" class="form-select">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="75">75</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <span class="input-group-text border-0">/Page</span>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;justify-content:center;"
+                                                class="page_showing pagination-alignment " id="tbl_showing_invoice"></div>
+                                            <div class="pagination-alignment"
+                                                style="display:flex;justify-content:center;">
+                                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                                    class="pagination pagination-sm flex-wrap"
+                                                    id="tbl_pagination_invoice">
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div style="display:flex;justify-content:center;"
-                                        class="page_showing pagination-alignment " id="tbl_showing_invoice">
-                                    </div>
-                                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                            class="pagination pagination-sm flex-wrap" id="tbl_pagination_invoice">
-                                        </ul>
                                     </div>
                                 </div>
 
@@ -417,14 +428,8 @@
                                     <div class="row">
                                         <div class="col-sm-6 bottom20">
                                             <!-- <div class="input-group"> -->
-                                            <button type="button " id="submit-create-deduction"
-                                                class="btn form-check-inline pe-3" data-bs-toggle="modal"
-                                                data-bs-target="#modal-create-deduction"
-                                                style="color:white; background-color: #CF8029;width:100%" disabled>
-                                                <i class="fa fa-plus pe-1"></i>
-                                                Create Invoice
-                                            </button>
-
+                                            <select id="deductionDropSearch" class="form-select">
+                                            </select>
                                         </div>
                                         <div class="col-sm-6 bottom20">
                                             <div class="has-search">
@@ -437,8 +442,21 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label for="date_hired" style="color: #A4A6B3;margin-left:7px">Deduction
-                                                Types</label>
+                                            <div class="d-flex justify-content-between">
+                                                <label class="d-flex align-items-center" for="deductionButton"
+                                                    style="color: #A4A6B3;margin-left:7px">Deduction
+                                                    Types</label>
+                                                {{-- <button type="button" id="submit-create-deduction" class="btn"
+                                                  data-bs-toggle="modal" data-bs-target="#modal-create-deduction"
+                                                  style="color:white; background-color: #CF8029;width:10%">
+                                                  <i class="fa-solid fa-circle-plus "></i>
+                                              </button> --}}
+
+                                                <label type="button" id="submit-create-deduction" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-create-deduction"
+                                                    style="font-size:25px;color:#CF8029">
+                                                    <i class="fa-solid fa-circle-plus "></i></label>
+                                            </div>
                                             <div id="deductionButton" style="word-wrap: break-word;">
                                             </div>
                                         </div>
@@ -446,17 +464,16 @@
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive" style="max-height:1147px !important">
                                                 <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
                                                     id="dataTable_deduction">
                                                     <thead>
                                                         <tr>
                                                             <th class="fit">Invoice #</th>
-                                                            <th class="fit" style="text-align:center">Payment Status
-                                                            </th>
-                                                            <th class="fit">Deduction Name</th>
-                                                            <th class="fit" style="text-align:right">Amount</th>
-                                                            <th class="fit" style="text-align:right">Date Created</th>
+                                                            <th class="fit text-center">Payment Status</th>
+                                                            <th class="fit text-end">Deduction Name</th>
+                                                            <th class="fit text-end">Amount</th>
+                                                            <th class="fit text-end">Date Created</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -464,8 +481,8 @@
                                                             <td class="text-center" colspan="5">
                                                                 <div class="noData"
                                                                     style="width:' +
-                                            width +
-                                            'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                width +
+                                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
                                                                     <i class="fas fa-spinner"></i>
                                                                     <div></div>
                                                                 </div>
@@ -474,15 +491,28 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="d-none" id="selectDeductionTypes">
+                                                <div class="input-group" style="width:145px !important">
+                                                    <select id="tbl_showing_deductionTypesPages" class="form-select">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="75">75</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <span class="input-group-text border-0">/Page</span>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;justify-content:center;"
+                                                class="page_showing pagination-alignment " id="tbl_showing_deduction">
+                                            </div>
+                                            <div class="pagination-alignment"
+                                                style="display:flex;justify-content:center;">
+                                                <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                                                    class="pagination pagination-sm flex-wrap"
+                                                    id="tbl_pagination_deduction"></ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:center;"
-                                        class="page_showing pagination-alignment " id="tbl_showing_deduction">
-                                    </div>
-                                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
-                                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
-                                            class="pagination pagination-sm flex-wrap" id="tbl_pagination_deduction">
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -744,54 +774,84 @@
     </div>
 
     <!-- START MODAL ADD -->
+    <!-- START MODAL ADD -->
     <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-dialog">
-                <div class="modal-content ">
-                    <div class="modal-body ">
-                        <div class="row">
-                            <h5> Create Deduction </h5>
-                            <form id="deductiontype_store" method="POST" action="javascript:void(0)"
-                                class="row g-3 needs-validation" novalidate>
-                                @csrf
-                                <input type="text" id="createDeduction_profile_id" hidden>
-
-                                <div class="form-group mt-3" id="select_deduction_name">
-                                    <!-- <label for="formGroupExampleInput">Deduction Name</label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <select class="createDeduction_deduction_name form-select" name="createDeduction_deduction_name" id="createDeduction_deduction_name">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option selected disabled value="">Please Select Deductions</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </select> -->
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="formGroupExampleInput">Amount</label>
-                                    <input id="createDeduction_deduction_amount" name="createDeduction_deduction_amount"
-                                        type="text" class="createDeduction_deduction_amount form-control"
-                                        placeholder="Amount">
-
-                                    <div class="row mt-3">
-                                        <div class="col">
-                                            <button type="button" class="btn  w-100"
-                                                style=" color:#CF8029; background-color:white; "
-                                                data-bs-dismiss="modal">Close</button>
+            <div class="hide-content">
+                <div class="modal-body">
+                    <form id="deductiontype_store" class="g-3 needs-validation" novalidate>
+                        @csrf
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
+                            <div class="card-body">
+                                <div class="row" id="header">
+                                    <div class="col-md-12 w-100">
+                                        <div class="row">
+                                            <div class="col bottom20">
+                                                <span class="fs-3 fw-bold">Add Deduction</span>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <button type="submit" id="createDeduction_button" class="btn  w-100"
-                                                style="color:White; background-color:#CF8029;">Add</button>
+
+                                        <div class="row">
+                                            <div class="col-12  ">
+                                                <div id="mobileValidateStoreDeductionname" class="form-group-profile">
+                                                    <input type="text" id="createDeduction_profile_id" hidden>
+                                                    {{-- <div class="form-group" id="select_deduction_name"></div> --}}
+                                                    <div class="form-group-profile">
+                                                        <label for="createDeduction_deduction_name"
+                                                            style="color:#A4A6B3">Dedution Name:</label>
+                                                        <input id="createDeduction_deduction_name"
+                                                            name="createDeduction_deduction_name" type="text"
+                                                            class="createDeduction_deduction_name form-control"
+                                                            onblur="validateProfileDeduction(this)"
+                                                            placeholder="Deduction Name" required disabled>
+                                                        <div id="invalid-feedback-storeDeduction-name"
+                                                            class="invalid-feedback">
+                                                            This field is required.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 ">
+                                                <div class="form-group-profile">
+                                                    <label for="createDeduction_deduction_amount"
+                                                        style="color:#A4A6B3">Amount</label>
+                                                    <input id="createDeduction_deduction_amount"
+                                                        name="createDeduction_deduction_amount" type="text"
+                                                        class="createDeduction_deduction_amount form-control"
+                                                        placeholder="Amount" maxlength="6" required disabled>
+                                                    <div id="invalid-feedback-deduction-amount" class="invalid-feedback">
+                                                        This field is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col bottom20">
+                                                <button type="button" class="btn w-100"
+                                                    style="color:#CF8029; background-color:#f3f3f3; "
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                            <div class="col bottom20">
+                                                <button type="submit" id="createDeduction_button" class="btn w-100"
+                                                    style="color:White; background-color:#CF8029;"
+                                                    disabled="true">Add</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
-    <div class="modal fade" id="ProfileDeductioneditModal" data-bs-backdrop='static' tabindex="-1" role="dialog"
+    <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
@@ -869,8 +929,8 @@
     <!-- START MODAL DEDUCTION EDIT -->
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
@@ -932,7 +992,7 @@
     <!-- START MODAL UPDATE INVOICE STATUS -->
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -979,7 +1039,7 @@
     </div>
 
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">
@@ -1277,7 +1337,7 @@
         }
 
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -1332,7 +1392,7 @@
 
         // INVOICE SEARCH AND DISPLAY
         $(document).ready(function() {
-
+            let pageSize = 10; // initial page size
             // REFRESH WHEN THIS PAGE IS LOAD
             $('#cancel_edit_profile').addClass('d-none');
             $("div.spanner").addClass("show");
@@ -1341,9 +1401,57 @@
                 check_InactivependingInvoicesStatus();
                 show_profileDeductionType_Button();
                 show_Profilededuction_Table_Active();
+                show_profileDeductionType_select()
                 show_edit();
                 show_data();
             }, 1500)
+
+            function show_profileDeductionType_select() {
+                let url = window.location.pathname;
+                let urlSplit = url.split('/');
+
+                if (urlSplit.length === 5) {
+                    let profile_id = urlSplit[4];
+                    // console.log("profile_id", profile_id);
+                    $('#deductionDropSearch').empty();
+                    axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {
+                            headers: {
+                                Authorization: token,
+                            },
+                        })
+                        .then(function(response) {
+                            let data = response.data;
+                            if (data.success) {
+                                let label = '';
+                                label +=
+                                    `<option value="">Please Select Deduction Types</option>`;
+                                if (data.data.profile_deduction_types.length > 0) {
+
+                                    data.data.profile_deduction_types.map((item) => {
+                                        label +=
+                                            "<option value=" +
+                                            item.deduction_type_name + ">" + item.deduction_type_name +
+                                            "</option>";
+                                    })
+                                    $("#deductionDropSearch").append(label);
+                                    return '';
+                                } else {
+                                    let label = '';
+                                    label +=
+                                        `<option value="">Please Select Deduction Types</option>`;
+                                    label +=
+                                        `<option value="" class="text-start">No Data</option>`;
+                                    $("#deductionDropSearch").append(label);
+                                    return '';
+                                }
+                            }
+                        })
+                        .catch(function(error) {
+
+                            console.log("catch error", error);
+                        });
+                }
+            }
 
             $('#date_hired').each(function() {
                 const datepicker = new Datepicker(this, {
@@ -1353,10 +1461,6 @@
                     datepicker.hide();
                 });
             });
-
-
-
-
 
             // START CODE FOR CROPING IMAGE
             $('#uploadBtn').on('click', function() {
@@ -1802,6 +1906,19 @@
                 }, 1500);
             })
 
+            $('#deductionDropSearch').on('change', function() {
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $("div.spanner").removeClass("show");
+                    $('#tbl_pagination_deduction').empty();
+                    show_Profilededuction_Table_Active_Select();
+                }, 1500);
+            })
+
+
             // $("#tbl_pagination_invoice").on('click', '.page-item', function() {
             //   $('html,body').animate({
             //     scrollTop: $('#sb-nav-fixed').offset().top
@@ -1846,6 +1963,16 @@
                 }, 1500);
             });
 
+            $('#tbl_showing_inactiveProfilePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
+
+
             // SHOW DATA ON TABLE
             function show_data(filters) {
                 let url = window.location.pathname;
@@ -1855,7 +1982,7 @@
                     // console.log("sddsadsa", urlSplit.length);
                     let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                     let filter = {
-                        page_size: 30,
+                        page_size: pageSize,
                         page: page ? page : 1,
                         user_id: urlSplit[3],
                         search: $('#search_invoice').val(),
@@ -1940,12 +2067,22 @@
                                     return ''
                                 })
                                 $('#tbl_pagination_invoice').empty();
+
                                 data.data.links.map(item => {
-                                    let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                    $('#tbl_pagination_invoice').append(li)
-                                    return ""
-                                })
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
+                                    let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                    $('#tbl_pagination_invoice').append(li);
+                                    return "";
+                                });
 
                                 if (data.data.links.length) {
                                     let lastPage = data.data.links[data.data.links.length - 1];
@@ -1986,6 +2123,7 @@
                                 let tbl_showing_invoice =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                                $('#selectInactive').removeClass('d-none');
                             } else {
                                 $("#dataTable_invoice tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -1995,6 +2133,7 @@
                                 let tbl_showing_invoice =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                                $('#selectInactive').addClass('d-none');
                             }
 
                         }
@@ -3421,6 +3560,15 @@
                 }
             })
 
+            $('#tbl_showing_deductionTypesPages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_Profilededuction_Table_Active({
+                    page_size: pages
+                });
+            })
+
 
             // RESERVE FOR DISPLAY STATUS ON DEDUCTION
             function show_Profilededuction_Table_Active(filters) {
@@ -3431,7 +3579,7 @@
                     let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
 
                     let filter = {
-                        page_size: 30,
+                        page_size: pageSize,
                         page: page ? page : 1,
                         profile_id: urlSplit[4],
                         search: $('#search_deduction').val(),
@@ -3479,7 +3627,7 @@
                                                 '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
                                         }
 
-                                        tr += '<td class="fit text-start">' + item.deduction_type_name +
+                                        tr += '<td class="fit text-end">' + item.deduction_type_name +
                                             '</td>';
                                         tr += '<td class="fit text-end">' + PHP(item
                                                 .amount)
@@ -3495,11 +3643,20 @@
                                     })
                                     $('#tbl_pagination_deduction').empty();
                                     data.data.links.map(item => {
-                                        let li =
-                                            `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                        $('#tbl_pagination_deduction').append(li)
-                                        return ""
-                                    })
+                                        let label = item.label;
+                                        if (label === "&laquo; Previous") {
+                                            label = "&laquo;";
+                                        } else if (label === "Next &raquo;") {
+                                            label = "&raquo;";
+                                        }
+
+                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                        $('#tbl_pagination_deduction').append(li);
+                                        return "";
+                                    });
 
                                     if (data.data.links.length) {
                                         let lastPage = data.data.links[data.data.links.length - 1];
@@ -3532,6 +3689,150 @@
 
                                             show_Profilededuction_Table_Active({
                                                 search: $('#search_deduction').val(),
+                                                page: $.urlParam('page')
+                                            })
+                                        })
+                                    let tbl_showing_deduction =
+                                        `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
+                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#selectDeductionTypes').removeClass('d-none');
+
+                                } else {
+                                    $("#dataTable_deduction tbody").append(
+                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                        width +
+                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                    );
+                                    let tbl_showing_deduction =
+                                        `Showing 0 to 0 of 0 entries`;
+                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#selectDeductionTypes').addClass('d-none');
+                                }
+                            }
+                        })
+                        .catch(function(error) {
+                            console.log("catch error", error);
+                        });
+                }
+            }
+
+            function show_Profilededuction_Table_Active_Select(filters) {
+                let url = window.location.pathname;
+                let urlSplit = url.split('/');
+                // console.log(urlSplit.length);
+                if (urlSplit.length === 5) {
+                    let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
+
+                    let filter = {
+                        page_size: 30,
+                        page: page ? page : 1,
+                        profile_id: urlSplit[4],
+                        search: $('#deductionDropSearch').val() ? $('#deductionDropSearch').val() : '',
+                        ...filters
+                    }
+
+                    $('#dataTable_deduction tbody').empty();
+                    axios.get(
+                            `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
+                                headers: {
+                                    Authorization: token,
+                                },
+                            })
+                        .then(function(response) {
+                            data = response.data;
+                            if (data.success) {
+                                console.log("PROFILE DEDUCTION SUCCESS", data);
+                                if (data.data.data.length > 0) {
+                                    data.data.data.map((item) => {
+                                        let newdate = new Date(item.created_at);
+                                        var mm = newdate.getMonth() + 1;
+                                        var dd = newdate.getDate();
+                                        var yy = newdate.getFullYear();
+
+                                        let tr = '<tr style="vertical-align: middle;">';
+
+                                        tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
+                                        if (item.invoice.invoice_status == "Cancelled") {
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
+                                        } else if (item.invoice.invoice_status ==
+                                            "Paid") {
+
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
+                                        } else if (item.invoice.invoice_status ==
+                                            "Pending") {
+
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
+                                        } else {
+                                            tr +=
+                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
+                                        }
+
+                                        tr += '<td class="fit text-end">' + item.deduction_type_name +
+                                            '</td>';
+                                        tr += '<td class="fit text-end">' + PHP(item
+                                                .amount)
+                                            .format() + '</td>';
+                                        tr += '<td class="fit text-end">' + moment.utc(item.created_at)
+                                            .tz(
+                                                'Asia/Manila').format(
+                                                'MM/DD/YYYY') + '</td>';
+
+                                        tr += '</tr>';
+
+                                        $("#dataTable_deduction tbody").append(tr);
+                                        return ''
+                                    })
+                                    $('#tbl_pagination_deduction').empty();
+                                    data.data.links.map(item => {
+                                        let label = item.label;
+                                        if (label === "&laquo; Previous") {
+                                            label = "&laquo;";
+                                        } else if (label === "Next &raquo;") {
+                                            label = "&raquo;";
+                                        }
+
+                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                        $('#tbl_pagination_deduction').append(li);
+                                        return "";
+                                    });
+
+                                    if (data.data.links.length) {
+                                        let lastPage = data.data.links[data.data.links.length - 1];
+                                        if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                            $('#tbl_pagination_deduction .page-item:last-child').addClass(
+                                                'disabled');
+                                        }
+                                        let PreviousPage = data.data.links[0];
+                                        if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                            null) {
+                                            $('#tbl_pagination_deduction .page-item:first-child').addClass(
+                                                'disabled');
+                                        }
+                                    }
+                                    $("#tbl_pagination_deduction .page-item .page-link").on('click',
+                                        function() {
+                                            $("#tbl_pagination_deduction .page-item")
+                                                .removeClass(
+                                                    'active');
+                                            $(this).closest('.page-item').addClass('active');
+                                            let url = $(this).data('url')
+                                            $.urlParam = function(name) {
+                                                var results = new RegExp("[?&]" + name +
+                                                        "=([^&#]*)")
+                                                    .exec(
+                                                        url
+                                                    );
+                                                return results !== null ? results[1] || 0 : 0;
+                                            };
+                                            let search = $('#deductionDropSearch').val();
+                                            show_Profilededuction_Table_Active_Select({
+                                                search: search,
                                                 page: $.urlParam('page')
                                             })
                                         })

@@ -23,15 +23,6 @@
                                 <input type="text" class="form-control" id="search" name="search"
                                     placeholder="Search">
                             </div>
-                            {{-- <div class="input-group" id="input-group-search">
-                                <div class="input-group-prepend input-group-text" id="border-search">
-                                    <i style="color:#A4A6B3" class="fas fa-search"></i>
-                                </div>
-                                <input id="search" name="search" type="text"
-                                    class="search-left-icon form-control form-check-inline "
-                                    onfocusout="input_group_focus('out','input-group-search')"
-                                    onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
-                            </div> --}}
                         </div>
                     </div>
                     <div class="col-sm-6 bottom10" style="padding-right:8px;padding-left:8px;">
@@ -42,9 +33,9 @@
 
                 <div class="row ">
                     <div class="col-sm-12 bottom10" style="padding-right:5px;padding-left:5px;">
-                        <div class="card-border shadow bg-white h-100">
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
                             <div class="card-body">
-                                <div class="table-responsive" style="padding:20px">
+                                <div class="table-responsive" style="max-height:577px !important">
                                     <table style="color: #A4A6B3;" class="table table-hover table-responsive"
                                         id="table_deduction">
                                         <thead>
@@ -67,6 +58,18 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="d-none" id="selectDeductions">
+                                    <div class="input-group" style="width:145px !important">
+                                        <select id="tbl_showing_deductionsPages" class="form-select">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <span class="input-group-text border-0">/Page</span>
+                                    </div>
+                                </div>
                                 <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                                     id="tbl_showing"></div>
                                 <div class="pagination-alignment" style="display:flex;justify-content:center;">
@@ -82,8 +85,8 @@
         </div>
     </div>
     <!-- START MODAL ADD -->
-    <div class="modal fade" id="addModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="modal-body ">
@@ -108,7 +111,8 @@
                                                         <input id="deduction_name" name="deduction_name" type="text"
                                                             class="form-control" placeholder="Deduction Name"
                                                             onblur="validateDeductionname(this)" required>
-                                                        <div id="error_deduction_name"></div>
+                                                        <div id="error_deduction_name" class="invalid-feedback">This field
+                                                            is required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,7 +123,7 @@
                                                         <label for="deduction_amount" style="color:#A4A6B3">Amount</label>
                                                         <input id="deduction_amount" name="deduction_amount"
                                                             type="text" class="form-control" maxlength="6"
-                                                            placeholder="Amount" required>
+                                                            placeholder="Amount">
                                                         <div class="invalid-feedback">This field is required.</div>
                                                     </div>
                                                 </div>
@@ -148,8 +152,8 @@
     <!-- END MODAL ADD -->
 
     <!-- START MODAL EDIT -->
-    <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
@@ -235,7 +239,7 @@
     </div>
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -341,6 +345,7 @@
                             if ($error == "The deduction name has already been taken.") {
                                 $("#error_edit_deduction_name").addClass('invalid-feedback').html(
                                     "The deduction name has already been taken.").show();
+                                console.log("YAWA")
                             }
                             $('.mobileValidate').addClass('form-group-adjust');
                         }
@@ -390,7 +395,7 @@
             })
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -446,7 +451,7 @@
         });
 
         $(document).ready(function() {
-
+            let pageSize = 10; // initial page size
             $("div.spanner").addClass("show");
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
@@ -491,9 +496,18 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
+            $('#tbl_showing_deductionsPages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
+
             function show_data(filters) {
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     ...filters,
@@ -570,12 +584,14 @@
                                 let tbl_user_showing =
                                     `Showing ${res.data.from} to ${res.data.to} of ${res.data.total} entries`;
                                 $('#tbl_showing').html(tbl_user_showing);
+                                $('#selectDeductions').removeClass('d-none');
                             } else {
                                 $("#table_deduction tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
                                     width +
                                     'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
+                                $('#selectDeductions').addClass('d-none');
                             }
                         }
                     })
@@ -594,11 +610,24 @@
                 setTimeout(function() {
                     $('#deductiontype_store').trigger('reset');
                     $('#deductiontype_store').removeClass('was-validated');
+                    $('#deduction_name').removeClass('is-invalid');
                     $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
                     $("div.spanner").removeClass("show");
                 }, 1500)
+            })
 
-
+            $("#addModal").on('hide.bs.modal', function() {
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $('#deductiontype_store').trigger('reset');
+                    $('#deductiontype_store').removeClass('was-validated');
+                    $('#deduction_name').removeClass('is-invalid');
+                    $("#error_deduction_name").removeClass('invalid-feedback').html("").show();
+                    $("div.spanner").removeClass("show");
+                }, 1500)
             })
 
             $("#closedeductiontype_update").on('click', function(e) {

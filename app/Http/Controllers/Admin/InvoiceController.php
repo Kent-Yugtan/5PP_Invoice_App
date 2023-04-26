@@ -389,25 +389,27 @@ class InvoiceController extends Controller
     $deductions = $request->Deductions;
     if ($error === false) {
       // STORE
-
       if ($profile_id) {
-        $incoming_data = $request->validate(
+        $request->validate(
           [
-            'profile_id' => '',
             'due_date' => 'required',
             'description' => 'required',
-            'sub_total' => '',
-            'peso_rate' => '',
-            'converted_amount' => '',
-            'discount_type' => '',
-            'discount_amount' => '',
-            'discount_total' => '',
-            'grand_total_amount' => '',
-            'notes' => '',
+            'invoiceItem.*.item_description' => 'required',
 
           ]
         );
-        $incoming_data += [
+        $incoming_data = [
+          'profile_id' => $request->profile_id,
+          'due_date' => $request->due_date,
+          'description' => $request->description,
+          'peso_rate' => $request->peso_rate,
+          'converted_amount' => $request->converted_amount,
+          'discount_type' => $request->discount_type,
+          'discount_amount' => $request->discount_amount,
+          'discount_total' => $request->discount_total,
+          'grand_total_amount' => $request->grand_total_amount,
+          'notes' => $request->notes,
+          'sub_total' => $request->sub_total,
           'invoice_status' => 'Pending',
           'status' => 'Active',
           'quick_invoice' => '0',
@@ -425,7 +427,6 @@ class InvoiceController extends Controller
                 'rate' => $value['item_rate'],
                 'total_amount' => $value['item_total_amount'],
               ];
-
               $store_data->invoice_items()->create($datainvoiceitem);
             }
           }
@@ -453,7 +454,6 @@ class InvoiceController extends Controller
         ], 200);
       }
 
-
       // DELETE INVOICE ITEMS DELETE WHEN CLICK SUBMIT
       $invoiceItem_ids = [];
       if ($invoice_id && $invoiceItem) {
@@ -463,6 +463,7 @@ class InvoiceController extends Controller
           }
         }
       }
+
       if (count($invoiceItem_ids) > 0) {
         InvoiceItems::where('invoice_id', $invoice_id)->whereNotIn('id', $invoiceItem_ids)->delete();
       } else {
@@ -473,14 +474,14 @@ class InvoiceController extends Controller
       if ($invoiceItems_id && $invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
+              'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -488,6 +489,9 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
@@ -550,6 +554,7 @@ class InvoiceController extends Controller
           $deductions_ids[] = $deduction['deduction_id'];
         }
       }
+
       if (count($deductions_ids) > 0) {
         Deduction::where('invoice_id', $invoice_id)->whereNotIn('id', $deductions_ids)->delete();
       } else {
@@ -560,14 +565,14 @@ class InvoiceController extends Controller
       if ($profileDeduction_id && $invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
+              'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -575,10 +580,12 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
-
           $invoice_update_data = $invoice_data->fill($incoming_data)->save();
 
           if ($request->Deductions) {
@@ -600,17 +607,18 @@ class InvoiceController extends Controller
         }
       }
 
+      // EDIT AND UDPATE 
       if ($invoice_id) {
         $invoice_data = Invoice::find($invoice_id);
         if ($invoice_data) {
-          $incoming_data = $request->validate(
+          $request->validate(
             [
-              'sub_total' => 'required',
               'description' => 'required',
               'due_date' => 'required',
+              'invoiceItem.*.item_description' => 'required',
             ],
           );
-          $incoming_data += [
+          $incoming_data =  [
             'peso_rate' => $request->peso_rate,
             'converted_amount' => $request->converted_amount,
             'discount_type' => $request->discount_type,
@@ -618,6 +626,9 @@ class InvoiceController extends Controller
             'discount_total' => $request->discount_total,
             'grand_total_amount' => $request->grand_total_amount,
             'notes' => $request->notes,
+            'sub_total' => $request->sub_total,
+            'due_date' => $request->due_date,
+            'description' => $request->description,
             'invoice_status' => 'Pending',
             'status' => 'Active'
           ];
@@ -675,7 +686,7 @@ class InvoiceController extends Controller
   {
     $error = false;
     $profile_id = $request->profile_id;
-    $deductions = $request->deduction;
+    $deductions = $request->Deductions;
     $invoiceItems = $request->invoiceItems;
 
     if ($error == false) {
@@ -706,76 +717,6 @@ class InvoiceController extends Controller
         ];
         $store_data = Invoice::create($incoming_data);
         if ($store_data) {
-
-          /* ----------------------------------------- */
-          // if ($incoming_data['invoiceItems']) {
-          //   $datainvoiceitems = [];
-          //   foreach ($incoming_data['invoiceItems'] as $key => $value) {
-          //     $datainvoiceitem = [
-          //       'item_description' => $value['item_description'],
-          //       'quantity' => $value['item_qty'],
-          //       'rate' => $value['item_rate'],
-          //       'total_amount' => $value['item_total_amount'],
-          //     ];
-
-          //     // $datainvoiceitems[] = $datainvoiceitem;
-          //     // $store_data->invoice_items()->create($datainvoiceitem);
-          //   }
-          // }
-          /* ----------------------------------------- */
-
-          /* ----------------------------------------- */
-          // foreach ($incoming_data['invoiceItems'] as $key => $value) {
-          //   $datainvoiceitem = [
-          //     'item_description' => $value['item_description'],
-          //     'quantity' => $value['item_qty'],
-          //     'rate' => $value['item_rate'],
-          //     'total_amount' => $value['item_total_amount'],
-          //   ];
-          //   $store_data->invoice_items()->create([$datainvoiceitem]);
-          // }
-
-          // if ($invoiceItems) {
-          //   $array = [];
-          //   foreach ($invoiceItems as $key => $value) {
-          //     $datainvoiceitem = [
-          //       'item_description' => $value['item_description'],
-          //       'quantity' => $value['item_qty'],
-          //       'rate' => $value['item_rate'],
-          //       'total_amount' => $value['item_total_amount'],
-          //     ];
-          //     $convertString = json_encode($datainvoiceitem);
-          //     $array[] = $convertString;
-          //   }
-          //   // Decode the JSON-encoded strings back to objects
-          //   $decodedArray = array_map('json_decode', $array);
-          //   // return $decodedArray;
-          //   $store_data->invoice_items()->save($decodedArray);
-          // }
-
-          // if ($incoming_data['invoiceItems']) {
-          //   foreach ($incoming_data['invoiceItems'] as $key => $value) {
-          //     $datainvoiceitem = [
-          //       'item_description' => $value['item_description'],
-          //       'quantity' => $value['item_qty'],
-          //       'rate' => $value['item_rate'],
-          //       'total_amount' => $value['item_total_amount'],
-          //     ];
-          //     $store_data->invoice_items()->create($datainvoiceitem);
-          //   }
-
-
-          //   foreach ($invoiceItems as $key => $value) {
-          //     $datainvoiceitem = [
-          //       'item_description' => $value['item_description'],
-          //       'quantity' => $value['item_qty'],
-          //       'rate' => $value['item_rate'],
-          //       'total_amount' => $value['item_total_amount'],
-          //     ];
-          //     $store_data->invoice_items()->create($datainvoiceitem);
-          //   }
-          // }
-          /* ----------------------------------------- */
           if ($invoiceItems) {
             foreach ($invoiceItems as $key => $value) {
               $datainvoiceitem = [
@@ -799,16 +740,16 @@ class InvoiceController extends Controller
               $store_data->deductions()->create($dataDeductions);
             }
           }
-
-          $this->sendEmail_admin();
-          $this->sendEmail_profile();
-
-          return response()->json([
-            'success' => true,
-            'message' => "The invoice has been created successfully and sent to your email.",
-            'data' => $store_data,
-          ], 200);
         }
+
+        $this->sendEmail_admin();
+        $this->sendEmail_profile();
+
+        return response()->json([
+          'success' => true,
+          'message' => "The invoice has been created successfully and sent to your email.",
+          'data' => $store_data,
+        ], 200);
       }
     }
   }
@@ -893,7 +834,7 @@ class InvoiceController extends Controller
       }
     }
 
-    $deductions = $deductions->orderby('created_at', 'asc');
+    $deductions = $deductions->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $deductions = $deductions->limit($request->page_size)
@@ -913,7 +854,6 @@ class InvoiceController extends Controller
   {
     $profile_id = $request->profile_id;
     if ($profile_id) {
-
       $deductions = Deduction::with('invoice')
         ->where('profile_id', $profile_id)->whereHas('invoice', function ($query) {
           $query->where('status', 'Active');
@@ -921,9 +861,11 @@ class InvoiceController extends Controller
 
       if (isset($request->search)) {
         $deductions = $deductions
-          ->where('profile_id', $request->profile_id)
-          ->where('amount', 'LIKE', '%' . $request->search . '%')
-          ->orWhere('deduction_type_name', 'LIKE', '%' . $request->search . '%')
+          ->where(function ($query) use ($request) {
+            $query->where('profile_id', $request->profile_id)
+              ->where('amount', 'LIKE', '%' . $request->search . '%')
+              ->orWhere('deduction_type_name', 'LIKE', '%' . $request->search . '%');
+          })
           ->orwhereHas('invoice', function ($q) use ($request) {
             $q->where('profile_id', $request->profile_id);
             $q->where('invoice_no', 'LIKE', '%' . $request->search . '%');
@@ -943,7 +885,7 @@ class InvoiceController extends Controller
         }
       }
 
-      $deductions = $deductions->orderby('created_at', 'asc');
+      $deductions = $deductions->orderby('created_at', 'desc');
 
       if ($request->page_size) {
         $deductions = $deductions->limit($request->page_size)
@@ -1054,7 +996,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user')
       ->where('invoice_status', 'Pending')
       ->where('status', 'Inactive')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1189,7 +1131,7 @@ class InvoiceController extends Controller
         $query->where('profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1201,7 +1143,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Inactive');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1214,7 +1156,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Active');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1226,7 +1168,7 @@ class InvoiceController extends Controller
     $invoices = Invoice::with('profile.user', 'profile')
       ->whereHas('profile', function ($query) {
         $query->where('profile_status', 'Inactive');
-      })->where('invoice_status', 'Pending')->orderby('created_at', 'asc')->get();
+      })->where('invoice_status', 'Pending')->orderby('created_at', 'desc')->get();
 
     return response()->json([
       'success' => true,
@@ -1242,7 +1184,7 @@ class InvoiceController extends Controller
         $query->where('profiles.profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Pending');
-    $invoices = $invoices->orderby('created_at', 'asc');
+    $invoices = $invoices->orderby('created_at', 'desc');
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
@@ -1251,7 +1193,6 @@ class InvoiceController extends Controller
     } else {
       $invoices = $invoices->get();
     }
-
 
     return response()->json([
       'success' => true,
@@ -1268,7 +1209,7 @@ class InvoiceController extends Controller
         $query->where('profiles.profile_status', 'Active');
       })->where('status', 'Active')
       ->where('invoice_status', 'Overdue')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
@@ -1437,6 +1378,34 @@ class InvoiceController extends Controller
       ], 200);
     }
   }
+
+  public function userActiveInvoiceCount()
+  {
+    $userId = auth()->user()->id;
+    $profile = Profile::where('user_id', $userId)->first();
+    if (isset($profile)) {
+      $activeCount = Invoice::where('status', 'Active')->where('profile_id', $profile->id)->count();
+      return response()->json([
+        'success' => true,
+        'data' => $activeCount,
+      ], 200);
+    }
+  }
+
+  public function userInactiveInvoiceCount()
+  {
+    $userId = auth()->user()->id;
+    $profile = Profile::where('user_id', $userId)->first();
+    if ($profile->id) {
+      $inActive = Invoice::where('status', 'Inactive')->where('profile_id', $profile->id)->count();
+      return response()->json([
+        'success' => true,
+        'data' => $inActive,
+      ], 200);
+    }
+  }
+
+
 
   // SEND EMAIL FOR STATUS PAID ADMIN
   public function sendEmail_status_admin($invoice_id)
@@ -1797,7 +1766,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc')->get();
+      ->orderby('created_at', 'desc')->get();
     return response()->json([
       'success' => true,
       'data' =>  $invoices,
@@ -1814,7 +1783,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Pending')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
         ->paginate($request->page_size, ['*'], 'page', $request->page)
@@ -1839,7 +1808,7 @@ class InvoiceController extends Controller
       ->where(DB::raw('(select user_id from profiles where profiles.id=profile_id)'), $userId)
       ->where('status', 'Active')
       ->where('invoice_status', 'Overdue')
-      ->orderby('created_at', 'asc');
+      ->orderby('created_at', 'desc');
 
     if ($request->page_size) {
       $invoices = $invoices->limit($request->page_size)
@@ -2333,7 +2302,6 @@ class InvoiceController extends Controller
           'message' => 'Your Invoice has been updated successfully.',
         ], 200);
       } else {
-
         $multipleData = Invoice::whereIn('id', $multipleId)
           ->update(['status' => 'Inactive']);
         return response()->json([

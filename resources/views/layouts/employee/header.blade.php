@@ -1,50 +1,58 @@
 <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
-    <div id="invoiceApp" class="d-flex">
+    <div id="invoiceApp" class="invoiceApp d-none">
         <img class="img-team" src="{{ URL('images/Invoices-logo.png') }}" style="width: 60px; padding:10px" />
-        <a class="navbar-brand" href="{{ url('admin/dashboard') }}" style="width: 172px;">Invoicing App</a>
+        <a class="navbar-brand" href="{{ url('user/dashboard') }}">Invoicing App</a>
     </div>
+
+    <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!" style="padding-left:20px">
+        <i style="color:#CF8029" class="fas fa-bars"></i>
+    </button>
     <div class="d-flex flex-sm-wrap">
-        <button class="btn btn-link btn-sm order-lg-0 me-lg-0" id="sidebarToggle" href="#!">
-            <i style="color:#CF8029" class="fas fa-bars"></i>
-        </button>
-        <span id='header_title' class="fs-3 fw-bold"></span>
+        <span id='header_title' class="fw-bold" style="font-size:18px"></span>
     </div>
 
 
     <div class="collapse navbar-collapse" style="justify-content: flex-end;margin-right:8px">
         <div class="icons d-flex align-items-center">
-            <div class="mobileLayout d-none">
-                <span style="margin-right:15px"><i style="color:#A4A6B3;"
+            <div class="icons mobileLayout d-none">
+                <span class="icons d-none" style="margin-right:30px"><i style="color:#A4A6B3;"
                         class="fa-solid fa-magnifying-glass "></i></span>
-                <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                    <label class="badge bg-danger position-absolute"
-                        style="position: absolute;display: block;font-size: 8px;top: 8px;margin-left: 10px;">1</label>
-                </span>
+                <span class="icons" style="margin-right:30px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+
+                    <span class="custom-badge position-fixed"
+                        style="margin-right:30px;font-size: 6px;top:16px;margin-left:7px;background-color:#f8f9fa"><i
+                            class="fa-solid fa-circle" style="color:#CF8029"></i></span>
             </div>
-            <div class="webLayout d-none">
-                <span style="margin-right:15px"><i style="color:#A4A6B3;"
+            <div class="icons webLayout d-none">
+                <span class="icons d-none" style="margin-right:30px"><i style="color:#A4A6B3;"
                         class="fa-solid fa-magnifying-glass "></i></span>
-                <span style="margin-right:15px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
-                    <span class="badge bg-danger position-absolute" style="font-size: 8px;top:8px;right:71px">1</span>
+                <span class="icons" style="margin-right:30px"><i style="color:#A4A6B3;" class="fa-solid fa-bell "></i>
+                    <span class="custom-badge position-fixed"
+                        style="margin-right:30px;font-size: 6px;top:16px;margin-left:7px;background-color:#f8f9fa"><i
+                            class="fa-solid fa-circle" style="color:#CF8029"></i></span>
             </div>
             </span>
-            <span style="margin-right:15px"><i style="color:#A4A6B3;"
-                    class="fa-sharp fa-solid fa-grip-lines-vertical "></i></span>
+
+            <span class="icons d-none" style="padding-right:20px">
+                <i style="color:#A4A6B3;" class="fa-solid fa-grip-lines-vertical"></i>
+            </span>
+
             <div class="mobileLayout d-none">
-                <span style="margin-right:15px"><span class="fullname"></span>
+                <span style="margin-right:15px" class="fullname"></span>
             </div>
 
-            <ul class="navbar-nav ms-auto ms-sm-0 ">
+            <ul class="navbar-nav ms-auto ms-sm-0 pe-2">
                 <li class="nav-item dropdown">
                     <button class=" rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
                         <img class="rounded-pill" role="button" style="border:1px solid #CF8029" aria-expanded="false"
                             src="/images/default.png">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"></a></li>
-                        <div class="webLayout d-none">
-                            <li><a class="dropdown-item"><span class="fullname"></span></a></li>
-                        </div>
+                        {{-- <li><a class="dropdown-item"></a></li> --}}
+                        {{-- <div class="webLayout d-none">
+                            <span class="fullname"></span>
+                        </div> --}}
+                        <li class="webLayout"><a class="dropdown-item"><span class="fullname"></span></a></li>
                         <li><a class="dropdown-item"><span id="role"></span></a></li>
                         <li>
                             <hr class="dropdown-divider" />
@@ -61,15 +69,25 @@
 
 <script>
     $(document).ready(function() {
+        show_user_data();
+        header_title();
 
         var windowWidth = $(window).width();
+        if (windowWidth < 445) {
+            $('.icons').removeClass("d-flex").addClass("d-none");
+        } else {
+            $('.icons').removeClass("d-none").addClass("d-flex");
+        }
+
         if (windowWidth < 768) {
             // console.log("<768");
-            $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+            $('#invoiceApp').addClass("d-none");
+            $('#header_title').removeClass("ps-3");
             $('.mobileLayout').removeClass("d-flex").addClass("d-none");
             $('.webLayout').removeClass("d-none").addClass("d-flex");
         } else {
             // console.log(">=768");
+            $('#header_title').addClass("ps-3");
             $('#invoiceApp').removeClass("d-none").addClass("d-flex");
             $('.mobileLayout').removeClass("d-none").addClass("d-flex");
             $('.webLayout').removeClass("d-flex").addClass("d-none");
@@ -77,20 +95,25 @@
 
         $(window).resize(function() {
             var windowWidth = $(window).width();
+            if (windowWidth < 445) {
+                $('.icons').removeClass("d-flex").addClass("d-none");
+            } else {
+                $('.icons').removeClass("d-none").addClass("d-flex");
+            }
             if (windowWidth < 768) {
                 // console.log("<768");
-                $('#invoiceApp').removeClass("d-flex").addClass("d-none");
+                $('#invoiceApp').addClass("d-none");
+                $('#header_title').removeClass("ps-3");
                 $('.mobileLayout').removeClass("d-flex").addClass("d-none");
                 $('.webLayout').removeClass("d-none").addClass("d-flex");
             } else {
                 // console.log(">=768");
+                $('#header_title').addClass("ps-3");
                 $('#invoiceApp').removeClass("d-none").addClass("d-flex");
                 $('.mobileLayout').removeClass("d-none").addClass("d-flex");
                 $('.webLayout').removeClass("d-flex").addClass("d-none");
             }
         });
-
-        header_title();
 
         function header_title() {
             let url = window.location.pathname;
@@ -124,7 +147,7 @@
                 $("#header_title").html('Inactive Invoice');
             }
             if (path == 'user/userdeductiontype') {
-                $("#header_title").html('Deductions');
+                $("#header_title").html('Deduction Types');
             }
             if (path == 'userReports/deduction') {
                 $("#header_title").html('Deduction Report');
@@ -145,11 +168,12 @@
             }).then(function(response) {
                 let data = response.data;
                 if (data.success) {
-                    $(".rounded-pill").attr("src", data.data.file_path ? data.data.file_path :
+                    $(".rounded-pill").attr("src", data.data.profile.file_path ? data.data.profile
+                        .file_path :
                         '/images/default.png');
-                    $('.fullname').html(data.data.user.first_name + " " + data.data.user.last_name);
-                    $('#role').html(data.data.user.role);
-                    // console.log("USERDATA", data);
+                    $('.fullname').html(data.data.first_name + " " + data.data.last_name);
+                    $('#role').html(data.data.role);
+                    console.log("USERDATA", data);
                 }
             }).catch(function(error) {
                 console.log('error', error);
@@ -175,6 +199,6 @@
                     console.log('catch', error);
                 });
         })
-        show_user_data();
+
     });
 </script>

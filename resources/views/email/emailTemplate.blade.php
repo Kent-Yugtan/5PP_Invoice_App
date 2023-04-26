@@ -33,7 +33,7 @@
         }
 
         .email-body .body-text {
-            padding: 2rem 0 1rem;
+            padding: 0 0 1rem;
             text-align: center;
             font-size: 1.15rem;
         }
@@ -60,13 +60,13 @@
 
         .email-body .body-table table .total {
             background-color: hsla(4, 67%, 52%, 0.12);
-            border-radius: 8px;
+            border-radius: 0.3rem;
             padding: 20px;
             color: #d74034;
         }
 
         .email-body .body-table table .item {
-            border-radius: 8px;
+            border-radius: 0.3rem;
             /* border: 1px solid #006; */
             color: black;
         }
@@ -87,11 +87,11 @@
         }
 
         .email-body .body-table table tr:last-child th:first-child {
-            border-radius: 8px 0 0 8px;
+            border-radius: 0.3rem 0 0 0.3rem;
         }
 
         .email-body .body-table table tr:last-child th:last-child {
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 0.3rem 0.3rem 0;
         }
 
         .email-footer {
@@ -109,14 +109,14 @@
         }
 
         .left-radius {
-            border-radius: 0px 10px 10px 0px;
-            border-radius: 10px 0 0 10px;
+            border-radius: 0px 0.3rem 0.3rem 0px;
+            border-radius: 0.3rem 0 0 0.3rem;
             /* border-radius: 8px 0px 0px 8px; */
         }
 
         .right-radius {
-            border-radius: 10px 0px 0px 10px;
-            border-radius: 0px 10px 10px 0px;
+            border-radius: 0.3rem 0px 0px 0.3rem;
+            border-radius: 0px 0.3rem 0.3rem 0px;
             /* border-radius: 8px 0px 0px 8px; */
         }
 
@@ -127,8 +127,8 @@
 
         /* .email .email-body .body-text .body-table .table2, */
         .email .email-body .body-text .body-table .table2 tbody tr td {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 1rem;
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            padding-bottom: 1rem; */
         }
 
         .email-body .body-text .body-table table tbody tr td a {
@@ -216,9 +216,9 @@
 
                             <tr>
                                 <td colspan="2" style="text-align:start;word-wrap: break-word;vertical-align:top;">
-                                    <!-- {{ $content['address'] }} <br>{{ $content['city'] }},
-                  {{ $content['province'] }} Philippines,
-                  {{ $content['zip_code'] }} -->
+                                    {{-- <!-- {{ $content['address'] }} <br>{{ $content['city'] }},
+                                      {{ $content['province'] }} Philippines,
+                                      {{ $content['zip_code'] }} --> --}}
                                 </td>
                                 @if ($content['payment_status'] === 'Paid')
                                     <td style="vertical-align:top;">Date Received:</td>
@@ -229,22 +229,21 @@
                             <tr>
                                 <td colspan="2"></td>
 
-                                <td class="left-radius" style="background-color:darkgrey">
+                                <td class="left-radius" style="background-color:#d4d4d4">
                                     <span style=" text-align: start;"> <strong>Balance Due:</strong></span>
                                 </td>
-                                <td class="right-radius" style="background-color:darkgrey;text-align: end;">
+                                <td class="right-radius" style="background-color:#d4d4d4;text-align: end;">
                                     <span><strong>${{ $content['balance_due'] }}</strong></span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <br>
-                    <table class="table2" style="table-layout: fixed; width: 100%">
-                        <tr style="background-color:darkgrey;">
-                            <th style="width: 295px;" class="left-radius">Description</th>
+                    <table class="table2" style="table-layout: fixed; width: 100%;margin-top:10px">
+                        <tr style="background-color:#515964;color:white">
+                            <th style="width: 308px;" class="">Description</th>
                             <th style="width: 100px;text-align: end;">Quantity</th>
                             <th style="width: 100px;text-align: end;">Rate</th>
-                            <th class="right-radius" style="width: 100px;text-align: end;">Amount</th>
+                            <th class="" style="width: 100px;text-align: end;">Amount</th>
                         </tr>
                         <tbody>
                             @foreach ($content['invoice_items'] as $items)
@@ -260,8 +259,134 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <br>
-                    <table class="table3" style="table-layout: fixed; width: 100%">
+
+                    <table class="table3" style="table-layout: fixed; width: 100%;margin-top:10px">
+                        {{-- <tbody>
+                            <tr>
+                                <td valign="top">
+                                    <table>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                @if ($content['quick_invoice'] == 0)
+                                                    <strong>Description:</strong>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left">
+                                                @if ($content['quick_invoice'] == 0)
+                                                    {{ $content['invoice_description'] }}
+                                                @endif
+                                            </td>
+                                        </tr>
+
+                                        @if ($content['quick_invoice'] == 0)
+                                            <tr>
+                                                <td style="text-align: left;padding-top:47px">
+                                                    <strong>
+                                                        Notes
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="text-align: start;word-wrap: break-word">
+                                                    {{ $content['notes'] }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class=" scope" style="text-align:start;"><strong>SubTotal:</strong></td>
+                                            <td class="scope" style="text-align:end;">
+                                                <strong>${{ $content['sub_total'] }}</strong>
+                                            </td>
+                                        </tr>
+
+                                        @if ($content['discount_total'] > 0)
+                                            <tr>
+                                                <td class="scope" style="text-align:start;"> Discount Type:
+                                                    @if ($content['discount_type'] === 'Fixed')
+                                                        <span class="text-muted" id="discountType">
+                                                            Fixed
+                                                        </span>
+                                                    @else
+                                                        <span class="text-muted" id="discountAmount">
+                                                            Pct. ({{ $content['discount_amount'] }}%)
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                <td class="scope" style="text-align:end;">
+                                                    ${{ $content['discount_total'] }}</td>
+                                            </tr>
+                                        @endif
+
+                                        <tr>
+                                            <td class="scope" style="text-align:start;"><strong>Total:</strong></td>
+                                            <td class="scope" style="text-align:end;">
+                                                <strong>
+                                                    ${{ $content['balance_due'] }}
+                                                </strong>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: start;">Converted Amount:
+                                                ₱{{ $content['peso_rate'] }}
+                                            </td>
+                                            <td style="text-align: end;">
+                                                ₱{{ $content['converted_amount'] }}
+                                            </td>
+                                        </tr>
+
+                                        @if (!empty($content['deductions']))
+                                            <tr>
+                                                <td style="text-align:start;padding-top:15px" colspan="2">
+                                                    <strong>Deductions</strong>
+                                                </td>
+                                            </tr>
+
+                                            @php
+                                                $total_deduction = 0;
+                                            @endphp
+
+                                            @foreach ($content['deductions'] as $deduction)
+                                                <tr>
+                                                    <td style="word-wrap: break-word;text-align:start">
+                                                        {{ $deduction->profile_deduction_types->deduction_type_name }}
+                                                    </td>
+                                                    <td style="text-align: end;color:red;">
+                                                        ₱{{ number_format($deduction->amount, 2) }}</td>
+                                                </tr>
+                                                @php
+                                                    $total_deduction += $deduction->amount;
+                                                @endphp
+                                            @endforeach
+
+
+                                            <tr>
+                                                <td class="text-start"><strong>Total Deductions<strong></td>
+                                                <td style="text-align:end;color:red;">
+                                                    <strong>₱{{ number_format($total_deduction, 2) }}<strong>
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        <tr>
+                                            <td style="text-align:start">
+                                                <strong>Grand Total:</strong>
+                                            </td>
+                                            <td style="text-align: end;padding-top:15px">
+                                                <strong>₱{{ $content['grand_total_amount'] }}</strong>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </tbody> --}}
                         <tbody>
                             <tr>
                                 <td class="scope">
@@ -270,8 +395,8 @@
                                     @endif
 
                                 </td>
-                                <td class=" scope" style="text-align:start;"><strong>SubTotal:</strong></td>
-                                <td class="scope" style="text-align:end;">
+                                <td class="scope" style="text-align:start;width:235px"><strong>SubTotal:</strong></td>
+                                <td class="scope" style="text-align:end;width:119px">
                                     <strong>${{ $content['sub_total'] }}</strong>
                                 </td>
                             </tr>
@@ -347,7 +472,11 @@
 
                             @endif
                             <tr>
-                                <td style="padding-top:15px"></td>
+                                <td style="padding-top:15px">
+                                    @if ($content['quick_invoice'] == 0)
+                                        <strong>Notes:</strong>
+                                    @endif
+                                </td>
                                 <td style="padding-top:15px">
                                     <strong>Grand Total:</strong>
                                 </td>
@@ -355,13 +484,13 @@
                                     <strong>₱{{ $content['grand_total_amount'] }}</strong>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="text-align:start" colspan="3"><strong>Notes:</strong></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="text-align: start;word-wrap: break-word">
-                                    {{ $content['notes'] }}</td>
-                            </tr>
+
+                            @if ($content['quick_invoice'] == 0)
+                                <tr>
+                                    <td colspan="3" style="text-align: start;word-wrap: break-word">
+                                        {{ $content['notes'] }}</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

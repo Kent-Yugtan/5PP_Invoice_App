@@ -196,7 +196,6 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-sm-12 d-flex justify-content-end">
-                                                <!-- border-style:none -->
                                                 <div class="input-group" style="width: 290px">
                                                     <label class="d-flex align-items-center fw-bold"
                                                         for="grand_total">Grand Total(Php):</label>
@@ -215,9 +214,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <!-- </div> -->
+
                                 </div>
                             </div>
                         </div>
@@ -298,7 +296,6 @@
 
 
             var currentPage = window.location.href;
-            console.log("CURRENT", currentPage);
             $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
@@ -474,8 +471,6 @@
                 $('#peso_rate').val(PHP(parseFloat(peso_rate)).format());
                 $('#converted_amount').val(PHP(parseFloat(converted_amount)).format());
 
-                // $('#grand_total').val((converted_amount - total_deduction_amount).toFixed(
-                //     2));
             }
 
             // FUNCTION FOR KEYUP CLASS MULTI INPUTS FOR ADD ITEMS
@@ -545,13 +540,13 @@
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -584,16 +579,16 @@
             $(document).on('click', '.remove_deductions', function(e) {
                 e.preventDefault();
                 let parent = $(this).closest('.row');
-                let row_item = $(this).parent().parent().parent();
+                let row_item = $(this).parent().parent();
                 if (row_item) {
                     $.confirm({
-                        columnClass: 'col-md-5',
+                        columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
                         draggable: false,
-                        animationBounce: 1.5, // default is 1.5 whereas 1 is no bounce.
+
                         title: 'Are you sure?',
                         content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
-                        autoClose: 'Cancel|5000',
+                        // //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
                                 btnClass: 'btn btn-danger',
@@ -859,51 +854,7 @@
                     }
                 }).catch(function(error) {
                     console.log("error.response.data.errors", error.response.data.errors);
-                    // if () {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    //     var errors = error.response.data.errors;
-                    //     var errorContainer = $('#error-container');
-                    //     errorContainer.empty();
-                    //     console.log("errors", errors)
 
-                    //     for (var key in errors) {
-                    //         var inputName = key.replace('_', ' ');
-                    //         inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                    //         var errorMsg = errors[key][0];
-                    //         $('#' + key).addClass('is-invalid');
-                    //         $('#' + key).parent().append(
-                    //             '<span class="invalid-feedback">This field is required.</span>');
-                    //     }
-                    // } else {
-                    //     $('input').removeClass('is-invalid');
-                    //     $('input, select').removeClass('is-invalid');
-                    //     $('.invalid-feedback').remove();
-                    // }
-                    // console.log("errors", error);
-                    // if (error.response.data.errors) {
-                    //   let errors = error.response.data.errors;
-                    //   let fieldnames = Object.keys(errors);
-
-                    //   Object.values(errors).map((item, index) => {
-                    //     fieldname = fieldnames[0].split('_');
-                    //     fieldname.map((item2, index2) => {
-                    //       fieldname['key'] = capitalize(item2);
-                    //       return ""
-                    //     });
-                    //     fieldname = fieldname.join(" ");
-
-                    //     $('.toast1 .toast-title').html(fieldname);
-                    //     $('.toast1 .toast-body').html(Object.values(errors)[
-                    //       0].join(
-                    //       "\n\r"));
-                    //   })
-                    //   setTimeout(function() {
-                    //     $('div.spanner').removeClass('show');
-                    //     toast1.toast('show');
-                    //   }, 1500);
-                    // }
                 });
 
             });

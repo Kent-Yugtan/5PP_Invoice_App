@@ -71,15 +71,15 @@
         <div class="row d-none" id="invoice_active">
             <div class="col-sm-2 bottom10" style="padding-right:8px;padding-left:8px;">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal" class="btn w-100"
-                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Active</button>
+                    style="color:white; background-color: #CF8029;width:30%" id="activeButton">Activate</button>
             </div>
         </div>
 
         <div class="row ">
             <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
-                <div class="card-border shadow bg-white h-100">
-                    <div class="table-responsive" style="padding:20px">
-                        <div class="card-body">
+                <div class="card-border shadow bg-white h-100" style="padding:20px">
+                    <div class="card-body">
+                        <div class="table-responsive" style="max-height:617px !important">
                             <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
                                 <thead>
                                     <tr>
@@ -112,6 +112,18 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-none" id="selectInactive">
+                            <div class="input-group" style="width:145px !important">
+                                <select id="tbl_showing_inactivePages" class="form-select">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="75">75</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="input-group-text border-0">/Page</span>
+                            </div>
+                        </div>
                         <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
                             id="tbl_showing_invoice"></div>
                         <div class="pagination-alignment" style="display:flex;justify-content:center;">
@@ -126,52 +138,53 @@
     </div>
 
     <!-- START MODAL UPDATE INVOICE STATUS -->
-    <div class="modal fade" id="invoice_status" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="invoice_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content ">
                 <div class="modal-body ">
                     <form id="update_invoice_status">
                         @csrf
                         <div class="row">
-                            <div class="card-border shadow mb-1 p-2 bg-white h-100">
-                                <div class="row px-4 py-4" id="header">
-                                    <div class="col-md-12 px-2 w-100">
-
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <span class="fs-3 fw-bold">Update Payment Status</span>
-                                            </div>
-                                        </div>
-                                        <input type="text" id="updateStatus_invoiceNo" hidden>
-
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <div class="form-group">
-                                                    <label for="select_invoice_status"
-                                                        style="color:#A4A6B3">Status</label>
-                                                    <select class="form-select" id="select_invoice_status">
-                                                        <option value="" Selected disabled>Please choose status
-                                                        </option>
-                                                        <option value="Cancelled">Cancelled</option>
-                                                        <option value="Overdue">Overdue</option>
-                                                        <option value="Paid">Paid</option>
-                                                        <option value="Pending">Pending</option>
-                                                    </select>
+                            <div class="card-border shadow bg-white h-100" style="padding:20px">
+                                <div class="row" id="header">
+                                    <div class="col-md-12 w-100">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col bottom20">
+                                                    <span class="fs-3 fw-bold">Update Payment Status</span>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <input type="text" id="updateStatus_invoiceNo" hidden>
 
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <button type="button" class="btn w-100"
-                                                    style="background-color:#A4A6B3;color:white"
-                                                    data-bs-dismiss="modal">Close</button>
+                                            <div class="row">
+                                                <div class="col ">
+                                                    <div class="form-group">
+                                                        <label for="select_invoice_status"
+                                                            style="color:#A4A6B3">Status</label>
+                                                        <select class="form-select" id="select_invoice_status">
+                                                            <option value="" Selected disabled>Please choose status
+                                                            </option>
+                                                            <option value="Cancelled">Cancelled</option>
+                                                            <option value="Overdue">Overdue</option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Pending">Pending</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <button type="submit" id="update" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029; "
-                                                    disabled="true">Update</button>
+
+                                            <div class="row">
+                                                <div class="col bottom20">
+                                                    <button type="button" class="btn w-100"
+                                                        style="color:#CF8029; background-color:#f3f3f3; "
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                                <div class="col bottom20">
+                                                    <button type="submit" id="update" class="btn w-100"
+                                                        style="color:White; background-color:#CF8029; "
+                                                        disabled="true">Update</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +216,7 @@
     </div>
 
     <!-- Modal FOR Inactive Profile -->
-    <div class="modal fade" id="activeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="activeModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -236,7 +249,7 @@
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3; "
-                                id="cancelactive">Cancel</button>
+                                id="cancelactive" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="active_button" class="btn  w-100"
@@ -261,7 +274,7 @@
             }
         }
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -329,21 +342,21 @@
                 $('.noData').css('width', width);
             }
         });
+
         $(document).ready(function() {
+            let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $('div.spanner').removeClass('show');
                 invoiceCount_active();
                 invoiceCount_inactive();
                 show_statusInactiveinvoice();
-
                 // check_InactiveStatusInvoice();
             }, 1500)
 
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
             });
-
 
             function selectShow() {
                 var numCheckboxes = $('.select-item').length;
@@ -440,9 +453,13 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                show_statusInactiveinvoice();
+                                invoiceCount_active();
+                                invoiceCount_inactive();
+                                $('#invoice_active').addClass('d-none');
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
-                            }, 3000)
+                                // window.location.reload();
+                            }, 1500)
                             toast1.toast('show');
                         }
                     }).catch(function(error) {
@@ -491,8 +508,12 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
-                                window.location.reload();
-                            }, 3000)
+                                // window.location.reload();
+                                show_statusInactiveinvoice();
+                                invoiceCount_active();
+                                invoiceCount_inactive();
+                                $('#invoice_active').addClass('d-none');
+                            }, 1500)
                             toast1.toast('show');
                             console.log("SUCCESS", data);
                         }
@@ -520,14 +541,6 @@
                         }
                     })
                 }
-            })
-
-            $('#cancelactive').on('click', function(e) {
-                e.preventDefault();
-                $('#activeModal').modal('hide');
-                setTimeout(function() {
-                    location.reload(true);
-                }, 500)
             })
 
             var currentPage = window.location.href;
@@ -592,7 +605,7 @@
             function search_statusInactive_invoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
                     filter_all_invoices: $('#filter_invoices').val(),
@@ -742,11 +755,20 @@
                             })
                             $('#tbl_pagination_invoice').empty();
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_invoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+                        <a class="page-link" data-url="${item.url}">${label}</a>
+                      </li>`;
+
+                                $('#tbl_pagination_invoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -802,10 +824,20 @@
                 });
             }
 
+            $('#tbl_showing_inactivePages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_statusInactiveinvoice({
+                    page_size: pages
+                });
+            })
+
+
             function show_statusInactiveinvoice(filters) {
                 let page = $("#tbl_pagination_invoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     filter_all_invoices: $('#filter_invoices').val(),
                     search: $("#search").val(),
@@ -940,7 +972,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Active</a></li>
+                                                  <li><a id="activeLink" data-bs-toggle="modal" data-bs-target="#activeModal" class="dropdown-item" href="#">Activate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInactiveInvoice/' +
                                     item.id +
@@ -954,11 +986,20 @@
                             })
                             $('#tbl_pagination_invoice').empty();
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination_invoice').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+                            <a class="page-link" data-url="${item.url}">${label}</a>
+                          </li>`;
+
+                                $('#tbl_pagination_invoice').append(li);
+                                return "";
+                            });
 
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
@@ -997,6 +1038,7 @@
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             selectShow();
+                            $('#selectInactive').removeClass('d-none');
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
@@ -1007,6 +1049,7 @@
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            $('#selectInactive').addClass('d-none');
                         }
                     }
                 }).catch(function(error) {
@@ -1036,8 +1079,6 @@
 
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_statusInactiveinvoice();
                 }, 1500)
             });
@@ -1073,7 +1114,6 @@
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'smooth');
 
-                var start = performance.now(); // Get the current timestamp
                 // Do your processing here
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();
@@ -1143,8 +1183,6 @@
                     $('#tbl_pagination_invoice').empty();
                     search_statusInactive_invoice();
                     $("div.spanner").removeClass("show");
-
-
                 }, 1500)
             })
         })

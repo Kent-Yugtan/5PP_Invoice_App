@@ -93,7 +93,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Admin Status Paid";
+    $subject = "5 Pints Productions Invoice - Admin Paid Invoice";
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -208,7 +208,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Staff Paid Status";
+    $subject = "5 Pints Productions Invoice - Staff Paid Invoice";
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -323,7 +323,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Admin";
+    $subject = "5 Pints Productions Invoice - Admin Pending Invoice";
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -437,7 +437,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Staff";
+    $subject = "5 Pints Productions Invoice - Staff Pending Invoice";
 
     if (!empty($data['attachment'])) {
       $attachment = $data['attachment'];

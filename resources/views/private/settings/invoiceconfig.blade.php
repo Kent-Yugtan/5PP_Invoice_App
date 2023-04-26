@@ -126,8 +126,8 @@
     </div>
 
     {{-- MODAL FOR UPDATE --}}
-    <div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="modal-body ">
@@ -196,8 +196,8 @@
                                         <div class="row ">
                                             <div class="col bottom20">
                                                 <button type="button" class="btn w-100"
-                                                    style="color:#CF8029; background-color:#f3f3f3; "
-                                                    id="closeUpdate">Close</button>
+                                                    style="color:#CF8029; background-color:#f3f3f3; " id="closeUpdate"
+                                                    data-bs-dismiss="modal">Close</button>
                                             </div>
                                             <div class="col bottom20">
                                                 <button type="submit" class="btn w-100"
@@ -233,7 +233,7 @@
 
 
     <!-- Modal FOR DELETE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -371,7 +371,7 @@
             })
 
         }
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -482,18 +482,18 @@
                 location.reload(true);
             })
 
-            $('#closeUpdate').on('click', function(e) {
-                e.preventDefault();
-                location.reload(true);
-                // $("div.spanner").addClass("show");
-                // $('#editModal').modal('hide');
-                // setTimeout(function() {
-                //     $("div.spanner").removeClass("show");
-                //     $('#invoice_config_update').trigger('reset');
-                //     $('#invoice_config_update').removeClass('was-validated');
-                //     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
-                // }, 1500)
-            })
+            // $('#closeUpdate').on('click', function(e) {
+            //     e.preventDefault();
+            //     location.reload(true);
+            //     // $("div.spanner").addClass("show");
+            //     // $('#editModal').modal('hide');
+            //     // setTimeout(function() {
+            //     //     $("div.spanner").removeClass("show");
+            //     //     $('#invoice_config_update').trigger('reset');
+            //     //     $('#invoice_config_update').removeClass('was-validated');
+            //     //     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
+            //     // }, 1500)
+            // })
 
             toast1.toast({
                 delay: 5000,
@@ -793,11 +793,20 @@
                             })
                             $('#tbl_pagination').empty();
                             data.data.links.map(item => {
-                                let li =
-                                    `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                $('#tbl_pagination').append(li)
-                                return ""
-                            })
+                                let label = item.label;
+                                if (label === "&laquo; Previous") {
+                                    label = "&laquo;";
+                                } else if (label === "Next &raquo;") {
+                                    label = "&raquo;";
+                                }
+
+                                let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                $('#tbl_pagination').append(li);
+                                return "";
+                            });
                             if (data.data.links.length) {
                                 let lastPage = data.data.links[data.data.links.length - 1];
                                 if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
@@ -830,9 +839,17 @@
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing').html(table_invoieConfig);
                             // Disable button
+                            $('#invoice_logo').prop('disabled', true);
+                            $('#invoice_title').prop('disabled', true);
+                            $('#invoice_email').prop('disabled', true);
+                            $('#bill_to_address').prop('disabled', true);
                             $('#button-submit').prop('disabled', true);
                         } else {
                             // Enable button
+                            $('#invoice_logo').prop('disabled', false);
+                            $('#invoice_title').prop('disabled', false);
+                            $('#invoice_email').prop('disabled', false);
+                            $('#bill_to_address').prop('disabled', false);
                             $('#button-submit').prop('disabled', false);
                             $("#table_invoiceconfig tbody").append(
                                 '<tr style="vertical-align: middle;"><td colspan="5" class="text-center"><div class="noData" style="width:' +

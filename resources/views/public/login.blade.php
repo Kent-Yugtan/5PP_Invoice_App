@@ -74,7 +74,7 @@
                             </div>
 
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <div class="col-md-12" style="text-align: center;padding-top:10px">
                                     <label class="input-color">{{ __('Don\'t have an account?') }} <label
                                             style="color: #CF8029">Signup</label>

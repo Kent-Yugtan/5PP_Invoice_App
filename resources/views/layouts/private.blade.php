@@ -1,20 +1,17 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="https://invoice.5ppsite.com/images/Invoices-logo.png" type="image/x-icon"
-        style="border-radius:50%">
+    <link rel="icon" href="{{ URL('images/Invoices-logo.png') }}" type="image/x-icon" style="border-radius:50%">
     <title>5Pints Productions</title>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" defer />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css"
         defer />
-
 
     @include('layouts.csslink')
 
@@ -43,7 +40,6 @@
         @else
             @include('layouts.employee.sidemenu')
         @endif
-
         <div id="layoutSidenav_content">
             @if (session('data')->role == 'Admin')
                 @include('layouts.admin.header')
@@ -67,10 +63,11 @@
         }, 1500)
     })
 </script>
-@include('layouts.script')
-
 <!-- JQUERY UI -->
+
+@include('layouts.script')
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

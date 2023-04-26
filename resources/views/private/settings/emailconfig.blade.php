@@ -99,15 +99,7 @@
                                         <input type="text" class="form-control" id="search" name="search"
                                             placeholder="Search">
                                     </div>
-                                    {{-- <div class="input-group" id="input-group-search">
-                                        <div class="input-group-prepend input-group-text" id="border-search">
-                                            <i style="color:#A4A6B3" class="fas fa-search"></i>
-                                        </div>
-                                        <input id="search" name="search" type="text"
-                                            class="search-left-icon form-control form-check-inline "
-                                            onfocusout="input_group_focus('out','input-group-search')"
-                                            onfocus="input_group_focus('in','input-group-search')" placeholder="Search">
-                                    </div> --}}
+
                                 </div>
                             </div>
                             <div class="col-sm-6 bottom20">
@@ -120,7 +112,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height:214px !important">
                                     <table style="color: #A4A6B3;" class="table table-hover table-responsive"
                                         id="table_emailconfigs">
                                         <thead>
@@ -145,6 +137,18 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="d-none" id="selectEmailConfigs">
+                                    <div class="input-group" style="width:145px !important">
+                                        <select id="tbl_showing_emailConfigsPages" class="form-select">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        <span class="input-group-text border-0">/Page</span>
+                                    </div>
+                                </div>
                                 <div style="display:flex;justify-content:center;"
                                     class="page_showing pagination-alignment " id="tbl_showing"></div>
                                 <div class="pagination-alignment" style="display:flex;justify-content:center;">
@@ -161,8 +165,8 @@
     </div>
 
     <!-- Modal FOR EDIT Email Configuration -->
-    <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="row">
@@ -281,7 +285,7 @@
     </div>
 
     <!-- Modal FOR DELETE Email Configuration -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
@@ -516,7 +520,7 @@
         }
 
 
-        let width = window.innerWidth; // Set the initial value of width
+
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -571,7 +575,7 @@
             }
         });
         $(document).ready(function() {
-
+            let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
@@ -640,11 +644,20 @@
                 }, 1500)
             })
 
+            $('#tbl_showing_emailConfigsPages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
+
 
             // SHOW DATA
             function show_data(filters) {
                 let filter = {
-                    page_size: 4,
+                    page_size: pageSize,
                     page: 1,
                     ...filters,
                 }
@@ -675,7 +688,7 @@
                                     tr +=
                                         '<td class="text-center" style="width:20px" > <button value=' +
                                         item.id +
-                                        ' class="editButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#editModal" ><i style="color:#CF8029" class="fa-solid fa-eye"></i></button></td>';
+                                        ' class="editButton border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#editModal" > <i style="color:#CF8029" class="fa-solid fa-pen-to-square"></i></button></td>';
                                     tr +=
                                         '<td class="text-center " style="width:20px"> <button value=' +
                                         item.id +
@@ -688,11 +701,20 @@
 
                                 $('#tbl_pagination').empty();
                                 data.data.links.map(item => {
-                                    let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
-                                    $('#tbl_pagination').append(li)
-                                    return ""
-                                })
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
+                                    let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                    $('#tbl_pagination').append(li);
+                                    return "";
+                                });
 
                                 if (data.data.links.length) {
                                     let lastPage = data.data.links[data.data.links.length - 1];
@@ -725,6 +747,7 @@
                                 let table_emailconfigs =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing').html(table_emailconfigs);
+                                $('#selectEmailConfigs').removeClass('d-none');
                             } else {
                                 $("#table_emailconfigs tbody").append(
                                     '<tr style="vertical-align: middle;"><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -734,6 +757,7 @@
                                 let table_emailconfigs =
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing').html(table_emailconfigs);
+                                $('#selectEmailConfigs').addClass('d-none');
                             }
                         }
                     })
