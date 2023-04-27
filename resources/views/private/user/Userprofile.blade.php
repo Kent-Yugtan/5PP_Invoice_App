@@ -3003,7 +3003,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
             $(document).on('click', '.remove_items', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let sub_total = parent.find('.sub_total').val();
                 let row_item = $(this).parent().parent().parent();
@@ -3049,7 +3049,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE DEDUCTIONS ROWS
             $(document).on('click', '.remove_deductions', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {

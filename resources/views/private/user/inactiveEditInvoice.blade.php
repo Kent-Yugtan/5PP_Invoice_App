@@ -1153,7 +1153,7 @@
                 let invoiceItems_id = parent.find('.item_id').val();
                 let amount = parent.find('.amount').val();
                 let row_item = $(this).parent().parent().parent();
-                $('#updateModal').addClass('d-none');
+                // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     let remove_row = $(this).parent().parent();
                     $.confirm({
@@ -1193,7 +1193,7 @@
                 let profileDeduction_id = parent.find('.deduction_id').val();
                 let row_item = $(this).parent().parent().parent();
                 console.log("profileDeduction_id", profileDeduction_id);
-                $('#updateModal').addClass('d-none');
+                // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
                         columnClass: 'col-sm-4',
