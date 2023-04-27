@@ -1553,7 +1553,7 @@
                     }).catch(function(error) {
                         console.log("ERROR", error);
                         $('#notifyIcon').html(
-                            '<i class="fa-solid fa-x" style="color:red"></i>');
+                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                         $('.toast1 .toast-title').html('Success');
                         $('.toast1 .toast-body').html("Something went wrong.");
                         toast1.toast('show');
@@ -2239,7 +2239,7 @@
             $('#ProfileUpdate').submit(function(e) {
                 e.preventDefault();
                 if (document.getElementById("profile_status").disabled) {
-                    $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+                    $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                     $('.toast1 .toast-title').html("Error");
                     $('.toast1 .toast-body').html("Please click edit profile to update.");
                     toast1.toast('show');
@@ -3058,7 +3058,7 @@
                 add_rows += '<div class="form-group">';
                 add_rows += '<label class="formGroupExampleInput2">Item Desctiption</label>';
                 add_rows +=
-                    '<input type="text" name="item_description" id="item_description" class="form-control item_description" />';
+                    '<input type="text" name="item_description" id="item_description" class="form-control item_description multi" />';
                 add_rows += '</div>';
                 add_rows += '</div>';
 
@@ -3091,7 +3091,7 @@
                 add_rows += '<div class="form-group">';
                 add_rows += '</br>';
                 add_rows +=
-                    '<button class="btn remove_items" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                    '<button class="btn remove_items" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                 add_rows += '</div>';
                 add_rows += '</div>';
 

@@ -488,7 +488,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                    );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -543,7 +544,8 @@
                                 });
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:red"></i>');
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                    );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]

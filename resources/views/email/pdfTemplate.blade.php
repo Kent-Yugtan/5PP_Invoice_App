@@ -539,7 +539,7 @@
                                             <td></td>
                                             <td style="word-wrap: break-word;">
                                                 {{ $deduction->profile_deduction_types->deduction_type_name }}</td>
-                                            <td style="text-align: end;color:red;">
+                                            <td style="text-align: end;color:#dc3545;">
                                                 P{{ number_format($deduction->amount, 2) }}</td>
                                         </tr>
                                         @php
@@ -551,7 +551,7 @@
                                     <tr>
                                         <td></td>
                                         <td><strong>Total Deductions<strong></td>
-                                        <td style="text-align:end;color:red;">
+                                        <td style="text-align:end;color:#dc3545;">
                                             <strong>P{{ number_format($total_deduction, 2) }}<strong>
                                         </td>
                                     </tr>

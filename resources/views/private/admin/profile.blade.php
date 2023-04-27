@@ -873,7 +873,7 @@
                     }).catch(function(error) {
                         console.log("ERROR", error);
                         $('#notifyIcon').html(
-                            '<i class="fa-solid fa-x" style="color:red"></i>');
+                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                         $('.toast1 .toast-title').html('Success');
                         $('.toast1 .toast-body').html("Something went wrong.");
                         toast1.toast('show');

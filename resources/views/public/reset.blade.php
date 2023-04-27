@@ -26,13 +26,13 @@
                                 <label for="password" class="text-muted">Password</label>
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Enter password" required>
-                                <div id="password_error1" style="color:red;"></div>
+                                <div id="password_error1" style="color:#dc3545;"></div>
                             </div>
                             <div class="form-group ">
                                 <label for="password" class="text-muted">Confirm password</label>
                                 <input type="password" class="form-control" id="password_confirmation"
                                     name="password_confirmation" placeholder="Enter password" required>
-                                <div id="password_error2" style="color:red;"></div>
+                                <div id="password_error2" style="color:#dc3545;"></div>
                             </div>
                             <div class="form-group ">
                                 <button type="submit" id="confirm"
