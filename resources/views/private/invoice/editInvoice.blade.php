@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row title_deductions pt-3">
+                                <div class="row title_deductions pt-3 pb-3">
                                 </div>
 
                                 <div class="deductions">
@@ -1070,7 +1070,7 @@
                 let invoiceItems_id = parent.find('.item_id').val();
                 let amount = parent.find('.amount').val();
                 let row_item = $(this).parent().parent().parent();
-                $('#updateModal').addClass('d-none');
+                // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     let remove_row = $(this).parent().parent();
                     $.confirm({
@@ -1110,7 +1110,7 @@
                 let profileDeduction_id = parent.find('.deduction_id').val();
                 let row_item = $(this).parent().parent().parent();
                 console.log("profileDeduction_id", profileDeduction_id);
-                $('#updateModal').addClass('d-none');
+                // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     $.confirm({
                         columnClass: 'col-sm-4',
@@ -1172,7 +1172,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description multi" required/>';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';

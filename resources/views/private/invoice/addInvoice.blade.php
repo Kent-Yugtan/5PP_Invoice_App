@@ -630,7 +630,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description multi" required/>';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -671,7 +671,7 @@
                     add_rows += '<div class="col-remove-item d-none" >';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items " ><i class="fa fa-trash" style="color:red"></i></button>';
+                        '<button class="btn remove_items " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -934,7 +934,7 @@
                                     add_rows +=
                                         '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center" >';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions" ><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions" ><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                                     add_rows += '</div>';
 
 

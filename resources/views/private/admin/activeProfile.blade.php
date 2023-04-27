@@ -1745,7 +1745,7 @@
                         }
                     }).catch(function(error) {
                         $('#notifyIcon').html(
-                            '<i class="fa-solid fa-x" style="color:red"></i>');
+                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                         $('.toast1 .toast-title').html('Success');
                         $('.toast1 .toast-body').html("Something went wrong.");
                         toast1.toast('show');
@@ -1926,7 +1926,7 @@
                             });
                             fieldname = fieldname.join(" ");
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
+                                '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                             $('.toast1 .toast-title').html("Error");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                 0].join(
@@ -2335,7 +2335,7 @@
             $('#ProfileUpdate').submit(function(e) {
                 e.preventDefault();
                 if (document.getElementById("profile_status").disabled) {
-                    $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:red"></i>');
+                    $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                     $('.toast1 .toast-title').html("Error");
                     $('.toast1 .toast-body').html("Please click edit profile to update.");
                     toast1.toast('show');
@@ -2663,7 +2663,7 @@
                             $('#profileDeductionType_profileId').val(data.data.profile_id);
                             $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
                             $('#edit_profileDeductionType_amount').val(PHP(data.data.amount)
-                            .format());
+                                .format());
 
                             $('#edit_profileDeductionType_name').prop("disabled", true);
                         } else {
@@ -2820,7 +2820,7 @@
                             });
                             fieldname = fieldname.join(" ");
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-x" style="color:red"></i>');
+                                '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                             $('.toast1 .toast-title').html("Error");
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                     0]
@@ -2967,7 +2967,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
             $(document).on('click', '.remove_items', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let sub_total = parent.find('.sub_total').val();
                 let row_item = $(this).parent().parent().parent();
@@ -3013,7 +3013,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE DEDUCTIONS ROWS
             $(document).on('click', '.remove_deductions', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
@@ -3067,7 +3067,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description multi" required/>';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
@@ -3110,7 +3110,7 @@
                         '<div class="col-remove-item d-none" style="display:flex;justify-content:center">';
                     // add_rows += '<label></label>';
                     add_rows +=
-                        '<button class="btn remove_items "><i class="fa fa-trash" style="color:red"></i></button>';
+                        '<button class="btn remove_items "><i class="fa fa-trash" style="color:#dc3545"></i></button>';
                     add_rows += '</div>';
                     add_rows += '</div>';
 
@@ -3303,7 +3303,7 @@
                                         '<div class="col-sm-1 col-remove-deductions " style="display:flex;justify-content:center;align-items:center">';
                                     add_rows += '<div class="">';
                                     add_rows +=
-                                        '<button type="button" class="btn remove_deductions"><i class="fa fa-trash pe-1" style="color:red"></i></button>';
+                                        '<button type="button" class="btn remove_deductions"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
                                     add_rows += '</div>';
                                     add_rows += '</div>';
 

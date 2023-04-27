@@ -3003,7 +3003,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
             $(document).on('click', '.remove_items', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let sub_total = parent.find('.sub_total').val();
                 let row_item = $(this).parent().parent().parent();
@@ -3049,7 +3049,7 @@
             // FUNCTION CLICK FOR REMOVING INVOICE DEDUCTIONS ROWS
             $(document).on('click', '.remove_deductions', function(e) {
                 e.preventDefault();
-                $('#exampleModal').addClass('d-none');
+                // $('#exampleModal').addClass('d-none');
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
@@ -3103,7 +3103,7 @@
                     // add_rows += '<div class="form-floating form-group">';
                     add_rows += '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
                     add_rows +=
-                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description" required/>';
+                        '<input type="text" name="item_description" placeholder="Item Description" id="item_description" class="form-control item_description multi" required/>';
                     // add_rows += '</div>';
                     add_rows += '<div class="invalid-feedback">This field is required.</div>';
                     add_rows += '</div>';
