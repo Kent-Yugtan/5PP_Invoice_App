@@ -311,7 +311,7 @@
                                                 class="btn d-none">Cancel</button>
                                         </div>
                                         <div class="col-sm-6 bottom20">
-                                            <button type="submit"
+                                            <button type="submit" id="button-submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn">Save</button>
                                         </div>
@@ -559,7 +559,8 @@
                                                                     Date</label>
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
-                                                                    placeholder="Due Date" required autocomplete="off">
+                                                                    placeholder="Due Date" required autocomplete="off"
+                                                                    autofocus="false">
                                                                 <div class="invalid-feedback">This field is required.</div>
                                                             </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
@@ -1090,7 +1091,7 @@
                     <div class="row pt-3 px-3">
                         <div class="col">
                             <span id="profilededuction_id" hidden></span>
-                            <span class="text-muted"> Do you really want to delete these record? This process cannot be
+                            <span class="text-muted"> Do you really want to delete this record? This process cannot be
                                 undone.</span>
                         </div>
                     </div>
@@ -1591,6 +1592,30 @@
                 show_data();
             }, 1500)
 
+            $(document).on('click', '#edit_profile', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $(this).html();
+                $(this).html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $(this).html(originalText);
+                }, 300);
+            })
+
+            $(document).on('click', '#cancel_edit_profile', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $(this).html();
+                $(this).html(
+                    `<span id="button-spinner" style="backgound-color:#f3f3f3;color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $(this).html(originalText);
+                }, 300);
+            })
+
             function show_profileDeductionType_select() {
                 let url = window.location.pathname;
                 let urlSplit = url.split('/');
@@ -1858,7 +1883,17 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        $('#select_invoice_status').val(data.data);
+                        console.log("DATA", data);
+                        let status = data.data;
+                        if (status == "Paid") {
+                            $('#select_invoice_status').val(data.data);
+                            $('#select_invoice_status').prop('disabled', true);
+                            $('#update').prop('disabled', true);
+                        } else {
+                            $('#select_invoice_status').val(data.data);
+                            $('#select_invoice_status').prop('disabled', false);
+                            $('#update').prop('disabled', false);
+                        }
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -1869,14 +1904,20 @@
             $('#update_invoice_status').submit(function(e) {
                 e.preventDefault();
 
+                // BUTTON SPINNER
+                var originalText = $('#update').html();
+                $('#update').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#update').prop("disabled", true);
+                setTimeout(function() {
+                    $('#update').html(originalText);
+                }, 500);
+
                 $('div.spanner').addClass('show');
                 $().animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'smooth');
-
-                var start = performance.now(); // Get the current timestamp
-                // Do your processing here
-
 
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();
@@ -1909,10 +1950,14 @@
                                 show_Profilededuction_Table_Active());
                             toast1.toast('show');
                             show_data();
+                            $('#update').prop("disabled", false);
                         }, 1500);
 
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#button-submit').prop("disabled", false);
+                    }, 500);
                     if (error.response.data.errors) {
                         let errors = error.response.data.errors;
                         console.log("errors", errors);
@@ -2334,10 +2379,23 @@
 
             $('#ProfileUpdate').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
+
                 if (document.getElementById("profile_status").disabled) {
                     $('#notifyIcon').html('<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                     $('.toast1 .toast-title').html("Error");
                     $('.toast1 .toast-body').html("Please click edit profile to update.");
+                    $('#button-submit').prop("disabled", false);
                     toast1.toast('show');
                 } else {
                     let user_id = $("#user_id").val();
@@ -2485,6 +2543,7 @@
                                 $('.toast1 .toast-body').html(data.message);
                                 $('#ProfileUpdate').trigger('reset');
                                 $('#ProfileUpdate').removeClass('was-validated');
+                                $('#button-submit').prop("disabled", false);
                                 setTimeout(function() {
                                     $("div.spanner").removeClass("show");
                                     // location.href = apiUrl + "/admin/current"
@@ -2495,7 +2554,9 @@
                         })
                         .catch(function(error) {
                             console.log("error.response.data.errors", error);
-
+                            setTimeout(function() {
+                                $('#button-submit').prop("disabled", false);
+                            }, 500);
                             if (error.response.data.errors) {
                                 // ERROR EMAIL
                                 if (error.response.data.errors.email) {
@@ -2978,7 +3039,7 @@
                         icon: 'fa fa-warning',
                         draggable: false,
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
@@ -3023,7 +3084,7 @@
                         draggable: false,
 
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
@@ -3052,7 +3113,17 @@
             // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
+
             });
 
             // INITIALIZE DISPLAY ITEM ROWS
@@ -3338,6 +3409,17 @@
 
             $('#invoice_items').submit(function(e) {
                 e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $('#save').html();
+                $('#save').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#save').prop("disabled", true);
+                setTimeout(function() {
+                    $('#save').html(originalText);
+                }, 500);
+
+
 
                 // Do your processing here
                 // CONDITION IF THERE IS BLANK ROW
@@ -3480,9 +3562,13 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             show_data();
+                            $('#save').prop("disabled", false);
                         }, 1500)
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#save').prop("disabled", false);
+                    }, 500);
                     console.log("error.response.data.errors", error.response.data.errors);
 
                 });

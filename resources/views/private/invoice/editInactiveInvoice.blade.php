@@ -275,7 +275,7 @@
                                     <div class="col-sm-12 ">Notes:</div>
                                 </div>
 
-                                <div class="row pb-5">
+                                <div class="row">
                                     <div class="col-12">
                                         <label style="word-wrap: break-word; text-align:right" id="notes"></label>
                                     </div>
@@ -313,16 +313,18 @@
 
                             <div class="row bottom10">
                                 <div class="col-12 w-100">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
-                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                    <button type="button" data-bs-toggle="modal" id="paid_button"
+                                        data-bs-target="#paidModal" class="btn  w-100"
+                                        style="color: White; background-color: #198754;">Paid
                                         Invoice</button>
                                 </div>
                             </div>
 
                             <div class="row bottom10">
                                 <div class="col-12 w-100">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
-                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                    <button type="button" data-bs-toggle="modal" id="cancel_button"
+                                        data-bs-target="#cancelModal" class="btn  w-100"
+                                        style="color: White; background-color:#A4A6B3;">Cancel
                                         Invoice</button>
                                 </div>
                             </div>
@@ -347,7 +349,7 @@
                                 <div class="col-12 w-100 ">
                                     <button type="button" id="edit_invoice" data-bs-toggle="modal"
                                         data-bs-target="#updateModal" class="btn w-100"
-                                        style="color: White; background-color: #CF8029;">Edit
+                                        style="color: White; background-color: #CF8029;" disabled>Edit
                                         Invoice</button>
                                 </div>
                             </div>
@@ -505,7 +507,7 @@
                                 data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
-                            <button type="button" id="paid_button" class="btn  w-100"
+                            <button type="button" id="confirm_paid_button" class="btn  w-100"
                                 style="color:white;background-color: #CF8029;">Confirm</button>
                         </div>
                     </div>
@@ -589,7 +591,7 @@
                     <div class="row pt-3 px-3">
                         <div class="col">
                             <span id="profilededuction_id"></span>
-                            <span class="text-muted"> Do you really want to delete these record? This process cannot be
+                            <span class="text-muted"> Do you really want to delete this record? This process cannot be
                                 undone.</span>
                         </div>
                     </div>
@@ -846,6 +848,11 @@
             </div>
         </div>
     </div>
+
+    <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+        <div class="loader"></div>
+    </div>
+
 
 
     <script type="text/javascript">
@@ -1161,7 +1168,7 @@
                         icon: 'fa fa-warning',
                         draggable: false,
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
                             removeItems: {
@@ -1200,7 +1207,7 @@
                         icon: 'fa fa-warning',
                         draggable: false,
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
@@ -1597,7 +1604,7 @@
                                 if (quick_invoice === '0') {
                                     let div = ''
                                     div += '<div class="row">';
-                                    div += '<div class="col-12 align-self-start">';
+                                    div += '<div class="col-12 align-self-start view_invoice_description">';
                                     div += '<label class="fw-bold"> Description: </label>';
                                     div += '</div>';
                                     div += ' <div class="col-12" id="view_invoice_description">' + data.data
@@ -1614,14 +1621,17 @@
                                 if (data.data.invoice_status === "Paid") {
                                     $('#text_date_received').html("Date Received:");
                                     $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
-                                    $('#edit_invoice').prop('disabled', true);
                                     $('#paid_button').prop('disabled', true);
+                                    $('#cancel_button').prop('disabled', true);
+                                    $('#delete_button').prop('disabled', true);
+                                    $('#edit_invoice').prop('disabled', true);
 
                                 } else {
                                     $('#text_date_received').html("");
                                     $('#date_received').html("");
-                                    $('#edit_invoice').prop('disabled', false);
                                     $('#paid_button').prop('disabled', false);
+                                    $('#cancel_button').prop('disabled', false);
+                                    $('#delete_button').prop('disabled', false);
                                 }
 
                                 let redue_date = data.data.due_date;
@@ -1680,7 +1690,7 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6'>"
+                                            div += "<div class='col-8 h6 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
@@ -1695,7 +1705,7 @@
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6'>"
+                                            div += "<div class='col-8 h6 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
                                                 discount_amount + "%) </span></div>";
@@ -1878,6 +1888,17 @@
 
             $('#submit_update_invoice').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#update').html();
+                $('#update').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#update').prop("disabled", true);
+                setTimeout(function() {
+                    $('#update').html(originalText);
+                }, 500);
+
                 let profile_id = $('#profileId').html();
                 let due_date = $('#due_date').val();
                 let invoice_id = $('#update_invoice_id').val();
@@ -1953,17 +1974,32 @@
                         $('#updateModal').modal('hide');
                         $("div.spanner").addClass("show");
 
+
                         $('#notifyIcon').html(
                             '<i class="fa-solid fa-check" style="color:green"></i>');
                         $('.toast1 .toast-title').html('Success');
                         $('.toast1 .toast-body').html(response.data.message);
-                        toast1.toast('show');
-                        setTimeout(function() {
-                            location.reload(true); // refresh the page
-                        }, 1500)
 
+                        setTimeout(function() {
+                            $("div.spanner").removeClass("show");
+                            $('#table_invoiceItems tbody').empty();
+                            $('#table_invoiceItems tbody').empty();
+                            $('.row .title_deductions').empty();
+                            $('.row .total_deductions').empty();
+                            $('.row .deductions').empty();
+                            $('.row .view_invoice_description').empty();
+                            $('.row #view_invoice_description').empty();
+                            $('.row .discountType').empty();
+                            $('.row #discountAmount').empty();
+                            $('#table_invoiceItems tbody').html(show_invoice());
+                            toast1.toast('show');
+                            $('#update').prop("disabled", false);
+                        }, 1500);
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#update').prop("disabled", false);
+                    }, 500);
                     console.log("ERROR", error)
                     // if (error.response.data.errors) {
                     //     let errors = error.response.data.errors;
@@ -2124,7 +2160,7 @@
             });
 
             // PAID BUTTON
-            $('#paid_button').on('click', function(e) {
+            $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
 
                 var start = performance.now(); // get the current stamp
@@ -2159,9 +2195,14 @@
                                 $('.toast1 .toast-body').html(response.data.message);
 
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 1500);
@@ -2228,9 +2269,14 @@
                                 $('.toast1 .toast-body').html(response.data.message);
 
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 1500);
@@ -2288,9 +2334,14 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 2000)
@@ -2332,35 +2383,6 @@
                 if (typeof s !== 'string') return "";
                 return s.charAt(0).toUpperCase() + s.slice(1);
             }
-
-            // CONVERT HTML TO PDF THROUGH SCREENSHOT
-            // function pdfContent() {
-            //     window.jsPDF = window.jspdf.jsPDF;
-            //     var scaleFactor = 2;
-            //     // Capture the div element as a screenshot using html2canvas
-            //     html2canvas($('#content')[0], {
-            //         scale: scaleFactor
-            //     }).then(function(canvas) {
-            //         // Create a new jsPDF instance
-            //         var pdf = new jsPDF('p', 'mm', 'a4', false, true, 300);
-
-            //         // Calculate the center of the page
-            //         var centerX = pdf.internal.pageSize.getWidth() / 2;
-            //         var centerY = pdf.internal.pageSize.getHeight() / 2;
-
-            //         // Calculate the position to add the image
-            //         var imageWidth = 'auto'; // or canvas.width / scaleFactor;
-            //         var imageHeight = 'auto'; // or canvas.height / scaleFactor;
-            //         var startX = centerX - (imageWidth / 2);
-            //         var startY = centerY - (imageHeight / 2);
-
-            //         // Add the screenshot to the PDF using the addImage method
-            //         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', startX, 5, imageWidth, imageHeight);
-
-            //         // Save the PDF file
-            //         pdf.save('Invoice ' + $('#invoice_no').html() + '.pdf');
-            //     });
-            // }
 
             function pdfContent() {
                 // Set the options for html2pdf

@@ -12,7 +12,7 @@
                         {{ __('5PP Invoicing App') }}
                     </div>
                     <div style="text-align: center;font-size:22px">
-                        <label style="color: #A4A6B3;"> Login </label>
+                        <label style="color: black;" class="fw-bold"> Login </label>
                     </div>
 
                     <div class="input-color" style="text-align: center;">
@@ -32,7 +32,7 @@
                                 <div class="col-md-12">
                                     <label for="email"
                                         style="color: #A4A6B3;font-size:12px;font-weight:600">EMAIL</label>
-                                    <input id="email" placeholder="Email Address" type="text" autocomplete="off"
+                                    <input id="email" placeholder="Email address" type="text" autocomplete="off"
                                         class="form-control" name="email">
                                 </div>
                             </div>

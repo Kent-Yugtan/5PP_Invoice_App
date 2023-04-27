@@ -8,9 +8,26 @@
     <link href="{{ asset('/assets/css/styles.css') }}" rel="stylesheet">
     <title>Send Email</title>
 
-    {{-- <style>
+    <style>
+        .containerPDF {
+            padding: 5px;
+        }
+
         .email {
             max-height: 800em;
+            /* width: 100%; */
+            padding-right: var(--bs-gutter-x, 0.75rem);
+            padding-left: var(--bs-gutter-x, 0.75rem);
+            margin-right: auto;
+            margin-left: auto;
+
+            border-radius: 10px;
+            /* border-top: #d74034 2px solid;
+            border-bottom: #d74034 2px solid; */
+            box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+            font-family: Arial, Helvetica, sans-serif;
+            /*
+             max-height: 800em;
             max-width: 750px;
             margin: 1rem auto;
             border-radius: 10px;
@@ -19,10 +36,11 @@
             box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
             padding: 1.5rem;
             font-family: Arial, Helvetica, sans-serif;
+            */
         }
 
         .email .email-head {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
             padding-bottom: 1rem;
         }
 
@@ -33,9 +51,11 @@
         }
 
         .email-body .body-text {
-            /* padding: 2rem 0 1rem; */
+            /* padding: 0 0 1rem; */
             text-align: center;
-            font-size: 1.15rem;
+            font-size: 0.5rem;
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+            padding-bottom: 1rem;
         }
 
         .email-body .body-text.bottom-text {
@@ -55,18 +75,18 @@
 
         .email-body .body-table table {
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .email-body .body-table table .total {
             background-color: hsla(4, 67%, 52%, 0.12);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 0.3rem;
+            padding: 10px;
             color: #d74034;
         }
 
         .email-body .body-table table .item {
-            border-radius: 8px;
+            border-radius: 0.3rem;
             /* border: 1px solid #006; */
             color: black;
         }
@@ -95,7 +115,7 @@
         }
 
         .email-footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            /* border-top: 1px solid rgba(0, 0, 0, 0.2); */
         }
 
         .email-footer .footer-text {
@@ -122,155 +142,6 @@
 
         .email .email-body .body-text .body-table .table3 {
             /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
-            /* border: 1px solid black; */
-            padding-bottom: 1rem;
-        }
-
-        /* .email .email-body .body-text .body-table .table2, */
-        .email .email-body .body-text .body-table .table2 tbody tr td {
-            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 1rem; */
-        }
-
-        .email-body .body-text .body-table table tbody tr td a {
-            color: black;
-            text-decoration: none !important;
-        }
-    </style> --}}
-    <style>
-        .containerPDF {
-            padding: 20px;
-        }
-
-        .email {
-            max-height: 800em;
-            width: 100%;
-            padding-right: var(--bs-gutter-x, 0.75rem);
-            padding-left: var(--bs-gutter-x, 0.75rem);
-            margin-right: auto;
-            margin-left: auto;
-
-            border-radius: 10px;
-            border-top: #d74034 2px solid;
-            border-bottom: #d74034 2px solid;
-            box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
-            font-family: Arial, Helvetica, sans-serif;
-            /*
-             max-height: 800em;
-            max-width: 750px;
-            margin: 1rem auto;
-            border-radius: 10px;
-            border-top: #d74034 2px solid;
-            border-bottom: #d74034 2px solid;
-            box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
-            padding: 1.5rem;
-            font-family: Arial, Helvetica, sans-serif;
-            */
-        }
-
-        .email .email-head {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 1rem;
-        }
-
-        .email .email-head .head-img {
-            max-width: 50px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .email-body .body-text {
-            /* padding: 0 0 1rem; */
-            text-align: center;
-            font-size: 1.15rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            padding-bottom: 1rem;
-        }
-
-        .email-body .body-text.bottom-text {
-            /* padding: 2rem 0 1rem; */
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
-        .email-body .body-text .body-greeting {
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .email-body .body-table {
-            text-align: left;
-        }
-
-        .email-body .body-table table {
-            width: 100%;
-            font-size: 1.1rem;
-        }
-
-        .email-body .body-table table .total {
-            background-color: hsla(4, 67%, 52%, 0.12);
-            border-radius: 0.3rem;
-            padding: 20px;
-            color: #d74034;
-        }
-
-        .email-body .body-table table .item {
-            border-radius: 0.3rem;
-            /* border: 1px solid #006; */
-            color: black;
-        }
-
-        .email-body .body-table table th,
-        .email-body .body-table table td {
-            padding: 3px;
-            /* border: 1px solid #006; */
-            /* TABLE TD BORDER */
-        }
-
-        .email-body .body-table table tr td:last-child {
-            text-align: right;
-        }
-
-        .email-body .body-table table tr th:last-child {
-            text-align: right;
-        }
-
-        .email-body .body-table table tr:last-child th:first-child {
-            border-radius: 0.3rem 0 0 0.3rem;
-        }
-
-        .email-body .body-table table tr:last-child th:last-child {
-            border-radius: 0 0.3rem 0.3rem 0;
-        }
-
-        .email-footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .email-footer .footer-text {
-            font-size: 0.8rem;
-            text-align: center;
-            padding-top: 1rem;
-        }
-
-        .email-footer .footer-text a {
-            color: #d74034;
-        }
-
-        .left-radius {
-            border-radius: 0px 0.3rem 0.3rem 0px;
-            border-radius: 0.3rem 0 0 0.3rem;
-            /* border-radius: 8px 0px 0px 8px; */
-        }
-
-        .right-radius {
-            border-radius: 0.3rem 0px 0px 0.3rem;
-            border-radius: 0px 0.3rem 0.3rem 0px;
-            /* border-radius: 8px 0px 0px 8px; */
-        }
-
-        .email .email-body .body-text .body-table .table3 {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             padding-bottom: 1rem;
         }
 
@@ -289,7 +160,6 @@
 
 <body>
     <div class="containerPDF">
-
         <div class="email">
             <div class="email-head">
                 <div class="head-img">
@@ -323,7 +193,6 @@
                     <!-- <img style="width:50px; max-width:100%;" src="https://invoice.5ppsite.com{{ $content['invoice_logo'] }}"> -->
                 </div>
             </div>
-
             <div class="email-body">
                 <div class="body-text">
                     <div class="body-table">

@@ -346,7 +346,7 @@
 
                                     <div class="row ">
                                         <div class="col-12 bottom20">
-                                            <button type="submit"
+                                            <button type="submit" id="button-submit"
                                                 style="width:100%;color:white; background-color: #CF8029;"
                                                 class="btn ">Add
                                                 Profile</button>
@@ -872,6 +872,7 @@
                         }
                     }).catch(function(error) {
                         console.log("ERROR", error);
+                        $('#imageCrop').html(originalText);
                         $('#notifyIcon').html(
                             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
                         $('.toast1 .toast-title').html('Success');
@@ -969,6 +970,18 @@
 
             $('#ProfileStore').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
+
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');
@@ -1113,10 +1126,14 @@
                             $('.toast1 .toast-body').html(data.message);
                             $('#ProfileStore').trigger('reset');
                             $('#ProfileStore').removeClass('was-validated');
+                            $('#button-submit').prop("disabled", false);
                         }
                     })
                     .catch(function(error) {
                         console.log("error.response.data.errors", error);
+                        setTimeout(function() {
+                            $('#button-submit').prop("disabled", false);
+                        }, 500);
                         if (error.response.data.errors) {
                             // ERROR EMAIL
                             if (error.response.data.errors.email) {

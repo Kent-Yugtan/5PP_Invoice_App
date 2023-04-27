@@ -104,11 +104,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xl-12 ">
-                                    <button type="submit" style="width:100%;color:white; background-color: #CF8029;"
-                                        class="btn">Create Invoice</button>
+                                <div class="col-xl-12 bottom10">
+                                    <button type="submit" id="button-submit"
+                                        style="width:100%;color:white; background-color: #CF8029;" class="btn">Create
+                                        Invoice</button>
                                 </div>
-                            </div>`
+                            </div>
                         </form>
                     </div>
                     <!-- </div> -->
@@ -848,6 +849,16 @@
             $('#quick_invoice').submit(function(e) {
                 e.preventDefault();
 
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
                 let profile_id = $('#profile_id').val();
                 let description = $('#description').val();
                 let sub_total = $('#sub_total').val().replaceAll(',', '');
@@ -915,12 +926,16 @@
                             getResults_Converted();
                             $('#quick_invoice').trigger('reset');
                             $('#quick_invoice').removeClass('was-validated');
+                            $('#button-submit').prop("disabled", false);
                             toast1.toast('show');
                         }, 1500)
 
 
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#button-submit').prop("disabled", false);
+                    }, 500);
                     console.log("error.response.data.errors", error.response.data.errors);
 
                 });

@@ -282,6 +282,18 @@
                 }
             }
 
+            $(document).on('click', '#inactiveButton', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $('#inactiveButton').html();
+                $('#inactiveButton').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#inactiveButton').html(originalText);
+                }, 300);
+            })
+
             let array_all = [];
             $(document).on('change', '#select-all', function() {
                 array_all = []; // Reset the array
@@ -388,7 +400,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -442,7 +454,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -511,6 +523,16 @@
 
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 1500);
+
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');

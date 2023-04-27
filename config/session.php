@@ -67,7 +67,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | When using the "database" or "redis" session drivers, you may specify a
-    | connection that should be used to manage these sessions. This should
+    | connection that should be used to manage this sessions. This should
     | correspond to a connection in your database configuration options.
     |
     */
@@ -93,7 +93,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | While using one of the framework's cache driven session backends you may
-    | list a cache store that should be used for these sessions. This value
+    | list a cache store that should be used for this sessions. This value
     | must match with one of the application's configured cache "stores".
     |
     | Affects: "apc", "dynamodb", "memcached", "redis"

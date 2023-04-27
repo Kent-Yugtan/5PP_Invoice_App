@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Requests from the following domains / hosts will receive stateful API
-    | authentication cookies. Typically, these should include your local
+    | authentication cookies. Typically, this should include your local
     | and production domains which access your API via a frontend SPA.
     |
     */
@@ -25,7 +25,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This array contains the authentication guards that will be checked when
-    | Sanctum is trying to authenticate a request. If none of these guards
+    | Sanctum is trying to authenticate a request. If none of this guards
     | are able to authenticate the request, Sanctum will use the bearer
     | token that's present on an incoming request for authentication.
     |

@@ -228,7 +228,7 @@
                         <div style="padding:20px">
                             <div class="row ">
                                 <div class="col-sm-12 bottom20">
-                                    <button type="submit" class="btn w-100"
+                                    <button type="submit" id="button-submit" class="btn w-100"
                                         style="color:White; background-color:#CF8029;">Save</button>
                                 </div>
                             </div>
@@ -545,7 +545,7 @@
                         draggable: false,
 
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
@@ -587,7 +587,7 @@
                         draggable: false,
 
                         title: 'Are you sure?',
-                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete these record? This process cannot be undone.<label></div></div>',
+                        content: '<div class="row"><div class="col text-center"><img class="" src="{{ asset('images/Delete.png') }}" style="width: 50%; padding:10px" /></div></div><div class="row"><div class="col text-center"><label>Do you really want to delete this record? This process cannot be undone.<label></div></div>',
                         // //autoClose: 'Cancel|5000',
                         buttons: {
                             removeDeductions: {
@@ -717,6 +717,16 @@
             $('#invoice_items').submit(function(e) {
                 e.preventDefault();
 
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
                 // CONDITION IF THERE IS BLANK ROW
                 $('#show_items .row1').each(function() {
                     let parent = $(this).closest('.row1');
@@ -822,7 +832,6 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        // console.log("SUCCES", data.success);
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
@@ -849,10 +858,15 @@
                             $('#invoice_items').removeClass('was-validated');
                             $('#show_items').empty();
                             display_item_rows();
+                            $('#button-submit').prop("disabled", false);
+
                         }, 1500)
 
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#button-submit').prop("disabled", false);
+                    }, 500);
                     console.log("error.response.data.errors", error.response.data.errors);
 
                 });

@@ -8149,7 +8149,7 @@
                 "sebastian/environment": "^5.1.2",
                 "sebastian/lines-of-code": "^1.0.3",
                 "sebastian/version": "^3.0.1",
-                "theseer/tokenizer": "^1.2.0"
+                "thiser/tokenizer": "^1.2.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.3"
@@ -9507,16 +9507,16 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
-            "name": "theseer/tokenizer",
+            "name": "thiser/tokenizer",
             "version": "1.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/theseer/tokenizer.git",
+                "url": "https://github.com/thiser/tokenizer.git",
                 "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/34a41e998c2183e22995f158c581e7b5e755ab9e",
+                "url": "https://api.github.com/repos/thiser/tokenizer/zipball/34a41e998c2183e22995f158c581e7b5e755ab9e",
                 "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e",
                 "shasum": ""
             },
@@ -9545,12 +9545,12 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "support": {
-                "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
+                "issues": "https://github.com/thiser/tokenizer/issues",
+                "source": "https://github.com/thiser/tokenizer/tree/1.2.1"
             },
             "funding": [
                 {
-                    "url": "https://github.com/theseer",
+                    "url": "https://github.com/thiser",
                     "type": "github"
                 }
             ],

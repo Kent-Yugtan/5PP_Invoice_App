@@ -70,7 +70,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link collapsed" id="useruserdeductiontype" onmouseover="colorIcon4()"
                         onmouseout="removeColorIcon4()" href="{{ url('user/userdeductiontype') }}"
                         data-bs-toggle="collapse" data-bs-target="#udeduction" aria-expanded="false"
@@ -87,8 +87,7 @@
                                 href="{{ url('user/userdeductiontype') }}">Deductions</a>
                         </li>
                     </ul>
-
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
