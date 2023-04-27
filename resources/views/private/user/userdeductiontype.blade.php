@@ -266,7 +266,7 @@
                     <div class="row pt-3 px-3">
                         <div class="col">
                             <span id="deductionType_id" hidden></span>
-                            <span class="text-muted"> Do you really want to delete these record? This process cannot be
+                            <span class="text-muted"> Do you really want to delete this record? This process cannot be
                                 undone.</span>
                         </div>
                     </div>

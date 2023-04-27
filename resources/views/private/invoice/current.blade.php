@@ -361,6 +361,17 @@
                 show_data();
             }, 1500)
 
+            $(document).on('click', '#inactiveButton', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $('#inactiveButton').html();
+                $('#inactiveButton').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#inactiveButton').html(originalText);
+                }, 300);
+            })
 
             $('#select-all').click(function(e) {
                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
@@ -485,7 +496,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -543,7 +554,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -758,7 +769,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -1016,7 +1027,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -1149,7 +1160,18 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        $('#select_invoice_status').val(data.data);
+                        let status = data.data;
+                        if (status == "Paid") {
+                            $('#select_invoice_status').val(data.data);
+                            $('#select_invoice_status').prop('disabled', true)
+                            $('#update').prop('disabled', true)
+
+                        } else {
+                            $('#select_invoice_status').val(data.data);
+                            $('#select_invoice_status').prop('disabled', false)
+                            $('#update').prop('disabled', false)
+
+                        }
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -1228,6 +1250,16 @@
 
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 1500);
+
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');

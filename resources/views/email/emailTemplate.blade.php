@@ -14,15 +14,15 @@
             max-width: 750px;
             margin: 1rem auto;
             border-radius: 10px;
-            border-top: #d74034 2px solid;
-            border-bottom: #d74034 2px solid;
+            /* border-top: #d74034 2px solid; */
+            /* border-bottom: #d74034 2px solid; */
             box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
             padding: 1.5rem;
             font-family: Arial, Helvetica, sans-serif;
         }
 
         .email .email-head {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
             padding-bottom: 1rem;
         }
 
@@ -55,7 +55,7 @@
 
         .email-body .body-table table {
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .email-body .body-table table .total {
@@ -121,7 +121,7 @@
         }
 
         .email .email-body .body-text .body-table .table3 {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
             padding-bottom: 1rem;
         }
 
@@ -142,8 +142,11 @@
     <div class="email">
         <div class="email-head">
             <div class="head-img">
-                <img style="width:50px; max-width:100%;"
-                    src="https://invoice.5ppsite.com{{ $content['invoice_logo'] }}">
+                @if ($content['invoice_logo'])
+                    <img style="width: 50px; max-width: 100%;"
+                        src="https://invoice.5ppsite.com{{ $content['invoice_logo'] }}"
+                        onerror="this.onerror=null;this.src=''">
+                @endif
             </div>
         </div>
 

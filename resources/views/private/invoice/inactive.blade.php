@@ -368,6 +368,18 @@
                 }
             }
 
+            $(document).on('click', '#activeButton', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $('#activeButton').html();
+                $('#activeButton').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#activeButton').html(originalText);
+                }, 300);
+            })
+
             let array_all = [];
             $(document).on('change', '#select-all', function() {
                 array_all = []; // Reset the array
@@ -476,7 +488,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -532,7 +544,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -738,7 +750,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -969,7 +981,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -1176,6 +1188,16 @@
 
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 1500);
+
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');
