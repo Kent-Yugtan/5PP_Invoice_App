@@ -290,8 +290,8 @@
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
                                                 <input type="text" id="date_hired" name="date_hired"
-                                                    class="datepicker_input form-control" placeholder="Date Hired"
-                                                    required autocomplete="off">
+                                                    class="datepicker_input form-control" autofocus="false"
+                                                    placeholder="Date Hired" required autocomplete="off">
 
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
@@ -425,13 +425,24 @@
 
                                 <div class="tab-pane fade" id="pills-deduction" role="tabpanel"
                                     aria-labelledby="pills-deduction-tab">
+
                                     <div class="row">
-                                        <div class="col-sm-6 bottom20">
+                                        <div class="col-sm-4 bottom20">
+                                            <button type="button" id="submit-create-deduction"
+                                                class="btn form-check-inline pe-3" data-bs-toggle="modal"
+                                                data-bs-target="#modal-create-deduction"
+                                                style="color:white; background-color: #CF8029;width:100%" disabled>
+                                                <i class="fa fa-plus pe-1"></i>
+                                                Add Deduction
+                                            </button>
+                                        </div>
+
+                                        <div class="col-sm-4 bottom20">
                                             <!-- <div class="input-group"> -->
                                             <select id="deductionDropSearch" class="form-select">
                                             </select>
                                         </div>
-                                        <div class="col-sm-6 bottom20">
+                                        <div class="col-sm-4 bottom20">
                                             <div class="has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
                                                 <input type="text" class="form-control" id="search_deduction"
@@ -440,23 +451,26 @@
                                         </div>
                                         <!-- </div> -->
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="d-flex justify-content-between">
-                                                <label class="d-flex align-items-center" for="deductionButton"
-                                                    style="color: #A4A6B3;margin-left:7px">Deduction
-                                                    Types</label>
-                                                {{-- <button type="button" id="submit-create-deduction" class="btn"
-                                                  data-bs-toggle="modal" data-bs-target="#modal-create-deduction"
-                                                  style="color:white; background-color: #CF8029;width:10%">
-                                                  <i class="fa-solid fa-circle-plus "></i>
-                                              </button> --}}
 
-                                                <label type="button" id="submit-create-deduction" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-create-deduction"
-                                                    style="font-size:25px;color:#CF8029">
-                                                    <i class="fa-solid fa-circle-plus "></i></label>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-sm-8 d-flex align-items-center">
+                                            <label class="d-flex align-items-center" for="deductionButton"
+                                                style="color: #A4A6B3;">Deduction
+                                                Types</label>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <button id="submit-customize-create-deduction" class="btn form-check-inline"
+                                                style="color:white; background-color: #CF8029;width:100%"
+                                                data-bs-toggle="modal" data-bs-target="#modal-customize-create-deduction"
+                                                disabled>
+                                                <i class="fa fa-plus pe-1"></i>
+                                                Custom Deduction</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
                                             <div id="deductionButton" style="word-wrap: break-word;">
                                             </div>
                                         </div>
@@ -2021,23 +2035,28 @@
                                         '</td>';
                                     // console.log("due_date " + due_date + " date_now " + date_now);
 
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                     if (item.invoice_status === "Cancelled") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                             item.invoice_status + '</button></td>';
 
                                     } else if (item.invoice_status === "Paid") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                             item.invoice_status + '</button></td>';
 
                                     } else if (item.invoice_status === "Pending") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                             item.invoice_status + '</button></td >';
                                     } else {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                             item.invoice_status + '</button></td>';
                                     }
 
@@ -3044,7 +3063,15 @@
             // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
             });
 
             // INITIALIZE DISPLAY ITEM ROWS

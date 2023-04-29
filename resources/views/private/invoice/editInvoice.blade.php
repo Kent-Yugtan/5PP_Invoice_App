@@ -640,7 +640,8 @@
                                                                     Date</label>
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
-                                                                    placeholder="Due Date" required autocomplete="off">
+                                                                    autofocus="false" placeholder="Due Date" required
+                                                                    autocomplete="off">
                                                                 <div class="invalid-feedback">This field is required.
                                                                 </div>
                                                             </div>
@@ -1163,6 +1164,7 @@
                 // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     let remove_row = $(this).parent().parent();
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -1187,6 +1189,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#updateModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -1202,6 +1205,7 @@
                 console.log("profileDeduction_id", profileDeduction_id);
                 // $('#updateModal').addClass('d-none');
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -1225,6 +1229,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#updateModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -1247,7 +1252,15 @@
             // BUTTON for ADD ITEMS ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
             });
 
             // INITIALIZE DISPLAY ITEM ROWS

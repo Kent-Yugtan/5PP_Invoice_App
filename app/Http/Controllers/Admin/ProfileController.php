@@ -104,12 +104,8 @@ class ProfileController extends Controller
         'acct_no' => 'required|unique:profiles',
         'acct_name' => 'required|unique:profiles',
         'gcash_no' => 'required|unique:profiles|numeric',
-
       ]);
-
-
       // return "NO USER ID";
-
     } else {
       if ($findUser) {
         if ($findUser->profile) {

@@ -39,8 +39,8 @@
                                                 <div class="form-group-profile">
                                                     <label for="due_date" style="color: #A4A6B3;">Due Date</label>
                                                     <input type="text" id="due_date" name="due_date"
-                                                        class="datepicker_input form-control" placeholder="Due Date"
-                                                        required autocomplete="off">
+                                                        class="datepicker_input form-control" autofocus="false"
+                                                        placeholder="Due Date" required autocomplete="off">
                                                     <div class="invalid-feedback">This field is required.</div>
                                                 </div>
                                             </div>
@@ -539,6 +539,7 @@
                 let sub_total = parent.find('.sub_total').val();
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -570,6 +571,7 @@
                         },
                         onClose: function() {
                             // before the modal is hidden.
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -581,6 +583,7 @@
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent();
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -606,6 +609,7 @@
                         },
                         onClose: function() {
                             // before the modal is hidden.
+                            $('input').prop('disabled', false);
                         },
                     })
                 }
@@ -615,7 +619,16 @@
             // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
+
             });
 
             // INITIALIZE DISPLAY ITEM ROWS

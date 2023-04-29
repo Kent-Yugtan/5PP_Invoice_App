@@ -78,8 +78,8 @@
                                         <label for="due_date" style="color: #A4A6B3;">Due Date</label>
 
                                         <input type="text" id="due_date" name="due_date"
-                                            class="datepicker_input form-control" placeholder="Due Date" required
-                                            autocomplete="off">
+                                            class="datepicker_input form-control" autofocus="false" placeholder="Due Date"
+                                            required autocomplete="off">
                                         <div class="invalid-feedback">This field is required.</div>
                                     </div>
                                 </div>
