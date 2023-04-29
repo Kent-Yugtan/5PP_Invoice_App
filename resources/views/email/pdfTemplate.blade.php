@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('/assets/css/styles.css') }}" rel="stylesheet">
     <title>Send Email</title>
-
+    {{-- 
     <style>
         .containerPDF {
             padding: 5px;
@@ -154,6 +154,148 @@
         .email-body .body-text .body-table table tbody tr td a {
             color: black;
             text-decoration: none !important;
+        }
+    </style> --}}
+
+    <style>
+        .containerPDF {
+            /* padding: 5px; */
+        }
+
+        .email {
+            height: 100%;
+            width: 100%;
+            /* margin: 1rem auto; */
+            border-radius: 10px;
+            /* border-top: #d74034 2px solid; */
+            /* border-bottom: #d74034 2px solid; */
+            box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+            /* padding: 1.5rem; */
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .email .email-head {
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+            /* padding-bottom: 1rem; */
+        }
+
+        .email .email-head .head-img {
+            max-width: 50px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .email-body .body-text {
+            /* padding: 0 0 1rem; */
+            text-align: center;
+            /* font-size: 1.15rem; */
+        }
+
+        .email-body .body-text.bottom-text {
+            /* padding: 2rem 0 1rem; */
+            text-align: center;
+            /* font-size: 0.8rem; */
+        }
+
+        .email-body .body-text .body-greeting {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .email-body .body-table {
+            text-align: left;
+        }
+
+        .email-body .body-table table {
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .email-body .body-table table .total {
+            background-color: hsla(4, 67%, 52%, 0.12);
+            border-radius: 0.3rem;
+            padding: 10px;
+            color: #d74034;
+        }
+
+        .email-body .body-table table .item {
+            border-radius: 0.3rem;
+            /* border: 1px solid #006; */
+            color: black;
+        }
+
+        .email-body .body-table table th,
+        .email-body .body-table table td {
+            padding: 3px;
+            /* border: 1px solid #006; */
+            /* TABLE TD BORDER */
+        }
+
+        .email-body .body-table table tr td:last-child {
+            text-align: right;
+        }
+
+        .email-body .body-table table tr th:last-child {
+            text-align: right;
+        }
+
+        .email-body .body-table table tr:last-child th:first-child {
+            border-radius: 0.3rem 0 0 0.3rem;
+        }
+
+        .email-body .body-table table tr:last-child th:last-child {
+            border-radius: 0 0.3rem 0.3rem 0;
+        }
+
+        .email-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .email-footer .footer-text {
+            font-size: 0.8rem;
+            text-align: center;
+            padding-top: 1rem;
+        }
+
+        .email-footer .footer-text a {
+            color: #d74034;
+        }
+
+        .left-radius {
+            border-radius: 0px 0.3rem 0.3rem 0px;
+            border-radius: 0.3rem 0 0 0.3rem;
+            /* border-radius: 8px 0px 0px 8px; */
+        }
+
+        .right-radius {
+            border-radius: 0.3rem 0px 0px 0.3rem;
+            border-radius: 0px 0.3rem 0.3rem 0px;
+            /* border-radius: 8px 0px 0px 8px; */
+        }
+
+        .email .email-body .body-text .body-table .table3 {
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+            padding-bottom: 1rem;
+        }
+
+        /* .email .email-body .body-text .body-table .table2, */
+        .email .email-body .body-text .body-table .table2 tbody tr td {
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          padding-bottom: 1rem; */
+        }
+
+        .email-body .body-text .body-table table tbody tr td a {
+            color: black;
+            text-decoration: none !important;
+        }
+
+        table {
+            font-size: 12px !important;
+        }
+
+        .table td.fit,
+        .table th.fit {
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -341,22 +483,21 @@
                         <table class="table3" style="table-layout: fixed; width: 100%;margin-top:10px">
                             <tbody>
                                 <tr>
-                                    <td class="scope">
+                                    <td>
                                         @if ($content['quick_invoice'] == 0)
                                             <strong>Description:</strong>
                                         @endif
 
                                     </td>
-                                    <td class="scope" style="text-align:start;width:235px"><strong>SubTotal:</strong>
+                                    <td style="text-align:start;width:235px"><strong>SubTotal:</strong>
                                     </td>
-                                    <td class="scope" style="text-align:end;width:119px">
+                                    <td style="text-align:end;width:119px">
                                         <strong>${{ $content['sub_total'] }}</strong>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td class="scope"
-                                        style="text-align:left;word-wrap: break-word;width:50%;vertical-align:top;"
+                                    <td style="text-align:left;word-wrap: break-word;width:50%;vertical-align:top;"
                                         rowspan="3">
                                         @if ($content['quick_invoice'] == 0)
                                             {{ $content['invoice_description'] }}
@@ -364,7 +505,7 @@
                                     </td>
 
                                     @if ($content['discount_total'] > 0)
-                                        <td class="scope" style="text-align:start;"> Discount Type:
+                                        <td style="text-align:start;"> Discount Type:
                                             @if ($content['discount_type'] === 'Fixed')
                                                 <span class="text-muted" id="discountType">
                                                     Fixed
@@ -375,19 +516,21 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="scope" style="text-align:end;"> ${{ $content['discount_total'] }}
+                                        <td style="text-align:end;"> ${{ $content['discount_total'] }}
                                         </td>
                                     @endif
                                 </tr>
 
                                 <tr>
-                                    <td class="scope" style="text-align:start;">Total:</td>
-                                    <td class="scope" style="text-align:end;">${{ $content['balance_due'] }}</td>
+                                    <td style="text-align:start;">Total:</td>
+                                    <td style="text-align:end;">${{ $content['balance_due'] }}</td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Converted Amount: P{{ $content['peso_rate'] }}</strong></td>
-                                    <td style="text-align: end;"><strong>P{{ $content['converted_amount'] }}</strong>
+                                    <td style="text-align:start;">
+                                        Converted Amount: P{{ $content['peso_rate'] }}
+                                    </td>
+                                    <td style="text-align: end;">P{{ $content['converted_amount'] }}
                                     </td>
                                 </tr>
 

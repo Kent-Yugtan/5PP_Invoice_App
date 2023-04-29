@@ -293,8 +293,8 @@
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
                                                 <input type="text" id="date_hired" name="date_hired"
-                                                    class="datepicker_input form-control" placeholder="Date Hired"
-                                                    required autocomplete="off" disabled="true">
+                                                    class="datepicker_input form-control" autofocus="false"
+                                                    placeholder="Date Hired" required autocomplete="off" disabled="true">
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
@@ -428,14 +428,24 @@
 
                                 <div class="tab-pane fade" id="pills-deduction" role="tabpanel"
                                     aria-labelledby="pills-deduction-tab">
-                                    <div class="row">
-                                        <div class="col-sm-6 bottom20">
-                                            <select id="deductionDropSearch" class="form-select">
 
+                                    <div class="row">
+                                        <div class="col-sm-4 bottom20">
+                                            <button type="button" id="submit-create-deduction"
+                                                class="btn form-check-inline pe-3" data-bs-toggle="modal"
+                                                data-bs-target="#modal-create-deduction"
+                                                style="color:white; background-color: #CF8029;width:100%">
+                                                <i class="fa fa-plus pe-1"></i>
+                                                Add Deduction
+                                            </button>
+                                        </div>
+
+                                        <div class="col-sm-4 bottom20">
+                                            <select id="deductionDropSearch" class="form-select">
                                             </select>
                                         </div>
 
-                                        <div class="col-sm-6 bottom20">
+                                        <div class="col-sm-4 bottom20">
                                             <div class=" has-search">
                                                 <span class="fa fa-search form-control-feedback"
                                                     style="color:#A4A6B3"></span>
@@ -446,22 +456,23 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="d-flex justify-content-between">
-                                                <label class="d-flex align-items-center" for="deductionButton"
-                                                    style="color: #A4A6B3;margin-left:7px">Deduction
-                                                    Types</label>
-                                                {{-- <button type="button" id="submit-create-deduction" class="btn"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-create-deduction"
-                                                    style="color:white; background-color: #CF8029;width:10%">
-                                                    <i class="fa-solid fa-circle-plus "></i>
-                                                </button> --}}
+                                        <div class="col-sm-8 d-flex align-items-center">
+                                            <label class="d-flex align-items-center" for="deductionButton"
+                                                style="color: #A4A6B3;">Deduction
+                                                Types</label>
+                                        </div>
 
-                                                <label type="button" id="submit-create-deduction" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-create-deduction"
-                                                    style="font-size:25px;color:#CF8029">
-                                                    <i class="fa-solid fa-circle-plus "></i></label>
-                                            </div>
+                                        <div class="col-sm-4">
+                                            <button id="submit-customize-create-deduction" class="btn form-check-inline"
+                                                style="color:white; background-color: #CF8029;width:100%"
+                                                data-bs-toggle="modal" data-bs-target="#modal-customize-create-deduction">
+                                                <i class="fa fa-plus pe-1"></i>
+                                                Custom Deduction</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
                                             <div id="deductionButton" style="word-wrap: break-word;">
                                             </div>
                                         </div>
@@ -559,8 +570,8 @@
                                                                     Date</label>
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
-                                                                    placeholder="Due Date" required autocomplete="off"
-                                                                    autofocus="false">
+                                                                    autofocus="false" placeholder="Due Date" required
+                                                                    autocomplete="off" autofocus="false">
                                                                 <div class="invalid-feedback">This field is required.</div>
                                                             </div>
                                                             <!-- <input id="due_date" name="due_date" type="date" class="form-control"> -->
@@ -789,50 +800,68 @@
             </div>
         </div>
     </div>
-    {{-- <!-- OLD START MODAL ADD FOR PROFILE DEDUCTION-->
-    <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <!-- OLD START MODAL ADD CREATED DEDUCTIONFOR PROFILE DEDUCTION-->
+    <div class="modal fade" id="modal-create-deduction"role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="modal-body">
-                    <form id="deductiontype_store" method="POST" action="javascript:void(0)">
+                    <form id="deductiontype_store" class="g-3 needs-validation" novalidate>
                         @csrf
-                        <div class="card-border shadow mb-1 p-2 bg-white h-100">
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
                             <div class="card-body">
-                                <div class="row px-4 py-4" id="header">
-                                    <div class="col-md-12 px-2 w-100">
+                                <div class="row " id="header">
+                                    <div class="col-md-12  w-100">
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col bottom20">
                                                 <span class="fs-3 fw-bold">Add Deduction</span>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <input type="text" id="createDeduction_profile_id" hidden>
-                                                <div class="form-group mt-3" id="select_deduction_name"></div>
+                                            <div class="col-12">
+                                                <div id="mobileValidateSelectDeductionname" class="form-group-profile">
+                                                    <input type="text" id="Deduction_profile_id" hidden>
+                                                    <label for="Deduction_deduction_name" style="color:#A4A6B3">Deduction
+                                                        Name:</label>
+                                                    <select class="Deduction_deduction_name form-select"
+                                                        onblur="validateSelectProfileDeduction(this)"
+                                                        id="Deduction_deduction_name" required>
+
+                                                    </select>
+
+                                                    <div id="invalid-feedback-Deduction-name" class="invalid-feedback">
+                                                        This field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom20">
-                                                <label for="createDeduction_deduction_amount"
-                                                    style="color:#A4A6B3">Amount</label>
-                                                <input id="createDeduction_deduction_amount"
-                                                    name="createDeduction_deduction_amount" type="text"
-                                                    class="createDeduction_deduction_amount form-control"
-                                                    placeholder="Amount">
+                                            <div class="col-12 bottom10">
+                                                <div class="form-group-profile">
+                                                    <label for="Deduction_deduction_amount"
+                                                        style="color:#A4A6B3">Amount</label>
+                                                    <input id="Deduction_deduction_amount"
+                                                        name="Deduction_deduction_amount" type="text"
+                                                        class="Deduction_deduction_amount form-control"
+                                                        placeholder="Amount" required>
+                                                    <div class="invalid-feedback">
+                                                        This field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="row pt-3">
-                                            <div class="col">
+                                        <div class="row">
+                                            <div class="col bottom20">
                                                 <button type="button" class="btn w-100"
-                                                    style="color:white; background-color:#A4A6B3; "
-                                                    data-bs-dismiss="modal">Close</button>
+                                                    style="color:#CF8029; background-color:#f3f3f3; "
+                                                    data-bs-dismiss="modal">Cancel</button>
                                             </div>
-                                            <div class="col">
-                                                <button type="submit" id="createDeduction_button" class="btn w-100"
+                                            <div class="col bottom20">
+                                                <button type="submit" id="Deduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
                                         </div>
@@ -844,15 +873,16 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
+    <!-- OLD START MODAL ADD CREATED DEDUCTIONFOR PROFILE DEDUCTION-->
 
-    <!-- NEW START MODAL ADD FOR PROFILE DEDUCTION -->
-    <div class="modal fade" id="modal-create-deduction" tabindex="-1" role="dialog"
+    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
+    <div class="modal fade" id="modal-customize-create-deduction" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="hide-content">
                 <div class="modal-body">
-                    <form id="deductiontype_store" class="g-3 needs-validation" novalidate>
+                    <form id="custom_deductiontype_store" class="g-3 needs-validation" novalidate>
                         @csrf
                         <div class="card-border shadow bg-white h-100" style="padding:20px">
                             <div class="card-body">
@@ -860,15 +890,13 @@
                                     <div class="col-md-12 w-100">
                                         <div class="row">
                                             <div class="col bottom20">
-                                                <span class="fs-3 fw-bold">Add Deduction</span>
+                                                <span class="fs-3 fw-bold">Add Custom Deduction</span>
                                             </div>
                                         </div>
-
+                                        <input type="text" id="custom_profile_id" hidden>
                                         <div class="row">
                                             <div class="col-12  ">
                                                 <div id="mobileValidateStoreDeductionname" class="form-group-profile">
-                                                    <input type="text" id="createDeduction_profile_id" hidden>
-                                                    {{-- <div class="form-group" id="select_deduction_name"></div> --}}
                                                     <div class="form-group-profile">
                                                         <label for="createDeduction_deduction_name"
                                                             style="color:#A4A6B3">Dedution Name:</label>
@@ -920,7 +948,7 @@
             </div>
         </div>
     </div>
-    <!-- END START MODAL ADD FOR PROFILE DEDUCTION -->
+    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
     <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
@@ -987,6 +1015,7 @@
                                                 </div>
                                                 <div class="col-sm-4 bottom20">
                                                     <button type="submit" class="btn w-100"
+                                                        id="profile_deduction_update"
                                                         style="color:White; background-color:#CF8029; ">Update</button>
                                                 </div>
                                             </div>
@@ -1173,6 +1202,48 @@
             decimal: '.',
             separator: ','
         });
+
+        // VALIDATE PROFILE DEDUCTION TYPE NAME
+        // invalid-feedback-storeDeduction-name
+        function validateSelectProfileDeduction(e) {
+            let PDT = $('#custom_profile_id').val();
+            let data = {
+                id: PDT,
+                deduction_type_id: e.value
+            }
+            console.log("Deduction_deduction_name", data);
+            axios.post(apiUrl + "/api/validateSelectProfileDeduction", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#Deduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                } else {
+                    $("#Deduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error)
+                console.log("ERROR", $("#Deduction_deduction_name").val());
+                if (error.response.data.errors.deduction_type_id) {
+                    if (error.response.data.errors.deduction_type_id.length > 0) {
+                        $error = error.response.data.errors.deduction_type_id[0];
+                        if ($("#Deduction_deduction_name").val() === null) {
+                            $("#invalid-feedback-Deduction-name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            console.log("asd", $("#Deduction_deduction_name").val());
+                            $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                        }
+                        $("#Deduction_deduction_name").addClass('is-invalid');
+                    }
+                }
+            })
+        }
 
         // VALIDATE STORE PROFILE DEDUCTION TYPE NAME
         // invalid-feedback-storeDeduction-name
@@ -1588,6 +1659,7 @@
                 show_profileDeductionType_Button();
                 show_Profilededuction_Table_Active();
                 show_profileDeductionType_select();
+
                 show_edit()
                 show_data();
             }, 1500)
@@ -2195,6 +2267,57 @@
                 });
             })
 
+            function show_profile_deductions_onSelect() {
+                let profile_id = $('#Deduction_profile_id').val();
+                console.log("show_profile_deductions_onSelect", profile_id);
+                if (profile_id) {
+                    $('#createDeduction_profile_id').val(profile_id);
+                    axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
+                        headers: {
+                            Authorization: token,
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#Deduction_deduction_name').empty();
+                            let option = '';
+                            // THIS CODE IS FOR FILTERING PROFILE DEDUCTIONS AND CHECK IF ALL THE DEDUCIIONS HAS ALREADY BEEN ADDED.
+                            option += '<option selected disabled value="">Please Select Deductions</option>'
+                            if (data.data.length > 0) {
+                                const result = data.data.map(item => item.profile_deduction_types
+                                    .length ===
+                                    1);
+                                if (result.every(item => item === true)) {
+                                    console.log("TRUE"); // "TRUE"
+                                    option +=
+                                        '<option value="" disabled >All deductions has been already added.</option>';
+                                    $('#Deduction_deduction_name').append(
+                                        option
+                                    );
+                                } else {
+                                    console.log("FALSE"); // "TRUE"
+                                    data.data.filter(f => f.profile_deduction_types.length === 0)
+                                        .map((item) => {
+                                            option += "<option value=" + item.id + ">" +
+                                                item
+                                                .deduction_name + "</option>";
+
+                                        })
+                                    $('#Deduction_deduction_name').append(
+                                        option);
+                                }
+                            }
+
+
+
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error.response.data);
+
+                    })
+                }
+            }
+
             // SHOW DATA ON TABLE
             function show_data(filters) {
                 let url = window.location.pathname;
@@ -2243,23 +2366,28 @@
                                         '</td>';
                                     // console.log("due_date " + due_date + " date_now " + date_now);
 
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                    // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                     if (item.invoice_status === "Cancelled") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                             item.invoice_status + '</button></td>';
 
                                     } else if (item.invoice_status === "Paid") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                             item.invoice_status + '</button></td>';
 
                                     } else if (item.invoice_status === "Pending") {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                             item.invoice_status + '</button></td >';
                                     } else {
                                         tr +=
-                                            '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                            '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                             item.invoice_status + '</button></td>';
                                     }
 
@@ -2698,8 +2826,20 @@
 
             $('#deleteProfileDeduction').on('click', function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $(this).html();
+                $(this).html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $(this).html(originalText);
+                }, 500);
+
                 let profileDeductionType_id = $('#profileDeductionType_id').val();
                 $("#profilededuction_id").html(profileDeductionType_id);
+                console.log("delete", profileDeductionType_id);
+                $(this).html('Delete');
 
             })
 
@@ -3034,6 +3174,7 @@
                 let row_item = $(this).parent().parent().parent();
                 // console.log("row_item", row_item);
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -3065,6 +3206,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#exampleModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
 
                     });
@@ -3078,6 +3220,7 @@
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -3104,6 +3247,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#exampleModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -3249,6 +3393,15 @@
             })
 
             $("#modal-create-deduction").on('hide.bs.modal', function() {
+                $('#deductiontype_store').trigger('reset');
+                $('#deductiontype_store').removeClass('was-validated');
+                $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback')
+                    .html(
+                        "").show();
+                $('#Deduction_deduction_name').removeClass('is-invalid');
+            });
+
+            $("#modal-customize-create-deduction").on('hide.bs.modal', function() {
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');
@@ -3262,11 +3415,12 @@
                     $('#deductionButton').empty();
                     $('#deductionButton').html(
                         show_profileDeductionType_Button());
-                    $('#deductiontype_store').trigger('reset');
-                    $('#deductiontype_store').removeClass('was-validated');
+                    $('#custom_deductiontype_store').trigger('reset');
+                    $('#custom_deductiontype_store').removeClass('was-validated');
                     $('input').removeClass('is-invalid');
-                    $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback').html(
-                        "").show();
+                    $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback')
+                        .html(
+                            "").show();
                 }, 1500)
             });
 
@@ -3409,6 +3563,7 @@
 
             $('#invoice_items').submit(function(e) {
                 e.preventDefault();
+
                 // BUTTON SPINNER
                 var originalText = $('#save').html();
                 $('#save').html(
@@ -3580,7 +3735,6 @@
                 return s.charAt(0).toUpperCase() + s.slice(1);
             }
 
-
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var deductiontype_store = $('#deductiontype_store')
             // Loop over them and prevent submission
@@ -3595,20 +3749,29 @@
                     }, false)
                 })
 
-            // CREATE DEDUCTION TYPE
+            // ADD CREATE DEDUCTION TYPE
             $('#deductiontype_store').submit(function(e) {
                 e.preventDefault();
 
-                let profile_id = $("#createDeduction_profile_id").val();
-                let deduction_name = $("#createDeduction_deduction_name").val();
-                let amount = $("#createDeduction_deduction_amount").val().replaceAll(',', '');
+                var originalText = $('#Deduction_button').html();
+                $('#Deduction_button').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#Deduction_button').prop("disabled", true);
+                setTimeout(function() {
+                    $('#Deduction_button').html(originalText);
+                }, 500);
+
+
+                let profile_id = $("#Deduction_profile_id").val();
+                let deduction_type_id = $("#Deduction_deduction_name").val();
+                let amount = $("#Deduction_deduction_amount").val().replaceAll(',', '');
 
                 let data = {
                     profile_id: profile_id,
+                    deduction_type_id: deduction_type_id,
                     amount: amount,
-                    deduction_type_name: deduction_name
                 };
-                console.log("DATADATA", data);
                 axios
                     .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
                         headers: {
@@ -3628,12 +3791,91 @@
                                 $('.toast1 .toast-body').html(data.message);
                                 $('#deductiontype_store').trigger('reset');
                                 $('#deductiontype_store').removeClass('was-validated');
+                                $('#Deduction_deduction_name').removeClass('is-invalid');
                                 toast1.toast('show');
                                 $('#deductionDropSearch').empty();
                                 show_profileDeductionType_select();
+                                show_profileDeductionType_Button();
+                                $('#Deduction_button').prop("disabled", false);
+                                toast1.toast('show');
                             }, 1500)
                         }
                     }).catch(function(error) {
+                        setTimeout(function() {
+                            $('#Deduction_button').prop("disabled", false);
+                        }, 500);
+                        let errors = error.response.data.errors;
+                        console.log(errors);
+                        $("#invalid-feedback-Deduction-name").addClass('invalid-feedback').html(
+                            "This field is required.").show();
+                    });
+            })
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var deductiontype_store = $('#custom_deductiontype_store')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(deductiontype_store)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            // CREATE CUSTOM DEDUCTION TYPE
+            $('#custom_deductiontype_store').submit(function(e) {
+                e.preventDefault();
+                var originalText = $('#createDeduction_button').html();
+                $('#createDeduction_button').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#createDeduction_button').prop("disabled", true);
+                setTimeout(function() {
+                    $('#createDeduction_button').html(originalText);
+                }, 500);
+
+                let profile_id = $("#custom_profile_id").val();
+                let deduction_name = $("#createDeduction_deduction_name").val();
+                let amount = $("#createDeduction_deduction_amount").val().replaceAll(',', '');
+
+                let data = {
+                    profile_id: profile_id,
+                    amount: amount,
+                    deduction_type_name: deduction_name
+                };
+                axios
+                    .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#modal-customize-create-deduction').modal('hide');
+                            $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
+                                $('.toast1 .toast-title').html('Success');
+                                $('.toast1 .toast-body').html(data.message);
+                                $('#custom_deductiontype_store').trigger('reset');
+                                $('#custom_deductiontype_store').removeClass(
+                                    'was-validated');
+                                toast1.toast('show');
+                                $('#deductionDropSearch').empty();
+                                show_profileDeductionType_select();
+                                $('#createDeduction_button').prop("disabled", false);
+                            }, 1500)
+                        }
+                    }).catch(function(error) {
+                        setTimeout(function() {
+                            $('#createDeduction_button').prop("disabled", false);
+                        }, 500);
                         let errors = error.response.data.errors;
                         console.log("ERRORS", errors);
                         console.log("ERROR", error);
@@ -3646,7 +3888,32 @@
                 let urlSplit = url.split('/');
                 if (urlSplit.length === 5) {
                     let profile_id = urlSplit[4];
-                    $('#createDeduction_profile_id').val(profile_id);
+                    $('#Deduction_profile_id').val(profile_id);
+                    show_profile_deductions_onSelect();
+                }
+            })
+
+            $(document).on('change', '#Deduction_deduction_name', function() {
+                let deduction_id = $(this).val();
+                console.log("SELECT", deduction_id);
+                if (deduction_id) {
+                    axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
+                        headers: {
+                            Authorization: token,
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        console.log("SUCCESS", data);
+                        if (data.success) {
+                            {
+                                $('#Deduction_deduction_amount').val(PHP(data.data
+                                    .deduction_amount).format());
+                            }
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                    })
+
                 }
             })
 
@@ -4056,6 +4323,17 @@
             // MODAL OF PROFILE DEDUCTION TYPE BUTTON
             $('#ProfileDeductiontype_update').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#profile_deduction_update').html();
+                $('#profile_deduction_update').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#profile_deduction_update').prop("disabled", true);
+                setTimeout(function() {
+                    $('#profile_deduction_update').html(originalText);
+                }, 500);
+
                 let profileDeductionType_id = $('#profileDeductionType_id').val();
                 let profile_id = $('#profileDeductionType_profileId').val();
                 let profileDeductionType_name = $('#edit_profileDeductionType_name').val();
@@ -4098,10 +4376,14 @@
                                 'was-validated');
                             show_Profilededuction_Table_Active();
                             show_profileDeductionType_select();
+                            $('#profile_deduction_update').prop("disabled", false);
                         }, 1500)
 
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#profile_deduction_update').prop("disabled", false);
+                    }, 500);
                     console.log("error.response.data.errors", error);
                     if (error.response.data.errors) {
                         if (error.response.data.errors.deduction_type_name) {

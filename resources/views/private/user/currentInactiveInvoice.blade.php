@@ -353,6 +353,18 @@
                 userActiveCount();
             }, 1500)
 
+            $(document).on('click', '#activeButton', function(e) {
+                e.preventDefault();
+                // BUTTON SPINNER
+                var originalText = $('#activeButton').html();
+                $('#activeButton').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#activeButton').html(originalText);
+                }, 300);
+            })
+
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
@@ -489,7 +501,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -545,7 +557,7 @@
                                 fieldname = fieldname.join(" ");
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                    );
+                                );
                                 $('.toast1 .toast-title').html("Error");
                                 $('.toast1 .toast-body').html(Object.values(errors)[
                                         0]
@@ -697,23 +709,28 @@
                                     }
                                 }
 
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -738,7 +755,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -926,23 +943,28 @@
                                     }
                                 }
 
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -967,7 +989,7 @@
                                     '<td  class="text-center">';
                                 tr +=
                                     `<div class="dropdown">
-                                                <a class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
 
@@ -1172,6 +1194,16 @@
 
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 1500);
+
                 $('html,body').animate({
                     scrollTop: $('#sb-nav-fixed').offset().top
                 }, 'slow');

@@ -727,23 +727,28 @@
                                     }
                                 }
 
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -986,23 +991,28 @@
                                     .last_name +
                                     '</td>';
 
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
+
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button data-bs-toggle="modal" data-bs-target="#invoice_status" style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 

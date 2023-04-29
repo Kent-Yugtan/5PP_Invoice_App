@@ -275,7 +275,7 @@
                                     <div class="col-sm-12 ">Notes:</div>
                                 </div>
 
-                                <div class="row pb-5">
+                                <div class="row">
                                     <div class="col-12">
                                         <label style="word-wrap: break-word; text-align:right" id="notes"></label>
                                     </div>
@@ -299,7 +299,7 @@
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
+                            <div class="row">
                                 <div class="col-6" style="padding-right:5px;">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
                                         class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
@@ -311,18 +311,20 @@
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
+                            {{-- <div class="row bottom10">
                                 <div class="col-12 w-100">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#paidModal"
-                                        class="btn  w-100" style="color: White; background-color: #198754;">Paid
+                                    <button type="button" data-bs-toggle="modal" id="paid_button"
+                                        data-bs-target="#paidModal" class="btn  w-100"
+                                        style="color: White; background-color: #198754;">Paid
                                         Invoice</button>
                                 </div>
                             </div>
 
                             <div class="row bottom10">
                                 <div class="col-12 w-100">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cancelModal"
-                                        class="btn  w-100" style="color: White; background-color:#A4A6B3;">Cancel
+                                    <button type="button" data-bs-toggle="modal" id="cancel_button"
+                                        data-bs-target="#cancelModal" class="btn  w-100"
+                                        style="color: White; background-color:#A4A6B3;">Cancel
                                         Invoice</button>
                                 </div>
                             </div>
@@ -334,7 +336,7 @@
                                         style="color: White; background-color: #dc3545;">Delete
                                         Invoice</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row" style="padding-top:2.5rem">
                                 <div class="col-12 w-100 bottom10">
@@ -505,7 +507,7 @@
                                 data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-6">
-                            <button type="button" id="paid_button" class="btn  w-100"
+                            <button type="button" id="confirm_paid_button" class="btn  w-100"
                                 style="color:white;background-color: #CF8029;">Confirm</button>
                         </div>
                     </div>
@@ -638,7 +640,8 @@
                                                                     Date</label>
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
-                                                                    placeholder="Due Date" required autocomplete="off">
+                                                                    autofocus="false" placeholder="Due Date" required
+                                                                    autocomplete="off">
                                                                 <div class="invalid-feedback">This field is required.
                                                                 </div>
                                                             </div>
@@ -847,6 +850,11 @@
         </div>
     </div>
 
+    <div class="spanner" style="display: flex;align-items: center;justify-content: center;position: fixed;">
+        <div class="loader"></div>
+    </div>
+
+
 
     <script type="text/javascript">
         let total_deduction_amount = 0
@@ -916,6 +924,7 @@
                 delay: 3000,
                 animation: true,
             });
+
             $('#back').on('click', function(e) {
                 e.preventDefault();
                 let userid = $('#userId').html();
@@ -1155,6 +1164,7 @@
                 // $('#updateModal').addClass('d-none');
                 if (row_item) {
                     let remove_row = $(this).parent().parent();
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -1179,6 +1189,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#updateModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -1194,6 +1205,7 @@
                 console.log("profileDeduction_id", profileDeduction_id);
                 // $('#updateModal').addClass('d-none');
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -1217,6 +1229,7 @@
                         onClose: function() {
                             // before the modal is hidden.
                             $('#updateModal').removeClass('d-none');
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -1239,7 +1252,15 @@
             // BUTTON for ADD ITEMS ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
             });
 
             // INITIALIZE DISPLAY ITEM ROWS
@@ -1596,7 +1617,7 @@
                                 if (quick_invoice === '0') {
                                     let div = ''
                                     div += '<div class="row">';
-                                    div += '<div class="col-12 align-self-start">';
+                                    div += '<div class="col-12 align-self-start view_invoice_description">';
                                     div += '<label class="fw-bold"> Description: </label>';
                                     div += '</div>';
                                     div += ' <div class="col-12" id="view_invoice_description">' + data.data
@@ -1613,14 +1634,18 @@
                                 if (data.data.invoice_status === "Paid") {
                                     $('#text_date_received').html("Date Received:");
                                     $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
-                                    $('#edit_invoice').prop('disabled', true);
                                     $('#paid_button').prop('disabled', true);
+                                    $('#cancel_button').prop('disabled', true);
+                                    $('#delete_button').prop('disabled', true);
+                                    $('#edit_invoice').prop('disabled', true);
 
                                 } else {
                                     $('#text_date_received').html("");
                                     $('#date_received').html("");
-                                    $('#edit_invoice').prop('disabled', false);
                                     $('#paid_button').prop('disabled', false);
+                                    $('#cancel_button').prop('disabled', false);
+                                    $('#delete_button').prop('disabled', false);
+                                    $('#edit_invoice').prop('disabled', false);
                                 }
 
                                 let redue_date = data.data.due_date;
@@ -1679,7 +1704,7 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6'>"
+                                            div += "<div class='col-8 h6 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
@@ -1694,7 +1719,7 @@
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6'>"
+                                            div += "<div class='col-8 h6 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
                                                 discount_amount + "%) </span></div>";
@@ -1877,6 +1902,17 @@
 
             $('#submit_update_invoice').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#update').html();
+                $('#update').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#update').prop("disabled", true);
+                setTimeout(function() {
+                    $('#update').html(originalText);
+                }, 500);
+
                 let profile_id = $('#profileId').html();
                 let due_date = $('#due_date').val();
                 let invoice_id = $('#update_invoice_id').val();
@@ -1952,17 +1988,32 @@
                         $('#updateModal').modal('hide');
                         $("div.spanner").addClass("show");
 
+
                         $('#notifyIcon').html(
                             '<i class="fa-solid fa-check" style="color:green"></i>');
                         $('.toast1 .toast-title').html('Success');
                         $('.toast1 .toast-body').html(response.data.message);
-                        toast1.toast('show');
-                        setTimeout(function() {
-                            location.reload(true); // refresh the page
-                        }, 1500)
 
+                        setTimeout(function() {
+                            $("div.spanner").removeClass("show");
+                            $('#table_invoiceItems tbody').empty();
+                            $('#table_invoiceItems tbody').empty();
+                            $('.row .title_deductions').empty();
+                            $('.row .total_deductions').empty();
+                            $('.row .deductions').empty();
+                            $('.row .view_invoice_description').empty();
+                            $('.row #view_invoice_description').empty();
+                            $('.row .discountType').empty();
+                            $('.row #discountAmount').empty();
+                            $('#table_invoiceItems tbody').html(show_invoice());
+                            toast1.toast('show');
+                            $('#update').prop("disabled", false);
+                        }, 1500);
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#update').prop("disabled", false);
+                    }, 500);
                     console.log("ERROR", error)
                     // if (error.response.data.errors) {
                     //     let errors = error.response.data.errors;
@@ -2123,7 +2174,7 @@
             });
 
             // PAID BUTTON
-            $('#paid_button').on('click', function(e) {
+            $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
 
                 var start = performance.now(); // get the current stamp
@@ -2158,9 +2209,14 @@
                                 $('.toast1 .toast-body').html(response.data.message);
 
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 1500);
@@ -2227,9 +2283,14 @@
                                 $('.toast1 .toast-body').html(response.data.message);
 
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 1500);
@@ -2287,9 +2348,14 @@
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
                                 $('.row .title_deductions').empty();
                                 $('.row .total_deductions').empty();
                                 $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
                                 toast1.toast('show');
                             }, 2000)
@@ -2331,35 +2397,6 @@
                 if (typeof s !== 'string') return "";
                 return s.charAt(0).toUpperCase() + s.slice(1);
             }
-
-            // CONVERT HTML TO PDF THROUGH SCREENSHOT
-            // function pdfContent() {
-            //     window.jsPDF = window.jspdf.jsPDF;
-            //     var scaleFactor = 2;
-            //     // Capture the div element as a screenshot using html2canvas
-            //     html2canvas($('#content')[0], {
-            //         scale: scaleFactor
-            //     }).then(function(canvas) {
-            //         // Create a new jsPDF instance
-            //         var pdf = new jsPDF('p', 'mm', 'a4', false, true, 300);
-
-            //         // Calculate the center of the page
-            //         var centerX = pdf.internal.pageSize.getWidth() / 2;
-            //         var centerY = pdf.internal.pageSize.getHeight() / 2;
-
-            //         // Calculate the position to add the image
-            //         var imageWidth = 'auto'; // or canvas.width / scaleFactor;
-            //         var imageHeight = 'auto'; // or canvas.height / scaleFactor;
-            //         var startX = centerX - (imageWidth / 2);
-            //         var startY = centerY - (imageHeight / 2);
-
-            //         // Add the screenshot to the PDF using the addImage method
-            //         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', startX, 5, imageWidth, imageHeight);
-
-            //         // Save the PDF file
-            //         pdf.save('Invoice ' + $('#invoice_no').html() + '.pdf');
-            //     });
-            // }
 
             function pdfContent() {
                 // Set the options for html2pdf

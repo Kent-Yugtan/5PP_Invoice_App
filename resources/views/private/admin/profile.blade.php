@@ -327,8 +327,8 @@
                                             <div class="form-group-profile">
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
                                                 <input type="text" id="date_hired" name="date_hired"
-                                                    class="datepicker_input form-control" placeholder="Date Hired"
-                                                    required autocomplete="off">
+                                                    class="datepicker_input form-control" autofocus="false"
+                                                    placeholder="Date Hired" required autocomplete="off">
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>

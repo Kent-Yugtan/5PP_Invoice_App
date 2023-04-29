@@ -39,8 +39,8 @@
                                                 <div class="form-group-profile">
                                                     <label for="due_date" style="color: #A4A6B3;">Due Date</label>
                                                     <input type="text" id="due_date" name="due_date"
-                                                        class="datepicker_input form-control" placeholder="Due Date"
-                                                        required autocomplete="off">
+                                                        class="datepicker_input form-control" autofocus="false"
+                                                        placeholder="Due Date" required autocomplete="off">
                                                     <div class="invalid-feedback">This field is required.</div>
                                                 </div>
                                             </div>
@@ -228,7 +228,7 @@
                         <div style="padding:20px">
                             <div class="row ">
                                 <div class="col-sm-12 bottom20">
-                                    <button type="submit" class="btn w-100"
+                                    <button type="submit" class="btn w-100" id="button-submit"
                                         style="color:White; background-color:#CF8029;">Save</button>
                                 </div>
                             </div>
@@ -523,6 +523,7 @@
                 let sub_total = parent.find('.sub_total').val();
                 let row_item = $(this).parent().parent().parent();
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -555,6 +556,7 @@
                         },
                         onClose: function() {
                             // before the modal is hidden.
+                            $('input').prop('disabled', false);
                         },
                     });
                 }
@@ -566,6 +568,7 @@
                 let parent = $(this).closest('.row');
                 let row_item = $(this).parent().parent();
                 if (row_item) {
+                    $('input').prop('disabled', true);
                     $.confirm({
                         columnClass: 'col-sm-4',
                         icon: 'fa fa-warning',
@@ -591,6 +594,7 @@
                         },
                         onClose: function() {
                             // before the modal is hidden.
+                            $('input').prop('disabled', false);
                         },
                     })
                 }
@@ -600,7 +604,15 @@
             // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
             $("#add_item").click(function(e) {
                 e.preventDefault();
-                display_item_rows()
+                // BUTTON SPINNER
+                var originalText = $('#add_item').html();
+                $('#add_item').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#add_item').html(originalText);
+                    display_item_rows()
+                }, 500);
             });
 
             // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
@@ -822,6 +834,16 @@
             $('#invoice_items').submit(function(e) {
                 e.preventDefault();
 
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
                 // CONDITION IF THERE IS BLANK ROW
                 $('#show_items .row1').each(function() {
                     let parent = $(this).closest('.row1');
@@ -954,10 +976,14 @@
                             $('#invoice_items').removeClass('was-validated');
                             $('#show_items').empty();
                             display_item_rows();
+                            $('#button-submit').prop("disabled", false);
                         }, 1500)
 
                     }
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#button-submit').prop("disabled", false);
+                    }, 500);
                     console.log("error.response.data.errors", error.response.data.errors);
 
                 });
