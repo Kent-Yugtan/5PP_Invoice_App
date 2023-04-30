@@ -465,7 +465,7 @@
                                         <div class="col-sm-1"> --}}
                                             {{-- style="color:white; background-color: #CF8029;" --}}
                                             <button type="button" id="submit-customize-create-deduction"
-                                                class="btn bg-transparent " data-bs-toggle="modal"
+                                                class="border-0 bg-transparent " data-bs-toggle="modal"
                                                 data-bs-target="#modal-customize-create-deduction">
                                                 <i class="fa fa-plus-circle" style="font-size:25px;color:#CF8029"></i>
                                             </button>

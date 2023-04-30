@@ -460,9 +460,9 @@
                                                 style="color: #A4A6B3;">Deduction
                                                 Types</label>
 
-                                            <button id="submit-customize-create-deduction" class="btn bg-transparent "
-                                                data-bs-toggle="modal" data-bs-target="#modal-customize-create-deduction"
-                                                disabled>
+                                            <button id="submit-customize-create-deduction"
+                                                class="border-0 bg-transparent " data-bs-toggle="modal"
+                                                data-bs-target="#modal-customize-create-deduction" disabled>
                                                 <i class="fa fa-plus-circle" style="font-size:25px;color:#CF8029"></i>
                                             </button>
                                         </div>
