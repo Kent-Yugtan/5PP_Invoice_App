@@ -175,8 +175,8 @@
                             <tr>
                                 <td colspan="2" style="word-wrap: break-word">{{ $content['address'] }}
                                     <br>{{ $content['city'] }},
-                                    {{ $content['province'] }} Philippines,
-                                    {{ $content['zip_code'] }}
+                                    {{ $content['province'] }}<br>
+                                    Philippines,{{ $content['zip_code'] }}
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -195,7 +195,7 @@
                             </tr>
 
                             <tr>
-                                <td colspan="2" style="word-wrap: break-word">{{ $content['bill_to_address'] }}</td>
+                                <td colspan="2" style="word-wrap: break-word">{{ $content['invoice_email'] }}</td>
                                 @if ($content['payment_status'] === 'Paid')
                                     <td class="left-radius" style="color:#198754;vertical-align:top;"><strong>Invoice
                                             Status:</strong></td>
@@ -218,10 +218,8 @@
                             </tr>
 
                             <tr>
-                                <td colspan="2" style="text-align:start;word-wrap: break-word;vertical-align:top;">
-                                    {{-- <!-- {{ $content['address'] }} <br>{{ $content['city'] }},
-                                      {{ $content['province'] }} Philippines,
-                                      {{ $content['zip_code'] }} --> --}}
+                                <td colspan="2" style="word-wrap: break-word;text-align:left;vertical-align:top;">
+                                    {!! htmlspecialchars_decode($content['bill_to_address']) !!}
                                 </td>
                                 @if ($content['payment_status'] === 'Paid')
                                     <td style="vertical-align:top;">Date Received:</td>

@@ -51,8 +51,9 @@
                                             <div class="form-group-profile">
                                                 <label for="bill_to_address" style="color: #A4A6B3;">Bill From
                                                     Address</label>
-                                                <input id="bill_to_address" name="bill_to_address" type="text"
-                                                    class="form-control" placeholder="Bill from Address" required>
+                                                {{-- <input id="bill_to_address" name="bill_to_address" type="text"
+                                                      class="form-control" placeholder="Bill from Address" required> --}}
+                                                <textarea id="bill_to_address" name="bill_to_address" class="form-control" placeholder="Bill from Address" required></textarea>
                                                 <div class="invalid-feedback">This field is required.</div>
                                             </div>
                                         </div>
@@ -175,6 +176,7 @@
                                                     <input id="edit_invoice_email" name="edit_invoice_email"
                                                         type=" text" class="form-control" placeholder="Invoice Email"
                                                         onblur="editValidateInvoiceEmail(this)" required>
+
                                                     <div id="error_edit_email_address" class="invalid-feedback">
                                                     </div>
                                                 </div>
@@ -186,8 +188,10 @@
                                                 <div class="form-group-profile">
                                                     <label for="edit_to_bill" style="color:#A4A6B3">Bill from
                                                         Address</label>
-                                                    <input id="edit_to_bill" name="edit_to_bill" type=" text"
-                                                        class="form-control" placeholder="Bill from Address" required>
+                                                    {{-- <input id="edit_to_bill" name="edit_to_bill" type=" text"
+                                                        class="form-control" placeholder="Bill from Address" required> --}}
+
+                                                    <textarea id="edit_to_bill" name="edit_to_bill" class="form-control" placeholder="Bill from Address" required></textarea>
                                                     <div class="invalid-feedback">This field is required.</div>
                                                 </div>
                                             </div>
@@ -672,6 +676,7 @@
                 let invoice_title = $('#invoice_title').val();
                 let invoice_email = $('#invoice_email').val();
                 let bill_to_address = $('#bill_to_address').val();
+                bill_to_address = bill_to_address.replace(/\n/g, '<br>');
 
                 let formData = new FormData();
                 formData.append('invoice_title', invoice_title);

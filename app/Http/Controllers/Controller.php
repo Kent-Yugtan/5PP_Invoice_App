@@ -67,6 +67,7 @@ class Controller extends BaseController
     $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
     $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
     $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+    $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
     $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
     $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
     $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -120,6 +121,7 @@ class Controller extends BaseController
           'zip_code'            => $zip_code,
           'date_created'        => $date_created,
           'invoice_title'       => $invoice_title,
+          'invoice_email'       => $invoice_email,
           'due_date'            => $due_date,
           'bill_to_address'     => $bill_to_address,
           'payment_status'      => $payment_status,
@@ -182,6 +184,7 @@ class Controller extends BaseController
     $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
     $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
     $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+    $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
     $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
     $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
     $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -235,6 +238,7 @@ class Controller extends BaseController
           'zip_code'            => $zip_code,
           'date_created'        => $date_created,
           'invoice_title'       => $invoice_title,
+          'invoice_email'       => $invoice_email,
           'due_date'            => $due_date,
           'bill_to_address'     => $bill_to_address,
           'payment_status'      => $payment_status,
@@ -297,6 +301,7 @@ class Controller extends BaseController
     $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
     $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
     $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+    $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
     $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
     $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
     $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -350,6 +355,7 @@ class Controller extends BaseController
           'zip_code'            => $zip_code,
           'date_created'        => $date_created,
           'invoice_title'       => $invoice_title,
+          'invoice_email'       => $invoice_email,
           'due_date'            => $due_date,
           'bill_to_address'     => $bill_to_address,
           'payment_status'      => $payment_status,
@@ -411,6 +417,7 @@ class Controller extends BaseController
     $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
     $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
     $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+    $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
     $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
     $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
     $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -467,6 +474,7 @@ class Controller extends BaseController
           'zip_code'            => $zip_code,
           'date_created'        => $date_created,
           'invoice_title'       => $invoice_title,
+          'invoice_email'       => $invoice_email,
           'due_date'            => $due_date,
           'bill_to_address'     => $bill_to_address,
           'payment_status'      => $payment_status,

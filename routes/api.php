@@ -257,6 +257,7 @@ Route::middleware(['auth:api'])->group(function () {
 //         'zip_code'               => $data->profile->zip_code,
 //         'date_created'           => CarbonCarbon::parse($data->created_at)->isoFormat('MMMM DD YYYY'),
 //         'invoice_title'          => $data1->invoice_title,
+//         'invoice_email'          => $data1->invoice_email,
 //         'due_date'               => CarbonCarbon::parse($data->due_date)->isoFormat('MMMM DD YYYY'),
 //         'bill_to_address'        => $data1->bill_to_address,
 //         'payment_status'         => $data->invoice_status,
@@ -295,6 +296,7 @@ Route::middleware(['auth:api'])->group(function () {
 //   $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
 //   $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
 //   $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+//   $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
 //   $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
 //   $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
 //   $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -347,6 +349,7 @@ Route::middleware(['auth:api'])->group(function () {
 //         'zip_code'            => $zip_code,
 //         'date_created'        => $date_created,
 //         'invoice_title'       => $invoice_title,
+//         'invoice_email'       => $invoice_email,
 //         'due_date'            => $due_date,
 //         'bill_to_address'     => $bill_to_address,
 //         'payment_status'      => $payment_status,
@@ -375,7 +378,6 @@ Route::middleware(['auth:api'])->group(function () {
 //   return view($template, ['content' => $data_email['body_data']['content']]);
 // }
 
-
 // // TESTING EMAIL PDF 
 // Route::get('testEmailPDF', function () {
 //   $data = Invoice::with(['profile.user', 'deductions.profile_deduction_types.deduction_type', 'invoice_items'])
@@ -399,6 +401,7 @@ Route::middleware(['auth:api'])->group(function () {
 //         'zip_code'               => $data->profile->zip_code,
 //         'date_created'           => CarbonCarbon::parse($data->created_at)->isoFormat('MMMM DD YYYY'),
 //         'invoice_title'          => $data1->invoice_title,
+//         'invoice_email'          => $data1->invoice_email,
 //         'due_date'               => CarbonCarbon::parse($data->due_date)->isoFormat('MMMM DD YYYY'),
 //         'bill_to_address'        => $data1->bill_to_address,
 //         'payment_status'         => $data->invoice_status,
@@ -424,6 +427,7 @@ Route::middleware(['auth:api'])->group(function () {
 //     echo setup_email_template($data_setup_email_template);
 //   }
 // });
+
 // function setup_email_template($data)
 // {
 //   $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
@@ -437,6 +441,7 @@ Route::middleware(['auth:api'])->group(function () {
 //   $zip_code = !empty($data['zip_code']) ? $data['zip_code'] : "";
 //   $date_created = !empty($data['date_created']) ? $data['date_created'] : "";
 //   $invoice_title = !empty($data['invoice_title']) ? $data['invoice_title'] : "";
+//   $invoice_email = !empty($data['invoice_email']) ? $data['invoice_email'] : "";
 //   $due_date = !empty($data['due_date']) ? $data['due_date'] : "";
 //   $bill_to_address = !empty($data['bill_to_address']) ? $data['bill_to_address'] : "";
 //   $payment_status = !empty($data['payment_status']) ? $data['payment_status'] : "";
@@ -489,6 +494,7 @@ Route::middleware(['auth:api'])->group(function () {
 //         'zip_code'            => $zip_code,
 //         'date_created'        => $date_created,
 //         'invoice_title'       => $invoice_title,
+//         'invoice_email'       => $invoice_email,
 //         'due_date'            => $due_date,
 //         'bill_to_address'     => $bill_to_address,
 //         'payment_status'      => $payment_status,
