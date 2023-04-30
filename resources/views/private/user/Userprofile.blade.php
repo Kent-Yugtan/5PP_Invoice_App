@@ -19,7 +19,7 @@
                                 <input type="text" id="user_id" value=" {{ session('data')->id }}" hidden>
                                 <input type="text" id="profile_id_show" hidden>
 
-                                <div class="col-md-6 col-lg-6">
+                                <div class="col-md-6 col-lg-6 d-flex justify-content-center align-content-center">
                                     <div class="profile-pic-div_adminProfile-wrapper">
                                         <div class="profile-pic-div_userMyProfile">
                                             <img src="/images/default.png" id="photo">
@@ -454,18 +454,17 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-8 d-flex align-items-center">
+                                        <div class="col-sm-12 d-flex align-items-center justify-content-between">
                                             <label class="d-flex align-items-center" for="deductionButton"
                                                 style="color: #A4A6B3;">Deduction
                                                 Types</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <button id="submit-customize-create-deduction" class="btn form-check-inline"
-                                                style="color:white; background-color: #CF8029;width:100%"
+                                            {{-- </div>
+                                      <div class="col-sm-1"> --}}
+                                            {{-- style="color:white; background-color: #CF8029;" --}}
+                                            <button id="submit-customize-create-deduction" class="btn bg-transparent "
                                                 data-bs-toggle="modal" data-bs-target="#modal-customize-create-deduction">
-                                                <i class="fa fa-plus pe-1"></i>
-                                                Custom Deduction</button>
+                                                <i class="fa fa-plus-circle" style="font-size:25px;color:#CF8029"></i>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -3364,33 +3363,23 @@
             $("#modal-create-deduction").on('hide.bs.modal', function() {
                 $('#deductiontype_store').trigger('reset');
                 $('#deductiontype_store').removeClass('was-validated');
+                $('#Deduction_deduction_name').removeClass('is-invalid');
                 $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback')
                     .html(
                         "").show();
-                $('#Deduction_deduction_name').removeClass('is-invalid');
+                // $('#Deduction_deduction_amount').removeClass('is-invalid');
+                // $('select').removeClass('is-invalid');
             });
 
             $("#modal-customize-create-deduction").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $("div.spanner").addClass("show");
-
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-
-                    $("#col_discount_amount").addClass('d-none');
-                    $("#col_discount_total").addClass('d-none');
-                    $('#deductionButton').empty();
-                    $('#deductionButton').html(
-                        show_profileDeductionType_Button());
-                    $('#custom_deductiontype_store').trigger('reset');
-                    $('#custom_deductiontype_store').removeClass('was-validated');
-                    $('input').removeClass('is-invalid');
-                    $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback')
-                        .html(
-                            "").show();
-                }, 1500)
+                $('#custom_deductiontype_store').removeClass('was-validated');
+                $('#custom_deductiontype_store').trigger('reset');
+                $('#createDeduction_deduction_name').removeClass('is-invalid');
+                // $('#createDeduction_deduction_amount').removeClass('is-invalid');
+                // $('input').removeClass('is-invalid');
+                $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback')
+                    .html(
+                        "").show();
             });
 
             $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
@@ -3749,9 +3738,9 @@
             })
 
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var deductiontype_store = $('#custom_deductiontype_store')
+            var custom_deductiontype_store = $('#custom_deductiontype_store')
             // Loop over them and prevent submission
-            Array.prototype.slice.call(deductiontype_store)
+            Array.prototype.slice.call(custom_deductiontype_store)
                 .forEach(function(form) {
                     form.addEventListener('submit', function(event) {
                         if (!form.checkValidity()) {
@@ -3806,6 +3795,7 @@
                                 toast1.toast('show');
                                 $('#deductionDropSearch').empty();
                                 show_profileDeductionType_select();
+                                show_profileDeductionType_Button();
                                 $('#createDeduction_button').prop("disabled", false);
                             }, 1500)
                         }
@@ -3813,9 +3803,29 @@
                         setTimeout(function() {
                             $('#createDeduction_button').prop("disabled", false);
                         }, 500);
-                        let errors = error.response.data.errors;
-                        console.log("ERRORS", errors);
-                        console.log("ERROR", error);
+
+                        if (error.response.data.errors.deduction_type_name) {
+                            if (error.response.data.errors.deduction_type_name.length > 0) {
+                                $error = error.response.data.errors.deduction_type_name[0];
+                                if ($("#createDeduction_deduction_name").val() == "") {
+                                    $("#invalid-feedback-storeDeduction-name").addClass(
+                                        'invalid-feedback').html(
+                                        "This field is required.").show();
+                                    $('#mobileValidateStoreDeductionname').removeClass(
+                                        'form-group-adjust');
+                                } else {
+
+                                    if ($error == "The deduction type name has already been taken.") {
+                                        $("#invalid-feedback-storeDeduction-name").addClass(
+                                            'invalid-feedback').html(
+                                            "The deduction name has already been taken.").show();
+                                        $('#mobileValidateStoreDeductionname').addClass(
+                                            'form-group-adjust');
+                                    }
+                                }
+                                $("#createDeduction_deduction_name").addClass('is-invalid');
+                            }
+                        }
                     });
             })
 

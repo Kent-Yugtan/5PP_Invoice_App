@@ -18,7 +18,7 @@
                                 <input type="text" id="user_id" value="{{ $findid->id }}" hidden>
                                 <input type="text" id="profile_id_show" hidden>
 
-                                <div class="col-md-6 col-lg-6">
+                                <div class="col-md-6 col-lg-6 d-flex justify-content-center align-content-center">
                                     <div class="profile-pic-div_adminProfile-wrapper bottom20">
                                         <div class="profile-pic-div_adminActiveProfile">
                                             <img src="/images/default.png" id="photo">
@@ -291,9 +291,11 @@
                                                 <label for="date_hired" style="color: #A4A6B3;">Date Hired</label>
                                                 <input type="text" id="date_hired" name="date_hired"
                                                     class="datepicker_input form-control" autofocus="false"
-                                                    placeholder="Date Hired" required autocomplete="off">
+                                                    placeholder="Date Hired" required autocomplete="off" disabled="true">
 
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                <div class="invalid-feedback">This
+                                                    field is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -453,19 +455,16 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-8 d-flex align-items-center">
+                                        <div class="col-sm-12 d-flex align-items-center justify-content-between">
                                             <label class="d-flex align-items-center" for="deductionButton"
                                                 style="color: #A4A6B3;">Deduction
                                                 Types</label>
-                                        </div>
 
-                                        <div class="col-sm-4">
-                                            <button id="submit-customize-create-deduction" class="btn form-check-inline"
-                                                style="color:white; background-color: #CF8029;width:100%"
+                                            <button id="submit-customize-create-deduction" class="btn bg-transparent "
                                                 data-bs-toggle="modal" data-bs-target="#modal-customize-create-deduction"
                                                 disabled>
-                                                <i class="fa fa-plus pe-1"></i>
-                                                Custom Deduction</button>
+                                                <i class="fa fa-plus-circle" style="font-size:25px;color:#CF8029"></i>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -524,7 +523,8 @@
                                                 style="display:flex;justify-content:center;">
                                                 <ul style="display:flex;justify-content:flex-start;margin-top:15px"
                                                     class="pagination pagination-sm flex-wrap"
-                                                    id="tbl_pagination_deduction"></ul>
+                                                    id="tbl_pagination_deduction">
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

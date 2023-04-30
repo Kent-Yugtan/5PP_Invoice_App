@@ -13151,8 +13151,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_adminProfile-wrapper {
-    width: 100%;
-    height: 100%;
+    max-width: 130px;
+    max-height: 130px;
     display: flex;
     align-items: center;
 }
@@ -13164,8 +13164,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
 }
 .profile-pic-div_adminProfile {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -13174,8 +13174,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_adminActiveProfile {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -13184,8 +13184,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_userMyProfile {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -13194,8 +13194,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .profile-pic-div_InactiveProfile {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
@@ -13208,41 +13208,41 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 }
 
 /* Media Query for Laptops and Desktops */
 @media (min-width: 1025px) and (max-width: 1280px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 }
 
@@ -13254,23 +13254,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 14px;
   }
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 }
 
@@ -13281,23 +13281,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 14px;
   }
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     /* .row_email_adminProfile {
@@ -13316,23 +13316,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 14px;
   }
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13348,26 +13348,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Media Query for Mobile Devices */
 @media (max-width: 576px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
         padding-top: 0px;
     }
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
@@ -13396,13 +13396,13 @@ body.hide-brand .navbar-brand  {
 
 @media (min-width: 500px) and (max-width: 575px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13410,16 +13410,16 @@ body.hide-brand .navbar-brand  {
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
@@ -13429,8 +13429,8 @@ body.hide-brand .navbar-brand  {
 
 @media (max-width: 500px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13438,16 +13438,16 @@ body.hide-brand .navbar-brand  {
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
@@ -13457,13 +13457,13 @@ body.hide-brand .navbar-brand  {
 
 @media (max-width: 480px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13471,16 +13471,16 @@ body.hide-brand .navbar-brand  {
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
@@ -13490,8 +13490,8 @@ body.hide-brand .navbar-brand  {
 
 @media (max-width: 425px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13499,21 +13499,21 @@ body.hide-brand .navbar-brand  {
     }
 
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
@@ -13526,8 +13526,8 @@ body.hide-brand .navbar-brand  {
     height: 108px !important;
   }
     .profile-pic-div_adminProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
@@ -13540,8 +13540,8 @@ body.hide-brand .navbar-brand  {
 
 @media (max-width: 320px) {
     .profile-pic-div_InactiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
 
     .row_email_adminProfile {
@@ -13549,16 +13549,16 @@ body.hide-brand .navbar-brand  {
     }
 
     .profile-pic-div_adminActiveProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .row_email_adminActiveProfile {
         padding-top: 0px;
     }
 
     .profile-pic-div_userMyProfile {
-        height: 150px;
-        width: 150px;
+        height: 130px;
+        width: 130px;
     }
     .pagination-alignment{
       display: flex !important;
