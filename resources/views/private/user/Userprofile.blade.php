@@ -19,7 +19,8 @@
                                 <input type="text" id="user_id" value=" {{ session('data')->id }}" hidden>
                                 <input type="text" id="profile_id_show" hidden>
 
-                                <div class="col-md-6 col-lg-6 d-flex justify-content-center align-content-center">
+                                <div class="col-md-6 col-lg-6"
+                                    style="display:flex;justify-content:center;align-items:center">
                                     <div class="profile-pic-div_adminProfile-wrapper">
                                         <div class="profile-pic-div_userMyProfile">
                                             <img src="/images/default.png" id="photo">
