@@ -47,7 +47,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 bottom10">
+                                        <div class="col-12 bottom20">
                                             <div class="form-group-profile">
                                                 <label for="bill_to_address" style="color: #A4A6B3;">Bill From
                                                     Address</label>
@@ -184,7 +184,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 bottom10 ">
+                                            <div class="col-12 bottom20 ">
                                                 <div class="form-group-profile">
                                                     <label for="edit_to_bill" style="color:#A4A6B3">Bill from
                                                         Address</label>
@@ -535,6 +535,8 @@
                 let edit_invoice_title = $('#edit_invoice_title').val();
                 let edit_invoice_email = $('#edit_invoice_email').val();
                 let edit_bill_to_address = $('#edit_to_bill').val();
+                edit_bill_to_address = edit_bill_to_address.replace(/\n/g, '<br>');
+
 
                 let formData = new FormData();
                 formData.append('id', invoice_config_id);
@@ -646,7 +648,19 @@
 
                             $('#edit_invoice_title').val(data.data.invoice_title);
                             $('#edit_invoice_email').val(data.data.invoice_email);
-                            $('#edit_to_bill').val(data.data.bill_to_address);
+
+                            // Get the text from the database
+                            var text = data.data.bill_to_address;
+
+                            // Replace <br> tags with newline characters
+                            text = text.replace(/<br>/g, "\n");
+
+                            // Set the value of the textarea element
+                            $("#edit_to_bill").val(text);
+
+                            // $('#edit_to_bill').html();
+
+                            console.log("EDIT");
 
                         } else {
                             console.log("ERROR");
