@@ -546,8 +546,15 @@
 
                                 $('#tbl_pagination').empty();
                                 res.data.links.map(item => {
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
                                     let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
+                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${label}</a></li>`
                                     $('#tbl_pagination').append(li);
                                     return '';
                                 })

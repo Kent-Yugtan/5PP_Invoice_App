@@ -152,7 +152,7 @@
                     </div>
                     <div class="row">
                         <div class="col bottom20">
-                            <span id="activeProfileId" hidden></span>
+                            <span id="activeProfileId"></span>
                             <span class="text-muted"> Do you really want to set this Profile to Activate?</span>
                         </div>
                     </div>
@@ -371,6 +371,7 @@
 
 
             function active_profile_count() {
+                $('#active_profile').text(0);
                 axios.get(apiUrl + '/api/active_profile_count', {
                     headers: {
                         Authorization: token
@@ -378,8 +379,7 @@
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        console.log("active_profile_count", data);
-                        $('#active_profile').html(data.data ? data.data : 0);
+                        $('#active_profile').text(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -387,6 +387,7 @@
             }
 
             function inactive_profile_count() {
+                $('#inactive_profile').text(0);
                 axios.get(apiUrl + '/api/inactive_profile_count', {
                     headers: {
                         Authorization: token,
@@ -394,8 +395,7 @@
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        console.log("inactive_profile_count", data);
-                        $('#inactive_profile').html(data.data ? data.data : 0);
+                        $('#inactive_profile').text(data.data ? data.data : 0);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -436,6 +436,7 @@
             $('#active_button').on('click', function(e) {
                 e.preventDefault();
                 let profile_id = $('#activeProfileId').html();
+
                 if (profile_id) {
                     let data = {
                         profile_id: profile_id
@@ -457,8 +458,11 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
+                                console.log('setTimeout function executed single');
                                 $("div.spanner").removeClass("show");
                                 $('#button_active').addClass('d-none');
+                                active_profile_count();
+                                inactive_profile_count();
                                 show_data();
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
@@ -510,9 +514,12 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
+                                console.log('setTimeout function executed multiple');
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
+                                active_profile_count();
+                                inactive_profile_count();
                                 show_data();
                                 $('#button_active').addClass('d-none');
                             }, 1500)
@@ -544,15 +551,8 @@
                         }
                     })
                 }
-            })
 
-            // $('#cancelactive').on('click', function(e) {
-            //     e.preventDefault();
-            //     $('#activeModal').modal('hide');
-            //     setTimeout(function() {
-            //         location.reload(true);
-            //     }, 500)
-            // })
+            })
 
             $('#tbl_showing_inactivePages').on('change', function() {
                 let pages = $(this).val();
@@ -699,8 +699,14 @@
                                 })
 
                                 res.data.links.map(item => {
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
                                     let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
+                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${label}</a></li>`
                                     $('#tbl_user_pagination').append(li)
                                     return ""
                                 })

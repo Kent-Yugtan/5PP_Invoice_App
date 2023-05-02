@@ -47,7 +47,8 @@
                         <img class="rounded-pill" role="button" style="border:1px solid #CF8029" aria-expanded="false"
                             src="/images/default.png">
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" style="margin-right:10px"
+                        aria-labelledby="navbarDropdown">
                         {{-- <li><a class="dropdown-item"></a></li> --}}
                         {{-- <div class="webLayout d-none">
                             <span class="fullname"></span>

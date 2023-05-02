@@ -969,7 +969,6 @@ class ProfileController extends Controller
           'message' => 'Your Profile has been updated successfully .',
         ], 200);
       } else {
-
         $multipleData = Profile::whereIn('id', $multipleId)
           ->update(['profile_status' => 'Inactive']);
         return response()->json([

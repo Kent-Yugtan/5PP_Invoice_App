@@ -155,10 +155,16 @@
                     $(api.column(7).footer()).html(PHP(netAmount).format());
 
                 },
-                responsive: true,
                 // dom: 'Bfrtip',
-                dom: 'lBfrtip',
                 // pagingType: 'full_numbers',
+                responsive: true,
+                dom: 'lBfrtip',
+                "language": {
+                    "paginate": {
+                        "previous": "&laquo;",
+                        "next": "&raquo;"
+                    }
+                },
                 buttons: [{
                         extend: 'csvHtml5',
                         filename: 'CSV-' + new Date().toLocaleDateString(),

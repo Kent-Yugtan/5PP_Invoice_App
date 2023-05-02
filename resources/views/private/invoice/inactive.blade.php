@@ -555,6 +555,9 @@
                         }
                     })
                 }
+                invoiceCount_active();
+                invoiceCount_inactive();
+                show_statusInactiveinvoice();
             })
 
             var currentPage = window.location.href;
@@ -716,21 +719,21 @@
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -952,21 +955,21 @@
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
