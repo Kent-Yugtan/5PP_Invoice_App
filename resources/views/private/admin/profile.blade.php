@@ -15,8 +15,8 @@
                             <div class="row pt-3">
                                 @csrf
 
-                                <div class="col-md-6 ">
-                                    <div class="profile-pic-div_adminProfile-wrapper bottom20">
+                                <div class="col-md-6" style="display:flex;justify-content:center;align-items:center">
+                                    <div class="profile-pic-div_adminProfile-wrapper">
                                         <div class="profile-pic-div_adminProfile">
                                             <img src="/images/default.png" id="photo">
                                             <!-- id="file" ORIGINAL ID -->

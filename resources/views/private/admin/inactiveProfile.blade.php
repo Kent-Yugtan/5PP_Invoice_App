@@ -18,8 +18,9 @@
                                 <input type="text" id="user_id" value="{{ $findid->id }}" hidden>
                                 <input type="text" id="profile_id_show" hidden>
 
-                                <div class="col-md-6 col-lg-6 d-flex justify-content-center align-content-center">
-                                    <div class="profile-pic-div_adminProfile-wrapper bottom20">
+                                <div class="col-md-6 col-lg-6"
+                                    style="display:flex;justify-content:center;align-items:center">
+                                    <div class="profile-pic-div_adminProfile-wrapper">
                                         <div class="profile-pic-div_adminActiveProfile">
                                             <img src="/images/default.png" id="photo">
                                             <!-- id="file" ORIGINAL ID -->
