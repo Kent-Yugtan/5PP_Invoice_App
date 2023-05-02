@@ -472,10 +472,7 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
-                                show_data();
-                                active_count_paid();
-                                active_count_pending();
-                                check_pendingInvoicesStatus();
+
                                 $('#invoice_inactive').addClass('d-none');
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
@@ -530,11 +527,7 @@
                                 $("div.spanner").removeClass("show");
                                 // location.href = apiUrl + "/admin/current"
                                 // window.location.reload();
-                                show_data();
-                                show_data();
-                                active_count_paid();
-                                active_count_pending();
-                                check_pendingInvoicesStatus();
+
                                 $('#invoice_inactive').addClass('d-none');
                             }, 1500)
                             toast1.toast('show');
@@ -565,15 +558,12 @@
                         }
                     })
                 }
+                show_data();
+                active_count_paid();
+                active_count_pending();
+                check_pendingInvoicesStatus();
             })
 
-            // $('#cancelInactive').on('click', function(e) {
-            //     e.preventDefault();
-            //     $('#inactiveModal').modal('hide');
-            //     setTimeout(function() {
-            //         location.reload(true);
-            //     }, 500)
-            // })
 
             var currentPage = window.location.href;
             $('#collapseLayouts2 a').each(function() {
@@ -612,6 +602,7 @@
                     let data = response.data
                     if (data.success) {
                         // console.log("SUCCESS", data.data.length ? data.data.length : 0);
+
                         $('#paid_invoices').html(data.data.length ? data.data.length : 0);
                     }
                 }).catch(function(error) {
@@ -727,28 +718,23 @@
                                     }
                                 }
 
-                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
-                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
-                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
-                                // data-bs-toggle="modal" data-bs-target="#invoice_status"
-
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -792,6 +778,7 @@
                                 return ''
                             })
                             $('#tbl_pagination_invoice').empty();
+
                             data.data.links.map(item => {
                                 let label = item.label;
                                 if (label === "&laquo; Previous") {
@@ -801,8 +788,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-                          <a class="page-link" data-url="${item.url}">${label}</a>
-                        </li>`;
+                                  <a class="page-link" data-url="${item.url}">${label}</a>
+                                </li>`;
 
                                 $('#tbl_pagination_invoice').append(li);
                                 return "";
@@ -998,21 +985,21 @@
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#invoice_status" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 

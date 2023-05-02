@@ -305,14 +305,13 @@
                             array_all.push(cellValue);
                         }
                     });
-                    console.log("CHECK", array_all);
-
+                    console.log("CHECK ALL", array_all);
                     $('#button_inactive').removeClass('d-none');
                 } else {
                     console.log("UNCHECK", array_all);
-
                     $('#button_inactive').addClass('d-none');
                 }
+
             });
 
             $(document).on('change', '.select-item', function() {
@@ -320,14 +319,15 @@
                 if ($(this).is(":checked")) {
                     // Checkbox is checked, add the value to the array
                     array_all.push(profile_id_item);
-                    console.log("ITEM", array_all);
+                    console.log("CHECK SINGLE", array_all);
+                    $('#inactiveProfileId').html(array_all);
                 } else {
                     // Checkbox is unchecked, remove the value from the array
                     let index = array_all.indexOf(profile_id_item);
                     if (index > -1) {
                         array_all.splice(index, 1);
                     }
-                    console.log("ITEM", array_all);
+
                 }
 
                 var numCheckboxes = $('.select-item').length;
@@ -354,127 +354,6 @@
 
             })
 
-            $('#inactive_button').on('click', function(e) {
-                e.preventDefault();
-                let profile_id = $('#inactiveProfileId').html();
-                if (profile_id) {
-                    let data = {
-                        profile_id: profile_id
-                    }
-                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
-                        headers: {
-                            Authorization: token
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#inactiveModal').modal('hide');
-                            $('html,body').animate({
-                                scrollTop: $('#sb-nav-fixed').offset().top
-                            }, 'slow');
-                            $("div.spanner").addClass("show");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(data.message);
-                            setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#button_inactive').addClass('d-none');
-                                show_data();
-                                // location.href = apiUrl + "/admin/current"
-                                // window.location.reload();
-                            }, 1500)
-                            toast1.toast('show');
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(errors)[
-                                        0]
-                                    .join(
-                                        "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
-                    })
-                } else {
-                    let data = {
-                        multipleId: array_all
-                    }
-                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
-                        headers: {
-                            Authorization: token
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#inactiveModal').modal('hide');
-                            $('html,body').animate({
-                                scrollTop: $('#sb-nav-fixed').offset().top
-                            }, 'slow');
-                            $("div.spanner").addClass("show");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(data.message);
-                            setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                // location.href = apiUrl + "/admin/current"
-                                // window.location.reload();
-                                $('#button_inactive').addClass('d-none');
-                                show_data();
-                            }, 1500)
-                            toast1.toast('show');
-                            console.log("SUCCESS", data);
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(errors)[
-                                        0]
-                                    .join(
-                                        "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
-                    })
-                }
-            })
-
-            // $('#cancelInactive').on('click', function(e) {
-            //     e.preventDefault();
-            //     $('#inactiveModal').modal('hide');
-            //     setTimeout(function() {
-            //         location.reload(true);
-            //     }, 500)
-            // })
-
             var currentPage = window.location.href;
             $('#collapseLayouts a').each(function() {
                 // Compare the href attribute of the link to the current page URL
@@ -488,73 +367,6 @@
                     $('[data-bs-target="#collapseLayouts"]').addClass('active');
                 }
             });
-
-
-            function active_count_paid() {
-                axios.get(apiUrl + '/api/active_paid_invoice_count', {
-                    headers: {
-                        Authorization: token,
-                    },
-                }).then(function(response) {
-                    let data = response.data
-                    if (data.success) {
-                        // console.log("SUCCESS", data.data.length ? data.data.length : 0);
-                        $('#paid_invoices').html(data.data.length ? data.data.length : 0);
-                    }
-                }).catch(function(error) {
-                    console.log("ERROR", error);
-                })
-            }
-
-            function active_count_pending() {
-                axios.get(apiUrl + '/api/active_pending_invoice_count', {
-                    headers: {
-                        Authorization: token,
-                    },
-                }).then(function(response) {
-                    let data = response.data
-                    if (data.success) {
-                        $('#pending_invoices').html(data.data.length ? data.data.length : 0);
-                    }
-                }).catch(function(error) {
-                    console.log("ERROR", error);
-                })
-            }
-
-            $('#button-submit').on('click', function(e) {
-                e.preventDefault();
-
-                // BUTTON SPINNER
-                var originalText = $('#button-submit').html();
-                $('#button-submit').html(
-                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
-                );
-                setTimeout(function() {
-                    $('#button-submit').html(originalText);
-                }, 1500);
-
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    let search = $('#search').val();
-                    $('#tbl_user_pagination').empty();
-                    show_data();
-                    $("div.spanner").removeClass("show");
-                }, 1500)
-
-            })
-
-            $('#tbl_showing_currentPages').on('change', function() {
-                let pages = $(this).val();
-                pageSize = pages; // update page size variable
-                // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
-            })
-
 
             function show_data(filters) {
                 let page = $("#tbl_user_pagination .page-item.active .page-link").html();
@@ -570,13 +382,13 @@
                             Authorization: token,
                         },
                     })
-                    .then(function(res) {
-                        res = res.data;
-                        if (res.success) {
-                            console.log('res123', res);
+                    .then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            console.log('res123', data);
                             $('#tbl_user tbody').empty();
-                            if (res.data.data.length > 0) {
-                                res.data.data.map((item) => {
+                            if (data.data.data.length > 0) {
+                                data.data.data.map((item) => {
                                     let tr = '<tr style="vertical-align:middle;">';
                                     tr += '<td id="profile_id" class="profile_id" hidden>' + item
                                         .profile.id +
@@ -692,20 +504,27 @@
                                 })
 
                                 $('#tbl_user_pagination').empty();
-                                res.data.links.map(item => {
+                                data.data.links.map(item => {
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
                                     let li =
-                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${item.label}</a></li>`
+                                        `<li class="page-item cursor-pointer ${item.active ? 'active':''}"><a class="page-link" data-url="${item.url}">${label}</a></li>`
                                     $('#tbl_user_pagination').append(li)
                                     return ""
                                 })
 
-                                if (res.data.links.length) {
-                                    let lastPage = res.data.links[res.data.links.length - 1];
+                                if (data.data.links.length) {
+                                    let lastPage = data.data.links[data.data.links.length - 1];
                                     if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
                                         $('#tbl_user_pagination .page-item:last-child').addClass(
                                             'disabled');
                                     }
-                                    let PreviousPage = res.data.links[0];
+                                    let PreviousPage = data.data.links[0];
                                     if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
                                         null) {
                                         $('#tbl_user_pagination .page-item:first-child').addClass(
@@ -732,7 +551,7 @@
                                     });
                                 })
                                 let tbl_user_showing =
-                                    `Showing ${res.data.from} to ${res.data.to} of ${res.data.total} entries`;
+                                    `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
                                 $('#selectCurrent').removeClass('d-none');
@@ -756,6 +575,190 @@
                     });
             }
 
+            $('#inactive_button').on('click', function(e) {
+                e.preventDefault();
+                let profile_id = $('#inactiveProfileId').html();
+                if (profile_id.length == 1) {
+                    console.log("profile_id.length", profile_id.length);
+                    let data = {
+                        profile_id: profile_id
+                    }
+                    console.log("Single", data);
+                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                console.log('setTimeout function executed single');
+                                $("div.spanner").removeClass("show");
+                                $('#button_inactive').addClass('d-none');
+                                active_count_paid();
+                                active_count_pending();
+                                show_data();
+
+                            }, 1500)
+                            toast1.toast('show');
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                } else {
+                    let data = {
+                        multipleId: array_all
+                    }
+                    console.log("Multiple", data);
+                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            $('#inactiveModal').modal('hide');
+                            $('html,body').animate({
+                                scrollTop: $('#sb-nav-fixed').offset().top
+                            }, 'slow');
+                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+                            setTimeout(function() {
+                                console.log('setTimeout function executed multiple');
+                                $("div.spanner").removeClass("show");
+                                $('#button_inactive').addClass('d-none');
+                                active_count_paid();
+                                active_count_pending();
+                                show_data();
+
+                            }, 1500)
+                            toast1.toast('show');
+                        }
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                        if (error.response.data.errors) {
+                            let errors = error.response.data.errors;
+                            let fieldnames = Object.keys(errors);
+                            Object.values(errors).map((item, index) => {
+                                fieldname = fieldnames[0].split('_');
+                                fieldname.map((item2, index2) => {
+                                    fieldname['key'] = capitalize(item2);
+                                    return ""
+                                });
+                                fieldname = fieldname.join(" ");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                );
+                                $('.toast1 .toast-title').html("Error");
+                                $('.toast1 .toast-body').html(Object.values(errors)[
+                                        0]
+                                    .join(
+                                        "\n\r"));
+                            })
+                            toast1.toast('show');
+                        }
+                    })
+                }
+            })
+
+            function active_count_paid() {
+                axios.get(apiUrl + '/api/active_paid_invoice_count', {
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data
+                    if (data.success) {
+                        console.log("paid_invoices", data.data);
+                        $('#paid_invoices').html(data.data.length ? data.data.length : 0);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
+                })
+            }
+
+            function active_count_pending() {
+                axios.get(apiUrl + '/api/active_pending_invoice_count', {
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data
+                    if (data.success) {
+                        console.log("pending_invoices", data.data);
+                        $('#pending_invoices').html(data.data.length ? data.data.length : 0);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
+                })
+            }
+
+            $('#button-submit').on('click', function(e) {
+                e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 1500);
+
+                $('html,body').animate({
+                    scrollTop: $('#sb-nav-fixed').offset().top
+                }, 'slow');
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    let search = $('#search').val();
+                    $('#tbl_user_pagination').empty();
+                    show_data();
+                    $("div.spanner").removeClass("show");
+                }, 1500)
+
+            })
+
+            $('#tbl_showing_currentPages').on('change', function() {
+                let pages = $(this).val();
+                pageSize = pages; // update page size variable
+                // Call the pendingInvoices() function with updated filters
+                show_data({
+                    page_size: pages
+                });
+            })
         });
     </script>
 @endsection
