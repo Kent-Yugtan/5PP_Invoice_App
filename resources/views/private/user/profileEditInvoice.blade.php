@@ -640,8 +640,7 @@
                                                                     Date</label>
                                                                 <input type="text" id="due_date" name="due_date"
                                                                     class="datepicker_input form-control"
-                                                                    autofocus="false" placeholder="Due Date" required
-                                                                    autocomplete="off">
+                                                                    placeholder="Due Date" required autocomplete="off">
                                                                 <div class="invalid-feedback">This field is required.
                                                                 </div>
                                                             </div>
