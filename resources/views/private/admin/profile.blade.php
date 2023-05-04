@@ -211,10 +211,10 @@
                                             <div id="mobileValidateAcctno" class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input name="acct_no" id="acct_no" type="text" class="form-control"
-                                                    placeholder="Account Number" onblur="validateAcctno(this)" required
-                                                    maxlength="15">
-                                                <div id="error_acct_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    placeholder="Account Number" maxlength="15">
+                                                {{-- onblur="validateAcctno(this)" --}}
+                                                {{-- <div id="error_acct_no" class="invalid-feedback">This field is required. </div> --}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -224,10 +224,10 @@
                                             <div id="mobileValidateAcctname" class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input name="acct_name" id="acct_name" type="text"
-                                                    class="form-control" onblur="validateAcctname(this)"
-                                                    placeholder="Account Name" required>
-                                                <div id="error_acct_name" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    class="form-control" placeholder="Account Name">
+                                                {{-- onblur="validateAcctname(this)" --}}
+                                                {{-- <div id="error_acct_name" class="invalid-feedback">This field is required. </div> --}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
                                         <div class="col-12 ">
                                             <div class="form-group-profile">
                                                 <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
-                                                <select class="form-select" id="bank_name" name="bank_name" required>
+                                                <select class="form-select" id="bank_name" name="bank_name">
                                                     <option selected disabled value="">Please Select Bank Name
                                                     </option>
                                                     <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
@@ -292,7 +292,8 @@
                                                     <option value="Maybank Philippines Inc.">Maybank Philippines Inc.
                                                     </option>
                                                 </select>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                {{-- required --}}
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -303,8 +304,8 @@
                                             <div class="form-group-profile">
                                                 <label for="city" style="color: #A4A6B3;">Bank Address</label>
                                                 <input id="bank_address" name="bank_address" type="text"
-                                                    class="form-control" placeholder="Bank Address" required>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                    class="form-control" placeholder="Bank Address">
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -314,10 +315,10 @@
                                             <div id="mobileValidateGCASHno" class="form-group-profile">
                                                 <label for="city" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input name="gcash_no" type="text" class="form-control"
-                                                    id="gcash_no" onblur="validateGcashno(this)"
-                                                    placeholder="Gcash Number" required maxlength="11">
-                                                <div id="error_gcash_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    id="gcash_no" placeholder="Gcash Number" maxlength="11">
+                                                {{-- onblur="validateGcashno(this)" --}}
+                                                {{-- <div id="error_gcash_no" class="invalid-feedback">This field is required.</div> --}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -518,8 +519,8 @@
         }
 
         function vallidateConfirmPassword(a, b) {
-            console.log("A", a.val());
-            console.log("B", b.val());
+            // console.log("A", a.val());
+            // console.log("B", b.val());
             let data = {
                 password: $(a).val(),
                 password_confirmation: $(b).val(),
@@ -1007,7 +1008,6 @@
                 } else {
                     $('#profile_status').val('Inactive');
                 }
-                console.log($('#profile_status').val());
                 let profile_status = $("#profile_status").val();
                 let acct_no = $("#acct_no").val();
                 let acct_name = $("#acct_name").val();
@@ -1066,11 +1066,11 @@
                     city: city,
                     zip_code: zip_code,
                     profile_status: profile_status,
-                    acct_no: acct_no,
-                    acct_name: acct_name,
-                    bank_name: bank_name,
-                    bank_address: bank_address,
-                    gcash_no: gcash_no,
+                    acct_no: acct_no ? acct_no : "",
+                    acct_name: acct_name ? acct_name : "",
+                    bank_name: bank_name ? bank_name : "",
+                    bank_address: bank_address ? bank_address : "",
+                    gcash_no: gcash_no ? gcash_no : "",
                     date_hired: date_hired,
                     deduction_type_id: JSON.stringify(deduction_type_id),
                     file_original_name: file_original_name ? file_original_name : "",
