@@ -62,7 +62,7 @@
     <div style="position: fixed; top: 60px; right: 20px;z-index:9999">
         <div class="toast toast1 toast-bootstrap " role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div><i class="fa fa-newspaper-o"> </i></div>
+                <div id='notifyIcon'></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -89,8 +89,6 @@
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
                 show_data_load()
-                from();
-                to();
             }, 1500);
 
 
@@ -361,41 +359,25 @@
             dataTable.buttons().container()
                 .appendTo($('.col-sm-12:eq(0)', dataTable.table().container()));
 
-            function from() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#from");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        dateInput.val(dateText);
-                    }
-                });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
 
-            function to() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#to");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        dateInput.val(dateText);
-                    }
+            $('#from').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
                 });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
+            $('#to').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
+
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -411,14 +393,17 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
+
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
                 $('div.spanner').addClass('show');
-
                 setTimeout(function() {
+                    $('#button-submit').html(originalText);
                     $("div.spanner").removeClass("show");
-
-
                     show_data_click();
                 }, 1500);
 
@@ -429,8 +414,8 @@
                 let to = $('#to').val();
 
                 let filter = {
-                    fromDate: from,
-                    toDate: to,
+                    fromDate: from ? from : '',
+                    toDate: to ? to : '',
                     ...filters
                 }
                 axios.get(`${apiUrl}/api/reports/invoiceReport_click?${new URLSearchParams(filter)}`, {
@@ -521,13 +506,18 @@
                                 return ""
                             });
                             fieldname = fieldname.join(" ");
-                            $('.toast1 .toast-title').html("Invoice Report");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
+                            $('.toast1 .toast-title').html('Error');
                             $('.toast1 .toast-body').html(Object.values(errors)[
                                     0]
                                 .join(
                                     "\n\r"));
                         })
                         toast1.toast('show');
+                        setTimeout(function() {
+                            location.reload(true);
+                        }, 1500);
                     }
                 });
             }

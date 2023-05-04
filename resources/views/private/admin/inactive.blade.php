@@ -47,8 +47,8 @@
             </div>
 
             <div class="col-sm-3 bottom10" style="padding-right:8px;padding-left:8px;">
-                <button class="btn w-100" style="color:white; background-color: #CF8029" id="button-submit"><i
-                        class="fa-solid fa-magnifying-glass"></i> Search</button>
+                <button type="button" class="btn w-100" style="color:white; background-color: #CF8029"
+                    id="button-submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
             </div>
         </div>
 
@@ -88,8 +88,7 @@
                                                 style="width:' +
                               width +
                               'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                <i class="fas fa-spinner"></i>
-                                                <div></div>
+                                                <div id="noData"></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -255,7 +254,18 @@
             }
         });
 
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
 
             $("div.spanner").addClass("show");
@@ -272,6 +282,11 @@
                 animation: true,
 
             });
+
+            $("#cancelactive").on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
 
             $('.close').on('click', function(e) {
                 e.preventDefault();
@@ -410,18 +425,27 @@
                 $('#button-submit').html(
                     `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
                 );
+
+                var originalTextTable = $('#tbl_user tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#tbl_user tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 setTimeout(function() {
                     $('#button-submit').html(originalText);
                 }, 1500);
 
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     let search = $('#search').val();
-                    $('#tbl_user_pagination').empty();
-                    show_data();
+                    show_data({
+                        search: search ? search : ''
+                    });
                     $("div.spanner").removeClass("show");
                 }, 1500)
             })
@@ -449,14 +473,20 @@
                         let data = response.data;
                         if (data.success) {
                             $('#activeModal').modal('hide');
-                            $('html,body').animate({
-                                scrollTop: $('#sb-nav-fixed').offset().top
-                            }, 'slow');
+
                             $("div.spanner").addClass("show");
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
+
+                            var originalTextTable = $('#tbl_user tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#tbl_user tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             setTimeout(function() {
                                 console.log('setTimeout function executed single');
                                 $("div.spanner").removeClass("show");
@@ -513,6 +543,14 @@
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
+
+                            var originalTextTable = $('#tbl_user tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#tbl_user tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             setTimeout(function() {
                                 console.log('setTimeout function executed multiple');
                                 $("div.spanner").removeClass("show");
@@ -558,16 +596,24 @@
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+                var originalTextTable = $('#tbl_user tbody').html();
+                $('#tbl_user tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
             function show_data(filters) {
+                let page = $("#tbl_user_pagination .page-item.active .page-link").html();
                 let filter = {
                     page_size: pageSize,
-                    page: 1,
-                    search: $('#search').val(),
+                    page: page ? page : 1,
+                    search: $('#search').val() ? $('#search').val() : '',
                     ...filters,
                 }
                 $('#tbl_user tbody').empty();
@@ -697,7 +743,7 @@
                                     }
                                     return ''
                                 })
-
+                                $('#tbl_user_pagination').empty();
                                 res.data.links.map(item => {
                                     let label = item.label;
                                     if (label === "&laquo; Previous") {

@@ -50,8 +50,7 @@
                                                         style="width:' +
                         width +
                         'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                        <i class="fas fa-spinner"></i>
-                                                        <div></div>
+                                                        <div id="noData"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -468,9 +467,9 @@
 
 
             $(document).on('click', '#button_search', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -601,9 +600,9 @@
 
             $('#close').on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('#addModal').modal('hide');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
@@ -616,9 +615,9 @@
             })
 
             $("#addModal").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $('#deductiontype_store').trigger('reset');

@@ -85,8 +85,7 @@
                                                 style="width:' +
                                     width +
                                     'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                <i class="fas fa-spinner"></i>
-                                                <div></div>
+                                                <div id="noData"></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -250,7 +249,18 @@
             }
         });
 
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
             $("div.spanner").addClass("show");
             setTimeout(function() {
@@ -367,6 +377,11 @@
                     $('[data-bs-target="#collapseLayouts"]').addClass('active');
                 }
             });
+
+            $("#cancelInactive").on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
 
             function show_data(filters) {
                 let page = $("#tbl_user_pagination .page-item.active .page-link").html();
@@ -578,8 +593,7 @@
             $('#inactive_button').on('click', function(e) {
                 e.preventDefault();
                 let profile_id = $('#inactiveProfileId').html();
-                if (profile_id.length == 1) {
-                    console.log("profile_id.length", profile_id.length);
+                if (profile_id) {
                     let data = {
                         profile_id: profile_id
                     }
@@ -592,22 +606,27 @@
                         let data = response.data;
                         if (data.success) {
                             $('#inactiveModal').modal('hide');
-                            $('html,body').animate({
-                                scrollTop: $('#sb-nav-fixed').offset().top
-                            }, 'slow');
+
                             $("div.spanner").addClass("show");
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
+
+                            var originalTextTable = $('#tbl_user tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#tbl_user tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             setTimeout(function() {
                                 console.log('setTimeout function executed single');
                                 $("div.spanner").removeClass("show");
-                                $('#button_inactive').addClass('d-none');
                                 active_count_paid();
                                 active_count_pending();
                                 show_data();
-
+                                $('#button_inactive').addClass('d-none');
                             }, 1500)
                             toast1.toast('show');
                         }
@@ -656,13 +675,21 @@
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(data.message);
+
+                            var originalTextTable = $('#tbl_user tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#tbl_user tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             setTimeout(function() {
                                 console.log('setTimeout function executed multiple');
                                 $("div.spanner").removeClass("show");
-                                $('#button_inactive').addClass('d-none');
                                 active_count_paid();
                                 active_count_pending();
                                 show_data();
+                                $('#button_inactive').addClass('d-none');
 
                             }, 1500)
                             toast1.toast('show');
@@ -734,13 +761,21 @@
                 $('#button-submit').html(
                     `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
                 );
+
+                var originalTextTable = $('#tbl_user tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#tbl_user tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 setTimeout(function() {
                     $('#button-submit').html(originalText);
                 }, 1500);
 
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     let search = $('#search').val();
@@ -755,9 +790,18 @@
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+
+                var originalTextTable = $('#tbl_user tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#tbl_user tbody').html(
+                    `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500);
             })
         });
     </script>

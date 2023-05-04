@@ -106,14 +106,14 @@
                                                 style="width:' +
                             width +
                             'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                <i class="fas fa-spinner"></i>
-                                                <div></div>
+                                                <div id="noData"></div>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="d-none" id="selectCurrent">
                             <div class="input-group" style="width:145px !important">
                                 <select id="tbl_showing_currentPages" class="form-select">
@@ -229,7 +229,7 @@
                                                 <div class="col bottom20">
                                                     <button type="button" class="btn w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; "
-                                                        data-bs-dismiss="modal">Close</button>
+                                                        data-bs-dismiss="modal" id="closePayment">Close</button>
                                                 </div>
                                                 <div class="col bottom20">
                                                     <button type="submit" id="update" class="btn w-100"
@@ -350,7 +350,19 @@
             }
         });
 
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
@@ -447,8 +459,29 @@
 
             })
 
+            $("#cancelInactive").on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
+
+            $("#closePayment").on('click', function(e) {
+                e.preventDefault();
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
+                // setTimeout(function() {
+                //     show_data();
+                // }, 500);
+            })
+
             $('#inactive_button').on('click', function(e) {
                 e.preventDefault();
+
+
                 let invoice_id = $('#inactiveInvoice').html();
                 if (invoice_id) {
                     let data = {
@@ -462,9 +495,6 @@
                         let data = response.data;
                         if (data.success) {
                             $('#inactiveModal').modal('hide');
-                            $('html,body').animate({
-                                scrollTop: $('#sb-nav-fixed').offset().top
-                            }, 'slow');
                             $("div.spanner").addClass("show");
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
@@ -474,8 +504,7 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#invoice_inactive').addClass('d-none');
-                                // location.href = apiUrl + "/admin/current"
-                                // window.location.reload();
+                                location.reload(true);
                             }, 1500)
                             toast1.toast('show');
                         }
@@ -601,8 +630,6 @@
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
-                        // console.log("SUCCESS", data.data.length ? data.data.length : 0);
-
                         $('#paid_invoices').html(data.data.length ? data.data.length : 0);
                     }
                 }).catch(function(error) {
@@ -631,7 +658,6 @@
                     page_size: 10,
                     page: page ? page : 1,
                     search: $('#search').val() ? $('#search').val() : '',
-                    filter_all_invoices: $('#filter_invoices').val(),
                     ...filters
                 }
                 // console.log("page", page);
@@ -926,10 +952,17 @@
             $('#tbl_showing_currentPages').on('change', function() {
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
-                // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
             function show_data(filters) {
@@ -1119,18 +1152,21 @@
 
             $('#filter_invoices').on('change', function() {
                 let filter = $('#filter_invoices').val();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
                     $('#tbl_pagination_invoice').empty();
                     show_data();
-                    $('html,body').animate({
-                        scrollTop: $('#sb-nav-fixed').offset().top
-                    }, 'slow');
-                }, 1500)
+
+                }, 500)
             })
 
             $("#invoice_status").on('hide.bs.modal', function() {
@@ -1179,12 +1215,6 @@
             $('#update_invoice_status').submit(function(e) {
                 e.preventDefault();
 
-                $('div.spanner').addClass('show');
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'smooth');
-
-                var start = performance.now(); // Get the current timestamp
                 // Do your processing here
 
                 let invoice_id = $('#updateStatus_invoiceNo').val();
@@ -1203,6 +1233,13 @@
                     console.log("DATA", data);
                     if (data.success) {
                         $('#invoice_status').modal('hide');
+                        var originalTextTable = $('#dataTable_invoice tbody').html();
+                        // Add spinner to the remaining row and set colspan to 5
+                        $('#dataTable_invoice tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
@@ -1253,13 +1290,21 @@
                 $('#button-submit').html(
                     `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
                 );
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 setTimeout(function() {
                     $('#button-submit').html(originalText);
                 }, 1500);
 
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");

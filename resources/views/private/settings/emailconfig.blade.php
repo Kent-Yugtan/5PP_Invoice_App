@@ -73,7 +73,7 @@
                                                 class="btn w-100">Cancel</button>
                                         </div>
                                         <div class="col-6 bottom20">
-                                            <button type="submit"
+                                            <button type="submit" id="save"
                                                 style="width:100%; color:white; background-color: #CF8029;"
                                                 class="btn">Save</button>
                                         </div>
@@ -127,10 +127,9 @@
                                                 <td class="text-center" colspan="5">
                                                     <div class="noData"
                                                         style="width:' +
-                        width +
-                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                        <i class="fas fa-spinner"></i>
-                                                        <div></div>
+                                              width +
+                                                      'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                        <div id="noData"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -320,7 +319,7 @@
                     <div class="row pt-3 pb-3 px-3">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3;"
-                                data-bs-dismiss="modal">Cancel</button>
+                                data-bs-dismiss="modal" id="cancelDelete">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="email_configDelete" class="btn btn-danger w-100">Confirm</button>
@@ -519,8 +518,6 @@
             })
         }
 
-
-
         window.addEventListener("load", () => {
             width = window.innerWidth;
 
@@ -574,14 +571,25 @@
                 $('.noData').css('width', width);
             }
         });
+
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
                 show_data();
             }, 1500)
-
 
 
 
@@ -623,20 +631,34 @@
                 location.reload(true);
             })
 
+            $('#cancelDelete').on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
+
             $('#cancel').on('click', function(e) {
                 e.preventDefault();
                 location.reload(true);
             })
 
-
             $('#button_search').on('click', function() {
+                var originalTextButton = $('#button_search').html();
+                $('#button_search').html(
+                    `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
                 $("div.spanner").addClass('show');
 
+                var originalTextTable = $('#table_emailconfigs tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#table_emailconfigs tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 setTimeout(function() {
+                    $('#button_search').html(originalTextButton);
                     $("div.spanner").removeClass("show");
-                    $('html,body').animate({
-                        scrollTop: $('#sb-nav-fixed').offset().top
-                    }, 'slow');
+
                     let search = $('#search').val();
                     show_data({
                         search
@@ -648,9 +670,18 @@
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+
+                var originalTextTable = $('#table_emailconfigs tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#table_emailconfigs tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
 
@@ -709,8 +740,8 @@
                                     }
 
                                     let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                              <a class="page-link" data-url="${item.url}">${label}</a>
+                            </li>`;
 
                                     $('#tbl_pagination').append(li);
                                     return "";
@@ -759,6 +790,7 @@
                                 $('#tbl_showing').html(table_emailconfigs);
                                 $('#selectEmailConfigs').addClass('d-none');
                             }
+
                         }
                     })
                     .catch(function(error) {
@@ -826,9 +858,17 @@
                         console.log("SUCCESS", data.data);
                         if (data.success) {
                             $('#deleteModal').modal('hide');
+                            var originalText = $('#table_emailconfigs tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#table_emailconfigs tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" style="color:#CF8029" colspan="5"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                $('#table_emailconfigs tbody').html(originalText);
 
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-check" style="color:green"></i>'
@@ -863,6 +903,16 @@
             $('#emailconfigs_store').submit(function(e) {
                 e.preventDefault();
 
+                // BUTTON SPINNER
+                var originalText = $('#save').html();
+                $('#save').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#save').prop("disabled", true);
+                setTimeout(function() {
+                    $('#save').html(originalText);
+                }, 500);
+
                 let fullname = $('#fullname').val();
                 let email_address = $('#email_address').val();
                 let title = $('#title').val();
@@ -882,10 +932,17 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
-                            // console.log('success', data);
+                            var originalText = $('#table_emailconfigs tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#table_emailconfigs tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                $('#table_emailconfigs tbody').html(originalText);
 
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-check" style="color:green"></i>'
@@ -898,14 +955,18 @@
                                 $('#mobileValidateEmail').removeClass('form-group-adjust');
                                 toast1.toast('show');
                                 show_data();
+                                $('#save').prop("disabled", false);
                             }, 1500)
                         }
 
                     }).catch(function(error) {
+                        setTimeout(function() {
+                            $('#save').prop("disabled", false);
+                        }, 500);
                         let errors = error.response.data.errors;
                         console.log("ERROR", errors)
                         if (error.response.data.errors) {
-                            // ERROR FULLNAME
+
                             if (error.response.data.errors.fullname) {
                                 if (error.response.data.errors.fullname.length > 0) {
                                     $error_fullname = error.response.data.errors.fullname[
@@ -1015,9 +1076,18 @@
                         let data = response.data;
                         if (data.success) {
                             $('#editModal').modal('hide');
+
+                            var originalText = $('#table_emailconfigs tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#table_emailconfigs tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
+
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                $('#table_emailconfigs tbody').html(originalText);
 
                                 $('#notifyIcon').html(
                                     '<i class="fa-solid fa-check" style="color:green"></i>'
@@ -1028,7 +1098,8 @@
                                 $('#emailconfigs_update').removeClass('was-validated');
                                 $('#editMobileValidateFullname').removeClass(
                                     'form-group-adjust');
-                                $('#editMobileValidateEmail').removeClass('form-group-adjust');
+                                $('#editMobileValidateEmail').removeClass(
+                                    'form-group-adjust');
                                 toast1.toast('show');
                                 show_data();
                             }, 1500)

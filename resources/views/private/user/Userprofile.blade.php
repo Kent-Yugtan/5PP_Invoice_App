@@ -393,8 +393,7 @@
                                                                     style="width:' +
                                               width +
                                               'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                                    <i class="fas fa-spinner"></i>
-                                                                    <div></div>
+                                                                    <div id="noData"></div>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -483,12 +482,12 @@
                                                 <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
                                                     id="dataTable_deduction">
                                                     <thead>
-                                                        <tr>
-                                                            <th class="fit">Invoice #</th>
-                                                            <th class="fit text-center">Payment Status</th>
-                                                            <th class="fit text-end">Deduction Name</th>
-                                                            <th class="fit text-end">Amount</th>
-                                                            <th class="fit text-end">Date Created</th>
+
+                                                        <th class="fit">Invoice #</th>
+                                                        <th class="fit text-center">Payment Status</th>
+                                                        <th class="fit text-end">Deduction Name</th>
+                                                        <th class="fit text-end">Amount</th>
+                                                        <th class="fit text-end">Date Created</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -498,8 +497,7 @@
                                                                     style="width:' +
                                               width +
                                               'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                                    <i class="fas fa-spinner"></i>
-                                                                    <div></div>
+                                                                    <div id="noData"></div>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -2488,9 +2486,9 @@
 
 
             $('#search_invoice').on('change', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -2502,9 +2500,9 @@
             })
 
             $('#search_deduction').on('change', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -2516,9 +2514,9 @@
             })
 
             $('#deductionDropSearch').on('change', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -2528,9 +2526,9 @@
             })
 
             $('#filter_all_invoices').on('change', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -3338,9 +3336,9 @@
 
             // CHECK IF THE USER HAVE THE PROFILE
             $("#exampleModal").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
 
                 setTimeout(function() {
@@ -3385,9 +3383,9 @@
             });
 
             $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
 
                 setTimeout(function() {

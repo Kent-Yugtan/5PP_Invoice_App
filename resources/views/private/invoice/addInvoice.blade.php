@@ -888,18 +888,7 @@
 
             $('#close_back').on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $('div.spanner').removeClass('show');
-                    $('#invoice_items').trigger('reset'); // reset the form
-                    $("#discount_amount").addClass('d-none');
-                    $('#show_deduction_items').empty();
-                    $('#dataTable_deduction tbody').empty();
-                    location.href = apiUrl + "/invoice/current"
-                }, 1500)
+                location.reload(true);
             });
 
             function capitalize(s) {
