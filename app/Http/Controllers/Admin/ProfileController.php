@@ -101,9 +101,9 @@ class ProfileController extends Controller
         'username' => 'required|unique:users',
         'password' => 'required|confirmed',
         'password_confirmation' => 'required',
-        'acct_no' => 'required|unique:profiles',
-        'acct_name' => 'required|unique:profiles',
-        'gcash_no' => 'required|unique:profiles|numeric',
+        // 'acct_no' => 'required|unique:profiles',
+        // 'acct_name' => 'required|unique:profiles',
+        // 'gcash_no' => 'required|unique:profiles|numeric',
       ]);
       // return "NO USER ID";
     } else {
@@ -129,24 +129,28 @@ class ProfileController extends Controller
               'username' => 'required|unique:users',
             ]);
           }
-          if ($findUser->profile->acct_no != $request->acct_no) {
-            $request->validate([
-              'acct_no' => 'required|unique:profiles',
-            ]);
-          }
-          if ($findUser->profile->acct_name != $request->acct_name) {
-            $request->validate([
-              'acct_name' => 'required|unique:profiles',
-            ]);
-          }
-          if ($findUser->profile->gcash_no != $request->gcash_no) {
-            $request->validate([
-              'gcash_no' => 'required|unique:profiles|numeric',
-            ]);
-          }
+
+          // if ($findUser->profile->acct_no != $request->acct_no) {
+          //   $request->validate([
+          //     'acct_no' => 'required|unique:profiles',
+          //   ]);
+          // }
+
+          // if ($findUser->profile->acct_name != $request->acct_name) {
+          //   $request->validate([
+          //     'acct_name' => 'required|unique:profiles',
+          //   ]);
+          // }
+
+          // if ($findUser->profile->gcash_no != $request->gcash_no) {
+          //   $request->validate([
+          //     'gcash_no' => 'required|unique:profiles|numeric',
+          //   ]);
+          // }
         }
       }
     }
+
     if ($error === false) {
       $incoming_data = $request->validate(
         [
@@ -157,9 +161,9 @@ class ProfileController extends Controller
           'province' => 'required',
           'city' => 'required',
           'zip_code' => 'required',
-          'bank_name' => 'required',
-          'bank_address' => 'required',
           'date_hired' => 'required',
+          // 'bank_name' => 'required',
+          // 'bank_address' => 'required',
         ]
       );
 
@@ -184,23 +188,36 @@ class ProfileController extends Controller
         'file_original_name' => $request->file_original_name,
         'file_name' => $request->file_name,
         'file_path' => $request->file_path,
+
+        'bank_name' => $request->bank_name,
+        'bank_address' => $request->bank_address,
+        'acct_no' => $request->acct_no,
+        'acct_name' => $request->acct_name,
+        'gcash_no' => $request->gcash_no,
         // 'file_size' => $request->userImageFileSize,
       ];
 
 
-      if (!$user_id) {
-        $incoming_data += $request->validate([
-          'acct_no' => 'required|unique:profiles',
-          'acct_name' => 'required|unique:profiles',
-          'gcash_no' => 'required|unique:profiles',
-        ]);
-      } else {
-        $incoming_data += [
-          'acct_no' => $request->acct_no,
-          'acct_name' => $request->acct_name,
-          'gcash_no' => $request->gcash_no,
-        ];
-      }
+      // if (!$user_id) {
+      //   $incoming_data += $request->validate([
+      //     // 'acct_no' => 'required|unique:profiles',
+      //     // 'acct_name' => 'required|unique:profiles',
+      //     // 'gcash_no' => 'required|unique:profiles',
+      //     'bank_name' => $request->bank_name,
+      //     'bank_address' => $request->bank_address,
+      //     'acct_no' => $request->acct_no,
+      //     'acct_name' => $request->acct_name,
+      //     'gcash_no' => $request->gcash_no,
+      //   ]);
+      // } else {
+      //   $incoming_data += [
+      //     'bank_name' => $request->bank_name,
+      //     'bank_address' => $request->bank_address,
+      //     'acct_no' => $request->acct_no,
+      //     'acct_name' => $request->acct_name,
+      //     'gcash_no' => $request->gcash_no,
+      //   ];
+      // }
 
       $userCreateData = [
         'first_name' => $request->first_name,
