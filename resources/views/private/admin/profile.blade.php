@@ -982,9 +982,9 @@
                 }, 500);
 
 
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 if ($('#password').val() == "" && $('#password_confirmation').val() == "") {
                     $("#toggle_password").css("margin-right", "20px");
                     $("#confirm_toggle_password").css("margin-right", "20px");

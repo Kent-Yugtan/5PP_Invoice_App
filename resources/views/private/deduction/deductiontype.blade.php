@@ -50,8 +50,7 @@
                                                         style="width:' +
                         width +
                         'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                        <i class="fas fa-spinner"></i>
-                                                        <div></div>
+                                                        <div id="noData"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -123,7 +122,7 @@
                                                         <label for="deduction_amount" style="color:#A4A6B3">Amount</label>
                                                         <input id="deduction_amount" name="deduction_amount"
                                                             type="text" class="form-control" maxlength="6"
-                                                            placeholder="Amount">
+                                                            placeholder="Amount" required>
                                                         <div class="invalid-feedback">This field is required.</div>
                                                     </div>
                                                 </div>
@@ -131,7 +130,7 @@
 
                                             <div class="row">
                                                 <div class="col bottom20">
-                                                    <button type="button" id="close" class="btn  w-100"
+                                                    <button type="button" id="closeAdd" class="btn  w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; ">Close</button>
                                                 </div>
                                                 <div class="col bottom20">
@@ -202,7 +201,7 @@
                                                 <div class="col bottom20">
                                                     <button type="button" class="btn  w-100"
                                                         style="color:#CF8029; background-color:#f3f3f3; "
-                                                        id="closedeductiontype_update">Close</button>
+                                                        id="closeUpdate">Close</button>
                                                 </div>
                                                 <div class="col bottom20">
                                                     <button type="submit" class="btn  w-100"
@@ -273,7 +272,7 @@
 
                     <div class="row pt-3 pb-3 px-3">
                         <div class="col-6">
-                            <button type="button" class="btn  w-100" data-bs-dismiss="modal"
+                            <button type="button" class="btn  w-100" id="cancelDelete" data-bs-dismiss="modal"
                                 style="color:white; background-color:#A4A6B3;">Cancel</button>
                         </div>
                         <div class="col-6">
@@ -450,7 +449,19 @@
             }
         });
 
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
             $("div.spanner").addClass("show");
             setTimeout(function() {
@@ -458,6 +469,26 @@
                 show_data();
             }, 1500);
 
+            $('#closeAdd').on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
+
+            $('#cancelDelete').on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
+
+            $("#button-addon2").click(function(e) {
+                var originalText = $('#button-addon2').html();
+                $('#button-addon2').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                setTimeout(function() {
+                    $('#button-addon2').html(originalText);
+
+                }, 500);
+            })
 
             // Get the current page's URL path
             var path = window.location.pathname;
@@ -469,15 +500,23 @@
 
 
             $(document).on('click', '#button_search', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                var originalText = $('#button_search').html();
+                $('#button_search').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+
+                var originalTextTable = $('#table_deduction tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#table_deduction tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
+                    $('#button_search').html(originalText);
                     $("div.spanner").removeClass("show");
                     $('#tbl_pagination').empty();
                     let search = $('#search').val() ? $('#search').val() : '';
-
                     show_data();
                 }, 1500);
             })
@@ -500,9 +539,17 @@
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+                var originalTextTable = $('#table_deduction tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#table_deduction tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500)
             })
 
             function show_data(filters) {
@@ -538,6 +585,7 @@
                                     tr += '<td class="text-start"><button value=' +
                                         item.id +
                                         ' class="deleteButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#deleteModal" ><i class="fa-solid fa-trash" style="color:#dc3545"></i></button></td>';
+
                                     tr += '</tr>';
                                     $("#table_deduction tbody").append(tr);
 
@@ -565,8 +613,10 @@
                                         $('#tbl_pagination .page-item:last-child').addClass('disabled');
                                     }
                                     let PreviousPage = res.data.links[0];
-                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url == null) {
-                                        $('#tbl_pagination .page-item:first-child').addClass('disabled');
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
+                                        $('#tbl_pagination .page-item:first-child').addClass(
+                                            'disabled');
                                     }
                                 }
 
@@ -574,7 +624,8 @@
                                 $("#tbl_pagination .page-item .page-link").on('click', function() {
                                     let url = $(this).data('url')
                                     $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+                                        var results = new RegExp("[?&]" + name +
+                                            "=([^&#]*)").exec(
                                             url
                                         );
 
@@ -609,9 +660,9 @@
 
             $('#close').on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('#addModal').modal('hide');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
@@ -624,9 +675,9 @@
             })
 
             $("#addModal").on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $('#deductiontype_store').trigger('reset');
@@ -637,7 +688,7 @@
                 }, 1500)
             })
 
-            $("#closedeductiontype_update").on('click', function(e) {
+            $("#closeUpdate").on('click', function(e) {
                 e.preventDefault();
                 location.reload(true);
             });
@@ -675,10 +726,18 @@
                     .then(function(response) {
                         let data = response.data;
                         if (data.success) {
+
+                            var originalTextTable = $('#table_deduction tbody').html();
+                            // Add spinner to the remaining row and set colspan to 5
+                            $('#table_deduction tbody').html(
+                                `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                            );
                             $('#addModal').modal('hide');
                             $('div.spanner').addClass('show');
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
+                                $('#table_deduction tbody').html(originalTextTable);
                                 $('#deduction_name').val('');
                                 $('#deduction_amount').val('');
                                 $('input').removeClass('is-invalid');
@@ -686,7 +745,8 @@
                                 show_data();
 
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 $('#deductiontype_store').trigger('reset');
@@ -702,25 +762,30 @@
                             // ERROR EMAIL
                             if (error.response.data.errors.deduction_name) {
                                 if (error.response.data.errors.deduction_name.length > 0) {
-                                    $error_deduction_name = error.response.data.errors.deduction_name[
-                                        0];
+                                    $error_deduction_name = error.response.data.errors
+                                        .deduction_name[
+                                            0];
                                     console.log("DEDUCTION NAME", $error_deduction_name);
                                     if ($error_deduction_name ==
                                         "The deduction name field is required.") {
-                                        $("#error_deduction_name").addClass('invalid-feedback').html(
-                                            "This field is required.").show();
+                                        $("#error_deduction_name").addClass('invalid-feedback')
+                                            .html(
+                                                "This field is required.").show();
                                     }
 
                                     if ($error_deduction_name ==
                                         "The deduction name has already been taken.") {
-                                        $("#error_deduction_name").addClass('invalid-feedback').html(
-                                            "The deduction name has already been taken.").show();
+                                        $("#error_deduction_name").addClass('invalid-feedback')
+                                            .html(
+                                                "The deduction name has already been taken.")
+                                            .show();
                                     }
                                 }
                             } else {
                                 $check = $('#deduction_name').val();
                                 if ($check.length > 0) {
-                                    $("#error_deduction_name").removeClass('invalid-feedback').html("")
+                                    $("#error_deduction_name").removeClass('invalid-feedback').html(
+                                            "")
                                         .show();
                                 } else {
                                     $("#error_deduction_name").addClass('invalid-feedback').html(
@@ -769,7 +834,8 @@
                         if (data.success) {
 
                             $('#edit_deduction_name').val(data.data.deduction_name);
-                            $('#edit_deduction_amount').val(PHP(data.data.deduction_amount).format());
+                            $('#edit_deduction_amount').val(PHP(data.data.deduction_amount)
+                                .format());
 
                         } else {
                             console.log("ERROR");
@@ -822,7 +888,8 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>');
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
                                 $('.toast1 .toast-title').html('Success');
                                 $('.toast1 .toast-body').html(response.data.message);
                                 $('#deductiontype_update').trigger('reset');
@@ -890,7 +957,8 @@
                             $("div.spanner").removeClass("show");
 
                             $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             toast1.toast('show');

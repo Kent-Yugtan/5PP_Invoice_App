@@ -131,27 +131,6 @@ class ProfileDeductionTypesController extends Controller
   }
 
   // VALIDATION
-  public function validateSelectProfileDeduction(Request $request)
-  {
-    $id = $request->id;
-    $data = ProfileDeductionTypes::where('profile_id', $id)->get();
-    if ($data) {
-      $validateSelectProfileDeduction = $request->validate([
-        'deduction_type_id' => [
-          'required',
-          Rule::unique('profile_deduction_types')
-            ->where('profile_id', $id)
-        ],
-      ]);
-
-      return response()->json([
-        'success' => true,
-        'data' => $validateSelectProfileDeduction,
-      ], 200);
-    }
-  }
-
-  // VALIDATION
   public function validateProfileDeduction(Request $request)
   {
     $id = $request->id;
@@ -298,11 +277,6 @@ class ProfileDeductionTypesController extends Controller
    */
   public function destroy(Request $request)
   {
-    $ret = [
-      'success' => false,
-      'message' => 'Something went wrong'
-    ];
-
     $profileDeductionType_id = $request->id;
     if ($profileDeductionType_id) {
       // THIS QUERY CAN DELETE DEDUCTIONS AND UPDATE THE DELETED AMOUNT TO THE INVOICE

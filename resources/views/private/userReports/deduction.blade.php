@@ -88,8 +88,6 @@
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
                     show_data_load()
-                    from();
-                    to();
                 }, 1500);
 
             })

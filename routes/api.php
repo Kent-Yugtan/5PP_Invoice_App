@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\EmailConfigController;
 use App\Http\Controllers\Admin\InvoiceConfigController;
 use App\Http\Controllers\Admin\ProfileDeductionTypesController;
+use App\Http\Controllers\Admin\DeductionController;
+use App\Models\Deduction;
 use App\Models\EmailConfig;
 use App\Models\InvoiceConfig;
 use App\Models\User;
@@ -88,8 +90,9 @@ Route::middleware(['auth:api'])->group(function () {
   //  VALIDATION FOR Profile Deduction Type INPUT
   Route::post('validateProfileDeduction', [ProfileDeductionTypesController::class, 'validateProfileDeduction']);
 
-  //  VALIDATION FOR Profile Deduction Type SELECT
-  Route::post('validateSelectProfileDeduction', [ProfileDeductionTypesController::class, 'validateSelectProfileDeduction']);
+  //  VALIDATION FOR Create Deductions
+  Route::post('validateCreateDeduction', [DeductionController::class, 'validateCreateDeduction']);
+  Route::post('editValidateCreateDeduction', [DeductionController::class, 'editValidateCreateDeduction']);
 
   //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
   Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
@@ -164,6 +167,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::post('emailconfigs_store', [EmailConfigController::class, 'emailconfig_store']);
   Route::post('email_configDelete/{id}', [EmailConfigController::class, 'destroy']);
 
+  // POST DEDUCTION
+  Route::post('createDeduction', [DeductionController::class, 'store']);
+
   // POST PROFILE DEDUCTION TYPES TABLE
   Route::post('saveProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
   Route::post('editProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
@@ -172,6 +178,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('settings/show_deduction_data/{profile_id}', [ProfileDeductionTypesController::class, 'show_deduction_data']);
   Route::get('settings/get_deduction/{id}', [ProfileDeductionTypesController::class, 'get_deduction']);
   Route::post('deleteProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'destroy']);
+
+  // POST FOR DEDUCTION DELETE
+  Route::post('deleteDeduction/{id}', [DeductionController::class, 'destroy']);
 
   // POST FOR DEDUCTION TYPE
   Route::post('deleteDeductionType/{id}', [DeductionTypeController::class, 'destroy']);
@@ -188,7 +197,7 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('reports/invoiceReport_click', [InvoiceController::class, 'invoiceReport_click']);
   Route::get('reports/deductionReport_load', [InvoiceController::class, 'deductionReport_load']);
   Route::get('reports/deductionReport_click', [InvoiceController::class, 'deductionReport_click']);
-  Route::get('reports/deductionDetails/{id}', [InvoiceController::class, 'deductionDetails']);
+  Route::get('reports/deductionDetails/{id}/{type}', [InvoiceController::class, 'deductionDetails']);
 
   // THIS LINE IS FOR USER
   // FOR DASHBOARD PAGE

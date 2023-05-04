@@ -106,8 +106,7 @@
                                                 style="width:' +
                       width +
                       'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                <i class="fas fa-spinner"></i>
-                                                <div></div>
+                                                <div id="noData"></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -1179,9 +1178,9 @@
 
             $('#filter_invoices').on('change', function() {
                 let filter = $('#filter_invoices').val();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -1189,9 +1188,7 @@
 
                     $('#tbl_pagination_invoice').empty();
                     show_data();
-                    $('html,body').animate({
-                        scrollTop: $('#sb-nav-fixed').offset().top
-                    }, 'slow');
+
                 }, 1500)
             })
 
@@ -1310,9 +1307,9 @@
                 }, 1500);
 
 
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");

@@ -141,8 +141,7 @@
                                             style="width:' +
                                       width +
                                       'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                            <i class="fas fa-spinner"></i>
-                                            <div></div>
+                                            <div id="noData"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -199,8 +198,7 @@
                                             style="width:' +
                                   width +
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                            <i class="fas fa-spinner"></i>
-                                            <div></div>
+                                            <div id="noData"></div>
                                         </div>
 
                                     </td>

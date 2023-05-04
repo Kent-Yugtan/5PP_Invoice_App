@@ -854,17 +854,26 @@ class InvoiceController extends Controller
   {
     $profile_id = $request->profile_id;
     if ($profile_id) {
+      // $deductions = Deduction::with('invoice')
+      //   ->where('profile_id', $profile_id)->whereHas('invoice', function ($query) {
+      //     $query->where('status', 'Active');
+      //   });
+
       $deductions = Deduction::with('invoice')
-        ->where('profile_id', $profile_id)->whereHas('invoice', function ($query) {
-          $query->where('status', 'Active');
+        ->selectRaw('deductions.*, COALESCE(invoices.invoice_no, "N/A") as invoice_no, COALESCE(invoices.status, "N/A") as status, COALESCE(invoices.created_at, deductions.created_at) as invoice_created_at')
+        ->where('deductions.profile_id', $profile_id)
+        ->leftJoin('invoices', 'deductions.invoice_id', '=', 'invoices.id')
+        ->where(function ($query) {
+          $query->where('invoices.id', '=', null)
+            ->orWhere('invoices.status', '=', 'Active');
         });
 
       if (isset($request->search)) {
         $deductions = $deductions
           ->where(function ($query) use ($request) {
-            $query->where('profile_id', $request->profile_id)
-              ->where('amount', 'LIKE', '%' . $request->search . '%')
-              ->orWhere('deduction_type_name', 'LIKE', '%' . $request->search . '%');
+            $query->where('deductions.profile_id', $request->profile_id)
+              ->where('deductions.amount', 'LIKE', '%' . $request->search . '%')
+              ->orWhere('deductions.deduction_type_name', 'LIKE', '%' . $request->search . '%');
           })
           ->orwhereHas('invoice', function ($q) use ($request) {
             $q->where('profile_id', $request->profile_id);
@@ -885,7 +894,7 @@ class InvoiceController extends Controller
         }
       }
 
-      $deductions = $deductions->orderby('created_at', 'desc');
+      $deductions = $deductions->orderby('deductions.created_at', 'desc');
 
       if ($request->page_size) {
         $deductions = $deductions->limit($request->page_size)
@@ -1674,20 +1683,21 @@ class InvoiceController extends Controller
   public function deductionReport_load(Request $request)
   {
     // your other code here
-    $from = date('Y-m-d', strtotime($request->from));
-    $to = date('Y-m-d', strtotime($request->to));
     $data = Invoice::with(['profile.user', 'deductions' => function ($q) {
       $q->select(DB::raw('SUM(amount) as total_deductions'), 'invoice_id')
         ->groupBy('invoice_id');
-    }])
-      ->orderBy('id', 'Desc')
+    }])->has('deductions')
+      ->orderBy('created_at', 'desc')
       ->get();
+
+    $data1 = Deduction::with(['profile.user'])->where('invoice_id', '=', '0')->orderBy('created_at', 'desc')->get();
 
 
     if ($data) {
       return response()->json([
         'success' => true,
         'data' => $data,
+        'data1' => $data1,
       ]);
     }
   }
@@ -1704,16 +1714,23 @@ class InvoiceController extends Controller
         $startDate = Carbon::createFromFormat('Y/m/d', $request->fromDate)->startOfDay();
         $endDate = Carbon::createFromFormat('Y/m/d', $request->toDate)->endOfDay();
 
-        $invoices = Invoice::with(['profile.user', 'deductions' => function ($q) {
+        $data = Invoice::with(['profile.user', 'deductions' => function ($q) {
           $q->select(DB::raw('SUM(amount) as total_deductions'), 'invoice_id')
             ->groupBy('invoice_id');
-        }])
+        }])->has('deductions')
           ->whereBetween('created_at', [$startDate, $endDate]) // filter by date range
           ->orderBy('id', 'desc')
           ->get();
+
+        $data1 = Deduction::with(['profile.user'])
+          ->where('invoice_id', '=', '0')
+          ->whereBetween('created_at', [$startDate, $endDate])
+          ->orderBy('created_at', 'desc')->get();
+
         return response()->json([
           'success' => true,
-          'data' => $invoices,
+          'data' => $data,
+          'data1' => $data1,
         ], 200);
       } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
@@ -1721,19 +1738,31 @@ class InvoiceController extends Controller
     }
   }
 
-  public function deductionDetails(Request $request)
+  public function deductionDetails(Request $request, $id, $type)
   {
-    $invoice_id = $request->id;
-    $data = Invoice::find($invoice_id)
-      ->deductions()
-      ->select('deductions.deduction_type_name', 'deductions.amount')
-      ->get();
-    // ->join('profile_deduction_types', 'profile_deduction_types.id', '=', 'deductions.profile_deduction_type_id')
-    if ($data) {
-      return response()->json([
-        'success' => true,
-        'data' => $data,
-      ]);
+    // $invoice_id = $request->id;
+    if ($type == "Invoice") {
+      $data = Invoice::find($id)
+        ->deductions()
+        ->select('deductions.deduction_type_name', 'deductions.amount')
+        ->get();
+      if ($data) {
+        return response()->json([
+          'success' => true,
+          'data' => $data,
+        ]);
+      }
+    }
+    if ($type == "Deduction") {
+      $data = Deduction::where('id', $id)
+        ->select('deduction_type_name', 'amount')
+        ->get();
+      if ($data) {
+        return response()->json([
+          'success' => true,
+          'data' => $data,
+        ]);
+      }
     }
   }
 

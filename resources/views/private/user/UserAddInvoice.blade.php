@@ -992,9 +992,9 @@
 
             $('#close_back').on('click', function(e) {
                 e.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');

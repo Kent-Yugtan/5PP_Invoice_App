@@ -41,7 +41,8 @@
                                                 <input id="invoice_email" name="invoice_email" type="text"
                                                     class="form-control" placeholder="Invoice Email"
                                                     onblur="validateInvoiceEmail(this)" required>
-                                                <div id="error_invoice_email" class="invalid-feedback"></div>
+                                                <div id="error_invoice_email" class="invalid-feedback">This field is
+                                                    required.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -60,12 +61,12 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-6 bottom20">
+                                        <div class="col-6 topBottom20">
                                             <button type="button" id="close"
                                                 style="color:#CF8029; background-color:#f3f3f3; "
                                                 class="btn w-100">Close</button>
                                         </div>
-                                        <div class="col-6 bottom20">
+                                        <div class="col-6 topBottom20">
                                             <button type="submit"
                                                 style="width:100%; color:white; background-color: #CF8029;" class="btn"
                                                 id="button-submit">Save
@@ -103,8 +104,7 @@
                                                         style="width:' +
                   width +
                   'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
-                                                        <i class="fas fa-spinner"></i>
-                                                        <div></div>
+                                                        <div id="noData"></div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -272,7 +272,7 @@
                     <div class="row pt-3 pb-3 px-3">
                         <div class="col-6">
                             <button type="button" class="btn w-100" style="color:white; background-color:#A4A6B3;"
-                                data-bs-dismiss="modal">Cancel</button>
+                                data-bs-dismiss="modal" id="cancelDelete">Cancel</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="invoiceConfig_delete"
@@ -430,12 +430,24 @@
             }
         });
 
+
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            tableLoader()
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $('div.spanner').removeClass('show');
                 show_data();
-            }, 1500)
+            }, 1500);
 
 
             var currentPage = window.location.href;
@@ -456,9 +468,9 @@
             let toast1 = $('.toast1');
 
             $('#editModal').on('hide.bs.modal', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
@@ -467,9 +479,9 @@
             })
 
             $('#button_search').on('click', function() {
-                $('html,body').animate({
-                    scrollTop: $('#sb-nav-fixed').offset().top
-                }, 'slow');
+                // $('html,body').animate({
+                //     scrollTop: $('#sb-nav-fixed').offset().top
+                // }, 'slow');
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
@@ -486,18 +498,15 @@
                 location.reload(true);
             })
 
-            // $('#closeUpdate').on('click', function(e) {
-            //     e.preventDefault();
-            //     location.reload(true);
-            //     // $("div.spanner").addClass("show");
-            //     // $('#editModal').modal('hide');
-            //     // setTimeout(function() {
-            //     //     $("div.spanner").removeClass("show");
-            //     //     $('#invoice_config_update').trigger('reset');
-            //     //     $('#invoice_config_update').removeClass('was-validated');
-            //     //     $("#error_edit_email_address").removeClass('invalid-feedback').html("").show();
-            //     // }, 1500)
-            // })
+            $('#closeUpdate').on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
+
+            $('#cancelDelete').on('click', function(e) {
+                e.preventDefault();
+                location.reload(true);
+            })
 
             toast1.toast({
                 delay: 5000,
@@ -560,7 +569,13 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        // console.log('success', data);
+
+                        var originalText = $('#table_invoiceconfig tbody').html();
+                        $('#table_invoiceconfig tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
                         $('#editModal').modal('hide');
                         $('div.spanner').addClass('show');
                         setTimeout(function() {
@@ -581,6 +596,7 @@
                     }
 
                 }).catch(function(error) {
+
                     let errors = error.response.data.errors;
                     console.log("ERROR", errors)
                     if (error.response.data.errors) {
@@ -687,6 +703,17 @@
             // STORE DATA
             $('#invoiceconfigs_store').submit(function(e) {
                 e.preventDefault();
+
+                // BUTTON SPINNER
+                var originalText = $('#button-submit').html();
+                $('#button-submit').html(
+                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+                );
+                $('#button-submit').prop("disabled", true);
+                setTimeout(function() {
+                    $('#button-submit').html(originalText);
+                }, 500);
+
                 let invoice_title = $('#invoice_title').val();
                 let invoice_email = $('#invoice_email').val();
                 let bill_to_address = $('#bill_to_address').val();
@@ -711,10 +738,15 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        // console.log('success', data);
+                        var originalText = $('#table_invoiceconfig tbody').html();
+                        $('#table_invoiceconfig tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
                         $('div.spanner').addClass('show');
                         setTimeout(function() {
                             $('div.spanner').removeClass('show');
+                            $('#table_invoiceconfig tbody').html(originalText);
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
@@ -724,10 +756,14 @@
                             $('#invoiceconfigs_store').trigger('reset');
                             $('#invoiceconfigs_store').removeClass('was-validated');
                             show_data();
+                            $('#button-submit').prop("disabled", false);
                         }, 1500)
                     }
 
                 }).catch(function(error) {
+                    setTimeout(function() {
+                        $('#button-submit').prop("disabled", false);
+                    }, 500);
                     let errors = error.response.data.errors;
                     console.log("ERROR", errors)
                     if (error.response.data.errors) {
@@ -915,6 +951,11 @@
                 }).then(function(response) {
                     let data = response.data
                     if (data.success) {
+                        var originalText = $('#table_invoiceconfig tbody').html();
+                        $('#table_invoiceconfig tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
                         $('#deleteModal').modal('hide');
                         $('div.spanner').addClass('show');
                         setTimeout(function() {
