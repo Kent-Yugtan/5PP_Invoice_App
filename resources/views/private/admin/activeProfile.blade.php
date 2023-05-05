@@ -829,6 +829,7 @@
                                                         class="deduction_name form-control"
                                                         onblur="validateCreateDeduction(this)"
                                                         placeholder="Deduction name" required>
+                                                    {{-- THIS IS ORIGINAL --}}
                                                     {{-- <select class="Deduction_deduction_name form-select"
                                                         onblur="validateSelectProfileDeduction(this)"
                                                         id="Deduction_deduction_name" required>
@@ -877,6 +878,86 @@
         </div>
     </div>
     <!-- MODAL FOR CREATING DEDUCTION -->
+
+    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
+    <div class="modal fade" id="modal-customize-create-deduction" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="hide-content">
+                <div class="modal-body">
+                    <form id="custom_deductiontype_store" class="g-3 needs-validation" novalidate>
+                        @csrf
+                        <div class="card-border shadow bg-white h-100" style="padding:20px">
+                            <div class="card-body">
+                                <div class="row" id="header">
+                                    <div class="col-md-12 w-100">
+                                        <div class="row">
+                                            <div class="col bottom20">
+                                                {{-- <span class="fs-3 fw-bold">Add Custom Deduction</span> --}}
+                                                <span class="fs-3 fw-bold">Add Deduction</span>
+                                            </div>
+                                        </div>
+                                        <input type="text" id="custom_profile_id" hidden>
+                                        <div class="row">
+                                            <div class="col-12  ">
+                                                <div id="mobileValidateStoreDeductionname" class="form-group-profile">
+                                                    <div class="form-group-profile">
+                                                        <label for="createDeduction_deduction_name"
+                                                            style="color:#A4A6B3">Dedution Name:</label>
+
+                                                        <select class="Deduction_deduction_name form-select"
+                                                            onblur="validateSelectProfileDeduction(this)"
+                                                            id="Deduction_deduction_name" required>
+                                                        </select>
+                                                        {{-- <input id="createDeduction_deduction_name"
+                                                            name="createDeduction_deduction_name" type="text"
+                                                            class="createDeduction_deduction_name form-control"
+                                                            onblur="validateProfileDeduction(this)"
+                                                            placeholder="Deduction Name" required> --}}
+                                                        <div id="invalid-feedback-storeDeduction-name"
+                                                            class="invalid-feedback">This field is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 bottom10">
+                                                <div class="form-group-profile">
+                                                    <label for="createDeduction_deduction_amount"
+                                                        style="color:#A4A6B3">Amount</label>
+                                                    <input id="createDeduction_deduction_amount"
+                                                        name="createDeduction_deduction_amount" type="text"
+                                                        class="createDeduction_deduction_amount form-control"
+                                                        placeholder="Amount" maxlength="6" required>
+                                                    <div id="invalid-feedback-deduction-amount" class="invalid-feedback">
+                                                        This field is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col bottom20">
+                                                <button type="button" class="btn w-100"
+                                                    style="color:#CF8029; background-color:#f3f3f3; "
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                            <div class="col bottom20">
+                                                <button type="submit" id="createDeduction_button" class="btn w-100"
+                                                    style="color:White; background-color:#CF8029;">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
 
     <!-- MODAL FOR EDITING DEDUCTION -->
     <div class="modal fade" id="modal-edit-deduction"role="dialog" aria-labelledby="exampleModalLabel"
@@ -956,79 +1037,7 @@
     </div>
     <!-- MODAL FOR EDITING DEDUCTION -->
 
-    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
-    <div class="modal fade" id="modal-customize-create-deduction" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="hide-content">
-                <div class="modal-body">
-                    <form id="custom_deductiontype_store" class="g-3 needs-validation" novalidate>
-                        @csrf
-                        <div class="card-border shadow bg-white h-100" style="padding:20px">
-                            <div class="card-body">
-                                <div class="row" id="header">
-                                    <div class="col-md-12 w-100">
-                                        <div class="row">
-                                            <div class="col bottom20">
-                                                <span class="fs-3 fw-bold">Add Custom Deduction</span>
-                                            </div>
-                                        </div>
-                                        <input type="text" id="custom_profile_id" hidden>
-                                        <div class="row">
-                                            <div class="col-12  ">
-                                                <div id="mobileValidateStoreDeductionname" class="form-group-profile">
-                                                    <div class="form-group-profile">
-                                                        <label for="createDeduction_deduction_name"
-                                                            style="color:#A4A6B3">Dedution Name:</label>
-                                                        <input id="createDeduction_deduction_name"
-                                                            name="createDeduction_deduction_name" type="text"
-                                                            class="createDeduction_deduction_name form-control"
-                                                            onblur="validateProfileDeduction(this)"
-                                                            placeholder="Deduction Name" required>
-                                                        <div id="invalid-feedback-storeDeduction-name"
-                                                            class="invalid-feedback">This field is required.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-12 bottom10">
-                                                <div class="form-group-profile">
-                                                    <label for="createDeduction_deduction_amount"
-                                                        style="color:#A4A6B3">Amount</label>
-                                                    <input id="createDeduction_deduction_amount"
-                                                        name="createDeduction_deduction_amount" type="text"
-                                                        class="createDeduction_deduction_amount form-control"
-                                                        placeholder="Amount" maxlength="6" required>
-                                                    <div id="invalid-feedback-deduction-amount" class="invalid-feedback">
-                                                        This field is required.</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col bottom20">
-                                                <button type="button" class="btn w-100"
-                                                    style="color:#CF8029; background-color:#f3f3f3; "
-                                                    data-bs-dismiss="modal">Cancel</button>
-                                            </div>
-                                            <div class="col bottom20">
-                                                <button type="submit" id="createDeduction_button" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029;">Add</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- NEW START MODAL ADD CUSTOMIZE FOR PROFILE DEDUCTION -->
 
     <!-- START MODAL PROFILE DEDUCTION TYPE EDIT -->
     <div class="modal fade" id="ProfileDeductioneditModal" tabindex="-1" role="dialog"
@@ -1330,6 +1339,47 @@
             decimal: '.',
             separator: ','
         });
+
+        // VALIDATE PROFILE DEDUCTION TYPE NAME
+        // invalid-feedback-storeDeduction-name
+        function validateSelectProfileDeduction(e) {
+            let PDT = $('#custom_profile_id').val();
+            let data = {
+                id: PDT,
+                deduction_type_id: e.value
+            }
+            console.log("Deduction_deduction_name", data);
+            axios.post(apiUrl + "/api/validateSelectProfileDeduction", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    $("#Deduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                } else {
+                    $("#Deduction_deduction_name").removeClass('is-invalid');
+                    $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback').html("").show();
+                    $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                }
+            }).catch(function(error) {
+                console.log("ERROR", error)
+                console.log("ERROR", $("#Deduction_deduction_name").val());
+                if (error.response.data.errors.deduction_type_id) {
+                    if (error.response.data.errors.deduction_type_id.length > 0) {
+                        $error = error.response.data.errors.deduction_type_id[0];
+                        if ($("#Deduction_deduction_name").val() === null) {
+                            $("#invalid-feedback-Deduction-name").addClass('invalid-feedback').html(
+                                "This field is required.").show();
+                            $('#mobileValidateSelectDeductionname').removeClass('form-group-adjust');
+                        }
+                        $("#Deduction_deduction_name").addClass('is-invalid');
+                    }
+                }
+            })
+        }
 
         // VALIDATE DEDUCTION TYPE NAME
         function validateCreateDeduction(e) {
@@ -1841,6 +1891,7 @@
                 show_profileDeductionType_Button();
                 show_Profilededuction_Table_Active();
                 show_profileDeductionType_select();
+            show_profile_deductions_onSelect();
                 show_edit()
                 show_data();
             }, 1500)

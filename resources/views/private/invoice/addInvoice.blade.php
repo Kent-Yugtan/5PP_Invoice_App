@@ -852,10 +852,13 @@
                             $('#show_deduction_items').empty();
                             $('textarea').val('');
                             $('#dataTable_deduction tbody').empty();
+
+                            $("#col_discount_amount").addClass('d-none');
+                            $("#col_discount_total").addClass('d-none');
                             $(".label_discount_amount").addClass('d-none');
                             $(".label_discount_total").addClass('d-none');
-                            $("#discount_amount").addClass('d-none');
-                            $("#discount_total").addClass('d-none');
+
+
                             $('input').removeClass('is-invalid');
                             $('input, select').removeClass('is-invalid');
                             $('.invalid-feedback').remove();

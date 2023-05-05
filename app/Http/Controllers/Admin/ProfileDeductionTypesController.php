@@ -131,6 +131,27 @@ class ProfileDeductionTypesController extends Controller
   }
 
   // VALIDATION
+  public function validateSelectProfileDeduction(Request $request)
+  {
+    $id = $request->id;
+    $data = ProfileDeductionTypes::where('profile_id', $id)->get();
+    if ($data) {
+      $validateSelectProfileDeduction = $request->validate([
+        'deduction_type_id' => [
+          'required',
+          Rule::unique('profile_deduction_types')
+            ->where('profile_id', $id)
+        ],
+      ]);
+
+      return response()->json([
+        'success' => true,
+        'data' => $validateSelectProfileDeduction,
+      ], 200);
+    }
+  }
+
+  // VALIDATION
   public function validateProfileDeduction(Request $request)
   {
     $id = $request->id;
