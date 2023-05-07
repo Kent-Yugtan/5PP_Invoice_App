@@ -174,10 +174,9 @@
                                             <div id="mobileValidateAcctno" class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input id="acct_no" name="acct_no" type="text" class="form-control"
-                                                    placeholder="Account Number" disabled="true"
-                                                    onblur="editValidateAcctno(this)" required maxlength="15">
-                                                <div id="error_acct_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    placeholder="Account Number" disabled="true" maxlength="15">
+                                                {{-- onblur="editValidateAcctno(this)" --}}
+                                                {{-- <div id="error_acct_no" class="invalid-feedback">This field is required.</div> --}}
 
                                             </div>
                                         </div>
@@ -188,10 +187,9 @@
                                             <div id="mobileValidateAcctname" class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input id="acct_name" name="acct_name" type="text"
-                                                    class="form-control" placeholder="Account Name" disabled="true"
-                                                    onblur="editValidateAcctname(this)" required>
-                                                <div id="error_acct_name" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    class="form-control" placeholder="Account Name" disabled="true">
+                                                {{-- onblur="editValidateAcctname(this)" --}}
+                                                {{-- <div id="error_acct_name" class="invalid-feedback">This field is required. </div> --}}
 
                                             </div>
                                         </div>
@@ -202,8 +200,8 @@
                                             <div class="form-group-profile">
                                                 <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
                                                 <select class="form-select" id="bank_name" name="bank_name"
-                                                    aria-label="Default select example" disabled="true" required>
-                                                    <option selected disabled value="">Please Select Bank Name
+                                                    aria-label="Default select example" disabled="true">
+                                                    <option selected value="">Please Select Bank Name
                                                     </option>
                                                     <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
                                                     <option value="Land Bank of the Philippines">Land Bank of the
@@ -257,7 +255,7 @@
                                                     <option value="Maybank Philippines Inc.">Maybank Philippines Inc.
                                                     </option>
                                                 </select>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -267,9 +265,8 @@
                                             <div class="form-group-profile">
                                                 <label for="bank_address" style="color: #A4A6B3;">Bank Address</label>
                                                 <input id="bank_address" name="bank_address" type="text"
-                                                    class="form-control" placeholder="Bank Address" disabled="true"
-                                                    required>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                    class="form-control" placeholder="Bank Address" disabled="true">
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -279,11 +276,10 @@
                                             <div id="mobileValidateGCASHno" class="form-group-profile">
                                                 <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input id="gcash_no" name="gcash_no" type="text"
-                                                    class="form-control" placeholder="Gcash Number"
-                                                    onblur="editValidateGCASHno(this)" disabled="true" required
+                                                    class="form-control" placeholder="Gcash Number" disabled="true"
                                                     maxlength="11">
-                                                <div id="error_gcash_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                {{-- onblur="editValidateGCASHno(this)" --}}
+                                                {{-- <div id="error_gcash_no" class="invalid-feedback">This field is required.</div> --}}
 
                                             </div>
                                         </div>
@@ -914,8 +910,9 @@
                                                             class="createDeduction_deduction_name form-control"
                                                             onblur="validateProfileDeduction(this)"
                                                             placeholder="Deduction Name" required> --}}
-                                                        <div id="invalid-feedback-storeDeduction-name"
-                                                            class="invalid-feedback">This field is required.
+                                                        <div id="invalid-feedback-Deduction-name"
+                                                            class="invalid-feedback">
+                                                            This field is required.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1230,8 +1227,8 @@
     </div>
 
     <!-- Modal FOR DEDUCTION DELETE -->
-    <div class="modal fade" style="z-index: 999999" id="deleteDeductionModal" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 999999" id="deleteDeductionModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1891,7 +1888,7 @@
                 show_profileDeductionType_Button();
                 show_Profilededuction_Table_Active();
                 show_profileDeductionType_select();
-            show_profile_deductions_onSelect();
+                show_profile_deductions_onSelect();
                 show_edit()
                 show_data();
             }, 1500)
@@ -2238,10 +2235,18 @@
                     let data = response.data;
                     console.log("DATA", data);
                     if (data.success) {
+                        var invoiceTable = $('#dataTable_invoice tbody').html();
+                        // Add spinner to the remaining row and set colspan to 5
+                        $('#dataTable_invoice tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
                         $('#invoice_status').modal('hide');
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
+                            $('#dataTable_invoice tbody').html(invoiceTable);
 
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>'
@@ -2513,21 +2518,23 @@
             })
 
             function show_profile_deductions_onSelect() {
-                let profile_id = $('#Deduction_profile_id').val();
+                let profile_id = $('#custom_profile_id').val();
                 console.log("show_profile_deductions_onSelect", profile_id);
                 if (profile_id) {
-                    $('#createDeduction_profile_id').val(profile_id);
+
+                    $('#Deduction_deduction_name').empty();
+                    console.log("PEST");
                     axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
                         headers: {
                             Authorization: token,
                         },
                     }).then(function(response) {
                         let data = response.data;
+                        let option = '';
+                        // THIS CODE IS FOR FILTERING PROFILE DEDUCTIONS AND CHECK IF ALL THE DEDUCIIONS HAS ALREADY BEEN ADDED.
+                        option += '<option selected disabled value="">Please Select Deductions</option>'
                         if (data.success) {
-                            $('#Deduction_deduction_name').empty();
-                            let option = '';
-                            // THIS CODE IS FOR FILTERING PROFILE DEDUCTIONS AND CHECK IF ALL THE DEDUCIIONS HAS ALREADY BEEN ADDED.
-                            option += '<option selected disabled value="">Please Select Deductions</option>'
+                            console.log("data.data.length");
                             if (data.data.length > 0) {
                                 const result = data.data.map(item => item.profile_deduction_types
                                     .length ===
@@ -2536,9 +2543,9 @@
                                     console.log("TRUE"); // "TRUE"
                                     option +=
                                         '<option value="" disabled >All deductions has been already added.</option>';
-                                    $('#Deduction_deduction_name').append(
-                                        option
-                                    );
+                                    // $('#Deduction_deduction_name').append(
+                                    //     option
+                                    // );
                                 } else {
                                     console.log("FALSE"); // "TRUE"
                                     data.data.filter(f => f.profile_deduction_types.length === 0)
@@ -2548,13 +2555,15 @@
                                                 .deduction_name + "</option>";
 
                                         })
-                                    $('#Deduction_deduction_name').append(
-                                        option);
+                                    // $('#Deduction_deduction_name').append(
+                                    //     option);
                                 }
+                            } else {
+                                option +=
+                                    '<option value="" disabled >No Data</option>';
                             }
-
-
-
+                            $('#Deduction_deduction_name').append(
+                                option);
                         }
                     }).catch(function(error) {
                         console.log("ERROR", error.response.data);
@@ -2727,6 +2736,7 @@
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                                 $('#selectActive').removeClass('d-none');
+                                $('#dataTable_invoice').addClass('table-hover');
                             } else {
                                 $("#dataTable_invoice tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -2737,6 +2747,7 @@
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                                 $('#selectActive').addClass('d-none');
+                                $('#dataTable_invoice').removeClass('table-hover');
                             }
                         }
                     }).catch(function(error) {
@@ -3121,12 +3132,14 @@
                                 .format());
 
                             $('#edit_profileDeductionType_name').prop("disabled", true);
+                            $('#deleteProfileDeduction').prop("disabled", true);
                         } else {
                             $('#profileDeductionType_profileId').val(data.data.profile_id);
                             $('#edit_profileDeductionType_name').val(data.data.deduction_type_name);
                             $('#edit_profileDeductionType_amount').val(PHP(data.data.amount)
                                 .format());
                             $('#edit_profileDeductionType_name').prop("disabled", false);
+                            $('#deleteProfileDeduction').prop("disabled", false);
                         }
                     }
                 }).catch(function(error) {
@@ -3733,10 +3746,10 @@
             $("#modal-customize-create-deduction").on('hide.bs.modal', function() {
                 $('#custom_deductiontype_store').removeClass('was-validated');
                 $('#custom_deductiontype_store').trigger('reset');
-                $('#createDeduction_deduction_name').removeClass('is-invalid');
+                $('#Deduction_deduction_name').removeClass('is-invalid');
                 // $('#createDeduction_deduction_amount').removeClass('is-invalid');
                 // $('input').removeClass('is-invalid');
-                $("#invalid-feedback-storeDeduction-name").removeClass('invalid-feedback')
+                $("#invalid-feedback-Deduction-name").removeClass('invalid-feedback')
                     .html(
                         "").show();
             });
@@ -4254,13 +4267,13 @@
                 }, 500);
 
                 let profile_id = $("#custom_profile_id").val();
-                let deduction_name = $("#createDeduction_deduction_name").val();
+                let deduction_type_id = $("#Deduction_deduction_name").val();
                 let amount = $("#createDeduction_deduction_amount").val().replaceAll(',', '');
 
                 let data = {
                     profile_id: profile_id,
                     amount: amount,
-                    deduction_type_name: deduction_name
+                    deduction_type_id: deduction_type_id,
                 };
                 axios
                     .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
@@ -4298,7 +4311,7 @@
                         if (error.response.data.errors.deduction_type_name) {
                             if (error.response.data.errors.deduction_type_name.length > 0) {
                                 $error = error.response.data.errors.deduction_type_name[0];
-                                if ($("#createDeduction_deduction_name").val() == "") {
+                                if ($("#Deduction_deduction_name").val() == "") {
                                     $("#invalid-feedback-storeDeduction-name").addClass(
                                         'invalid-feedback').html(
                                         "This field is required.").show();
@@ -4314,7 +4327,7 @@
                                             'form-group-adjust');
                                     }
                                 }
-                                $("#createDeduction_deduction_name").addClass('is-invalid');
+                                $("#Deduction_deduction_name").addClass('is-invalid');
                             }
                         }
                     });
@@ -4371,7 +4384,7 @@
                         console.log("SUCCESS", data);
                         if (data.success) {
                             {
-                                $('#Deduction_deduction_amount').val(PHP(data.data
+                                $('#createDeduction_deduction_amount').val(PHP(data.data
                                     .deduction_amount).format());
                             }
                         }
@@ -4548,6 +4561,7 @@
                                         `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                     $('#selectDeductionTypes').removeClass('d-none');
+                                    $('#dataTable_deduction').addClass('table-hover');
                                 } else {
                                     $("#dataTable_deduction tbody").append(
                                         '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
@@ -4558,6 +4572,7 @@
                                         `Showing 0 to 0 of 0 entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                     $('#selectDeductionTypes').addClass('d-none');
+                                    $('#dataTable_deduction').removeClass('table-hover');
                                 }
                             }
                         })
@@ -4776,6 +4791,7 @@
                                     let tbl_showing_deduction =
                                         `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#dataTable_deduction').addClass('table-hover');
                                 } else {
                                     $("#dataTable_deduction tbody").append(
                                         '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
@@ -4785,6 +4801,7 @@
                                     let tbl_showing_deduction =
                                         `Showing 0 to 0 of 0 entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                    $('#dataTable_deduction').removeClass('table-hover');
                                 }
                             }
                         })
@@ -5063,27 +5080,12 @@
                         $('#pills-tab a[href="' + activeTab + '"]').tab('show');
                     }
                 }
+            }
 
-            }
-            // $(window).on('beforeunload', function() {
-            //     console.log('Beforeunload event triggered');
-            //     // Remove the 'activeTab' item from localStorage
-            //     localStorage.removeItem('activeTab');
-            // });
-            // Get the 'activeTab' item from localStorage
-            var activeTab = localStorage.getItem('activeTab');
-            console.log('activeTab is', activeTab);
-            if (activeTab) {
-                // Activate the tab
-                $(activeTab).addClass('active');
-                // Show the tab content
-                $(activeTab + '-content').show();
-            } else {
-                // Activate the first tab
-                $('a.tab-link:first').addClass('active');
-                // Show the first tab content
-                $('.tab-content:first').show();
-            }
+            window.addEventListener('load', function() {
+                // Remove the 'activeTab' item from localStorage
+                localStorage.removeItem('activeTab');
+            });
         });
     </script>
 @endsection

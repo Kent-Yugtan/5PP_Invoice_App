@@ -6,22 +6,24 @@
             <div class="col-12 col-md-6 column1 bottom10" style="padding-right:5px;padding-left:5px;">
                 <!-- <div class=" card-hover card shadow p-2 mb-4 bg-white rounded"> -->
                 <div class="row text-center py-3">
-                    <Label class="fs-1" id="paid_invoices">
+                    {{-- <Label class="fs-1" id="paid_invoices"> --}}
+                    <Label class="fs-1" id="active_profile">
                         0
                     </Label>
                 </div>
-                <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Paid</div>
+                <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Active</div>
                 <!-- </div> -->
             </div>
 
             <div class="col-12 col-md-6 column2 bottom10" style="padding-right:5px;padding-left:5px;">
                 <!-- <div class="card-hover card shadow p-2 mb-4 bg-white rounded"> -->
                 <div class="row text-center py-3">
-                    <Label class="fs-1" id="pending_invoices">
+                    {{-- <Label class="fs-1" id="pending_invoices"> --}}
+                    <Label class="fs-1" id="inactive_profile">
                         0
                     </Label>
                 </div>
-                <div class="card-body text-center" style="border-bottom: none;color: #A4A6B3; ">Pending</div>
+                <div class="card-body text-center" style="border-bottom: none;color: #A4A6B3; ">Inactive</div>
                 <!-- </div> -->
             </div>
         </div>
@@ -261,12 +263,13 @@
 
         $(document).ready(function() {
             tableLoader();
+
             let pageSize = 10; // initial page size
             $("div.spanner").addClass("show");
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
-                active_count_paid();
-                active_count_pending()
+                active_profile_count();
+                inactive_profile_count();
                 show_data();
             }, 1500)
 
@@ -378,6 +381,38 @@
                 }
             });
 
+            function active_profile_count() {
+                $('#active_profile').text(0);
+                axios.get(apiUrl + '/api/active_profile_count', {
+                    headers: {
+                        Authorization: token
+                    },
+                }).then(function(response) {
+                    let data = response.data
+                    if (data.success) {
+                        $('#active_profile').text(data.data ? data.data : 0);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
+                })
+            }
+
+            function inactive_profile_count() {
+                $('#inactive_profile').text(0);
+                axios.get(apiUrl + '/api/inactive_profile_count', {
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data
+                    if (data.success) {
+                        $('#inactive_profile').text(data.data ? data.data : 0);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
+                })
+            }
+
             $("#cancelInactive").on('click', function(e) {
                 e.preventDefault();
                 location.reload(true);
@@ -443,9 +478,15 @@
 
                                         var diff = date_2 - date_1;
                                         diff = diff / (1000 * 3600 * 24);
+
                                         // console.log("DIFF", Math.round(diff));
-                                        tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
-                                            ' Days ago</td>';
+                                        if (Math.round(diff) > 1) {
+                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                ' Days ago</td>';
+                                        } else {
+                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                ' Day ago</td>';
+                                        }
 
                                         tr +=
                                             '<td  class="text-center">';
@@ -570,6 +611,8 @@
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
                                 $('#selectCurrent').removeClass('d-none');
+                                $('#tbl_user').addClass('table-hover');
+
                             } else {
                                 $("#tbl_user tbody").append(
                                     '<tr><td colspan="7" class="text-center"><div class="noData" style="width:' +
@@ -581,6 +624,8 @@
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
                                 $('#selectCurrent').addClass('d-none');
+                                $('#tbl_user').removeClass('table-hover');
+
 
                             }
                         }
@@ -623,8 +668,8 @@
                             setTimeout(function() {
                                 console.log('setTimeout function executed single');
                                 $("div.spanner").removeClass("show");
-                                active_count_paid();
-                                active_count_pending();
+                                active_profile_count();
+                                inactive_profile_count();;
                                 show_data();
                                 $('#button_inactive').addClass('d-none');
                             }, 1500)
@@ -686,8 +731,8 @@
                             setTimeout(function() {
                                 console.log('setTimeout function executed multiple');
                                 $("div.spanner").removeClass("show");
-                                active_count_paid();
-                                active_count_pending();
+                                active_profile_count();
+                                inactive_profile_count();;
                                 show_data();
                                 $('#button_inactive').addClass('d-none');
 
@@ -720,38 +765,6 @@
                     })
                 }
             })
-
-            function active_count_paid() {
-                axios.get(apiUrl + '/api/active_paid_invoice_count', {
-                    headers: {
-                        Authorization: token,
-                    },
-                }).then(function(response) {
-                    let data = response.data
-                    if (data.success) {
-                        console.log("paid_invoices", data.data);
-                        $('#paid_invoices').html(data.data.length ? data.data.length : 0);
-                    }
-                }).catch(function(error) {
-                    console.log("ERROR", error);
-                })
-            }
-
-            function active_count_pending() {
-                axios.get(apiUrl + '/api/active_pending_invoice_count', {
-                    headers: {
-                        Authorization: token,
-                    },
-                }).then(function(response) {
-                    let data = response.data
-                    if (data.success) {
-                        console.log("pending_invoices", data.data);
-                        $('#pending_invoices').html(data.data.length ? data.data.length : 0);
-                    }
-                }).catch(function(error) {
-                    console.log("ERROR", error);
-                })
-            }
 
             $('#button-submit').on('click', function(e) {
                 e.preventDefault();

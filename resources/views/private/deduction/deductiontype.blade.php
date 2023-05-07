@@ -643,6 +643,7 @@
                                     `Showing ${res.data.from} to ${res.data.to} of ${res.data.total} entries`;
                                 $('#tbl_showing').html(tbl_user_showing);
                                 $('#selectDeductions').removeClass('d-none');
+                                $('#table_deduction').addClass('table-hover');
                             } else {
                                 $("#table_deduction tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -650,6 +651,7 @@
                                     'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                 );
                                 $('#selectDeductions').addClass('d-none');
+                                $('#table_deduction').removeClass('table-hover');
                             }
                         }
                     })

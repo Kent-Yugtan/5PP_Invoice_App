@@ -10,7 +10,7 @@
                             0
                         </Label>
                     </div>
-                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Activate</div>
+                    <div class="card-body text-center" style="border-bottom: none; color: #A4A6B3;">Active</div>
                 </div>
             </div>
 
@@ -266,6 +266,7 @@
 
         $(document).ready(function() {
             tableLoader();
+
             let pageSize = 10; // initial page size
 
             $("div.spanner").addClass("show");
@@ -669,9 +670,13 @@
                                         var diff = date_2 - date_1;
                                         diff = diff / (1000 * 3600 * 24);
                                         // console.log("DIFF", Math.round(diff));
-                                        tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
-                                            ' Days ago</td>';
-
+                                        if (Math.round(diff) > 1) {
+                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                ' Days ago</td>';
+                                        } else {
+                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                ' Day ago</td>';
+                                        }
                                         tr +=
                                             '<td  class="text-center">';
                                         tr +=
@@ -793,6 +798,7 @@
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 selectShow();
                                 $('#selectInactive').removeClass('d-none');
+                                $('#tbl_user').addClass('table-hover');
                             } else {
                                 selectShow();
 
@@ -805,6 +811,7 @@
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);
                                 $('#selectInactive').addClass('d-none');
+                                $('#tbl_user').removeClass('table-hover');
 
                             }
                         }

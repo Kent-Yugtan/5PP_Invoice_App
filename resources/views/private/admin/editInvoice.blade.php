@@ -4,16 +4,16 @@
         <div class="row" style="padding-top:10px">
             <div class="col-lg-8 col-xl-8 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
-                    <div class="card-body">
+                    <div class="card-body" id="mainCard">
                         <div style="padding:20px">
                             <div id="content">
-                                <div class="row bottom20">
+                                {{-- <div class="row">
                                     <span id="userId" hidden></span>
                                     <span id="profileId" hidden></span>
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6 fw-bolder">
-                                                <div id="fullname" class="top10"></div>
+                                                <div id="full_name" class="top10"></div>
                                                 <div id="email" style="overflow-wrap: break-word"></div>
                                             </div>
 
@@ -44,6 +44,12 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label class="fw-bold" id="invoice_title"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label id="invoice_email"></label>
                                             </div>
                                         </div>
 
@@ -93,96 +99,13 @@
                                     </div>
                                 </div>
 
-
-                                {{-- 
-                                <div class="row pt-3">
-                                    <div class="col-6">Bill To</div>
-                                    <div class="col-3 ">Date:</div>
-                                    <div class="col-3 text-end"><span id="date_created"></span></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6"><span id="invoice_title"></span></div>
-                                    <div class="col-3 fit">Due Date:</div>
-                                    <div class="col-3 fit text-end"><span id="show_due_date"></span></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <span id="bill_to_address"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-6">Invoice Status:</div>
-                                            <div class="col-6 text-end"><span id="invoice_status"></span></div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-6" id="text_date_received"></div>
-                                            <div class="col-6 text-end"><span id="date_received"></span></div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="row pt-3">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="text-muted">Bill To:</span>
-                                            </div>
-                                            <div class="col text-sm-start">
-                                                <span class="text-muted">Date:</span>
-                                            </div>
-                                            <div class="col text-sm-end">
-                                                <div id="date_created"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="fw-bolder" id="invoice_title"></div>
-                                            </div>
-                                            <div class="col text-sm-start">
-                                                <span class="text-muted">Due Date:</span>
-                                            </div>
-                                            <div class="col text-sm-end">
-                                                <div id="show_due_date"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col text-sm-start">
-                                                <div id="bill_to_address"></div>
-                                            </div>
-                                            <div class="col text-sm-start">
-                                                <span class="text-muted">Invoice Status:</span>
-                                            </div>
-                                            <div class="col text-sm-end">
-                                                <div id="invoice_status"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col"></div>
-                                            <div class="col text-muted text-sm-start" id="text_date_received">
-                                            </div>
-                                            <div class="col text-sm-end" id="date_received">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="row pt-3">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="rounded-3 w-100" style="background-color: #d4d4d4;">
                                             <div class="row">
                                                 <div class="col span1"
-                                                    style="display:flex; justify-content:space-between;align-items:center">
+                                                    style="display:flex; justify-content:space-between;align-items:center;height:40px">
                                                     <label class="ms-2 fw-bold ">Balance Due:</label>
                                                     <div class="col-6 text-end span1">
                                                         <label class="me-2 fw-bold " id="balance_due"></label>
@@ -195,21 +118,21 @@
 
                                 <div class="row pt-3">
                                     <div class="col-sm-12 table-responsive-sm">
-                                        <table class="table table-hover" id="table_invoiceItems">
+                                        <table class="table" id="table_invoiceItems">
                                             <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
                                                 <tr>
                                                     <th class=""
-                                                        style="width:52%;border-right: 2px solid rgb(255,255,255);">
+                                                        style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
                                                         Description</th>
                                                     <th class=""
-                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                        style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
                                                         Quantity</th>
                                                     <th class=""
-                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                        style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
                                                         Rate
                                                     </th>
                                                     <th class=""
-                                                        style="width:16%;border-right: 2px solid rgb(255,255,255);text-align: end;">
+                                                        style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
                                                         Amount</th>
                                                 </tr>
                                             </thead>
@@ -226,7 +149,7 @@
                                             <div class="col-7">
                                                 <label class="text-muted " style="text-align:right"> Subtotal: </label>
                                             </div>
-                                            <div class="col-5 h6" id="sub_total" style="text-align:end"></div>
+                                            <div class="col-5 " id="sub_total" style="text-align:end"></div>
                                         </div>
 
                                         <div id="displayDiscountType">
@@ -237,22 +160,22 @@
                                             <div class="col-7">
                                                 <label class="text-muted"> Total:</label>
                                             </div>
-                                            <div class="col-5 h6" id="total" style="text-align:end"></div>
+                                            <div class="col-5 " id="total" style="text-align:end"></div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-7">
-                                                <label class="text-muted ">Converted Amount: <label class="text-muted"
+                                            <div class="col-8">
+                                                <label class="text-muted ">Converted Amount: P<label class="text-muted"
                                                         id="peso_rate"></label></label>
                                             </div>
 
-                                            <div class="col-5 h6 " id="convertedAmount" style="text-align:end">
+                                            <div class="col-4" id="convertedAmount" style="text-align:end">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row title_deductions pt-3 pb-3">
+                                <div class="row title_deductions ">
                                 </div>
 
                                 <div class="deductions">
@@ -261,7 +184,7 @@
                                 <div class="row total_deductions" id="total_deductions">
                                 </div>
 
-                                <div class="row pt-3">
+                                <div class="row">
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col">
                                         <label class="fw-bold">Grand Total: </label>
@@ -280,7 +203,7 @@
                                         <label style="word-wrap: break-word; text-align:right" id="notes"></label>
                                     </div>
 
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
@@ -306,8 +229,7 @@
                                 </div>
                                 <div class="col-6" style="padding-left:5px;">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
-                                        class="btn w-100"
-                                        style="color: White; background-color: #A4A6B3;">Inactive</button>
+                                        class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
                                 </div>
                             </div>
 
@@ -378,8 +300,8 @@
     </div>
 
     <!-- Modal FOR Active Invoice -->
-    <div class="modal fade" id="activeModal" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="activeModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
@@ -868,9 +790,22 @@
         //  For creating invoice codes
         const api = "https://api.exchangerate-api.com/v4/latest/USD";
 
+        function tableLoader() {
+            var originalText = $('#content').html();
+            $('#content').html(
+                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            $('#content').addClass('text-center');
+            $('#content').css('padding', '117px');
+            setTimeout(function() {
+                $('#content').removeClass('text-center');
+                $('#content').css('padding', '0px');
+                $('#content').html(originalText);
+            }, 1500);
+        }
 
         $(document).ready(function() {
-
+            tableLoader();
             var windowWidth = $(window).width();
             if (windowWidth <= 320) {
                 $('.span1 label').removeClass('fs-5');
@@ -920,7 +855,7 @@
 
             let toast1 = $('.toast1');
             toast1.toast({
-                delay: 3000,
+                delay: 1400,
                 animation: true,
             });
 
@@ -1563,6 +1498,204 @@
                             let data = response.data;
                             if (data.success) {
                                 console.log("DATA123", data);
+                                $('#content').append(` <div class="row">
+                                <span id="userId" hidden></span>
+                                <span id="profileId" hidden></span>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6 fw-bolder">
+                                            <div id="full_name" class="top10"></div>
+                                            <div id="email" style="overflow-wrap: break-word"></div>
+                                        </div>
+
+                                        <div class="col-6 fw-bolder text-end">
+                                            <div class="fs-3 fw-bold">INVOICE</div>
+                                            <div class="text-muted" id="invoice_no"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div id="address"></div>
+                                    <div id="city-province"></div>
+                                    <div id="zip_code"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 pt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            Bill To
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="fw-bold" id="invoice_title"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label id="invoice_email"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label id="bill_to_address"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 pt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            Date
+                                        </div>
+                                        <div class="col text-end">
+                                            <label id="date_created"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            Due Date
+                                        </div>
+                                        <div class="col text-end">
+                                            <label id="show_due_date"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            Invoice Status
+                                        </div>
+                                        <div class="col text-end">
+                                            <label id="invoice_status"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col text-sm-start">
+                                            <label id="text_date_received"></label>
+                                        </div>
+                                        <div class="col text-end">
+                                            <label id="date_received"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-md-6 col-sm-12"></div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="rounded-3 w-100" style="background-color: #d4d4d4;">
+                                        <div class="row">
+                                            <div class="col span1"
+                                                style="display:flex; justify-content:space-between;align-items:center;height:40px">
+                                                <label class="ms-2 fw-bold ">Balance Due:</label>
+                                                <div class="col-6 text-end span1">
+                                                    <label class="me-2 fw-bold " id="balance_due"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-sm-12 table-responsive-sm">
+                                    <table class="table" id="table_invoiceItems">
+                                        <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                            <tr>
+                                                <th class=""
+                                                    style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
+                                                    Description</th>
+                                                <th class=""
+                                                    style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                    Quantity</th>
+                                                <th class=""
+                                                    style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                    Rate
+                                                </th>
+                                                <th class=""
+                                                    style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                    Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="px-3">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <label class="text-muted " style="text-align:right"> Subtotal: </label>
+                                        </div>
+                                        <div class="col-5 " id="sub_total" style="text-align:end"></div>
+                                    </div>
+
+                                    <div id="displayDiscountType">
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <label class="text-muted"> Total:</label>
+                                        </div>
+                                        <div class="col-5 " id="total" style="text-align:end"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <label class="text-muted ">Converted Amount: P<label class="text-muted"
+                                                    id="peso_rate"></label></label>
+                                        </div>
+
+                                        <div class="col-4" id="convertedAmount" style="text-align:end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row title_deductions ">
+                            </div>
+
+                            <div class="deductions">
+                            </div>
+
+                            <div class="row total_deductions" id="total_deductions">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12"></div>
+                                <div class="col">
+                                    <label class="fw-bold">Grand Total: </label>
+                                </div>
+                                <div class="col" style="text-align:end">
+                                    <label class="h6 fw-bold" id="grand_total_amount"></label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 ">Notes:</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label style="word-wrap: break-word; text-align:right" id="notes"></label>
+                                </div>
+
+                            </div>`);
+
                                 const month = ["January", "February", "March", "April", "May", "June",
                                     "July",
                                     "August", "September", "October", "November", "December"
@@ -1585,7 +1718,7 @@
                                 $('#userId').html(data.data.profile.user.id);
                                 $('#profileId').html(data.data.profile.id);
 
-                                $('#fullname').html(data.data.profile.user.first_name + " " + data.data
+                                $('#full_name').html(data.data.profile.user.first_name + " " + data.data
                                     .profile.user
                                     .last_name);
 
@@ -1629,11 +1762,11 @@
                                 $('#notes').html(data.data.notes);
 
                                 if (data.data.invoice_status === "Paid") {
-                                    $('#text_date_received').html("Date Received:");
+                                    $('#text_date_received').html("Date Received");
                                     $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
                                     $('#paid_button').prop('disabled', true);
                                     $('#cancel_button').prop('disabled', true);
-                                    $('#delete_button').prop('disabled', true);
+                                    $('#delete_button').prop('disabled', false);
                                     $('#edit_invoice').prop('disabled', true);
 
                                 } else {
@@ -1784,8 +1917,8 @@
 
                                         let parent0 = $(this).closest('.row .title_deductions');
                                         let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12"> </div>';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12">';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3 pb-3"> </div>';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3 pb-3">';
                                         div_rows0 +=
                                             '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
                                         div_rows0 += '</div>';
@@ -1823,8 +1956,8 @@
 
                                         let parent1 = $(this).closest('.row .total_deductions');
                                         let div_rows1 = '';
-                                        div_rows1 += '<div class="col-md-6 col-sm-12"></div>';
-                                        div_rows1 += '<div class="col">Total Deductions</div>';
+                                        div_rows1 += '<div class="col-md-6 col-sm-12 pb-3"></div>';
+                                        div_rows1 += '<div class="col pb-3">Total Deductions</div>';
                                         div_rows1 +=
                                             '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
                                             PHP(total_deductions).format() + '</label></div>';
@@ -1835,7 +1968,6 @@
                                     } else {
                                         let parent = $(this).closest('.row .deductions');
                                         let div_rows = '';
-
                                         div_rows += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows += '<div class="col-md-6 col-sm-12"></div>';
                                         div_rows +=
@@ -1845,10 +1977,11 @@
                                     }
 
                                 } else {
+                                    // width:' +
+                                    // width +
+                                    // 'px;
                                     $("#table_invoiceItems tbody").append(
-                                        '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
-                                        width +
-                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                        '<tr><td colspan="4" class="text-center"><div class="noData" style="position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                                     );
                                 }
                             }
@@ -1872,8 +2005,8 @@
                                 $("#invoice_logo").attr("src", item.invoice_logo);
                                 // $('#invoice_logo').val(data.data.invoice_logo_name);
                                 $('#invoice_title').html(item.invoice_title);
+                                $('#invoice_email').html(item.invoice_email);
                                 $('#bill_to_address').html(item.bill_to_address);
-                                $('#ship_to_address').html(item.ship_to_address);
                             })
                         }
                     }
@@ -2058,20 +2191,23 @@
                         let data = response.data;
                         if (data.success) {
                             $('#activeModal').modal('hide');
-                            $("div.spanner").addClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(response.data.message);
+                            toast1.toast('show');
+
+                            // $("div.spanner").addClass("show");
                             setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
+                                // $("div.spanner").removeClass("show");
+
+                                // $('#table_invoiceItems tbody').empty();
+                                // $('.row .title_deductions').empty();
+                                // $('.row .total_deductions').empty();
+                                // $('.row .deductions').empty();
+                                // $('#table_invoiceItems tbody').html(show_invoice());
+                                location.reload(true);
                             }, 1500);
                         }
                     }).catch(function(error) {
@@ -2124,21 +2260,23 @@
                         let data = response.data;
                         if (data.success) {
                             $('#inactiveModal').modal('hide');
-                            $("div.spanner").addClass("show");
-                            setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(response.data.message);
+                            toast1.toast('show');
 
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
+                            // $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                // $("div.spanner").removeClass("show");
+
+                                // $('#table_invoiceItems tbody').empty();
+                                // $('.row .title_deductions').empty();
+                                // $('.row .total_deductions').empty();
+                                // $('.row .deductions').empty();
+                                // $('#table_invoiceItems tbody').html(show_invoice());
+                                location.reload(true);
                             }, 1500);
 
                         }

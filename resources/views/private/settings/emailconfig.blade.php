@@ -584,6 +584,7 @@
 
         $(document).ready(function() {
             tableLoader();
+
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
@@ -779,6 +780,7 @@
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing').html(table_emailconfigs);
                                 $('#selectEmailConfigs').removeClass('d-none');
+                                $('#table_emailconfigs').addClass('table-hover');
                             } else {
                                 $("#table_emailconfigs tbody").append(
                                     '<tr style="vertical-align: middle;"><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -789,6 +791,7 @@
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing').html(table_emailconfigs);
                                 $('#selectEmailConfigs').addClass('d-none');
+                                $('#table_emailconfigs').removeClass('table-hover');
                             }
 
                         }
@@ -966,7 +969,6 @@
                         let errors = error.response.data.errors;
                         console.log("ERROR", errors)
                         if (error.response.data.errors) {
-
                             if (error.response.data.errors.fullname) {
                                 if (error.response.data.errors.fullname.length > 0) {
                                     $error_fullname = error.response.data.errors.fullname[
