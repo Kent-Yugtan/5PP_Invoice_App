@@ -2114,9 +2114,22 @@
                 }).then(function(response) {
                     let data = response.data;
                     if (data.success) {
-                        console.log("SUCCESS", data.data);
+                        $('#content').empty();
+
                         $('#updateModal').modal('hide');
                         $("div.spanner").addClass("show");
+
+                        var originalText = $('#content').html();
+                        $('#content').html(
+                            `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                        );
+                        $('#content').addClass('text-center');
+                        $('#content').css('padding', '117px');
+                        setTimeout(function() {
+                            $('#content').removeClass('text-center');
+                            $('#content').css('padding', '0px');
+                            $('#content').html(originalText);
+                        }, 1500);
 
 
                         $('#notifyIcon').html(
@@ -2126,8 +2139,6 @@
 
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
-                            $('#table_invoiceItems tbody').empty();
-                            $('#table_invoiceItems tbody').empty();
                             $('.row .title_deductions').empty();
                             $('.row .total_deductions').empty();
                             $('.row .deductions').empty();
@@ -2145,27 +2156,6 @@
                         $('#update').prop("disabled", false);
                     }, 500);
                     console.log("ERROR", error)
-                    // if (error.response.data.errors) {
-                    //     let errors = error.response.data.errors;
-                    //     let fieldnames = Object.keys(errors);
-                    //     Object.values(errors).map((item, index) => {
-                    //         fieldname = fieldnames[0].split('_');
-                    //         fieldname.map((item2, index2) => {
-                    //             fieldname['key'] = capitalize(
-                    //                 item2);
-                    //             return ""
-                    //         });
-                    //         fieldname = fieldname.join(" ");
-                    //         $('#notifyIcon').html(
-                    //             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
-                    //         $('.toast1 .toast-title').html("Error");
-                    //         $('.toast1 .toast-body').html(Object.values(
-                    //                 errors)[0]
-                    //             .join(
-                    //                 "\n\r"));
-                    //     })
-                    //     toast1.toast('show');
-                    // }
                 })
             })
 

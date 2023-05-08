@@ -23,7 +23,7 @@
                                     <input type="email" class="form-control" id="email_address"
                                         placeholder="Enter email address" name="email_address">
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="bottom20">
                                     <button type="submit" id="button-submit"
                                         style="width:100%;color:white; background-color: #CF8029;" class="btn">Send
                                         Reset Password Link</button>
