@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\InvoiceConfig;
 use App\Models\Profile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -119,8 +120,15 @@ class AuthController extends Controller
         'created_at' => Carbon::now(),
       ]);
 
+      $invoice_logo = InvoiceConfig::first();
+
+      if ($invoice_logo) {
+        $invoice_logo = $invoice_logo->invoice_logo;
+      }
+
       // SETUP EMAIl FOR FORGOT PASSWORD
       $data_setup_email_template = [
+        'invoice_logo'    => $invoice_logo,
         'to'             =>  $request->email_address,
         'token'          =>  $token,
         'action_link'    =>  url('password/reset/'),
