@@ -1917,8 +1917,8 @@
 
                                         let parent0 = $(this).closest('.row .title_deductions');
                                         let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3 pb-3"> </div>';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3 pb-3">';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3"> </div>';
+                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3">';
                                         div_rows0 +=
                                             '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
                                         div_rows0 += '</div>';
@@ -1938,9 +1938,9 @@
                                             div_rows += '<div class="col-md-6 col-sm-12">';
                                             div_rows += '<div class="row">';
                                             div_rows +=
-                                                '<div class="col-7" ><p class="text-muted break-long-words">' +
+                                                '<div class="col-7" ><label class="text-muted break-long-words">' +
                                                 item2
-                                                .deduction_type_name + '</p></div>';
+                                                .deduction_type_name + '</label></div>';
                                             div_rows +=
                                                 '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
                                                 PHP(deduction_amount).format() + '</label></div>';
@@ -1957,7 +1957,7 @@
                                         let parent1 = $(this).closest('.row .total_deductions');
                                         let div_rows1 = '';
                                         div_rows1 += '<div class="col-md-6 col-sm-12 pb-3"></div>';
-                                        div_rows1 += '<div class="col pb-3">Total Deductions</div>';
+                                        div_rows1 += '<div class="col">Total Deductions</div>';
                                         div_rows1 +=
                                             '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
                                             PHP(total_deductions).format() + '</label></div>';
