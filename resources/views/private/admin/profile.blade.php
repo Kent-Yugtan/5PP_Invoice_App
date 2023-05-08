@@ -238,7 +238,7 @@
                                             <div class="form-group-profile">
                                                 <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
                                                 <select class="form-select" id="bank_name" name="bank_name">
-                                                    <option selected disabled value="">Please Select Bank Name
+                                                    <option selected value="">Please Select Bank Name
                                                     </option>
                                                     <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
                                                     <option value="Land Bank of the Philippines">Land Bank of the

@@ -443,6 +443,7 @@
 
         $(document).ready(function() {
             tableLoader()
+
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $('div.spanner').removeClass('show');
@@ -856,8 +857,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                                  <a class="page-link" data-url="${item.url}">${label}</a>
+                                </li>`;
 
                                 $('#tbl_pagination').append(li);
                                 return "";
@@ -899,6 +900,7 @@
                             $('#invoice_email').prop('disabled', true);
                             $('#bill_to_address').prop('disabled', true);
                             $('#button-submit').prop('disabled', true);
+                            $('#table_invoiceconfig').addClass('table-hover');
                         } else {
                             // Enable button
                             $('#invoice_logo').prop('disabled', false);
@@ -914,6 +916,7 @@
                             let table_invoieConfig =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing').html(table_invoieConfig);
+                            $('#table_invoiceconfig').removeClass('table-hover');
                         }
 
 

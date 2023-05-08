@@ -174,10 +174,9 @@
                                             <div id="mobileValidateAcctno" class="form-group-profile">
                                                 <label for="acct_no" style="color: #A4A6B3;">Account Number</label>
                                                 <input id="acct_no" name="acct_no" type="text" class="form-control"
-                                                    placeholder="Account Number" disabled="true"
-                                                    onblur="editValidateAcctno(this)" required maxlength="15">
-                                                <div id="error_acct_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    placeholder="Account Number" disabled="true" maxlength="15">
+                                                {{-- onblur="editValidateAcctno(this)"  --}}
+                                                {{-- <div id="error_acct_no" class="invalid-feedback">This field is required. </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -187,10 +186,9 @@
                                             <div id="mobileValidateAcctname" class="form-group-profile">
                                                 <label for="acct_name" style="color: #A4A6B3;">Account Name</label>
                                                 <input id="acct_name" name="acct_name" type="text"
-                                                    class="form-control" placeholder="Account Name"
-                                                    onblur="editValidateAcctname(this)" disabled="true" required>
-                                                <div id="error_acct_name" class="invalid-feedback">This field is required.
-                                                </div>
+                                                    class="form-control" placeholder="Account Name" disabled="true">
+                                                {{-- onblur="editValidateAcctname(this)"  --}}
+                                                {{-- <div id="error_acct_name" class="invalid-feedback">This field is required. </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -200,8 +198,8 @@
                                             <div class="form-group-profile">
                                                 <label for="bank_name" style="color: #A4A6B3;">Bank Name</label>
                                                 <select class="form-select" id="bank_name" name="bank_name"
-                                                    aria-label="Default select example" disabled="true" required>
-                                                    <option selected disabled value="">Please Select Bank Name
+                                                    aria-label="Default select example" disabled="true">
+                                                    <option selected value="">Please Select Bank Name
                                                     </option>
                                                     <option value="BDO Unibank Inc.">BDO Unibank Inc. (BDO)</option>
                                                     <option value="Land Bank of the Philippines">Land Bank of the
@@ -255,7 +253,7 @@
                                                     <option value="Maybank Philippines Inc.">Maybank Philippines Inc.
                                                     </option>
                                                 </select>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -265,9 +263,8 @@
                                             <div class="form-group-profile">
                                                 <label for="bank_address" style="color: #A4A6B3;">Bank Address</label>
                                                 <input id="bank_address" name="bank_address" type="text"
-                                                    class="form-control" placeholder="Bank Address" disabled="true"
-                                                    required>
-                                                <div class="invalid-feedback">This field is required.</div>
+                                                    class="form-control" placeholder="Bank Address" disabled="true">
+                                                {{-- <div class="invalid-feedback">This field is required.</div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -277,11 +274,10 @@
                                             <div id="mobileValidateGCASHno" class="form-group-profile">
                                                 <label for="gcash_no" style="color: #A4A6B3;">Gcash Number</label>
                                                 <input id="gcash_no" name="gcash_no" type="text"
-                                                    class="form-control" placeholder="Gcash Number"
-                                                    onblur="editValidateGCASHno(this)" disabled="true" required
+                                                    class="form-control" placeholder="Gcash Number" disabled="true"
                                                     maxlength="11">
-                                                <div id="error_gcash_no" class="invalid-feedback">This field is required.
-                                                </div>
+                                                {{-- onblur="editValidateGCASHno(this)" --}}
+                                                {{-- <div id="error_gcash_no" class="invalid-feedback">This field is required. </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -461,8 +457,7 @@
                                                 Types</label>
 
                                             <button id="submit-customize-create-deduction"
-                                                class="border-0 bg-transparent " data-bs-toggle="modal"
-                                                data-bs-target="#modal-customize-create-deduction" disabled>
+                                                class="border-0 bg-transparent " disabled>
                                                 <i class="fa fa-plus-circle" style="font-size:25px;color:#CF8029"></i>
                                             </button>
                                         </div>
@@ -2142,6 +2137,7 @@
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                                 $('#selectInactive').removeClass('d-none');
+                                $('#dataTable_invoice').addClass('table-hover');
                             } else {
                                 $("#dataTable_invoice tbody").append(
                                     '<tr><td colspan="6" class="text-center"><div class="noData" style="width:' +
@@ -2152,6 +2148,7 @@
                                     `Showing 0 to 0 of 0 entries`;
                                 $('#tbl_showing_invoice').html(tbl_showing_invoice);
                                 $('#selectInactive').addClass('d-none');
+                                $('#dataTable_invoice').removeClass('table-hover');
                             }
 
                         }
@@ -3731,7 +3728,7 @@
                                         `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                     $('#selectDeductionTypes').removeClass('d-none');
-
+                                    $('#dataTable_deduction').addClass('table-hover');
                                 } else {
                                     $("#dataTable_deduction tbody").append(
                                         '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
@@ -3742,6 +3739,7 @@
                                         `Showing 0 to 0 of 0 entries`;
                                     $('#tbl_showing_deduction').html(tbl_showing_deduction);
                                     $('#selectDeductionTypes').addClass('d-none');
+                                    $('#dataTable_deduction').removeClass('table-hover');
                                 }
                             }
                         })

@@ -115,7 +115,7 @@ Route::middleware(['auth:api'])->group(function () {
   // POST DEDUCTION TYPES TABLE
   Route::post('savedeductiontype', [DeductionTypeController::class, 'store']);
   Route::get('settings/show_data', [DeductionTypeController::class, 'show_data']);
-  // Route::get('settings/show_deduction_data', [DeductionTypeController::class, 'show_deduction_data']);
+  Route::get('settings/show_deduction_data', [DeductionTypeCosaveProfileDeductionTypesntroller::class, 'show_deduction_data']);
   Route::get('settings/show_edit/{id}', [DeductionTypeController::class, 'show_edit']);
 
   // POST EMAIL TYPE TABLE
@@ -244,6 +244,9 @@ Route::middleware(['auth:api'])->group(function () {
   Route::get('user_data', [ProfileController::class, 'user_data']);
 
   Route::post('imagePreview', [ProfileController::class, 'imagePreview']);
+
+  Route::post('admin/validateCurrentPassword', [ProfileController::class, 'validateCurrentPassword']);
+  Route::post('admin/changePassword', [ProfileController::class, 'changePassword']);
 });
 
 // // TESTING EMAIL 

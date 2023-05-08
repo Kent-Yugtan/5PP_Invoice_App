@@ -858,6 +858,7 @@
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             selectShow();
+                            $('#dataTable_invoice').addClass('table-hover');
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
@@ -868,6 +869,7 @@
                             let tbl_showing_invoice =
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
+                            $('#dataTable_invoice').removeClass('table-hover');
 
                         }
                     }
@@ -1130,6 +1132,7 @@
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             selectShow();
                             $('#selectCurrent').removeClass('d-none');
+                            $('#dataTable_invoice').addClass('table-hover');
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
@@ -1141,6 +1144,7 @@
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             $('#selectCurrent').addClass('d-none');
+                            $('#dataTable_invoice').removeClass('table-hover');
 
                         }
 

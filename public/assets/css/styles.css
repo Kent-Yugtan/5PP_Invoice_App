@@ -2046,7 +2046,7 @@ progress {
 }
 .table > :not(:first-child),
 .dataTable-table > :not(:first-child) {
-    border-top: 1px solid currentColor;
+    border-top: 1px solid transparent;
 }
 
 .caption-top {
@@ -13575,6 +13575,7 @@ body.hide-brand .navbar-brand  {
     color: red;
     /* color: black; */
 }
+
 .was-validated .form-control:invalid,
 .was-validated .dataTable-input:invalid,
 .form-control.is-invalid-red,
@@ -14019,3 +14020,8 @@ th {
     display: flex;
     justify-content: center ;
 }}
+
+.fa-database{
+  padding-top:10px;
+  color: #838698;
+}

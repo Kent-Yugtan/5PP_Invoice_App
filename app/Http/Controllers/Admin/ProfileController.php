@@ -9,11 +9,13 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\DeductionType;
 use App\Models\ProfileDeductionTypes;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -1019,6 +1021,52 @@ class ProfileController extends Controller
           'message' => 'Your Profile has been updated successfully.',
         ], 200);
       }
+    }
+  }
+
+  public function getPassword(Request $request)
+  {
+    $userId = auth()->user()->id;
+    $data = User::find($userId);
+
+    if ($data) {
+      return response()->json([
+        'success' => true,
+        'data' => $data,
+      ], 200);
+    }
+  }
+
+  public function validateCurrentPassword(Request $request)
+  {
+    $validateCurrentPassword = $request->validate([
+      'currentPassword' => ['required', new MatchOldPassword],
+      'newPassword' => ['required', 'different:currentPassword'],
+      'confirmPassword' => ['required', 'same:newPassword'],
+    ]);
+    if ($validateCurrentPassword) {
+      return response()->json([
+        'success' => true,
+        'data' => $validateCurrentPassword,
+      ], 200);
+    }
+  }
+
+  public function changePassword(Request $request)
+  {
+    $request->validate([
+      'currentPassword' => ['required', new MatchOldPassword],
+      'newPassword' => ['required', 'different:currentPassword'],
+      'confirmPassword' => ['required', 'same:newPassword'],
+    ]);
+
+    $data = User::find(auth()->user()->id)->update(['password' => Hash::make($request->newPassword)]);
+    if ($data) {
+      return response()->json([
+        'success' => true,
+        'message' => 'The administrator password has been changed successfully.',
+        'data' => $data,
+      ], 200);
     }
   }
 }
