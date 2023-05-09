@@ -861,8 +861,8 @@
 
             $('#back').on('click', function(e) {
                 e.preventDefault();
-                let userid = $('#userId').html();
-                let profileId = $('#profileId').html();
+                let userid = $('#user_id').val();
+                let profileId = $('#profileId').val();
                 // console.log(userid + " " + profileId);
                 window.location.href = apiUrl + "/admin/inactiveProfile/" + userid + "/" + profileId;
             })
@@ -1499,8 +1499,8 @@
                             if (data.success) {
                                 console.log("DATA123", data);
                                 $('#content').append(` <div class="row">
-                                <span id="userId" hidden></span>
-                                <span id="profileId" hidden></span>
+                                 <input type="text" id="user_id" hidden>
+                                <input type="text" id="profileId" hidden>
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-6 fw-bolder">
@@ -1698,7 +1698,8 @@
 
                                 const month = ["January", "February", "March", "April", "May", "June",
                                     "July",
-                                    "August", "September", "October", "November", "December"
+                                    "August", "September", "October", "Novemb$('#profileId').htmler",
+                                    "December"
                                 ];
                                 var newdate = new Date(data.data.created_at);
                                 var mm = month[newdate.getMonth()];
@@ -1715,8 +1716,8 @@
                                 var dd3 = date_received.getDate();
                                 var yy3 = date_received.getFullYear();
 
-                                $('#userId').html(data.data.profile.user.id);
-                                $('#profileId').html(data.data.profile.id);
+                                $('#user_id').val(data.data.profile.user.id);
+                                $('#profileId').val(data.data.profile.id);
 
                                 $('#full_name').html(data.data.profile.user.first_name + " " + data.data
                                     .profile.user
@@ -2043,7 +2044,7 @@
                     $('#update').html(originalText);
                 }, 500);
 
-                let profile_id = $('#profileId').html();
+                let profile_id = $('#profileId').val();
                 let due_date = $('#due_date').val();
                 let invoice_id = $('#update_invoice_id').val();
                 let invoice_description = $('#invoice_description').val();

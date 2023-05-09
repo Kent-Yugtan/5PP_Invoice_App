@@ -876,19 +876,29 @@
 
                             $("#tbl_pagination .page-item .page-link").on('click', function() {
                                 let url = $(this).data('url')
-                                $.urlParam = function(name) {
-                                    var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
-                                        url
-                                    );
 
-                                    return results !== null ? results[1] || 0 : 0;
-                                };
+                                var originalTextTable = $('#table_invoiceconfig tbody').html();
+                                // Add spinner to the remaining row and set colspan to 5
+                                $('#table_invoiceconfig tbody').html(
+                                    `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    $.urlParam = function(name) {
+                                        var results = new RegExp("[?&]" + name +
+                                            "=([^&#]*)").exec(
+                                            url
+                                        );
 
-                                let search = $('#search').val();
-                                show_data({
-                                    search,
-                                    page: $.urlParam('page')
-                                });
+                                        return results !== null ? results[1] || 0 : 0;
+                                    };
+
+                                    let search = $('#search').val();
+                                    show_data({
+                                        search,
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
                             })
 
                             let table_invoieConfig =

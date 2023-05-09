@@ -17,6 +17,7 @@ use App\Models\InvoiceConfig;
 use App\Models\User;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +33,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('resetPassword', [AuthController::class, 'resetPassword']);
 Route::post('password/reset', [AuthController::class, 'reset']);
+Route::get('public_get_invoice_config', [InvoiceController::class, 'get_invoice_config']);
+Route::get('public/invoiceInfo/{token}', [InvoiceController::class, 'publicEditInvoice']); // EDIT INVOICE VIEW
+Route::post('public/update_status', [InvoiceController::class, 'update_status']);
+Route::post('public/delete_invoice/{id}', [InvoiceController::class, 'destroy']);
 
 Route::middleware(['auth:api'])->group(function () {
 
@@ -255,8 +260,7 @@ Route::get('testEmail', function () {
     ->orderBy('id', 'Desc')->first();
   $data1 = InvoiceConfig::orderBy('id', 'Desc')->first();
   $data2 = EmailConfig::where('status', 'Active')->get();
-  // echo "<pre>";
-  // echo $data;
+  $token = Str::random(64);
   if ($data && $data1) {
     foreach ($data2 as $send_admin) {
       $data_setup_email_template = [
@@ -264,6 +268,7 @@ Route::get('testEmail', function () {
         'invoice_logo'           => $data1->invoice_logo,
         'full_name'              => $data->profile->user->first_name . " " . $data->profile->user->last_name,
         'user_email'             => $data->profile->user->email,
+        'invoice_id'             => $data->id,
         'invoice_no'             => $data->invoice_no,
         'invoice_status'         => $data->status,
         'address'                => $data->profile->address,
@@ -292,7 +297,9 @@ Route::get('testEmail', function () {
         'notes'                  => $data->notes,
         'grand_total_amount'     => number_format($data->grand_total_amount, 2),
         'admin_email'            => $send_admin->email_address,
+        'admin_email_fullname'   => $send_admin->fullname,
         'quick_invoice'          => $data->quick_invoice,
+        'token'                  =>  $token,
       ];
     }
     echo setup_email_template($data_setup_email_template);
@@ -301,9 +308,12 @@ Route::get('testEmail', function () {
 
 function setup_email_template($data)
 {
+  $token = !empty($data['token']) ? $data['token'] : "";
+  $admin_email_fullname = !empty($data['admin_email_fullname']) ? $data['admin_email_fullname'] : "";
   $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
   $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
   $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+  $invoice_id = !empty($data['invoice_id']) ? $data['invoice_id'] : "";
   $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
   $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
   $address = !empty($data['address']) ? $data['address'] : "";
@@ -354,9 +364,12 @@ function setup_email_template($data)
     'template'      => $template,
     'body_data'     => [
       "content" => [
+        'for'               => 'Profile',
+        'admin_email_fullname'        => $admin_email_fullname,
         'invoice_logo'        => $invoice_logo,
         'full_name'           => $full_name,
         'user_email'          => $user_email,
+        'invoice_id'          => $invoice_id,
         'invoice_no'          => $invoice_no,
         'invoice_status'      => $invoice_status,
         'address'             => $address,
@@ -386,7 +399,8 @@ function setup_email_template($data)
         'notes'               => $notes,
         'grand_total_amount'  => $grand_total_amount,
         'quick_invoice'       => $quick_invoice,
-
+        'token'               =>  $token,
+        'action_link'         =>  url('admin/invoiceInfoProfile/'),
       ],
     ]
   ];

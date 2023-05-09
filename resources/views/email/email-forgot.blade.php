@@ -484,6 +484,16 @@
                     <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation"
                         style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; margin: 0; padding: 0;">
                         <tr>
+                            <td>
+                                <p style="text-align: center">
+                                    <img style="width: 50px; max-width: 50%;"
+                                        src="https://invoice.5ppsite.com{{ $content['invoice_logo'] }}"
+                                        onerror="this.onerror=null;this.src=''">
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="email-masthead"
                                 style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; text-align: center; padding: 25px 0;"
                                 align="center">
@@ -495,15 +505,7 @@
                             </td>
 
                         </tr>
-                        <tr>
-                            <td>
-                                <p style="text-align: center">
-                                    <img style="width: 50px; max-width: 50%;"
-                                        src="https://invoice.5ppsite.com{{ $content['invoice_logo'] }}"
-                                        onerror="this.onerror=null;this.src=''">
-                                </p>
-                            </td>
-                        </tr>
+
                         <!-- Email Body -->
                         <tr>
                             <td class="email-body" width="470" cellpadding="0" cellspacing="0"

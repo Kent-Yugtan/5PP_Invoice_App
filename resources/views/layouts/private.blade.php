@@ -35,17 +35,40 @@
         <div class="loader"></div>
     </div>
     <div id="layoutSidenav">
-        @if (session('data')->role == 'Admin')
+        {{-- @if (session('data')->role == 'Admin')
             @include('layouts.admin.sidemenu')
-        @else
+        @elseif(session('data')->role == 'Staff')
             @include('layouts.employee.sidemenu')
+        @else
+            @include('layouts.public.sidemenu')
+        @endif --}}
+
+        @if (isset(session('data')->role) && session('data')->role == 'Admin')
+            @include('layouts.admin.sidemenu')
+        @elseif (isset(session('data')->role) && session('data')->role == 'Staff')
+            @include('layouts.employee.sidemenu')
+        @else
+            @include('layouts.public.sidemenu')
         @endif
+
+
         <div id="layoutSidenav_content">
-            @if (session('data')->role == 'Admin')
+
+            @if (isset(session('data')->role) && session('data')->role == 'Admin')
                 @include('layouts.admin.header')
-            @else
+            @elseif (isset(session('data')->role) && session('data')->role == 'Staff')
                 @include('layouts.employee.header')
+            @else
+                @include('layouts.public.header')
             @endif
+
+            {{-- @if (session('data')->role == 'Admin')
+                @include('layouts.admin.header')
+            @elseif(session('data')->role == 'Staff')
+                @include('layouts.employee.header')
+            @else
+                @include('layouts.public.header')
+            @endif --}}
             <main>
                 @yield('content-dashboard')
             </main>

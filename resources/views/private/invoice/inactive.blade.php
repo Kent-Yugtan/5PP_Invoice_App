@@ -473,11 +473,8 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
-                                // show_statusInactiveinvoice();
-                                // invoiceCount_active();
-                                // invoiceCount_inactive();
-                                $('#invoice_active').addClass('d-none');
 
+                                $('#invoice_active').addClass('d-none');
                             }, 1500)
                             toast1.toast('show');
                         }
@@ -528,11 +525,6 @@
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
 
-                                // location.href = apiUrl + "/admin/current"
-                                // window.location.reload();
-                                // show_statusInactiveinvoice();
-                                // invoiceCount_active();
-                                // invoiceCount_inactive();
                                 $('#invoice_active').addClass('d-none');
                             }, 1500)
                             toast1.toast('show');
@@ -858,10 +850,17 @@
                                     return results !== null ? results[1] || 0 : 0;
                                 };
 
-                                search_statusInactive_invoice({
-                                    search: $('#search').val() ? $('#search').val() : '',
-                                    page: $.urlParam('page')
-                                });
+                                $('#dataTable_invoice tbody').html(
+                                    `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    search_statusInactive_invoice({
+                                        search: $('#search').val() ? $('#search')
+                                            .val() : '',
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
                             })
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
@@ -1102,11 +1101,20 @@
                                         );
                                     return results !== null ? results[1] || 0 : 0;
                                 };
-                                let search = $('#search').val();
-                                show_statusInactiveinvoice({
-                                    search: search,
-                                    page: $.urlParam('page')
-                                });
+
+                                $('#dataTable_invoice tbody').html(
+                                    `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    let search = $('#search').val();
+                                    show_statusInactiveinvoice({
+                                        search: search,
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
+
+
                             })
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;

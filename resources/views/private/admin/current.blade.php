@@ -600,12 +600,20 @@
                                         return results !== null ? results[1] || 0 : 0;
                                     };
 
-                                    let search = $('#search').val() ? $('#search').val() : '';
-                                    show_data({
-                                        search: search,
-                                        page: $.urlParam('page')
-                                    });
+                                    $('#tbl_user tbody').html(
+                                        `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    );
+                                    setTimeout(function() {
+                                        let search = $('#search').val() ? $('#search').val() :
+                                            '';
+                                        show_data({
+                                            search: search,
+                                            page: $.urlParam('page')
+                                        });
+                                    }, 500);
                                 })
+
                                 let tbl_user_showing =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                                 $('#tbl_user_showing').html(tbl_user_showing);

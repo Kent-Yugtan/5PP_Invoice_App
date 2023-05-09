@@ -861,8 +861,8 @@
 
             $('#back').on('click', function(e) {
                 e.preventDefault();
-                let userid = $('#userId').html();
-                let profileId = $('#profileId').html();
+                let userid = $('#user_id').val();
+                let profileId = $('#profileId').val();
                 // console.log(userid + " " + profileId);
                 window.location.href = apiUrl + "/admin/activeProfile/" + userid + "/" + profileId;
             })
@@ -1498,9 +1498,10 @@
                             let data = response.data;
                             if (data.success) {
                                 console.log("DATA123", data);
-                                $('#content').append(` <div class="row">
-                                <span id="userId" hidden></span>
-                                <span id="profileId" hidden></span>
+                                $('#content').append(` 
+                                <input type="text" id="user_id" hidden>
+                                <input type="text" id="profileId" hidden>
+                                <div class="row">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-6 fw-bolder">
@@ -1715,8 +1716,8 @@
                                 var dd3 = date_received.getDate();
                                 var yy3 = date_received.getFullYear();
 
-                                $('#userId').html(data.data.profile.user.id);
-                                $('#profileId').html(data.data.profile.id);
+                                $('#user_id').val(data.data.profile.user.id);
+                                $('#profileId').val(data.data.profile.id);
 
                                 $('#full_name').html(data.data.profile.user.first_name + " " + data.data
                                     .profile.user
@@ -2043,7 +2044,7 @@
                     $('#update').html(originalText);
                 }, 500);
 
-                let profile_id = $('#profileId').html();
+                let profile_id = $('#profileId').val();
                 let due_date = $('#due_date').val();
                 let invoice_id = $('#update_invoice_id').val();
                 let invoice_description = $('#invoice_description').val();
@@ -2180,24 +2181,43 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
+
                             $('#activeModal').modal('hide');
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
                             );
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            toast1.toast('show');
-
-                            // $("div.spanner").addClass("show");
+                            $('#content').addClass('text-center');
+                            $('#content').css('padding', '117px');
                             setTimeout(function() {
-                                // $("div.spanner").removeClass("show");
+                                $('#content').removeClass('text-center');
+                                $('#content').css('padding', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
 
-                                // $('#table_invoiceItems tbody').empty();
-                                // $('.row .title_deductions').empty();
-                                // $('.row .total_deductions').empty();
-                                // $('.row .deductions').empty();
-                                // $('#table_invoiceItems tbody').html(show_invoice());
-                                location.reload(true);
+                            $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
+                                $('.toast1 .toast-title').html('Success');
+                                $('.toast1 .toast-body').html(response.data.message);
+
+                                $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
+                                $('.row .title_deductions').empty();
+                                $('.row .total_deductions').empty();
+                                $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
+                                $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
+                                toast1.toast('show');
                             }, 1500);
                         }
                     }).catch(function(error) {
@@ -2249,24 +2269,42 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#inactiveModal').modal('hide');
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
                             );
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            toast1.toast('show');
-
-                            // $("div.spanner").addClass("show");
+                            $('#content').addClass('text-center');
+                            $('#content').css('padding', '117px');
                             setTimeout(function() {
-                                // $("div.spanner").removeClass("show");
+                                $('#content').removeClass('text-center');
+                                $('#content').css('padding', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
 
-                                // $('#table_invoiceItems tbody').empty();
-                                // $('.row .title_deductions').empty();
-                                // $('.row .total_deductions').empty();
-                                // $('.row .deductions').empty();
-                                // $('#table_invoiceItems tbody').html(show_invoice());
-                                location.reload(true);
+                            $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
+                                $('.toast1 .toast-title').html('Success');
+                                $('.toast1 .toast-body').html(response.data.message);
+
+                                $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
+                                $('.row .title_deductions').empty();
+                                $('.row .total_deductions').empty();
+                                $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
+                                $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
+                                toast1.toast('show');
                             }, 1500);
 
                         }
@@ -2302,9 +2340,6 @@
             $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
 
-                var start = performance.now(); // get the current stamp
-                // Do your processing here
-
                 let url = window.location.pathname
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {
@@ -2323,7 +2358,21 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#paidModal').modal('hide');
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                            );
+                            $('#content').addClass('text-center');
+                            $('#content').css('padding', '117px');
+                            setTimeout(function() {
+                                $('#content').removeClass('text-center');
+                                $('#content').css('padding', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
+
                             $("div.spanner").addClass("show");
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
@@ -2343,6 +2392,7 @@
                                 $('.row .discountType').empty();
                                 $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
                                 toast1.toast('show');
                             }, 1500);
 
@@ -2397,7 +2447,21 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#cancelModal').modal('hide');
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                            );
+                            $('#content').addClass('text-center');
+                            $('#content').css('padding', '117px');
+                            setTimeout(function() {
+                                $('#content').removeClass('text-center');
+                                $('#content').css('padding', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
+
                             $("div.spanner").addClass("show");
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
@@ -2417,6 +2481,7 @@
                                 $('.row .discountType').empty();
                                 $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
                                 toast1.toast('show');
                             }, 1500);
 
@@ -2463,26 +2528,48 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#deleteModal').modal('hide');
                             $("div.spanner").addClass("show");
                             setInterval(function() {
                                 $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                                var originalText = $('#content').html();
+                                $('#content').html(
+                                    `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
                                 );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-                                $('#table_invoiceItems tbody').empty();
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('.row .view_invoice_description').empty();
-                                $('.row #view_invoice_description').empty();
-                                $('.row .discountType').empty();
-                                $('.row #discountAmount').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
+                                $('#content').addClass('text-center');
+                                $('#content').css('padding', '117px');
+                                setTimeout(function() {
+                                    $('#content').removeClass('text-center');
+                                    $('#content').css('padding', '0px');
+                                    $('#content').html(originalText);
+                                }, 1500);
+
+                                $("div.spanner").addClass("show");
+                                setTimeout(function() {
+                                    $("div.spanner").removeClass("show");
+                                    $('#notifyIcon').html(
+                                        '<i class="fa-solid fa-check" style="color:green"></i>'
+                                    );
+                                    $('.toast1 .toast-title').html('Success');
+                                    $('.toast1 .toast-body').html(response.data
+                                        .message);
+
+                                    $('#table_invoiceItems tbody').empty();
+                                    $('#table_invoiceItems tbody').empty();
+                                    $('.row .title_deductions').empty();
+                                    $('.row .total_deductions').empty();
+                                    $('.row .deductions').empty();
+                                    $('.row .view_invoice_description').empty();
+                                    $('.row #view_invoice_description').empty();
+                                    $('.row .discountType').empty();
+                                    $('.row #discountAmount').empty();
+                                    $('#table_invoiceItems tbody').html(
+                                        show_invoice());
+                                    show_invoice_config();
+                                    toast1.toast('show');
+                                }, 1500);
                             }, 2000)
 
                             setTimeout(function() {
@@ -2545,11 +2632,48 @@
                 // Generate the PDF from the HTML content using html2pdf
                 html2pdf().from($('#content')[0]).set(options).save();
             }
+
             $('#pdfDownload').on('click', function(e) {
                 e.preventDefault();
-                pdfContent();
-            })
+                $('#content').empty();
 
+                var originalText = $('#content').html();
+                $('#content').html(
+                    `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                );
+                $('#content').addClass('text-center');
+                $('#content').css('padding', '117px');
+                setTimeout(function() {
+                    $('#content').removeClass('text-center');
+                    $('#content').css('padding', '0px');
+                    $('#content').html(originalText);
+                }, 1500);
+
+                $("div.spanner").addClass("show");
+                setTimeout(function() {
+                    $("div.spanner").removeClass("show");
+                    $('#notifyIcon').html(
+                        '<i class="fa-solid fa-check" style="color:green"></i>'
+                    );
+                    $('.toast1 .toast-title').html('Success');
+                    $('.toast1 .toast-body').html("Invoice has been successfully downloaded.");
+
+                    $('#table_invoiceItems tbody').empty();
+                    $('#table_invoiceItems tbody').empty();
+                    $('.row .title_deductions').empty();
+                    $('.row .total_deductions').empty();
+                    $('.row .deductions').empty();
+                    $('.row .view_invoice_description').empty();
+                    $('.row #view_invoice_description').empty();
+                    $('.row .discountType').empty();
+                    $('.row #discountAmount').empty();
+                    $('#table_invoiceItems tbody').html(show_invoice());
+                    toast1.toast('show');
+
+                    show_invoice_config();
+                    pdfContent();
+                }, 1500);
+            })
         })
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
