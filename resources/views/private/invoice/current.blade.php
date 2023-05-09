@@ -480,8 +480,6 @@
 
             $('#inactive_button').on('click', function(e) {
                 e.preventDefault();
-
-
                 let invoice_id = $('#inactiveInvoice').html();
                 if (invoice_id) {
                     let data = {
@@ -504,7 +502,6 @@
                                 $("div.spanner").removeClass("show");
 
                                 $('#invoice_inactive').addClass('d-none');
-                                location.reload(true);
                             }, 1500)
                             toast1.toast('show');
                         }
@@ -554,8 +551,6 @@
                             $('.toast1 .toast-body').html(data.message);
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
-                                // location.href = apiUrl + "/admin/current"
-                                // window.location.reload();
 
                                 $('#invoice_inactive').addClass('d-none');
                             }, 1500)
@@ -587,10 +582,19 @@
                         }
                     })
                 }
-                show_data();
+
                 active_count_paid();
                 active_count_pending();
-                check_pendingInvoicesStatus();
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    check_pendingInvoicesStatus();
+                    show_data();
+                }, 1500)
             })
 
 
@@ -848,11 +852,17 @@
                                         );
                                     return results !== null ? results[1] || 0 : 0;
                                 };
-                                let search = $('#search').val();
-                                search_statusActive_invoice({
-                                    search: search,
-                                    page: $.urlParam('page')
-                                });
+                                $('#dataTable_invoice tbody').html(
+                                    `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    let search = $('#search').val();
+                                    search_statusActive_invoice({
+                                        search: search,
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
                             })
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
@@ -1121,11 +1131,19 @@
                                         0;
                                 };
 
-                                let search = $('#search').val();
-                                show_data({
-                                    search: search,
-                                    page: $.urlParam('page')
-                                });
+                                $('#dataTable_invoice tbody').html(
+                                    `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    let search = $('#search').val();
+                                    show_data({
+                                        search: search,
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
+
+
                             })
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;

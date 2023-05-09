@@ -7,6 +7,9 @@
                     <div class="card-body" id="mainCard">
                         <div style="padding:20px">
                             <div id="content">
+                                <input type="text" id="invoiceId" value="{{ $invoiceId }}" hidden>
+                                <input type="text" id="for" value="{{ $for }}" hidden>
+
                                 {{-- <div class="row">
                                     <span id="userId" hidden></span>
                                     <span id="profileId" hidden></span>
@@ -215,26 +218,16 @@
                 <div class="card-border shadow bg-white ">
                     <div style="padding:20px">
                         <div class="card-body" style="padding-top:1rem;padding-bottom:1rem">
-                            <div class="row bottom10">
-                                <div class="col-12 w-100">
-                                    <button type="button" id="back" class="btn  w-100"
-                                        style="color: White; background-color: #CF8029;">Back</button>
+
+                            <div class="row ">
+                                <div class="col-12 w-100 bottom10">
+                                    <button type="button" id="pdfDownload" class="btn  w-100"
+                                        style="color: White; background-color: #CF8029;">Download</button>
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
-                                <div class="col-6" style="padding-right:5px;">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
-                                        class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
-                                </div>
-                                <div class="col-6" style="padding-left:5px;">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
-                                        class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
-                                </div>
-                            </div>
-
-                            <div class="row bottom10">
-                                <div class="col-12 w-100">
+                            <div class="row ">
+                                <div class="col-12 w-100 bottom10">
                                     <button type="button" data-bs-toggle="modal" id="paid_button"
                                         data-bs-target="#paidModal" class="btn  w-100"
                                         style="color: White; background-color: #198754;">Paid
@@ -242,8 +235,8 @@
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
-                                <div class="col-12 w-100">
+                            <div class="row ">
+                                <div class="col-12 w-100 bottom10">
                                     <button type="button" data-bs-toggle="modal" id="cancel_button"
                                         data-bs-target="#cancelModal" class="btn  w-100"
                                         style="color: White; background-color:#A4A6B3;">Cancel
@@ -256,22 +249,6 @@
                                     <button type="button" id="delete_button" data-bs-toggle='modal'
                                         data-bs-target='#deleteModal' class="btn  w-100"
                                         style="color: White; background-color: #dc3545;">Delete
-                                        Invoice</button>
-                                </div>
-                            </div>
-
-                            <div class="row" style="padding-top:2.5rem">
-                                <div class="col-12 w-100 bottom10">
-                                    <button type="button" id="pdfDownload" class="btn  w-100"
-                                        style="color: White; background-color: #CF8029;">Download</button>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 w-100 ">
-                                    <button type="button" id="edit_invoice" data-bs-toggle="modal"
-                                        data-bs-target="#updateModal" class="btn w-100"
-                                        style="color: White; background-color: #CF8029;">Edit
                                         Invoice</button>
                                 </div>
                             </div>
@@ -312,8 +289,7 @@
                     <div class="row">
                         <div class="col">
                             <span>
-                                <img class="" src="{{ URL('images/Info.png') }}"
-                                    style="width: 50%; padding:10px" />
+                                <img class="" src="{{ URL('images/Info.png') }}" style="width: 50%; padding:10px" />
                             </span>
                         </div>
                     </div>
@@ -796,7 +772,7 @@
                 `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
             );
             $('#content').addClass('text-center');
-            $('#content').css('padding', '117px');
+            $('#content').css('padding', '30px');
             setTimeout(function() {
                 $('#content').removeClass('text-center');
                 $('#content').css('padding', '0px');
@@ -822,13 +798,28 @@
                 }
             })
 
-
             $("div.spanner").addClass("show");
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
+                buttonClick();
                 show_invoice();
                 show_invoice_config();
             }, 1500)
+
+            function buttonClick() {
+                let forInovoice = $('#for').val();
+                if (forInovoice == "Admin") {
+                    console.log("Admin", forInovoice);
+                    $('#paid_button').prop('disabled', false);
+                    $('#cancel_button').prop('disabled', false);
+                    $('#delete_button').prop('disabled', false);
+                } else {
+                    console.log("Profile", forInovoice);
+                    $('#paid_button').prop('disabled', true);
+                    $('#cancel_button').prop('disabled', true);
+                    $('#delete_button').prop('disabled', true)
+                }
+            }
 
             $('#due_date').each(function() {
                 const datepicker = new Datepicker(this, {
@@ -839,7 +830,7 @@
                 });
             });
 
-            var currentPage = apiUrl + "/user/profile";
+            var currentPage = apiUrl + "/admin/current";
             $('#collapseLayouts a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
@@ -861,10 +852,10 @@
 
             $('#back').on('click', function(e) {
                 e.preventDefault();
-                let userid = $('#userId').val();
+                let userid = $('#user_id').val();
                 let profileId = $('#profileId').val();
                 // console.log(userid + " " + profileId);
-                window.location.href = apiUrl + "/user/profile";
+                window.location.href = apiUrl + "/admin/activeProfile/" + userid + "/" + profileId;
             })
 
             $('.close').on('click', function(e) {
@@ -1270,749 +1261,786 @@
                 }
             }
 
-            $(document).on('click', '#edit_invoice', function(e) {
-                e.preventDefault();
-                let url = window.location.pathname;
-                let urlSplit = url.split('/');
-                if (urlSplit.length == 4) {
-                    let invoice_id = urlSplit[3]
-                    $('#update_invoice_id').val(invoice_id)
+            // $(document).on('click', '#edit_invoice', function(e) {
+            //     e.preventDefault();
+            //     let url = window.location.pathname;
+            //     let urlSplit = url.split('/');
+            //     if (urlSplit.length == 4) {
+            //         let invoice_id = urlSplit[3]
+            //         $('#update_invoice_id').val(invoice_id)
 
-                    axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {
-                        headers: {
-                            Authorization: token
-                        },
-                    }).then(function(response) {
-                        let data = response.data
-                        if (data.success) {
-                            console.log("SUCCESSSUCCESS", data);
+            //         axios.get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {
+            //             headers: {
+            //                 Authorization: token
+            //             },
+            //         }).then(function(response) {
+            //             let data = response.data
+            //             if (data.success) {
+            //                 console.log("SUCCESSSUCCESS", data);
 
-                            // $('#update_profile_id').val(data.data.profile_id);
-                            $('#due_date').val(data.data.due_date);
-                            $('#invoice_description').val(data.data.description);
-                            $('#edit_peso_rate').val(PHP(data.data.peso_rate).format());
-                            // $('#edit_converted_amount').val(PHP(data.data.converted_amount).format());
-                            $('textarea#notes').val(data.data.notes);
+            //                 // $('#update_profile_id').val(data.data.profile_id);
+            //                 $('#due_date').val(data.data.due_date);
+            //                 $('#invoice_description').val(data.data.description);
+            //                 $('#edit_peso_rate').val(PHP(data.data.peso_rate).format());
+            //                 // $('#edit_converted_amount').val(PHP(data.data.converted_amount).format());
+            //                 $('textarea#notes').val(data.data.notes);
 
-                            $("#discount_amount").addClass('d-none');
-                            $("#discount_total").addClass('d-none');
-                            $(".label_discount_amount").addClass('d-none');
-                            $(".label_discount_total").addClass('d-none');
+            //                 $("#discount_amount").addClass('d-none');
+            //                 $("#discount_total").addClass('d-none');
+            //                 $(".label_discount_amount").addClass('d-none');
+            //                 $(".label_discount_total").addClass('d-none');
 
-                            if (data.data.discount_type) {
-                                $('#discount_amount').val(data.data.discount_amount);
-                                $('#discount_total').val(data.data.discount_total);
-                                if (data.data.discount_type === 'Fixed') {
-                                    $("#discount_amount").removeClass('d-none');
-                                    $("#discount_total").removeClass('d-none');
-                                    $(".label_discount_amount").removeClass('d-none');
-                                    $(".label_discount_total").removeClass('d-none');
-                                    $("input[id=discount_type][value=" + data.data.discount_type +
-                                            "]")
-                                        .attr('checked', true)
-                                } else {
-                                    $("#discount_amount").removeClass('d-none');
-                                    $("#discount_total").removeClass('d-none');
-                                    $(".label_discount_amount").removeClass('d-none');
-                                    $(".label_discount_total").removeClass('d-none');
-                                    $("input[id=discount_type][value=" + data.data.discount_type +
-                                            "]")
-                                        .attr('checked', true)
-                                }
-                            }
+            //                 if (data.data.discount_type) {
+            //                     $('#discount_amount').val(data.data.discount_amount);
+            //                     $('#discount_total').val(data.data.discount_total);
+            //                     if (data.data.discount_type === 'Fixed') {
+            //                         $("#discount_amount").removeClass('d-none');
+            //                         $("#discount_total").removeClass('d-none');
+            //                         $(".label_discount_amount").removeClass('d-none');
+            //                         $(".label_discount_total").removeClass('d-none');
+            //                         $("input[id=discount_type][value=" + data.data.discount_type +
+            //                                 "]")
+            //                             .attr('checked', true)
+            //                     } else {
+            //                         $("#discount_amount").removeClass('d-none');
+            //                         $("#discount_total").removeClass('d-none');
+            //                         $(".label_discount_amount").removeClass('d-none');
+            //                         $(".label_discount_total").removeClass('d-none');
+            //                         $("input[id=discount_type][value=" + data.data.discount_type +
+            //                                 "]")
+            //                             .attr('checked', true)
+            //                     }
+            //                 }
 
-                            if (data.data.invoice_items.length > 0) {
-                                data.data.invoice_items.map((item) => {
-                                    let wrapper = $('#show_items');
-                                    add_rows = '';
-                                    add_rows += '<div class="row row1">';
-                                    add_rows += '<div class="col-md-4">';
-                                    add_rows += '<div class="form-group-profile">';
-                                    // add_rows += '<div class="form-floating form-group">';
+            //                 if (data.data.invoice_items.length > 0) {
+            //                     data.data.invoice_items.map((item) => {
+            //                         let wrapper = $('#show_items');
+            //                         add_rows = '';
+            //                         add_rows += '<div class="row row1">';
+            //                         add_rows += '<div class="col-md-4">';
+            //                         add_rows += '<div class="form-group-profile">';
+            //                         // add_rows += '<div class="form-floating form-group">';
 
-                                    add_rows +=
-                                        '<input type="text" value="' + item.id +
-                                        '" name="item_id" id="item_id" class="form-control item_id" hidden />';
+            //                         add_rows +=
+            //                             '<input type="text" value="' + item.id +
+            //                             '" name="item_id" id="item_id" class="form-control item_id" hidden />';
 
-                                    if (item.item_description) {
-                                        add_rows +=
-                                            '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
-                                        add_rows += '<input type="text" value="' + item
-                                            .item_description +
-                                            '" name="item_description" id="item_description" class="form-control item_description" required/>';
-                                        add_rows +=
-                                            '<div class="invalid-feedback">This field is required.</div>';
-                                    } else {
-                                        add_rows +=
-                                            '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
-                                        add_rows +=
-                                            '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" required/>';
-                                        add_rows +=
-                                            '<div class="invalid-feedback">This field is required.</div>';
-                                    }
-                                    add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         if (item.item_description) {
+            //                             add_rows +=
+            //                                 '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
+            //                             add_rows += '<input type="text" value="' + item
+            //                                 .item_description +
+            //                                 '" name="item_description" id="item_description" class="form-control item_description" required/>';
+            //                             add_rows +=
+            //                                 '<div class="invalid-feedback">This field is required.</div>';
+            //                         } else {
+            //                             add_rows +=
+            //                                 '<label for="item_description" style="color:#A4A6B3">Item Desctiption</label>';
+            //                             add_rows +=
+            //                                 '<input type="text" value="N/A" name="item_description" id="item_description" class="form-control item_description" required/>';
+            //                             add_rows +=
+            //                                 '<div class="invalid-feedback">This field is required.</div>';
+            //                         }
+            //                         add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows += '<div class="col-md-2 bottom20">';
-                                    // add_rows += '<div class="form-floating form-group">';
+            //                         add_rows += '<div class="col-md-2 bottom20">';
+            //                         // add_rows += '<div class="form-floating form-group">';
 
-                                    add_rows +=
-                                        '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
-                                    add_rows +=
-                                        '<input type="text" value=' + PHP(item.quantity)
-                                        .format() +
-                                        ' step="any" maxlength="4" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
-                                    // add_rows += '</div>';
-                                    add_rows += ' </div>';
+            //                         add_rows +=
+            //                             '<label for="quantity" style="color:#A4A6B3">Quantity</label>';
+            //                         add_rows +=
+            //                             '<input type="text" value=' + PHP(item.quantity)
+            //                             .format() +
+            //                             ' step="any" maxlength="4" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
+            //                         // add_rows += '</div>';
+            //                         add_rows += ' </div>';
 
-                                    add_rows += '<div class="col-md-3 bottom20">';
-                                    // add_rows += '<div class="form-floating form-group">';
-                                    add_rows +=
-                                        '<label for="rate" style="color:#A4A6B3">Rate</label>';
-                                    add_rows +=
-                                        '<input type="text" value=' + PHP(item.rate)
-                                        .format() +
-                                        ' step="any" name="rate" id="rate" style="text-align:right;" class="form-control multi rate" />';
-                                    // add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         add_rows += '<div class="col-md-3 bottom20">';
+            //                         // add_rows += '<div class="form-floating form-group">';
+            //                         add_rows +=
+            //                             '<label for="rate" style="color:#A4A6B3">Rate</label>';
+            //                         add_rows +=
+            //                             '<input type="text" value=' + PHP(item.rate)
+            //                             .format() +
+            //                             ' step="any" name="rate" id="rate" style="text-align:right;" class="form-control multi rate" />';
+            //                         // add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows += '<div class="col-md-2 bottom20">';
-                                    // add_rows += '<div class="form-floating form-group">';
-                                    add_rows +=
-                                        '<label for="amount" style="color:#A4A6B3">Amount</label>';
-                                    add_rows +=
-                                        '<input type="text" value=' + PHP(item
-                                            .total_amount)
-                                        .format() +
-                                        ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" multi class="form-control amount" />';
-                                    // add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         add_rows += '<div class="col-md-2 bottom20">';
+            //                         // add_rows += '<div class="form-floating form-group">';
+            //                         add_rows +=
+            //                             '<label for="amount" style="color:#A4A6B3">Amount</label>';
+            //                         add_rows +=
+            //                             '<input type="text" value=' + PHP(item
+            //                                 .total_amount)
+            //                             .format() +
+            //                             ' style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" multi class="form-control amount" />';
+            //                         // add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows +=
-                                        '<div class="col-md-1 d-flex justify-content-center align-items-center col-remove-item">';
-                                    // add_rows += '<div class="form-group">';
-                                    add_rows +=
-                                        '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
-                                    // add_rows += '</div>';
-                                    add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         add_rows +=
+            //                             '<div class="col-md-1 d-flex justify-content-center align-items-center col-remove-item">';
+            //                         // add_rows += '<div class="form-group">';
+            //                         add_rows +=
+            //                             '<button class="btn remove_items_button " ><i class="fa fa-trash" style="color:#dc3545"></i></button>';
+            //                         // add_rows += '</div>';
+            //                         add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    $(wrapper).append(add_rows);
-                                    return '';
-                                    // if ($('#show_items > .row1').length > 1) {
-                                    //     $('#show_items > .row1').each(function() {
-                                    //         $(this).find('.remove_items_button')
-                                    //             .removeClass('d-none');
-                                    //     })
-                                    // } else {
-                                    //     $('#show_items > .row1').find(
-                                    //             '.remove_items_button')
-                                    //         .removeClass('d-none').addClass(
-                                    //             'd-none');
-                                    // }
+            //                         $(wrapper).append(add_rows);
+            //                         return '';
+            //                         // if ($('#show_items > .row1').length > 1) {
+            //                         //     $('#show_items > .row1').each(function() {
+            //                         //         $(this).find('.remove_items_button')
+            //                         //             .removeClass('d-none');
+            //                         //     })
+            //                         // } else {
+            //                         //     $('#show_items > .row1').find(
+            //                         //             '.remove_items_button')
+            //                         //         .removeClass('d-none').addClass(
+            //                         //             'd-none');
+            //                         // }
 
-                                })
-                                x = data.data.invoice_items.length;
-                                console.log("X", x)
-                            }
+            //                     })
+            //                     x = data.data.invoice_items.length;
+            //                     console.log("X", x)
+            //                 }
 
-                            if (data.data.deductions.length > 0) {
-                                data.data.deductions.map((item2) => {
-                                    let wrapper = $('#show_deduction_items');
-                                    add_rows = '';
-                                    add_rows += '<div class="row ">';
-                                    add_rows += '<div class="col-sm-6 bottom20">';
-                                    add_rows += '<div class=" w-100">';
-                                    add_rows +=
-                                        '<input type="text" value=' + item2.id +
-                                        ' id="deduction_id" name="deduction_id" class="form-control deduction_id" hidden >'
+            //                 if (data.data.deductions.length > 0) {
+            //                     data.data.deductions.map((item2) => {
+            //                         let wrapper = $('#show_deduction_items');
+            //                         add_rows = '';
+            //                         add_rows += '<div class="row ">';
+            //                         add_rows += '<div class="col-sm-6 bottom20">';
+            //                         add_rows += '<div class=" w-100">';
+            //                         add_rows +=
+            //                             '<input type="text" value=' + item2.id +
+            //                             ' id="deduction_id" name="deduction_id" class="form-control deduction_id" hidden >'
 
-                                    // add_rows +=
-                                    //   '<select class="form-control profile_deduction_type" id="profile_deduction_type" name="profile_deduction_type">';
-                                    // add_rows += '<option value=' + item2.id +
-                                    //   '>' + item2
-                                    //   .deduction_type_name + '</option> ';
-                                    // add_rows += '</select>';
-                                    add_rows +=
-                                        '<label for="deduction_type_name" style="color:#A4A6B3">Deduction Type</label>';
-                                    add_rows +=
-                                        '<input type="text" class="form-control deduction_type_name" name="deduction_type_name" id="deduction_type_name" value="' +
-                                        item2.deduction_type_name + '" readonly>'
-                                    add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         // add_rows +=
+            //                         //   '<select class="form-control profile_deduction_type" id="profile_deduction_type" name="profile_deduction_type">';
+            //                         // add_rows += '<option value=' + item2.id +
+            //                         //   '>' + item2
+            //                         //   .deduction_type_name + '</option> ';
+            //                         // add_rows += '</select>';
+            //                         add_rows +=
+            //                             '<label for="deduction_type_name" style="color:#A4A6B3">Deduction Type</label>';
+            //                         add_rows +=
+            //                             '<input type="text" class="form-control deduction_type_name" name="deduction_type_name" id="deduction_type_name" value="' +
+            //                             item2.deduction_type_name + '" readonly>'
+            //                         add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows += '<div class="col-sm-5">';
-                                    add_rows += '<div class=" ">';
-                                    add_rows +=
-                                        '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
-                                    add_rows +=
-                                        '<input type="text" value="' + PHP(item2.amount)
-                                        .format() +
-                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6" />';
-                                    add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         add_rows += '<div class="col-sm-5">';
+            //                         add_rows += '<div class=" ">';
+            //                         add_rows +=
+            //                             '<label for="deduction_amount" style="color:#A4A6B3">Deduction Amount (Php)</label>';
+            //                         add_rows +=
+            //                             '<input type="text" value="' + PHP(item2.amount)
+            //                             .format() +
+            //                             '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6" />';
+            //                         add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows +=
-                                        '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
-                                    add_rows += '<div class="">';
-                                    add_rows +=
-                                        '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
-                                    add_rows += '</div>';
-                                    add_rows += '</div>';
+            //                         add_rows +=
+            //                             '<div class="col-sm-1 col-remove-deductions d-flex justify-content-center align-items-center">';
+            //                         add_rows += '<div class="">';
+            //                         add_rows +=
+            //                             '<button type="button" class="btn remove_deductions" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
+            //                         add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    add_rows += '</div>';
+            //                         add_rows += '</div>';
 
-                                    $(wrapper).append(add_rows);
-                                    return '';
-                                    // console.log("asdas", item2.profile_deduction_types);
-                                })
-                            }
-                            // getResults_Converted();       
-                            $('#grand_total').val(PHP(data.data.grand_total_amount).format());
-                            displayResults();
-                            Additems_total();
-                            subtotal();
-                            DeductionItems_total();
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                    })
-                }
+            //                         $(wrapper).append(add_rows);
+            //                         return '';
+            //                         // console.log("asdas", item2.profile_deduction_types);
+            //                     })
+            //                 }
+            //                 // getResults_Converted();       
+            //                 $('#grand_total').val(PHP(data.data.grand_total_amount).format());
+            //                 displayResults();
+            //                 Additems_total();
+            //                 subtotal();
+            //                 DeductionItems_total();
+            //             }
+            //         }).catch(function(error) {
+            //             console.log("ERROR", error);
+            //         })
+            //     }
 
-            })
+            // })
 
             function show_invoice() {
                 let url = window.location.pathname;
                 let urlSplit = url.split('/');
                 if (urlSplit.length == 4) {
-                    let invoice_id = urlSplit[3];
-                    // console.log("invoice_id", invoice_id);
-                    axios
-                        .get(apiUrl + '/api/admin/editInvoice/' + invoice_id, {
-                            headers: {
-                                Authorization: token,
-                            },
-                        }).then(function(response) {
-                            let data = response.data;
-                            if (data.success) {
+                    let token = urlSplit[3];
+                    if (token) {
+                        let invoiceId = $('#invoiceId').val();
+                        axios
+                            .get(apiUrl + '/api/public/invoiceInfo/' + invoiceId, {
+                                headers: {
+                                    Authorization: token,
+                                },
+                            }).then(function(response) {
+                                let data = response.data;
+                                // if (data.success == true && data.data != null) {
                                 console.log("DATA123", data);
-                                $('#content').append(` <div class="row">
-                                 <input type="text" id="user_id" hidden>
-                                <input type="text" id="profileId" hidden>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6 fw-bolder">
-                                            <div id="full_name" class="top10"></div>
-                                            <div id="email" style="overflow-wrap: break-word"></div>
-                                        </div>
+                                if (data.success) {
+                                    if (data.data.invoice_status == "Pending") {
 
-                                        <div class="col-6 fw-bolder text-end">
-                                            <div class="fs-3 fw-bold">INVOICE</div>
-                                            <div class="text-muted" id="invoice_no"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div id="address"></div>
-                                    <div id="city-province"></div>
-                                    <div id="zip_code"></div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6 pt-3">
-                                    <div class="row">
-                                        <div class="col">
-                                            Bill To
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <label class="fw-bold" id="invoice_title"></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <label id="invoice_email"></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <label id="bill_to_address"></label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6 pt-3">
-                                    <div class="row">
-                                        <div class="col">
-                                            Date
-                                        </div>
-                                        <div class="col text-end">
-                                            <label id="date_created"></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            Due Date
-                                        </div>
-                                        <div class="col text-end">
-                                            <label id="show_due_date"></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            Invoice Status
-                                        </div>
-                                        <div class="col text-end">
-                                            <label id="invoice_status"></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col text-sm-start">
-                                            <label id="text_date_received"></label>
-                                        </div>
-                                        <div class="col text-end">
-                                            <label id="date_received"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row pt-3">
-                                <div class="col-md-6 col-sm-12"></div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="rounded-3 w-100" style="background-color: #d4d4d4;">
+                                        $('#content').append(` 
+                                        <input type="text" id="user_id" hidden>
+                                        <input type="text" id="profileId" hidden>
                                         <div class="row">
-                                            <div class="col span1"
-                                                style="display:flex; justify-content:space-between;align-items:center;height:40px">
-                                                <label class="ms-2 fw-bold ">Balance Due:</label>
-                                                <div class="col-6 text-end span1">
-                                                    <label class="me-2 fw-bold " id="balance_due"></label>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 fw-bolder">
+                                                    <div id="full_name" class="top10"></div>
+                                                    <div id="email" style="overflow-wrap: break-word"></div>
+                                                </div>
+
+                                                <div class="col-6 fw-bolder text-end">
+                                                    <div class="fs-3 fw-bold">INVOICE</div>
+                                                    <div class="text-muted" id="invoice_no"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row pt-3">
-                                <div class="col-sm-12 table-responsive-sm">
-                                    <table class="table" id="table_invoiceItems">
-                                        <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
-                                            <tr>
-                                                <th class=""
-                                                    style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
-                                                    Description</th>
-                                                <th class=""
-                                                    style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
-                                                    Quantity</th>
-                                                <th class=""
-                                                    style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
-                                                    Rate
-                                                </th>
-                                                <th class=""
-                                                    style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
-                                                    Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="px-3">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <label class="text-muted " style="text-align:right"> Subtotal: </label>
-                                        </div>
-                                        <div class="col-5 " id="sub_total" style="text-align:end"></div>
-                                    </div>
-
-                                    <div id="displayDiscountType">
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <label class="text-muted"> Total:</label>
-                                        </div>
-                                        <div class="col-5 " id="total" style="text-align:end"></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <label class="text-muted ">Converted Amount: P<label class="text-muted"
-                                                    id="peso_rate"></label></label>
                                         </div>
 
-                                        <div class="col-4" id="convertedAmount" style="text-align:end">
+                                        <div class="row">
+                                          <div class="col-sm-6">
+                                              <div id="address"></div>
+                                              <div id="city-province"></div>
+                                              <div id="zip_code"></div>
+                                          </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row title_deductions ">
-                            </div>
+                                        <div class="row">
+                                          <div class="col-sm-6 pt-3">
+                                              <div class="row">
+                                                  <div class="col">
+                                                      Bill To
+                                                  </div>
+                                              </div>
 
-                            <div class="deductions">
-                            </div>
+                                              <div class="row">
+                                                  <div class="col">
+                                                      <label class="fw-bold" id="invoice_title"></label>
+                                                  </div>
+                                              </div>
 
-                            <div class="row total_deductions" id="total_deductions">
-                            </div>
+                                              <div class="row">
+                                                  <div class="col">
+                                                      <label id="invoice_email"></label>
+                                                  </div>
+                                              </div>
 
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12"></div>
-                                <div class="col">
-                                    <label class="fw-bold">Grand Total: </label>
-                                </div>
-                                <div class="col" style="text-align:end">
-                                    <label class="h6 fw-bold" id="grand_total_amount"></label>
-                                </div>
-                            </div>
+                                              <div class="row">
+                                                  <div class="col">
+                                                      <label id="bill_to_address"></label>
+                                                  </div>
+                                              </div>
+                                          </div>
 
-                            <div class="row">
-                                <div class="col-sm-12 ">Notes:</div>
-                            </div>
+                                          <div class="col-sm-6 pt-3">
+                                              <div class="row">
+                                                  <div class="col">
+                                                      Date
+                                                  </div>
+                                                  <div class="col text-end">
+                                                      <label id="date_created"></label>
+                                                  </div>
+                                              </div>
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <label style="word-wrap: break-word; text-align:right" id="notes"></label>
-                                </div>
+                                              <div class="row">
+                                                  <div class="col">
+                                                      Due Date
+                                                  </div>
+                                                  <div class="col text-end">
+                                                      <label id="show_due_date"></label>
+                                                  </div>
+                                              </div>
 
-                            </div>`);
+                                              <div class="row">
+                                                  <div class="col">
+                                                      Invoice Status
+                                                  </div>
+                                                  <div class="col text-end">
+                                                      <label id="invoice_status"></label>
+                                                  </div>
+                                              </div>
 
-                                const month = ["January", "February", "March", "April", "May", "June",
-                                    "July",
-                                    "August", "September", "October", "November", "December"
-                                ];
-                                var newdate = new Date(data.data.created_at);
-                                var mm = month[newdate.getMonth()];
-                                var dd = newdate.getDate();
-                                var yy = newdate.getFullYear();
+                                              <div class="row">
+                                                  <div class="col text-sm-start">
+                                                      <label id="text_date_received"></label>
+                                                  </div>
+                                                  <div class="col text-end">
+                                                      <label id="date_received"></label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
 
-                                var due_date = new Date(data.data.due_date);
-                                var mm2 = month[due_date.getMonth()];
-                                var dd2 = due_date.getDate();
-                                var yy2 = due_date.getFullYear();
+                                        <div class="row pt-3">
+                                          <div class="col-md-6 col-sm-12"></div>
+                                          <div class="col-md-6 col-sm-12">
+                                              <div class="rounded-3 w-100" style="background-color: #d4d4d4;">
+                                                  <div class="row">
+                                                      <div class="col span1"
+                                                          style="display:flex; justify-content:space-between;align-items:center;height:40px">
+                                                          <label class="ms-2 fw-bold ">Balance Due:</label>
+                                                          <div class="col-6 text-end span1">
+                                                              <label class="me-2 fw-bold " id="balance_due"></label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
 
-                                var date_received = new Date(data.data.date_received);
-                                var mm3 = month[date_received.getMonth()];
-                                var dd3 = date_received.getDate();
-                                var yy3 = date_received.getFullYear();
+                                        <div class="row pt-3">
+                                          <div class="col-sm-12 table-responsive-sm">
+                                              <table class="table" id="table_invoiceItems">
+                                                  <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                                      <tr>
+                                                          <th class=""
+                                                              style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
+                                                              Description</th>
+                                                          <th class=""
+                                                              style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                              Quantity</th>
+                                                          <th class=""
+                                                              style="width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                              Rate
+                                                          </th>
+                                                          <th class=""
+                                                              style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;width:16%;border-right: 0px solid rgb(255,255,255);text-align: end;">
+                                                              Amount</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody class="px-3">
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                        </div>
 
-                                $('#userId').val(data.data.profile.user.id);
-                                $('#profileId').val(data.data.profile.id);
+                                        <div class="row">
+                                          <div class="col-md-6 col-sm-12" id="quickInvoiceDescription"></div>
+                                          <div class="col-md-6 col-sm-12">
+                                              <div class="row">
+                                                  <div class="col-7">
+                                                      <label class="text-muted " style="text-align:right"> Subtotal: </label>
+                                                  </div>
+                                                  <div class="col-5 " id="sub_total" style="text-align:end"></div>
+                                              </div>
 
-                                $('#full_name').html(data.data.profile.user.first_name + " " + data.data
-                                    .profile.user
-                                    .last_name);
+                                              <div id="displayDiscountType">
 
-                                $('#email').html(data.data.profile.user.email);
-                                $('#invoice_no').html("#" + data.data.invoice_no);
-                                // $('#status').html(data.data.status);
-                                if (data.data.status === "Active") {
-                                    $('#active_button').prop('disabled', true);
-                                    $('#inactive_button').prop('disabled', false);
-                                }
-                                if (data.data.status === "Inactive") {
-                                    $('#active_button').prop('disabled', false);
-                                    $('#inactive_button').prop('disabled', true);
-                                }
+                                              </div>
 
-                                $('#address').html(data.data.profile.address);
-                                $('#city-province').html(data.data.profile.city + ", " + data.data.profile
-                                    .province);
-                                $('#zip_code').html("Philippines " + data.data.profile.zip_code);
-                                $('#invoice_status').html(data.data.invoice_status);
-                                $('#date_created').html(mm + " " + dd + ", " + yy);
-                                $('#show_due_date').html(mm2 + " " + dd2 + ", " + yy2);
-                                $('#notes').html(data.data.notes);
+                                              <div class="row">
+                                                  <div class="col-7">
+                                                      <label class="text-muted"> Total:</label>
+                                                  </div>
+                                                  <div class="col-5 " id="total" style="text-align:end"></div>
+                                              </div>
 
-                                let quick_invoice = data.data.quick_invoice;
-                                if (quick_invoice === '0') {
-                                    let div = ''
-                                    div += '<div class="row">';
-                                    div += '<div class="col-12 align-self-start view_invoice_description">';
-                                    div += '<label class="fw-bold"> Description: </label>';
-                                    div += '</div>';
-                                    div += ' <div class="col-12" id="view_invoice_description">' + data.data
-                                        .description + '</div>';;
-                                    div += '</div>';
+                                              <div class="row">
+                                                  <div class="col-8">
+                                                      <label class="text-muted ">Converted Amount: P<label class="text-muted"
+                                                              id="peso_rate"></label></label>
+                                                  </div>
 
-                                    // $('#view_invoice_description').html(data.data.description);
-                                    $('#quickInvoiceDescription').append(div);
-                                }
+                                                  <div class="col-4" id="convertedAmount" style="text-align:end">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="row title_deductions ">
+                                        </div>
+
+                                        <div class="deductions">
+                                        </div>
+
+                                        <div class="row total_deductions" id="total_deductions">
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-md-6 col-sm-12"></div>
+                                          <div class="col">
+                                              <label class="fw-bold">Grand Total: </label>
+                                          </div>
+                                          <div class="col" style="text-align:end">
+                                              <label class="h6 fw-bold" id="grand_total_amount"></label>
+                                          </div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-sm-12 ">Notes:</div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-12">
+                                              <label style="word-wrap: break-word; text-align:right" id="notes"></label>
+                                          </div>
+
+                                        </div>`);
+
+                                        const month = ["January", "February", "March", "April", "May", "June",
+                                            "July",
+                                            "August", "September", "October", "November", "December"
+                                        ];
+                                        var newdate = new Date(data.data.created_at);
+                                        var mm = month[newdate.getMonth()];
+                                        var dd = newdate.getDate();
+                                        var yy = newdate.getFullYear();
+
+                                        var due_date = new Date(data.data.due_date);
+                                        var mm2 = month[due_date.getMonth()];
+                                        var dd2 = due_date.getDate();
+                                        var yy2 = due_date.getFullYear();
+
+                                        var date_received = new Date(data.data.date_received);
+                                        var mm3 = month[date_received.getMonth()];
+                                        var dd3 = date_received.getDate();
+                                        var yy3 = date_received.getFullYear();
+
+                                        $('#user_id').val(data.data.profile.user.id);
+                                        $('#profileId').val(data.data.profile.id);
+
+                                        $('#full_name').html(data.data.profile.user.first_name + " " + data.data
+                                            .profile.user
+                                            .last_name);
+
+                                        $('#email').html(data.data.profile.user.email);
+                                        $('#invoice_no').html("#" + data.data.invoice_no);
+                                        // $('#status').html(data.data.status);
+                                        if (data.data.status === "Active") {
+                                            $('#active_button').prop('disabled', true);
+                                            $('#inactive_button').prop('disabled', false);
+                                        }
+                                        if (data.data.status === "Inactive") {
+                                            $('#active_button').prop('disabled', false);
+                                            $('#inactive_button').prop('disabled', true);
+                                        }
+
+                                        $('#address').html(data.data.profile.address);
+                                        $('#city-province').html(data.data.profile.city + ", " + data.data
+                                            .profile
+                                            .province);
+                                        $('#zip_code').html("Philippines " + data.data.profile.zip_code);
+                                        $('#invoice_status').html(data.data.invoice_status);
+                                        $('#date_created').html(mm + " " + dd + ", " + yy);
+                                        $('#show_due_date').html(mm2 + " " + dd2 + ", " + yy2);
+                                        $('#notes').html(data.data.notes);
+
+                                        let quick_invoice = data.data.quick_invoice;
+                                        if (quick_invoice === '0') {
+                                            let div = ''
+                                            div += '<div class="row">';
+                                            div +=
+                                                '<div class="col-12 align-self-start view_invoice_description">';
+                                            div += '<label class="fw-bold"> Description: </label>';
+                                            div += '</div>';
+                                            div += ' <div class="col-12" id="view_invoice_description">' + data
+                                                .data
+                                                .description + '</div>';;
+                                            div += '</div>';
+
+                                            // $('#view_invoice_description').html(data.data.description);
+                                            $('#quickInvoiceDescription').append(div);
+                                        }
 
 
-                                $('#notes').html(data.data.notes);
+                                        $('#notes').html(data.data.notes);
 
-                                if (data.data.invoice_status === "Paid") {
-                                    $('#text_date_received').html("Date Received");
-                                    $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
-                                    $('#paid_button').prop('disabled', true);
-                                    $('#cancel_button').prop('disabled', true);
-                                    $('#delete_button').prop('disabled', false);
-                                    $('#edit_invoice').prop('disabled', true);
+                                        // if (data.data.invoice_status === "Paid") {
+                                        //     $('#text_date_received').html("Date Received");
+                                        //     $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
+                                        //     $('#paid_button').prop('disabled', true);
+                                        //     $('#cancel_button').prop('disabled', true);
+                                        //     $('#delete_button').prop('disabled', false);
+                                        //     $('#edit_invoice').prop('disabled', true);
 
-                                } else {
-                                    $('#text_date_received').html("");
-                                    $('#date_received').html("");
-                                    $('#paid_button').prop('disabled', false);
-                                    $('#cancel_button').prop('disabled', false);
-                                    $('#delete_button').prop('disabled', false);
-                                    $('#edit_invoice').prop('disabled', false);
-                                }
+                                        // } else {
+                                        //     $('#text_date_received').html("");
+                                        //     $('#date_received').html("");
+                                        //     $('#paid_button').prop('disabled', false);
+                                        //     $('#cancel_button').prop('disabled', false);
+                                        //     $('#delete_button').prop('disabled', false);
+                                        //     $('#edit_invoice').prop('disabled', false);
+                                        // }
 
-                                let redue_date = data.data.due_date;
-                                let date_now = (new Date()).toISOString().split('T')[0];
+                                        let redue_date = data.data.due_date;
+                                        let date_now = (new Date()).toISOString().split('T')[0];
 
-                                if (data.data.invoice_status === "Pending") {
-                                    if (redue_date < date_now) {
-                                        let invoice_id = data.data.id;
-                                        let invoice_status = 'Overdue';
-                                        // console.log("INVOICE_ID", invoice_id);
-                                        let data1 = {
-                                            id: invoice_id,
-                                            invoice_status: invoice_status,
-                                        };
+                                        if (data.data.invoice_status === "Pending") {
+                                            if (redue_date < date_now) {
+                                                let invoice_id = data.data.id;
+                                                let invoice_status = 'Overdue';
+                                                // console.log("INVOICE_ID", invoice_id);
+                                                let data1 = {
+                                                    id: invoice_id,
+                                                    invoice_status: invoice_status,
+                                                };
 
-                                        axios.post(apiUrl + '/api/update_status', data1, {
-                                            headers: {
-                                                Authorization: token,
-                                            },
-                                        }).then(function(response) {
-                                            let data = response.data;
-                                            if (data.success) {
-                                                console.log("SUCCESS123", data);
+                                                axios.post(apiUrl + '/api/public/update_status', data1, {
+                                                    headers: {
+                                                        Authorization: token,
+                                                    },
+                                                }).then(function(response) {
+                                                    let data = response.data;
+                                                    if (data.success) {
+                                                        console.log("SUCCESS123", data);
+                                                    }
+                                                }).catch(function(error) {
+                                                    console.log("ERROR", error);
+                                                })
                                             }
-                                        }).catch(function(error) {
-                                            console.log("ERROR", error);
-                                        })
-                                    }
-                                }
-
-                                if (data.data.invoice_items.length > 0) {
-                                    let balance_due = parseFloat(data.data.sub_total ? data.data.sub_total :
-                                        0);
-                                    let sub_total = parseFloat(data.data.sub_total) + parseFloat(data.data
-                                        .discount_total ? data.data
-                                        .discount_total : 0);
-
-                                    let discount_amount = parseFloat(data.data.discount_amount);
-
-                                    let converted_amount = parseFloat(data.data.converted_amount ? data.data
-                                        .converted_amount : 0);
-
-                                    $('#balance_due').html((balance_due)
-                                        .toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD'
-                                        }));
-
-                                    $('#sub_total').html(sub_total.toLocaleString('en-US', {
-                                        style: 'currency',
-                                        currency: 'USD'
-                                    }));
-
-
-                                    if (data.data.discount_total > 0) {
-                                        if (data.data.discount_type === "Fixed") {
-                                            let div = "";
-                                            div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
-                                            div +=
-                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
-                                                data.data
-                                                .discount_type + "</span> </div>";
-                                            div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
-                                                PHP(data.data
-                                                    .discount_total).format() + "</div>"
-                                            div += "</div>";
-
-                                            $('#displayDiscountType').append(div);
-                                        } else if (data.data.discount_type === "Percentage") {
-                                            let div = "";
-                                            div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
-                                            div +=
-                                                "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
-                                                discount_amount + "%) </span></div>";
-                                            div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
-                                                PHP(data.data
-                                                    .discount_total).format() + "</div>"
-                                            div += "</div>";
-                                            $('#displayDiscountType').append(div)
-                                            // $('#discountType').html(" " + data.data.discount_type + " (" +
-                                            //   discount_amount + "%)");
-                                            // $('#discountAmount').html("$" + PHP(data.data.discount_total).format());
                                         }
-                                    } else {
-                                        $('#displayDiscountType').addClass('d-none');
-                                    }
 
-                                    $('#total').html(balance_due.toLocaleString('en-US', {
-                                        style: 'currency',
-                                        currency: 'USD'
-                                    }));
-
-                                    data.data.invoice_items.map((item) => {
-                                        // console.log("tem.item_description", item.item_description);
-                                        let tr = '<tr >';
-                                        if (item.item_description) {
-                                            tr +=
-                                                '<td class=" scope" style="word-wrap: break-word;">' +
-                                                item.item_description + '</td>'
-                                        } else {
-                                            tr += '<td class=" scope">N/A</td>'
-                                        }
-                                        tr += '<td class=" scope" style="text-align:end">' + item
-                                            .quantity +
-                                            '</td>'
-                                        tr += '<td class=" scope" style="text-align:end">' +
-                                            item.rate.toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'USD'
-                                            }) +
-                                            '</td>'
-                                        tr += '<td class=" scope" style="text-align:end">' + item
-                                            .total_amount.toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'USD'
-                                            }) + '</td>'
-                                        tr += '</tr>';
-
-                                        $('#table_invoiceItems tbody').append(tr);
-                                        return '';
-                                    })
-
-                                    $('#convertedAmount').html('P' + PHP(converted_amount).format());
-
-                                    $('#peso_rate').html(PHP(data.data.peso_rate).format());
-                                    let grand_total_amount = parseFloat(data.data.grand_total_amount ? data
-                                        .data
-                                        .grand_total_amount : 0);
-                                    // console.log("SUCCESS", PHP(data.data.grand_total_amount).format());
-
-                                    $('#grand_total_amount').html('P' + PHP(grand_total_amount).format());
-
-                                    if (data.data.deductions.length > 0) {
-                                        let total_deductions = 0;
-
-                                        let parent0 = $(this).closest('.row .title_deductions');
-                                        let div_rows0 = '';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3"> </div>';
-                                        div_rows0 += '<div class="col-md-6 col-sm-12 pt-3">';
-                                        div_rows0 +=
-                                            '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
-                                        div_rows0 += '</div>';
-                                        div_rows0 +=
-                                            '<div class = "col " style = "text-align:end" > </div>';
-
-                                        $(".row .title_deductions").append(div_rows0);
-                                        data.data.deductions.map((item2) => {
-                                            let deduction_amount = parseFloat(item2
-                                                .amount ? item2.amount :
+                                        if (data.data.invoice_items.length > 0) {
+                                            let balance_due = parseFloat(data.data.sub_total ? data.data
+                                                .sub_total :
                                                 0);
+                                            let sub_total = parseFloat(data.data.sub_total) + parseFloat(data
+                                                .data
+                                                .discount_total ? data.data
+                                                .discount_total : 0);
 
-                                            let parent = $(this).closest('.deductions');
-                                            let div_rows = '';
-                                            div_rows += '<div class="row">';
-                                            div_rows += '<div class="col-md-6 col-sm-12"></div>';
-                                            div_rows += '<div class="col-md-6 col-sm-12">';
-                                            div_rows += '<div class="row">';
-                                            div_rows +=
-                                                '<div class="col-7" ><label class="text-muted break-long-words">' +
-                                                item2
-                                                .deduction_type_name + '</p></div>';
-                                            div_rows +=
-                                                '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
-                                                PHP(deduction_amount).format() + '</label></div>';
-                                            div_rows += '</div>';
-                                            div_rows += '</div>';
-                                            div_rows += '</div>';
+                                            let discount_amount = parseFloat(data.data.discount_amount);
+
+                                            let converted_amount = parseFloat(data.data.converted_amount ? data
+                                                .data
+                                                .converted_amount : 0);
+
+                                            $('#balance_due').html((balance_due)
+                                                .toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD'
+                                                }));
+
+                                            $('#sub_total').html(sub_total.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD'
+                                            }));
 
 
-                                            total_deductions += deduction_amount;
-                                            $(".row .deductions").append(div_rows);
-                                            return '';
-                                        })
+                                            if (data.data.discount_total > 0) {
+                                                if (data.data.discount_type === "Fixed") {
+                                                    let div = "";
+                                                    div += "<div class='row'>"
+                                                    div += "<div class='col-8 h6 discountType'>"
+                                                    div +=
+                                                        "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
+                                                        data.data
+                                                        .discount_type + "</span> </div>";
+                                                    div +=
+                                                        "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                        PHP(data.data
+                                                            .discount_total).format() + "</div>"
+                                                    div += "</div>";
 
-                                        let parent1 = $(this).closest('.row .total_deductions');
-                                        let div_rows1 = '';
-                                        div_rows1 += '<div class="col-md-6 col-sm-12 pb-3"></div>';
-                                        div_rows1 += '<div class="col">Total Deductions</div>';
-                                        div_rows1 +=
-                                            '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
-                                            PHP(total_deductions).format() + '</label></div>';
+                                                    $('#displayDiscountType').append(div);
+                                                } else if (data.data.discount_type === "Percentage") {
+                                                    let div = "";
+                                                    div += "<div class='row'>"
+                                                    div += "<div class='col-8 h6 discountType'>"
+                                                    div +=
+                                                        "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
+                                                        discount_amount + "%) </span></div>";
+                                                    div +=
+                                                        "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                        PHP(data.data
+                                                            .discount_total).format() + "</div>"
+                                                    div += "</div>";
+                                                    $('#displayDiscountType').append(div)
+                                                    // $('#discountType').html(" " + data.data.discount_type + " (" +
+                                                    //   discount_amount + "%)");
+                                                    // $('#discountAmount').html("$" + PHP(data.data.discount_total).format());
+                                                }
+                                            } else {
+                                                $('#displayDiscountType').addClass('d-none');
+                                            }
 
-                                        $(".row .total_deductions").append(div_rows1);
-                                        return '';
+                                            $('#total').html(balance_due.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD'
+                                            }));
 
+                                            data.data.invoice_items.map((item) => {
+                                                // console.log("tem.item_description", item.item_description);
+                                                let tr = '<tr >';
+                                                if (item.item_description) {
+                                                    tr +=
+                                                        '<td class=" scope" style="word-wrap: break-word;">' +
+                                                        item.item_description + '</td>'
+                                                } else {
+                                                    tr += '<td class=" scope">N/A</td>'
+                                                }
+                                                tr += '<td class=" scope" style="text-align:end">' +
+                                                    item
+                                                    .quantity +
+                                                    '</td>'
+                                                tr += '<td class=" scope" style="text-align:end">' +
+                                                    item.rate.toLocaleString('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD'
+                                                    }) +
+                                                    '</td>'
+                                                tr += '<td class=" scope" style="text-align:end">' +
+                                                    item
+                                                    .total_amount.toLocaleString('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD'
+                                                    }) + '</td>'
+                                                tr += '</tr>';
+
+                                                $('#table_invoiceItems tbody').append(tr);
+                                                return '';
+                                            })
+
+                                            $('#convertedAmount').html('P' + PHP(converted_amount).format());
+
+                                            $('#peso_rate').html(PHP(data.data.peso_rate).format());
+                                            let grand_total_amount = parseFloat(data.data.grand_total_amount ?
+                                                data
+                                                .data
+                                                .grand_total_amount : 0);
+                                            // console.log("SUCCESS", PHP(data.data.grand_total_amount).format());
+
+                                            $('#grand_total_amount').html('P' + PHP(grand_total_amount)
+                                                .format());
+
+                                            if (data.data.deductions.length > 0) {
+                                                let total_deductions = 0;
+
+                                                let parent0 = $(this).closest('.row .title_deductions');
+                                                let div_rows0 = '';
+                                                div_rows0 += '<div class="col-md-6 col-sm-12 pt-3"> </div>';
+                                                div_rows0 += '<div class="col-md-6 col-sm-12 pt-3">';
+                                                div_rows0 +=
+                                                    '<label class="fs-5 fw-bold" style="color:#dc3545"> Deductions </label class="fs-5 fw-bold">';
+                                                div_rows0 += '</div>';
+                                                div_rows0 +=
+                                                    '<div class = "col " style = "text-align:end" > </div>';
+
+                                                $(".row .title_deductions").append(div_rows0);
+                                                data.data.deductions.map((item2) => {
+                                                    let deduction_amount = parseFloat(item2
+                                                        .amount ? item2.amount :
+                                                        0);
+
+                                                    let parent = $(this).closest('.deductions');
+                                                    let div_rows = '';
+                                                    div_rows += '<div class="row">';
+                                                    div_rows +=
+                                                        '<div class="col-md-6 col-sm-12"></div>';
+                                                    div_rows += '<div class="col-md-6 col-sm-12">';
+                                                    div_rows += '<div class="row">';
+                                                    div_rows +=
+                                                        '<div class="col-7" ><label class="text-muted break-long-words">' +
+                                                        item2
+                                                        .deduction_type_name + '</label></div>';
+                                                    div_rows +=
+                                                        '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
+                                                        PHP(deduction_amount).format() +
+                                                        '</label></div>';
+                                                    div_rows += '</div>';
+                                                    div_rows += '</div>';
+                                                    div_rows += '</div>';
+
+
+                                                    total_deductions += deduction_amount;
+                                                    $(".row .deductions").append(div_rows);
+                                                    return '';
+                                                })
+
+                                                let parent1 = $(this).closest('.row .total_deductions');
+                                                let div_rows1 = '';
+                                                div_rows1 += '<div class="col-md-6 col-sm-12 pb-3"></div>';
+                                                div_rows1 += '<div class="col">Total Deductions</div>';
+                                                div_rows1 +=
+                                                    '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
+                                                    PHP(total_deductions).format() + '</label></div>';
+
+                                                $(".row .total_deductions").append(div_rows1);
+                                                return '';
+
+                                            } else {
+                                                let parent = $(this).closest('.row .deductions');
+                                                let div_rows = '';
+                                                div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                                div_rows += '<div class="col-md-6 col-sm-12"></div>';
+                                                div_rows +=
+                                                    '<div class="col  h6" style="text-align:end;color:#dc3545;"></div>';
+                                                $(".row .deductions").append(div_rows);
+                                                return '';
+                                            }
+
+                                        } else {
+                                            // width:' +
+                                            // width +
+                                            // 'px;
+                                            $("#table_invoiceItems tbody").append(
+                                                '<tr><td colspan="4" class="text-center"><div class="noData" style="position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                            );
+                                        }
+                                    } else if (data.data.invoice_status == "Cancelled") {
+
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-ban"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has been cancelled.</label></div></div>`
+                                        );
+
+                                    } else if (data.data.invoice_status == "Paid") {
+
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="far fa-check-circle" style="color:#198754"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has already been paid.</label></div></div>`
+                                        );
                                     } else {
-                                        let parent = $(this).closest('.row .deductions');
-                                        let div_rows = '';
-                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
-                                        div_rows += '<div class="col-md-6 col-sm-12"></div>';
-                                        div_rows +=
-                                            '<div class="col  h6" style="text-align:end;color:#dc3545;"></div>';
-                                        $(".row .deductions").append(div_rows);
-                                        return '';
-                                    }
 
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
+                                        );
+                                    }
                                 } else {
-                                    // width:' +
-                                    // width +
-                                    // 'px;
-                                    $("#table_invoiceItems tbody").append(
-                                        '<tr><td colspan="4" class="text-center"><div class="noData" style="position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                    $('#content').html(
+                                        `<div class="noData" style="padding: 40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
                                     );
                                 }
-                            }
-                        }).catch(function(error) {
-                            console.log("ERROR", error);
-                        });
+
+                            }).catch(function(error) {
+                                console.log("ERROR", error);
+                            });
+                    }
                 }
+
             }
 
-
             function show_invoice_config() {
-                axios.get(apiUrl + '/api/get_invoice_config', {
-                    headers: {
-                        Authorization: token,
-                    },
-                }).then(function(response) {
-                    let data = response.data;
-                    if (data.success) {
-                        if (data.data.length > 0) {
-                            data.data.map((item) => {
-                                $("#invoice_logo").attr("src", item.invoice_logo);
-                                // $('#invoice_logo').val(data.data.invoice_logo_name);
-                                $('#invoice_title').html(item.invoice_title);
-                                $('#invoice_email').html(item.invoice_email);
-                                $('#bill_to_address').html(item.bill_to_address);
-                            })
+                axios.get(apiUrl + '/api/public_get_invoice_config')
+                    .then(function(response) {
+                        let data = response.data;
+                        if (data.success) {
+                            if (data.data.length > 0) {
+                                data.data.map((item) => {
+                                    $("#invoice_logo").attr("src", item.invoice_logo);
+                                    // $('#invoice_logo').val(data.data.invoice_logo_name);
+                                    $('#invoice_title').html(item.invoice_title);
+                                    $('#invoice_email').html(item.invoice_email);
+                                    $('#bill_to_address').html(item.bill_to_address);
+                                })
+                            }
                         }
-                    }
-                }).catch(function(error) {
-                    console.log("ERROR", error);
-                });
+                    }).catch(function(error) {
+                        console.log("ERROR", error);
+                    });
             }
 
 
@@ -2156,27 +2184,6 @@
                         $('#update').prop("disabled", false);
                     }, 500);
                     console.log("ERROR", error)
-                    // if (error.response.data.errors) {
-                    //     let errors = error.response.data.errors;
-                    //     let fieldnames = Object.keys(errors);
-                    //     Object.values(errors).map((item, index) => {
-                    //         fieldname = fieldnames[0].split('_');
-                    //         fieldname.map((item2, index2) => {
-                    //             fieldname['key'] = capitalize(
-                    //                 item2);
-                    //             return ""
-                    //         });
-                    //         fieldname = fieldname.join(" ");
-                    //         $('#notifyIcon').html(
-                    //             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
-                    //         $('.toast1 .toast-title').html("Error");
-                    //         $('.toast1 .toast-body').html(Object.values(
-                    //                 errors)[0]
-                    //             .join(
-                    //                 "\n\r"));
-                    //     })
-                    //     toast1.toast('show');
-                    // }
                 })
             })
 
@@ -2323,77 +2330,92 @@
             $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
 
-                var start = performance.now(); // get the current stamp
                 // Do your processing here
 
                 let url = window.location.pathname
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {
-                    let invoice_id = urlSplit[3];
+                    let invoice_id = $('#invoiceId').val();
                     let invoice_status = "Paid";
-
-                    let data = {
-                        id: invoice_id,
-                        invoice_status: invoice_status,
-                    }
-
-                    axios.post(apiUrl + '/api/update_status', data, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#paidModal').modal('hide');
-                            $("div.spanner").addClass("show");
-                            setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-
-                                $('#table_invoiceItems tbody').empty();
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('.row .view_invoice_description').empty();
-                                $('.row #view_invoice_description').empty();
-                                $('.row .discountType').empty();
-                                $('.row #discountAmount').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
-                            }, 1500);
-
+                    if (invoice_id) {
+                        let data = {
+                            id: invoice_id,
+                            invoice_status: invoice_status,
                         }
-                    }).catch(function(error) {
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(
-                                        item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(
-                                        errors)[0]
-                                    .join(
-                                        "\n\r"));
+
+                        axios.post(apiUrl + '/api/public/update_status', data)
+                            .then(function(response) {
+                                let data = response.data;
+                                if (data.success) {
+                                    $('#content').empty();
+                                    $('#paidModal').modal('hide');
+                                    var originalText = $('#content').html();
+                                    $('#content').html(
+                                        `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                    );
+                                    $('#content').addClass('text-center');
+                                    $('#content').css('padding', '117px');
+                                    setTimeout(function() {
+                                        $('#content').removeClass('text-center');
+                                        $('#content').css('padding', '0px');
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="far fa-check-circle" style="color:#198754"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has already been paid.</label></div></div>`
+                                        );
+                                    }, 1500);
+
+                                    $("div.spanner").addClass("show");
+                                    setTimeout(function() {
+                                        $("div.spanner").removeClass("show");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-check" style="color:green"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html('Success');
+                                        $('.toast1 .toast-body').html(response.data.message);
+
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('.row .title_deductions').empty();
+                                        $('.row .total_deductions').empty();
+                                        $('.row .deductions').empty();
+                                        $('.row .view_invoice_description').empty();
+                                        $('.row #view_invoice_description').empty();
+                                        $('.row .discountType').empty();
+                                        $('.row #discountAmount').empty();
+
+                                        // $('#paid_button').prop('disabled', true);
+                                        // $('#cancel_button').prop('disabled', true);
+                                        // $('#delete_button').prop('disabled', true);
+
+                                        toast1.toast('show');
+                                    }, 1500);
+                                }
+                            }).catch(function(error) {
+                                if (error.response.data.errors) {
+                                    let errors = error.response.data.errors;
+                                    let fieldnames = Object.keys(errors);
+                                    Object.values(errors).map((item, index) => {
+                                        fieldname = fieldnames[0].split('_');
+                                        fieldname.map((item2, index2) => {
+                                            fieldname['key'] = capitalize(
+                                                item2);
+                                            return ""
+                                        });
+                                        fieldname = fieldname.join(" ");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html("Error");
+                                        $('.toast1 .toast-body').html(Object.values(
+                                                errors)[0]
+                                            .join(
+                                                "\n\r"));
+                                    })
+                                    setTimeout(function() {
+                                        toast1.toast('show');
+                                    }, 1500)
+                                }
                             })
-                            setTimeout(function() {
-                                toast1.toast('show');
-                            }, 1500)
-                        }
-                    })
+                    }
                 }
             });
 
@@ -2404,68 +2426,85 @@
                 let url = window.location.pathname;
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {
-                    let invoice_id = urlSplit[3];
+                    let invoice_id = $('#invoiceId').val();
                     let invoice_status = "Cancelled";
 
-                    let data = {
-                        id: invoice_id,
-                        invoice_status: invoice_status,
-                    }
-                    axios.post(apiUrl + '/api/update_status', data, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#cancelModal').modal('hide');
-                            $("div.spanner").addClass("show");
-                            setTimeout(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-
-                                $('#table_invoiceItems tbody').empty();
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('.row .view_invoice_description').empty();
-                                $('.row #view_invoice_description').empty();
-                                $('.row .discountType').empty();
-                                $('.row #discountAmount').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
-                            }, 1500);
-
+                    if (invoice_id) {
+                        let data = {
+                            id: invoice_id,
+                            invoice_status: invoice_status,
                         }
-                    }).catch(function(error) {
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(
-                                        item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(
-                                        errors)[0]
-                                    .join(
-                                        "\n\r"));
+                        axios.post(apiUrl + '/api/public/update_status', data)
+                            .then(function(response) {
+                                let data = response.data;
+                                if (data.success) {
+                                    $('#content').empty();
+                                    $('#cancelModal').modal('hide');
+                                    var originalText = $('#content').html();
+                                    $('#content').html(
+                                        `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                    );
+                                    $('#content').addClass('text-center');
+                                    $('#content').css('padding', '117px');
+                                    setTimeout(function() {
+                                        $('#content').removeClass('text-center');
+                                        $('#content').css('padding', '0px');
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-ban"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has been cancelled.</label></div></div>`
+                                        );
+                                    }, 1500);
+
+                                    $("div.spanner").addClass("show");
+                                    setTimeout(function() {
+                                        $("div.spanner").removeClass("show");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-check" style="color:green"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html('Success');
+                                        $('.toast1 .toast-body').html(response.data.message);
+
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('.row .title_deductions').empty();
+                                        $('.row .total_deductions').empty();
+                                        $('.row .deductions').empty();
+                                        $('.row .view_invoice_description').empty();
+                                        $('.row #view_invoice_description').empty();
+                                        $('.row .discountType').empty();
+                                        $('.row #discountAmount').empty();
+                                        // $('#paid_button').prop('disabled', true);
+                                        // $('#cancel_button').prop('disabled', true);
+                                        // $('#delete_button').prop('disabled', true);
+                                        show_invoice_config();
+                                        toast1.toast('show');
+                                    }, 1500);
+
+                                }
+                            }).catch(function(error) {
+                                if (error.response.data.errors) {
+                                    let errors = error.response.data.errors;
+                                    let fieldnames = Object.keys(errors);
+                                    Object.values(errors).map((item, index) => {
+                                        fieldname = fieldnames[0].split('_');
+                                        fieldname.map((item2, index2) => {
+                                            fieldname['key'] = capitalize(
+                                                item2);
+                                            return ""
+                                        });
+                                        fieldname = fieldname.join(" ");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html("Error");
+                                        $('.toast1 .toast-body').html(Object.values(
+                                                errors)[0]
+                                            .join(
+                                                "\n\r"));
+                                    })
+                                    toast1.toast('show');
+                                }
                             })
-                            toast1.toast('show');
-                        }
-                    })
+                    }
                 }
             });
 
@@ -2474,68 +2513,82 @@
                 let url = window.location.pathname;
                 let urlSplit = url.split("/")
                 if (urlSplit.length === 4) {
-                    let invoice_id = urlSplit[3];
+                    let invoice_id = $('#invoiceId').val();
                     console.log("INVICEOI", invoice_id);
-                    axios.post(apiUrl + '/api/delete_invoice/' + invoice_id, {}, {
-                        headers: {
-                            Authorization: token,
+                    if (invoice_id) {
+                        axios.post(apiUrl + '/api/public/delete_invoice/' + invoice_id, )
+                            .then(function(response) {
+                                let data = response.data;
+                                if (data.success) {
+                                    $('#content').empty();
+                                    $('#deleteModal').modal('hide');
+                                    var originalText = $('#content').html();
+                                    $('#content').html(
+                                        `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                    );
+                                    $('#content').addClass('text-center');
+                                    $('#content').css('padding', '117px');
+                                    setTimeout(function() {
+                                        $('#content').removeClass('text-center');
+                                        $('#content').css('padding', '47px');
+                                        $('#content').html(
+                                            `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
+                                        );
+                                    }, 1500);
 
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#deleteModal').modal('hide');
-                            $("div.spanner").addClass("show");
-                            setInterval(function() {
-                                $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
-                                );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-                                $('#table_invoiceItems tbody').empty();
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('.row .view_invoice_description').empty();
-                                $('.row #view_invoice_description').empty();
-                                $('.row .discountType').empty();
-                                $('.row #discountAmount').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
-                            }, 2000)
+                                    $("div.spanner").addClass("show");
+                                    setTimeout(function() {
+                                        $("div.spanner").removeClass("show");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-check" style="color:green"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html('Success');
+                                        $('.toast1 .toast-body').html(response.data.message);
 
-                            setTimeout(function() {
-                                // location.href = apiUrl + "/admin/current"
-                                window.location = document.referrer;
-                            }, 2000)
-                        }
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('#table_invoiceItems tbody').empty();
+                                        $('.row .title_deductions').empty();
+                                        $('.row .total_deductions').empty();
+                                        $('.row .deductions').empty();
+                                        $('.row .view_invoice_description').empty();
+                                        $('.row #view_invoice_description').empty();
+                                        $('.row .discountType').empty();
+                                        $('.row #discountAmount').empty();
 
-                    }).catch(function(error) {
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(
-                                        item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(
-                                        errors)[0]
-                                    .join(
-                                        "\n\r"));
+                                        // $('#paid_button').prop('disabled', false);
+                                        // $('#cancel_button').prop('disabled', false);
+                                        // $('#delete_button').prop('disabled', false);
+                                        toast1.toast('show');
+                                    }, 1500);
+
+
+                                }
+
+                            }).catch(function(error) {
+                                if (error.response.data.errors) {
+                                    let errors = error.response.data.errors;
+                                    let fieldnames = Object.keys(errors);
+                                    Object.values(errors).map((item, index) => {
+                                        fieldname = fieldnames[0].split('_');
+                                        fieldname.map((item2, index2) => {
+                                            fieldname['key'] = capitalize(
+                                                item2);
+                                            return ""
+                                        });
+                                        fieldname = fieldname.join(" ");
+                                        $('#notifyIcon').html(
+                                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
+                                        );
+                                        $('.toast1 .toast-title').html("Error");
+                                        $('.toast1 .toast-body').html(Object.values(
+                                                errors)[0]
+                                            .join(
+                                                "\n\r"));
+                                    })
+                                    toast1.toast('show');
+                                }
                             })
-                            toast1.toast('show');
-                        }
-                    })
+                    }
                 }
             })
 
@@ -2546,29 +2599,34 @@
 
             function pdfContent() {
                 // Set the options for html2pdf
-                var options = {
-                    filename: 'Invoice ' + $('#invoice_no').html() + '.pdf',
-                    margin: [10, 10],
-                    image: {
-                        type: 'jpeg',
-                        quality: 0.98
-                    },
-                    html2canvas: {
-                        scale: 2
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait'
-                    }
-                };
+                if ($('#invoice_no').html()) {
 
-                // Generate the PDF from the HTML content using html2pdf
-                html2pdf().from($('#content')[0]).set(options).save();
+                    var options = {
+                        filename: 'Invoice ' + $('#invoice_no').html() + '.pdf',
+                        margin: [10, 10],
+                        image: {
+                            type: 'jpeg',
+                            quality: 0.98
+                        },
+                        html2canvas: {
+                            scale: 2
+                        },
+                        jsPDF: {
+                            unit: 'mm',
+                            format: 'a4',
+                            orientation: 'portrait'
+                        }
+                    };
+                    // Generate the PDF from the HTML content using html2pdf
+                    html2pdf().from($('#content')[0]).set(options).save();
+                }
+
             }
+
             $('#pdfDownload').on('click', function(e) {
                 e.preventDefault();
                 pdfContent();
+                show_invoice_config();
             })
 
         })

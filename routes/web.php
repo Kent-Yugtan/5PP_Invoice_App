@@ -69,6 +69,7 @@ Route::middleware(['isPrivateCheck'])->group(function () {
 });
 
 Route::middleware(['isPublicCheck'])->group(function () {
+
   // PUBLIC FOLDER
   Route::get('/', function () {
     // return view('welcome');
@@ -78,4 +79,8 @@ Route::middleware(['isPublicCheck'])->group(function () {
   // RESET PASSWORD
   Route::get('forgotPassword', [MainController::class, 'forgotPassword']);
   Route::get('password/reset/{token}', [MainController::class, 'showResetForm']);
+
+  // INVOICE VIEW FROM EMAIL
+  Route::get('admin/invoiceInfo/{token}', [InvoiceController::class, 'invoice_info']);
+  Route::get('admin/invoiceInfoProfile/{token}', [InvoiceController::class, 'invoice_infoProfile']);
 });

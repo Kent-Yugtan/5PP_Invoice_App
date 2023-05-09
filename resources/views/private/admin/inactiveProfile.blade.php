@@ -325,12 +325,12 @@
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <ul class="nav nav-pills bottom20" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation" style="width:50%">
+                            <li class="nav-item" role="presentation" style="width:50%" id="pills-invoice-tab">
                                 <a href="#pills-invoice" data-bs-toggle="pill" data-bs-target="#pills-invoice"
                                     class="nav-link active text-center" data-toggle="tab">Invoices</a>
                             </li>
 
-                            <li class="nav-item" role="presentation" style="width:50%">
+                            <li class="nav-item" role="presentation" style="width:50%" id="pills-deduction-tab">
                                 <a style="width:100%" href="#pills-deduction" data-bs-toggle="pill"
                                     data-bs-target="#pills-deduction" class="nav-link text-center"
                                     data-toggle="tab">Deductions</a>
@@ -1412,7 +1412,37 @@
                 show_profileDeductionType_select()
                 show_edit();
                 show_data();
-            }, 1500)
+            }, 1500);
+
+            $('#pills-invoice-tab').on('click', function(e) {
+                e.preventDefault();
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                $('div.spanner').addClass('show');
+                setTimeout(function() {
+                    $('div.spanner').removeClass('show');
+                    show_data();
+                }, 500);
+            })
+
+            $('#pills-deduction-tab').on('click', function(e) {
+                e.preventDefault();
+                var originalTextTable = $('#dataTable_deduction tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_deduction tbody').html(
+                    `<tr>
+                <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                $('div.spanner').addClass('show');
+                setTimeout(function() {
+                    $('div.spanner').removeClass('show');
+                    show_Profilededuction_Table_Active();
+                }, 500);
+            })
 
             function show_profileDeductionType_select() {
                 let url = window.location.pathname;
@@ -1890,6 +1920,10 @@
                 // $('html,body').animate({
                 //     scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -1904,6 +1938,12 @@
                 // $('html,body').animate({
                 //     scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+                var originalTextTable = $('#dataTable_deduction tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_deduction tbody').html(
+                    `<tr>
+                  <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -1911,19 +1951,25 @@
 
                     $('#tbl_pagination_deduction').empty();
                     show_Profilededuction_Table_Active();
-                }, 1500);
+                }, 500);
             })
 
             $('#deductionDropSearch').on('change', function() {
                 // $('html,body').animate({
                 //     scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+                var originalTextTable = $('#dataTable_deduction tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_deduction tbody').html(
+                    `<tr>
+                <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
                     $('#tbl_pagination_deduction').empty();
                     show_Profilededuction_Table_Active_Select();
-                }, 1500);
+                }, 500);
             })
 
 
@@ -1961,6 +2007,10 @@
                 // $('html,body').animate({
                 //     scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 $("div.spanner").addClass("show");
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
@@ -1975,9 +2025,15 @@
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                show_data({
-                    page_size: pages
-                });
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_data({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
 
@@ -2117,21 +2173,29 @@
                                     $(this).closest('.page-item').addClass('active');
                                     let url = $(this).data('url');
 
-                                    $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name +
-                                                "=([^&#]*)")
-                                            .exec(
-                                                url
-                                            );
-                                        console.log("results", results);
-                                        return results !== null ? results[1] || 0 :
-                                            0;
-                                    };
-                                    let search = $('#search_invoice').val();
-                                    show_data({
-                                        search: search,
-                                        page: $.urlParam('page')
-                                    });
+                                    var originalTextTable = $('#dataTable_invoice tbody').html();
+                                    // Add spinner to the remaining row and set colspan to 5
+                                    $('#dataTable_invoice tbody').html(
+                                        `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    );
+                                    setTimeout(function() {
+                                        $.urlParam = function(name) {
+                                            var results = new RegExp("[?&]" + name +
+                                                    "=([^&#]*)")
+                                                .exec(
+                                                    url
+                                                );
+                                            console.log("results", results);
+                                            return results !== null ? results[1] || 0 :
+                                                0;
+                                        };
+                                        let search = $('#search_invoice').val();
+                                        show_data({
+                                            search: search,
+                                            page: $.urlParam('page')
+                                        });
+                                    }, 500);
                                 })
                                 let tbl_showing_invoice =
                                     `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
@@ -3595,10 +3659,16 @@
             $('#tbl_showing_deductionTypesPages').on('change', function() {
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
+                $('#dataTable_deduction tbody').html(
+                    `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 // Call the pendingInvoices() function with updated filters
-                show_Profilededuction_Table_Active({
-                    page_size: pages
-                });
+                setTimeout(function() {
+                    show_Profilededuction_Table_Active({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
 
@@ -3710,19 +3780,31 @@
                                                     'active');
                                             $(this).closest('.page-item').addClass('active');
                                             let url = $(this).data('url')
-                                            $.urlParam = function(name) {
-                                                var results = new RegExp("[?&]" + name +
-                                                        "=([^&#]*)")
-                                                    .exec(
-                                                        url
-                                                    );
-                                                return results !== null ? results[1] || 0 : 0;
-                                            };
 
-                                            show_Profilededuction_Table_Active({
-                                                search: $('#search_deduction').val(),
-                                                page: $.urlParam('page')
-                                            })
+                                            var originalTextTable = $('#dataTable_deduction tbody').html();
+                                            // Add spinner to the remaining row and set colspan to 5
+                                            $('#dataTable_deduction tbody').html(
+                                                `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                            );
+
+                                            setTimeout(function() {
+
+                                                $.urlParam = function(name) {
+                                                    var results = new RegExp("[?&]" + name +
+                                                            "=([^&#]*)")
+                                                        .exec(
+                                                            url
+                                                        );
+                                                    return results !== null ? results[1] || 0 :
+                                                        0;
+                                                };
+
+                                                show_Profilededuction_Table_Active({
+                                                    search: $('#search_deduction').val(),
+                                                    page: $.urlParam('page')
+                                                })
+                                            }, 500);
                                         })
                                     let tbl_showing_deduction =
                                         `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
@@ -3855,19 +3937,30 @@
                                                     'active');
                                             $(this).closest('.page-item').addClass('active');
                                             let url = $(this).data('url')
-                                            $.urlParam = function(name) {
-                                                var results = new RegExp("[?&]" + name +
-                                                        "=([^&#]*)")
-                                                    .exec(
-                                                        url
-                                                    );
-                                                return results !== null ? results[1] || 0 : 0;
-                                            };
-                                            let search = $('#deductionDropSearch').val();
-                                            show_Profilededuction_Table_Active_Select({
-                                                search: search,
-                                                page: $.urlParam('page')
-                                            })
+
+                                            var originalTextTable = $('#dataTable_deduction tbody').html();
+                                            // Add spinner to the remaining row and set colspan to 5
+                                            $('#dataTable_deduction tbody').html(
+                                                `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                            );
+
+                                            setTimeout(function() {
+                                                $.urlParam = function(name) {
+                                                    var results = new RegExp("[?&]" + name +
+                                                            "=([^&#]*)")
+                                                        .exec(
+                                                            url
+                                                        );
+                                                    return results !== null ? results[1] || 0 :
+                                                        0;
+                                                };
+                                                let search = $('#deductionDropSearch').val();
+                                                show_Profilededuction_Table_Active_Select({
+                                                    search: search,
+                                                    page: $.urlParam('page')
+                                                })
+                                            }, 500);
                                         })
                                     let tbl_showing_deduction =
                                         `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;

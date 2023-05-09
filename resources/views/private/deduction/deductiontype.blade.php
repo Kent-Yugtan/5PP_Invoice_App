@@ -623,20 +623,30 @@
 
                                 $("#tbl_pagination .page-item .page-link").on('click', function() {
                                     let url = $(this).data('url')
-                                    $.urlParam = function(name) {
-                                        var results = new RegExp("[?&]" + name +
-                                            "=([^&#]*)").exec(
-                                            url
-                                        );
 
-                                        return results !== null ? results[1] || 0 : 0;
-                                    };
+                                    var originalTextTable = $('#table_deduction tbody').html();
+                                    // Add spinner to the remaining row and set colspan to 5
+                                    $('#table_deduction tbody').html(
+                                        `<tr>
+                                            <td class="text-center" colspan="3"><div class="text-center" colspan="3"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    );
+                                    setTimeout(function() {
+                                        $.urlParam = function(name) {
+                                            var results = new RegExp("[?&]" + name +
+                                                "=([^&#]*)").exec(
+                                                url
+                                            );
 
-                                    let search = $('#search').val() ? $('#search').val() : '';
-                                    show_data({
-                                        search: search,
-                                        page: $.urlParam('page')
-                                    });
+                                            return results !== null ? results[1] || 0 : 0;
+                                        };
+
+                                        let search = $('#search').val() ? $('#search').val() :
+                                            '';
+                                        show_data({
+                                            search: search,
+                                            page: $.urlParam('page')
+                                        });
+                                    }, 500);
                                 })
 
                                 let tbl_user_showing =

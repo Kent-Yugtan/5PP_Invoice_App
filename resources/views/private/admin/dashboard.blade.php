@@ -822,7 +822,7 @@
 
                                     $('#pendingInvoices tbody').html(
                                         `<tr>
-                                <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
                                     );
                                     setTimeout(function() {
                                         pendingInvoices({

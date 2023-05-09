@@ -56,9 +56,12 @@ class Controller extends BaseController
 
   public function setup_email_template_status_admin($data)
   {
+    $admin_email_fullname = !empty($data['admin_email_fullname']) ? $data['admin_email_fullname'] : "";
+    $token = !empty($data['token']) ? $data['token'] : "";
     $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
     $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+    $invoice_id = !empty($data['invoice_id']) ? $data['invoice_id'] : "";
     $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
     $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
     $address = !empty($data['address']) ? $data['address'] : "";
@@ -94,7 +97,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Payment Status: " . $payment_status . " - "  .  $full_name;
+    $subject = "5PP " . $payment_status . " Invoice: "  .  $full_name;
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -110,10 +113,13 @@ class Controller extends BaseController
       'template'      => $template,
       'body_data'     => [
         "content" => [
+          'for'                 => 'Admin',
+          'admin_email_fullname' => $admin_email_fullname,
           'invoice_logo'        => $invoice_logo,
           'full_name'           => $full_name,
           'user_email'          => $user_email,
           'invoice_no'          => $invoice_no,
+          'invoice_id'          => $invoice_id,
           'invoice_status'      => $invoice_status,
           'address'             => $address,
           'city'                => $city,
@@ -142,40 +148,22 @@ class Controller extends BaseController
           'notes'               => $notes,
           'grand_total_amount'  => $grand_total_amount,
           'quick_invoice'       => $quick_invoice,
-
+          'token'               => $token,
+          'action_link'            =>  url('admin/invoiceInfo/'),
         ],
       ]
     ];
-    // $pdf = new Dompdf();
-    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    // $pdf->loadHtml($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // $pdf->render();
-
-    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    // $directory = storage_path('/app/public/pdf/Status-Admin');
-    // if (!is_dir($directory)) {
-    //   mkdir($directory, 0777, true);
-    // }
-    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-
-    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf')) {
-    //   // set the file permissions
-    //   $data_email += [
-    //     'attachment' => [
-    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Admin/5PP-Invoice.pdf',
-    //       'as' => '5PP-Invoice.pdf',
-    //     ],
-    //   ];
-    // }
     event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_admin($data)
   {
+    $token = !empty($data['token']) ? $data['token'] : "";
+    $admin_email_fullname = !empty($data['admin_email_fullname']) ? $data['admin_email_fullname'] : "";
     $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
     $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+    $invoice_id = !empty($data['invoice_id']) ? $data['invoice_id'] : "";
     $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
     $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
     $address = !empty($data['address']) ? $data['address'] : "";
@@ -211,8 +199,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Payment Status: " . $payment_status . " - "  .  $full_name;
-    $message = "";
+    $subject = "5PP " . $payment_status . " Invoice: "  .  $full_name;
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -228,9 +215,12 @@ class Controller extends BaseController
       'template'      => $template,
       'body_data'     => [
         "content" => [
+          'for'                 => 'Admin',
+          'admin_email_fullname' => $admin_email_fullname,
           'invoice_logo'        => $invoice_logo,
           'full_name'           => $full_name,
           'user_email'          => $user_email,
+          'invoice_id'          => $invoice_id,
           'invoice_no'          => $invoice_no,
           'invoice_status'      => $invoice_status,
           'address'             => $address,
@@ -260,39 +250,22 @@ class Controller extends BaseController
           'notes'               => $notes,
           'grand_total_amount'  => $grand_total_amount,
           'quick_invoice'       => $quick_invoice,
+          'token'               => $token,
+          'action_link'            =>  url('admin/invoiceInfo/'),
 
         ],
       ]
     ];
-    // $pdf = new Dompdf();
-    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    // $pdf->loadHtml($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // $pdf->render();
-
-    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    // $directory = storage_path('/app/public/pdf/Invoice-Admin');
-    // if (!is_dir($directory)) {
-    //   mkdir($directory, 0777, true);
-    // }
-    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf')) {
-    //   // set the file permissions
-    //   $data_email += [
-    //     'attachment' => [
-    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Admin/5PP-Invoice.pdf',
-    //       'as' => '5PP-Invoice.pdf',
-    //     ],
-    //   ];
-    // }
     event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_status_profile($data)
   {
+    $token = !empty($data['token']) ? $data['token'] : "";
     $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
     $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+    $invoice_id = !empty($data['invoice_id']) ? $data['invoice_id'] : "";
     $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
     $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
     $address = !empty($data['address']) ? $data['address'] : "";
@@ -328,8 +301,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-
-    $subject = "5 Pints Productions Invoice - Payment Status: " . $payment_status . " - "  .  $full_name;
+    $subject = "5PP " . $payment_status . " Invoice: "  .  $full_name;
 
     if (!empty($data['subject'])) {
       $subject = $data['subject'];
@@ -345,9 +317,11 @@ class Controller extends BaseController
       'template'      => $template,
       'body_data'     => [
         "content" => [
+          'for'                 => 'Profile',
           'invoice_logo'        => $invoice_logo,
           'full_name'           => $full_name,
           'user_email'          => $user_email,
+          'invoice_id'          => $invoice_id,
           'invoice_no'          => $invoice_no,
           'invoice_status'      => $invoice_status,
           'address'             => $address,
@@ -377,40 +351,22 @@ class Controller extends BaseController
           'notes'               => $notes,
           'grand_total_amount'  => $grand_total_amount,
           'quick_invoice'       => $quick_invoice,
+          'token'               => $token,
+          'action_link'         =>  url('admin/invoiceInfoProfile/'),
 
         ],
       ]
     ];
-    // $pdf = new Dompdf();
-    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    // $pdf->loadHtml($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // $pdf->render();
-
-    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    // $directory = storage_path('/app/public/pdf/Status-Staff');
-    // if (!is_dir($directory)) {
-    //   mkdir($directory, 0777, true);
-    // }
-    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-
-    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf')) {
-    //   // set the file permissions
-    //   $data_email += [
-    //     'attachment' => [
-    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Status-Staff/5PP-Invoice.pdf',
-    //       'as' => '5PP-Invoice.pdf',
-    //     ],
-    //   ];
-    // }
     event(new \App\Events\SendMailEvent($data_email));
   }
 
   public function setup_email_template_profile($data)
   {
+    $token = !empty($data['token']) ? $data['token'] : "";
     $invoice_logo = !empty($data['invoice_logo']) ? $data['invoice_logo'] : "";
     $full_name = !empty($data['full_name']) ? $data['full_name'] : "";
     $user_email = !empty($data['user_email']) ? $data['user_email'] : "";
+    $invoice_id = !empty($data['invoice_id']) ? $data['invoice_id'] : "";
     $invoice_no = !empty($data['invoice_no']) ? $data['invoice_no'] : "";
     $invoice_status = !empty($data['invoice_status']) ? $data['invoice_status'] : "";
     $address = !empty($data['address']) ? $data['address'] : "";
@@ -446,7 +402,7 @@ class Controller extends BaseController
     $from_name = !empty($data['from_name']) ? $data['from_name'] : env("MIX_APP_NAME");
     $from_email = !empty($data['from_email']) ?  $data['from_email'] : "invoice@5ppsite.com";
     $template = !empty($data['template']) ?  $data['template'] : 'email.emailTemplate';
-    $subject = "5 Pints Productions Invoice - Payment Status: " . $payment_status . " - "  .  $full_name;
+    $subject = "5PP " . $payment_status . " Invoice: "  .  $full_name;
 
     if (!empty($data['attachment'])) {
       $attachment = $data['attachment'];
@@ -465,9 +421,11 @@ class Controller extends BaseController
       'template'      => $template,
       'body_data'     => [
         "content" => [
+          'for'                 => 'Profile',
           'invoice_logo'        => $invoice_logo,
           'full_name'           => $full_name,
           'user_email'          => $user_email,
+          'invoice_id'          => $invoice_id,
           'invoice_no'          => $invoice_no,
           'invoice_status'      => $invoice_status,
           'address'             => $address,
@@ -497,31 +455,11 @@ class Controller extends BaseController
           'notes'               => $notes,
           'grand_total_amount'  => $grand_total_amount,
           'quick_invoice'       => $quick_invoice,
+          'token'               => $token,
+          'action_link'         =>  url('admin/invoiceInfoProfile/'),
         ],
       ]
     ];
-    // $pdf = new Dompdf();
-    // $html = view('email.pdfTemplate', ['content' => $data_email['body_data']['content']])->render();
-    // $pdf->loadHtml($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // $pdf->render();
-
-    // $pdfContent = $pdf->output(); // Get the binary string of the PDF content
-    // $directory = storage_path('/app/public/pdf/Invoice-Staff');
-    // if (!is_dir($directory)) {
-    //   mkdir($directory, 0777, true);
-    // }
-    // file_put_contents(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf', $pdfContent); // Write the content to the file
-
-    // if (file_exists(storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf')) {
-    //   // set the file permissions
-    //   $data_email += [
-    //     'attachment' => [
-    //       'url' =>  storage_path() . '/' . 'app/public/pdf/Invoice-Staff/5PP-Invoice.pdf',
-    //       'as' => '5PP-Invoice.pdf',
-    //     ],
-    //   ];
-    // }
     event(new \App\Events\SendMailEvent($data_email));
   }
 
