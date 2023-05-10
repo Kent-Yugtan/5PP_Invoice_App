@@ -53,7 +53,7 @@
                         <li id="accountSetting">
                             <label for="btn-2" class="first dropdown-item">
                                 <span>Account Setting</span>
-                                <span><i id="rotateArrow" style="transform: rotate(-90deg) !important;"
+                                <span><i id="rotateArrow" style="transform: rotate(-90deg);"
                                         class="fas fa-angle-down"></i></span>
                             </label>
                             <ul style="padding-left:1rem" id="change_Password">
