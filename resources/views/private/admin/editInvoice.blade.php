@@ -119,7 +119,7 @@
                                 <div class="row pt-3">
                                     <div class="col-sm-12 table-responsive-sm">
                                         <table class="table" id="table_invoiceItems">
-                                            <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                            <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                                 <tr>
                                                     <th class=""
                                                         style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -780,6 +780,7 @@
     <script type="text/javascript">
         let total_deduction_amount = 0
         let x = 0;
+        let invoiceNumber = "";
 
         const PHP = value => currency(value, {
             symbol: '',
@@ -793,16 +794,26 @@
         function tableLoader() {
             var originalText = $('#content').html();
             $('#content').html(
-                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
             );
-            $('#content').addClass('text-center');
+            $('#content').addClass('d-flex');
+            $('#content').addClass('justify-content-center');
             $('#content').css('padding', '117px');
+            $('#contentSpinner').css('width', '150px');
+            $('#contentSpinner').css('height', '150px');
             setTimeout(function() {
-                $('#content').removeClass('text-center');
+                $('#content').removeClass('d-flex');
+                $('#content').removeClass('justify-content-center');
                 $('#content').css('padding', '0px');
+                $('#contentSpinner').css('width', '0px');
+                $('#contentSpinner').css('height', '0px');
                 $('#content').html(originalText);
             }, 1500);
         }
+
 
         $(document).ready(function() {
             tableLoader();
@@ -1607,11 +1618,11 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="row pt-3">
                                 <div class="col-sm-12 table-responsive-sm">
                                     <table class="table" id="table_invoiceItems">
-                                        <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                        <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                             <tr>
                                                 <th class=""
                                                     style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -1725,6 +1736,7 @@
 
                                 $('#email').html(data.data.profile.user.email);
                                 $('#invoice_no').html("#" + data.data.invoice_no);
+                                invoiceNumber = data.data.invoice_no;
                                 // $('#status').html(data.data.status);
                                 if (data.data.status === "Active") {
                                     $('#active_button').prop('disabled', true);
@@ -2122,13 +2134,22 @@
 
                         var originalText = $('#content').html();
                         $('#content').html(
-                            `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                            `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                         );
-                        $('#content').addClass('text-center');
+                        $('#content').addClass('d-flex');
+                        $('#content').addClass('justify-content-center');
                         $('#content').css('padding', '117px');
+                        $('#contentSpinner').css('width', '150px');
+                        $('#contentSpinner').css('height', '150px');
                         setTimeout(function() {
-                            $('#content').removeClass('text-center');
+                            $('#content').removeClass('d-flex');
+                            $('#content').removeClass('justify-content-center');
                             $('#content').css('padding', '0px');
+                            $('#contentSpinner').css('width', '0px');
+                            $('#contentSpinner').css('height', '0px');
                             $('#content').html(originalText);
                         }, 1500);
 
@@ -2187,13 +2208,22 @@
 
                             var originalText = $('#content').html();
                             $('#content').html(
-                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('#content').addClass('text-center');
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
                             $('#content').css('padding', '117px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                $('#content').removeClass('text-center');
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
                                 $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
                                 $('#content').html(originalText);
                             }, 1500);
 
@@ -2274,13 +2304,22 @@
 
                             var originalText = $('#content').html();
                             $('#content').html(
-                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('#content').addClass('text-center');
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
                             $('#content').css('padding', '117px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                $('#content').removeClass('text-center');
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
                                 $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
                                 $('#content').html(originalText);
                             }, 1500);
 
@@ -2363,13 +2402,22 @@
 
                             var originalText = $('#content').html();
                             $('#content').html(
-                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('#content').addClass('text-center');
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
                             $('#content').css('padding', '117px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                $('#content').removeClass('text-center');
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
                                 $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
                                 $('#content').html(originalText);
                             }, 1500);
 
@@ -2452,13 +2500,22 @@
 
                             var originalText = $('#content').html();
                             $('#content').html(
-                                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('#content').addClass('text-center');
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
                             $('#content').css('padding', '117px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                $('#content').removeClass('text-center');
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
                                 $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
                                 $('#content').html(originalText);
                             }, 1500);
 
@@ -2536,13 +2593,23 @@
 
                                 var originalText = $('#content').html();
                                 $('#content').html(
-                                    `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                                    `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                                 );
-                                $('#content').addClass('text-center');
+                                $('#content').addClass('d-flex');
+                                $('#content').addClass('justify-content-center');
                                 $('#content').css('padding', '117px');
+                                $('#contentSpinner').css('width', '150px');
+                                $('#contentSpinner').css('height', '150px');
                                 setTimeout(function() {
-                                    $('#content').removeClass('text-center');
+                                    $('#content').removeClass('d-flex');
+                                    $('#content').removeClass(
+                                        'justify-content-center');
                                     $('#content').css('padding', '0px');
+                                    $('#contentSpinner').css('width', '0px');
+                                    $('#contentSpinner').css('height', '0px');
                                     $('#content').html(originalText);
                                 }, 1500);
 
@@ -2612,6 +2679,7 @@
 
             function pdfContent() {
                 // Set the options for html2pdf
+
                 var options = {
                     filename: 'Invoice ' + $('#invoice_no').html() + '.pdf',
                     margin: [10, 10],
@@ -2635,44 +2703,7 @@
 
             $('#pdfDownload').on('click', function(e) {
                 e.preventDefault();
-                $('#content').empty();
-
-                var originalText = $('#content').html();
-                $('#content').html(
-                    `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
-                );
-                $('#content').addClass('text-center');
-                $('#content').css('padding', '117px');
-                setTimeout(function() {
-                    $('#content').removeClass('text-center');
-                    $('#content').css('padding', '0px');
-                    $('#content').html(originalText);
-                }, 1500);
-
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-                    $('#notifyIcon').html(
-                        '<i class="fa-solid fa-check" style="color:green"></i>'
-                    );
-                    $('.toast1 .toast-title').html('Success');
-                    $('.toast1 .toast-body').html("Invoice has been successfully downloaded.");
-
-                    $('#table_invoiceItems tbody').empty();
-                    $('#table_invoiceItems tbody').empty();
-                    $('.row .title_deductions').empty();
-                    $('.row .total_deductions').empty();
-                    $('.row .deductions').empty();
-                    $('.row .view_invoice_description').empty();
-                    $('.row #view_invoice_description').empty();
-                    $('.row .discountType').empty();
-                    $('.row #discountAmount').empty();
-                    $('#table_invoiceItems tbody').html(show_invoice());
-                    toast1.toast('show');
-
-                    show_invoice_config();
-                    pdfContent();
-                }, 1500);
+                pdfContent();
             })
         })
     </script>

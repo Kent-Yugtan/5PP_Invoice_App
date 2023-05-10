@@ -818,7 +818,6 @@
                                         );
                                         return results !== null ? results[1] || 0 : 0;
                                     };
-                                    console.log(" $.urlParam('page')", $.urlParam('page'));
 
                                     $('#pendingInvoices tbody').html(
                                         `<tr>
@@ -1181,7 +1180,6 @@
                             overdueInvoices();
                             getResults_Converted();
                             $('#button-submit').prop("disabled", false);
-                            // $('.invalid-feedback').remove();
                             toast1.toast('show');
                         }, 1500)
                     }

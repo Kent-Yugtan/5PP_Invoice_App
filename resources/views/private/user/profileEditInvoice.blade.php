@@ -119,7 +119,7 @@
                                 <div class="row pt-3">
                                     <div class="col-sm-12 table-responsive-sm">
                                         <table class="table" id="table_invoiceItems">
-                                            <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                            <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                                 <tr>
                                                     <th class=""
                                                         style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
+                            {{-- <div class="row bottom10">
                                 <div class="col-6" style="padding-right:5px;">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
                                         class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
@@ -231,36 +231,36 @@
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
                                         class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row bottom10">
+                            {{-- <div class="row bottom10">
                                 <div class="col-12 w-100">
                                     <button type="button" data-bs-toggle="modal" id="paid_button"
                                         data-bs-target="#paidModal" class="btn  w-100"
                                         style="color: White; background-color: #198754;">Paid
                                         Invoice</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row bottom10">
+                            {{-- <div class="row bottom10">
                                 <div class="col-12 w-100">
                                     <button type="button" data-bs-toggle="modal" id="cancel_button"
                                         data-bs-target="#cancelModal" class="btn  w-100"
                                         style="color: White; background-color:#A4A6B3;">Cancel
                                         Invoice</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-12 w-100">
                                     <button type="button" id="delete_button" data-bs-toggle='modal'
                                         data-bs-target='#deleteModal' class="btn  w-100"
                                         style="color: White; background-color: #dc3545;">Delete
                                         Invoice</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row" style="padding-top:2.5rem">
+                            <div class="row" style="">
                                 <div class="col-12 w-100 bottom10">
                                     <button type="button" id="pdfDownload" class="btn  w-100"
                                         style="color: White; background-color: #CF8029;">Download</button>
@@ -312,8 +312,7 @@
                     <div class="row">
                         <div class="col">
                             <span>
-                                <img class="" src="{{ URL('images/Info.png') }}"
-                                    style="width: 50%; padding:10px" />
+                                <img class="" src="{{ URL('images/Info.png') }}" style="width: 50%; padding:10px" />
                             </span>
                         </div>
                     </div>
@@ -346,8 +345,8 @@
     </div>
 
     <!-- Modal FOR Inactive Invoice -->
-    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
@@ -793,13 +792,22 @@
         function tableLoader() {
             var originalText = $('#content').html();
             $('#content').html(
-                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
             );
-            $('#content').addClass('text-center');
-            $('#content').css('padding', '117px');
+            $('#content').addClass('d-flex');
+            $('#content').addClass('justify-content-center');
+            $('#content').css('padding', '8px');
+            $('#contentSpinner').css('width', '150px');
+            $('#contentSpinner').css('height', '150px');
             setTimeout(function() {
-                $('#content').removeClass('text-center');
+                $('#content').removeClass('d-flex');
+                $('#content').removeClass('justify-content-center');
                 $('#content').css('padding', '0px');
+                $('#contentSpinner').css('width', '0px');
+                $('#contentSpinner').css('height', '0px');
                 $('#content').html(originalText);
             }, 1500);
         }
@@ -1610,7 +1618,7 @@
                             <div class="row pt-3">
                                 <div class="col-sm-12 table-responsive-sm">
                                     <table class="table" id="table_invoiceItems">
-                                        <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                        <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                             <tr>
                                                 <th class=""
                                                     style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -2121,13 +2129,22 @@
 
                         var originalText = $('#content').html();
                         $('#content').html(
-                            `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                            `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                         );
-                        $('#content').addClass('text-center');
-                        $('#content').css('padding', '117px');
+                        $('#content').addClass('d-flex');
+                        $('#content').addClass('justify-content-center');
+                        $('#content').css('padding', '8px');
+                        $('#contentSpinner').css('width', '150px');
+                        $('#contentSpinner').css('height', '150px');
                         setTimeout(function() {
-                            $('#content').removeClass('text-center');
+                            $('#content').removeClass('d-flex');
+                            $('#content').removeClass('justify-content-center');
                             $('#content').css('padding', '0px');
+                            $('#contentSpinner').css('width', '0px');
+                            $('#contentSpinner').css('height', '0px');
                             $('#content').html(originalText);
                         }, 1500);
 

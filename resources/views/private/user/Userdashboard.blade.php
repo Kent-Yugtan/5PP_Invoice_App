@@ -49,16 +49,12 @@
         </div>
 
         <div class="row ">
-            <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
+            {{-- <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
-                    <!-- <div class="card"> -->
-                    <!-- <div class="card-header"> -->
                     <div class="fs-3 fw-bold bottom10 " style="padding-left:15px">
-                        <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
                         <label> Quick Invoice</label>
                     </div>
-                    <!-- <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i> -->
-                    <!-- </div> -->
+
                     <div class="card-body">
                         <form id="quick_invoice" class="g-3 needs-validation" novalidate>
                             <div class="row">
@@ -114,10 +110,198 @@
                     </div>
                     <!-- </div> -->
                 </div>
+            </div> --}}
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
+                        <div class="card-border shadow bg-white" style="padding:20px;">
+                            <!-- <div class="card"> -->
+                            <!-- <div class="card-header"> -->
+                            <div class="fs-3 fw-bold bottom10 " style="padding-left:15px">
+                                <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+                                <label> Quick Invoice</label>
+                            </div>
+                            <!-- <i style="color:#CF8029" class="fa-sharp fa-solid fa-file-invoice-dollar"></i> -->
+                            <!-- </div> -->
+                            <div class="card-body">
+                                <form id="quick_invoice" class="g-3 needs-validation" novalidate>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="profile_id" style="color: #A4A6B3;">Profile</label>
+                                                <select class="form-select " name="selectProfile" id="profile_id" required>
+                                                    <option value="" selected disabled style="color: #A4A6B3;">Select
+                                                        Profile
+                                                    </option>
+                                                </select>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="due_date" style="color: #A4A6B3;">Due Date</label>
+
+                                                <input type="text" id="due_date" name="due_date"
+                                                    class="datepicker_input form-control" placeholder="Due Date" required
+                                                    autocomplete="off">
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="description" style="color: #A4A6B3;">Description</label>
+                                                <input type="text" class="form-control" name="description"
+                                                    id="description" placeholder="Description" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="sub_total" style="color: #A4A6B3; ">Subtotal ($)</label>
+                                                <input type="text" name="sub_total"
+                                                    pattern="^\d{1,3}(,\d{3})*(\.\d{1,2})?$" class="form-control"
+                                                    id="sub_total" placeholder="Subtotal ($)" required>
+                                                <div class="invalid-feedback">This field is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 bottom10 ">
+                                            <button type="submit" id="button-submit"
+                                                style="width:100%;color:white; background-color: #CF8029;"
+                                                class="btn">Create
+                                                Invoice</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 bottom10" style="padding-right:5px;padding-left:5px;">
+                        <div
+                            class="card-border shadow  bg-white "style="padding:20px;min-height: 642px;max-height: 642px;">
+                            <!-- <div class="card h-100"> -->
+                            <div class="header fs-3 fw-bold bottom10" style="padding-left:15px">
+                                <!-- <i style="color:#CF8029" class="fas fa-clock"></i> -->
+                                <label> Overdue Invoices</label>
+                            </div>
+                            <div class="card-body table-responsive " style="max-height: 424px !important;">
+                                <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover"
+                                    id="overdueInvoices">
+                                    <thead>
+                                        <tr>
+                                            <th class="fit">Invoice #</th>
+                                            <th class="fit">Profile Name</th>
+                                            <th class="fit">Due Date</th>
+                                            <th class="fit text-center w-5">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" colspan="4">
+                                                <div class="noData"
+                                                    style="width:' +
+                                      width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                                    <div class="DataLoader" id="noDataOverdue"></div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-body d-none" id="selectOverdue">
+                                <div class="input-group" style="width:145px !important">
+                                    <select id="tbl_showing_overdueInvoicePages" class="form-select ">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <span class="input-group-text border-0">/Page</span>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                                id="tbl_showing_overdueInvoice"></div>
+                            <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                                <ul style="margin-top:15px" class="pagination pagination-sm flex-wrap"
+                                    id="tbl_pagination_overdueInvoice">
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 bottom10" style="padding-right:5px;padding-left:5px;">
+                {{-- max-height: 965px; --}}
+                <div class="card-border shadow bg-white " style="padding:20px;min-height: 968px;max-height: 968px;">
+                    <div class="header fs-3 fw-bold bottom10" style="padding-left:15px">
+                        <label> Pending Invoices</label>
+                    </div>
+
+                    <div class="card-body table-responsive " style="max-height: 750px !important;">
+                        <table style="color: #A4A6B3;font-size: 14px;" class="table table-hover " id="pendingInvoices">
+                            <thead>
+                                <tr>
+                                    <th class="fit">Invoice #</th>
+                                    <th class="fit">Profile Name</th>
+                                    <th class="fit">Due Date</th>
+                                    <th class="fit text-center w-5">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" colspan="4">
+                                        <div class="noData"
+                                            style="width:' +
+                                width +
+                                'px;position:sticky;overflow:hidden;left: 0px;font-size:25px">
+                                            <div class="DataLoader" id="noDataPending"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body d-none" id="selectPending">
+                        <div class="input-group" style="width:145px !important">
+                            <select id="tbl_showing_pendingInvoicePages" class="form-select">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="input-group-text border-0">/Page</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;justify-content:center;" class="page_showing pagination-alignment "
+                        id="tbl_showing_pendingInvoice">
+                    </div>
+
+                    <div class="pagination-alignment" style="display:flex;justify-content:center;">
+                        <ul style="display:flex;justify-content:flex-start;margin-top:15px"
+                            class="pagination pagination-sm flex-wrap" id="tbl_pagination_pendingInvoice">
+                        </ul>
+                    </div>
+                    <!-- </div> -->
+                </div>
             </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-xl-6 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white " style="padding:20px">
                     <div class="header fs-3 fw-bold bottom10" style="padding-left:15px">
@@ -228,7 +412,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
@@ -301,7 +485,18 @@
             }
         });
 
+        function DataLoader() {
+            var originalText = $('.DataLoader').html();
+            $('.DataLoader').html(
+                `<span id="button-spinner" style="color:#CF8029"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('.DataLoader').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            DataLoader();
             //  For creating invoice codes
             const api = "https://api.exchangerate-api.com/v4/latest/USD";
             let pageSize = 10; // initial page size
@@ -489,27 +684,39 @@
 
             $('#tbl_showing_pendingInvoicePages').on('change', function() {
                 let pages = $(this).val();
-                pageSize = pages; // update page size variable
+                PageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                pendingInvoices({
-                    page_size: pages
-                });
+                $('#pendingInvoices tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    pendingInvoices({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
             $('#tbl_showing_overdueInvoicePages').on('change', function() {
                 let pages = $(this).val();
                 pageSize = pages; // update page size variable
                 // Call the pendingInvoices() function with updated filters
-                overdueInvoices({
-                    page_size: pages
-                });
+                $('#overdueInvoices tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    overdueInvoices({
+                        page_size: pages
+                    });
+                }, 500);
             })
 
             // View Pending Invoices
             function pendingInvoices(filters) {
                 let page = $("#tbl_pagination_pendingInvoice .page-item.active .page-link").html();
                 let filter = {
-                    page_size: 10,
+                    page_size: pageSize,
                     page: page ? page : 1,
                     ...filters,
                 }
@@ -561,8 +768,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                                <a class="page-link" data-url="${item.url}">${label}</a>
+                              </li>`;
 
                                 $('#tbl_pagination_pendingInvoice').append(li);
                                 return "";
@@ -592,22 +799,34 @@
                                         );
                                         return results !== null ? results[1] || 0 : 0;
                                     };
-                                    pendingInvoices({
-                                        page: $.urlParam('page')
-                                    });
+
+                                    $('#pendingInvoices tbody').html(
+                                        `<tr>
+                                    <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    );
+                                    setTimeout(function() {
+                                        pendingInvoices({
+                                            page: $.urlParam('page')
+                                        });
+                                    }, 500);
                                 })
 
                             let tbl_showing_pendingInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_pendingInvoice').html(tbl_showing_pendingInvoice);
                             $('#selectPending').removeClass('d-none');
+                            $('#pendingInvoices').addClass('table-hover');
                         } else {
                             $("#pendingInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
                                 width +
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
+                            let tbl_showing_pendingInvoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_pendingInvoice').html(tbl_showing_pendingInvoice);
                             $('#selectPending').addClass('d-none');
+                            $('#pendingInvoices').removeClass('table-hover');
                         }
                     }
                 }).catch(function(error) {
@@ -701,22 +920,34 @@
                                         );
                                         return results !== null ? results[1] || 0 : 0;
                                     };
-                                    overdueInvoices({
-                                        page: $.urlParam('page')
-                                    });
+
+                                    $('#overdueInvoices tbody').html(
+                                        `<tr>
+                                     <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                    );
+                                    setTimeout(function() {
+                                        overdueInvoices({
+                                            page: $.urlParam('page')
+                                        });
+                                    }, 500);
                                 })
 
                             let tbl_showing_overdueInvoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_overdueInvoice').html(tbl_showing_overdueInvoice);
                             $('#selectOverdue').removeClass('d-none');
+                            $('#overdueInvoices').addClass('table-hover');
                         } else {
                             $("#overdueInvoices tbody").append(
                                 '<tr><td colspan="4" class="text-center"><div class="noData" style="width:' +
                                 width +
                                 'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
                             );
+                            let tbl_showing_overdueInvoice =
+                                `Showing 0 to 0 of 0 entries`;
+                            $('#tbl_showing_overdueInvoice').html(tbl_showing_overdueInvoice);
                             $('#selectOverdue').addClass('d-none');
+                            $('#overdueInvoices').removeClass('table-hover');
                         }
                     }
                 }).catch(function(error) {
@@ -905,11 +1136,28 @@
                     let data = response.data;
                     if (data.success) {
                         console.log("DATA", response);
+
+                        var originalPendingInvoices = $('#pendingInvoices tbody').html();
+                        var originalOverdueInvoices = $('#overdueInvoices tbody').html();
+
+                        $('#pendingInvoices tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
+                        $('#overdueInvoices tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
+                            $('#pendingInvoices tbody').html(originalPendingInvoices);
+                            $('#overdueInvoices tbody').html(originalOverdueInvoices);
 
-                            $('input, select').removeClass('is-invalid');
+                            $('#quick_invoice').trigger('reset');
+                            $('#quick_invoice').removeClass('was-validated');
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
                             $('.toast1 .toast-title').html('Success');
@@ -922,8 +1170,6 @@
                             overdueInvoices();
                             // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
                             getResults_Converted();
-                            $('#quick_invoice').trigger('reset');
-                            $('#quick_invoice').removeClass('was-validated');
                             $('#button-submit').prop("disabled", false);
                             toast1.toast('show');
                         }, 1500)

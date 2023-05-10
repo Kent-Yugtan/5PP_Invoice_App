@@ -70,27 +70,9 @@
                     </ul>
                 </li>
 
-                {{-- <li class="nav-item">
-                    <a class="nav-link collapsed" id="useruserdeductiontype" onmouseover="colorIcon4()"
-                        onmouseout="removeColorIcon4()" href="{{ url('user/userdeductiontype') }}"
-                        data-bs-toggle="collapse" data-bs-target="#udeduction" aria-expanded="false"
-                        aria-controls="udeduction">
-                        <div class="sb-nav-link-icon">
-                            <i style="color:#909294;width:20px;margin-right:5px" class="fa-solid fa-plus-minus"></i>
-                        </div>
-                        <span class="labelText">Deductions </span>
-                    </a>
-
-                    <ul class="collapse d-none" id="udeduction" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordion">
-                        <li class="nav-item"><a class="nav-link"
-                                href="{{ url('user/userdeductiontype') }}">Deductions</a>
-                        </li>
-                    </ul>
-                </li> --}}
-
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    <a class="nav-link collapsed" id="userreport" onmouseover="colorIcon5()"
+                        onmouseout="removeColorIcon5()" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
                         <div class="sb-nav-link-icon">
                             <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-table"></i>

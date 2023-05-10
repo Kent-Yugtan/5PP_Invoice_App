@@ -81,9 +81,10 @@
                         <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;min-width:150px">
                                 {{ $content['full_name'] }}</span></p>
 
-                        <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;min-width:150px">
-                                {{ $content['user_email'] }}</span></p>
-
+                        <p style="font-size:12px;margin:0 0 1px 0;">
+                            <a style="display:inline-block;color:black;text-decoration:none !important;">
+                                {{ $content['user_email'] }}
+                            </a>
                         <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;min-width:150px">
                                 {{ $content['address'] }}</span></p>
                         <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;min-width:150px">
@@ -115,8 +116,11 @@
                         <p style="font-weight:bold;font-size:12px;margin:0 0 1px 0;"><span
                                 style="display:inline-block;">
                                 {{ $content['invoice_title'] }}</span></p>
-                        <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;">
-                                {{ $content['invoice_email'] }}</span></p>
+                        <p style="font-size:12px;margin:0 0 1px 0;">
+                            <a style="display:inline-block;color:black;text-decoration:none !important;">
+                                {{ $content['invoice_email'] }}
+                            </a>
+                        </p>
                         <p style="font-size:12px;margin:0 0 1px 0;"><span style="display:inline-block;">
                                 {!! htmlspecialchars_decode($content['bill_to_address']) !!}</span></p>
                     </td>
