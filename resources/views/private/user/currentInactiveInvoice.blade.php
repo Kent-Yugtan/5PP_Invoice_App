@@ -342,7 +342,19 @@
                 $('.noData').css('width', width);
             }
         });
+
+        function tableLoader() {
+            var originalText = $('#noData').html();
+            $('#noData').html(
+                `<span id="button-spinner" style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+            setTimeout(function() {
+                $('#noData').html(originalText);
+            }, 1500);
+        }
+
         $(document).ready(function() {
+            tableLoader();
             let pageSize = 10; // initial page size
             $('div.spanner').addClass('show');
             setTimeout(function() {
@@ -844,11 +856,19 @@
 
             $('#tbl_showing_inactivePages').on('change', function() {
                 let pages = $(this).val();
-                pageSize = pages; // update page size variable
-                // Call the pendingInvoices() function with updated filters
-                show_userstatusInactiveinvoice({
-                    page_size: pages
-                });
+                pageSize = pages;
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+                setTimeout(function() {
+                    show_userstatusInactiveinvoice({
+                        page_size: pages
+                    });
+
+                }, 500);
             })
 
             function show_userstatusInactiveinvoice(filters) {
@@ -1049,17 +1069,25 @@
                                         );
                                     return results !== null ? results[1] || 0 : 0;
                                 };
-                                let search = $('#search').val();
-                                show_userstatusInactiveinvoice({
-                                    search: search,
-                                    page: $.urlParam('page')
-                                });
+                                $('#dataTable_invoice tbody').html(
+                                    `<tr>
+                                     <td class="text-center" colspan="9"><div class="text-center" colspan="9"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                );
+                                setTimeout(function() {
+                                    let search = $('#search').val();
+
+                                    show_userstatusInactiveinvoice({
+                                        search: search,
+                                        page: $.urlParam('page')
+                                    });
+                                }, 500);
                             })
                             let tbl_showing_invoice =
                                 `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             selectShow();
                             $('#selectInactive').removeClass('d-none');
+                            $('#dataTable_invoice').addClass('table-hover');
                         } else {
                             selectShow();
                             $("#dataTable_invoice tbody").append(
@@ -1071,6 +1099,7 @@
                                 `Showing 0 to 0 of 0 entries`;
                             $('#tbl_showing_invoice').html(tbl_showing_invoice);
                             $('#selectInactive').addClass('d-none');
+                            $('#dataTable_invoice').removeClass('table-hover');
                         }
                     }
                 }).catch(function(error) {
@@ -1083,6 +1112,14 @@
                 // $('html,body').animate({
                 //     scrollTop: $('#sb-nav-fixed').offset().top
                 // }, 'slow');
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
+
                 $('div.spanner').addClass('show');
                 setTimeout(function() {
                     $('div.spanner').removeClass('show');
@@ -1197,6 +1234,13 @@
                 $('#button-submit').html(
                     `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
                 );
+
+                var originalTextTable = $('#dataTable_invoice tbody').html();
+                // Add spinner to the remaining row and set colspan to 5
+                $('#dataTable_invoice tbody').html(
+                    `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                );
                 setTimeout(function() {
                     $('#button-submit').html(originalText);
                 }, 1500);
@@ -1211,8 +1255,6 @@
                     $('#tbl_pagination_invoice').empty();
                     search_statusInactive_invoice();
                     $("div.spanner").removeClass("show");
-
-
                 }, 1500)
 
             })

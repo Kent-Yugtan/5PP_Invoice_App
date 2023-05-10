@@ -44,25 +44,52 @@
                     <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
                             src="/images/default.png"></button>
-                    <ul class="dropdown-menu dropdown-menu-end" style="margin-right:10px"
-                        aria-labelledby="navbarDropdown">
-                        {{-- <li><a class="dropdown-item"></a></li> --}}
-                        {{-- <div class=""> --}}
-                        <li><a class="dropdown-item webLayout d-none ">{{ session('data')->first_name }}
-                                {{ session('data')->last_name }}</a>
-                            {{-- </div> --}}
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+
+                        {{-- <li class="nav-item ">
+                            <a class="dropdown-item " href="#" data-bs-toggle="collapse"
+                                data-bs-target="#accountSettings" aria-expanded="false" aria-controls="accountSettings">
+                                <span>Account Setting </span>
+                                <i class="fas fa-angle-down"></i>
+                            </a>
+                            <ul class="collapse" id="accountSettings" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <li><a class="nav-link" href="{{ url('reports/deduction') }}">Change Password</a></li>
+                            </ul>
+                        </li> --}}
+
+                        <li id="accountSetting">
+                            <label for="btn-2" class="first dropdown-item">
+                                <span>Account Setting</span>
+                                <span><i id="rotateArrow" class="fas fa-angle-down"></i></span>
+                            </label>
+                            <ul style="padding-left:1rem" id="change_Password">
+                                <li class="dropdown-item"><a style="cursor: pointer;" data-bs-toggle="modal"
+                                        data-bs-target="#changePassword">Change Password</a></li>
+                            </ul>
                         </li>
-                        <li><a style="cursor: pointer;" class="dropdown-item" data-bs-toggle="modal"
-                                data-bs-target="#changePassword">
+
+                        <li class="nav-item">
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="nav-item"><a class="dropdown-item webLayout d-none ">
+                                <span>{{ session('data')->first_name }}
+                                    {{ session('data')->last_name }} </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item"><a class="dropdown-item">
                                 <span>
                                     {{ session('data')->role }}
                                 </span>
                             </a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a style="cursor: pointer;" class="dropdown-item" id="logout">
+                        <li class="nav-item"><a style="cursor: pointer;" class="dropdown-item" id="logout">
                                 <span>{{ __('Logout') }}</span></a>
                         </li>
                     </ul>
@@ -92,10 +119,12 @@
                                     <form id="adminChangePassword" class="g-3 needs-validation" novalidate>
                                         @csrf
 
-                                        <input type="text" id="userId" value="{{ session('data')->id }}" hidden>
+                                        <input type="text" id="userId" value="{{ session('data')->id }}"
+                                            hidden>
                                         <div class="row">
                                             <div class="col-12 ">
-                                                <div id="mobileValidatePassword" class="form-group-profile has-toggle">
+                                                <div id="mobileValidatePassword"
+                                                    class="form-group-profile has-toggle">
                                                     <label for="currentPassword" style="color: #A4A6B3;">Current
                                                         Password</label>
                                                     <div class="input-group" id="show_hide_currentPassword">
@@ -171,11 +200,11 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="button" data-bs-dismiss="modal" class="btn  w-100"
                                                     style="color:#CF8029; background-color:#f3f3f3; ">Close</button>
                                             </div>
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="submit" id="changePassword_button" class="btn  w-100"
                                                     style="color:White; background-color:#CF8029; ">Change
                                                     Password</button>
@@ -311,6 +340,38 @@
     }
 
     $(document).ready(function() {
+        // $('#accountSetting').hover(
+        //     function() {
+        //         $('#change_Password').show();
+        //         $(this).find('span #rotateArrow').css('transform', '');
+
+        //     },
+        //     function() {
+        //         $('#change_Password').hide();
+        //         $(this).find('span #rotateArrow').css('transform', 'rotate(-90deg)');
+
+        //     }
+        // );
+        $('#accountSetting').on('click', function(event) {
+            event.stopPropagation();
+            var changePassword = $('#change_Password');
+            var rotateArrow = $('#rotateArrow');
+
+            var isVisible = changePassword.is(':visible');
+            changePassword.toggle();
+
+            if (isVisible) {
+                rotateArrow.css('transform', 'rotate(-90deg)');
+            } else {
+                rotateArrow.css('transform', '');
+            }
+        });
+
+        $(document).on('click', function() {
+            $('#change_Password').hide();
+        });
+
+
         $('#currentPassword,#newPassword, #confirmPassword').on('blur', function() {
             changePassword($('#currentPassword'), $('#newPassword'), $('#confirmPassword'));
         });

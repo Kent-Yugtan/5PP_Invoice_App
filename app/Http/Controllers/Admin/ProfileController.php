@@ -298,7 +298,191 @@ class ProfileController extends Controller
     }
   }
 
+  public function updateProfile(Request $request)
+  {
+    $error = false;
+    $userId = auth()->user()->id;
+    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($userId);
+    if ($findUser) {
+      // if ($findUser->profile) {
 
+      // if ($findUser->profile->acct_no != $request->acct_no) {
+      //   $request->validate([
+      //     'acct_no' => 'required|unique:profiles',
+      //   ]);
+      // }
+
+      // if ($findUser->profile->acct_name != $request->acct_name) {
+      //   $request->validate([
+      //     'acct_name' => 'required|unique:profiles',
+      //   ]);
+      // }
+
+      // if ($findUser->profile->gcash_no != $request->gcash_no) {
+      //   $request->validate([
+      //     'gcash_no' => 'required|unique:profiles',
+      //   ]);
+      // }
+      // }
+      if ($findUser->email != $request->email) {
+        $request->validate([
+          'email' => 'required|unique:users',
+        ]);
+      }
+      if ($findUser->username != $request->username) {
+        $request->validate([
+          'username' => 'required|unique:users',
+        ]);
+      }
+      if ($findUser->first_name != $request->first_name) {
+        $request->validate([
+          'first_name' => 'required',
+        ]);
+      }
+      if ($findUser->last_name != $request->last_name) {
+        $request->validate([
+          'last_name' => 'required',
+        ]);
+      }
+    }
+    if ($error === false) {
+      $incoming_data = $request->validate(
+        [
+          'profile_status' => 'required',
+          'position' => 'required',
+          'phone_number' => 'required',
+          'address' => 'required',
+          'province' => 'required',
+          'city' => 'required',
+          'zip_code' => 'required',
+          'date_hired' => 'required',
+          // 'bank_name' => 'required',
+          // 'bank_address' => 'required',
+        ]
+      );
+
+      // if ($request->file('profile_picture')) {
+      //   $userImageFile = $request->file('profile_picture');
+      //   $userImageFileName = $userImageFile->getClientOriginalName();
+      //   $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
+      //   $filename =  $userImageFilePath;
+      //   $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
+
+      //   $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
+      //   // $path = $userImageFilePath;
+      //   $path = '/storage/' . $userImageFilePath;
+
+      //   $incoming_data += [
+      //     'file_original_name' => $userImageFileName,
+      //     'file_name' => $userImageFilePath,
+      //     'file_path' => $path,
+      //     'file_size' => $userImageFileSize,
+      //   ];
+      // }
+
+      $incoming_data += [
+        'file_original_name' => $request->file_original_name,
+        'file_name' => $request->file_name,
+        'file_path' => $request->file_path,
+        // 'file_size' => $request->userImageFileSize,
+
+        'bank_name' => $request->bank_name,
+        'bank_address' => $request->bank_address,
+        'acct_no' => $request->acct_no,
+        'acct_name' => $request->acct_name,
+        'gcash_no' => $request->gcash_no,
+      ];
+
+      // if (!$userId) {
+      //   $incoming_data += $request->validate([
+      //     'acct_no' => 'required|unique:profiles',
+      //     'acct_name' => 'required|unique:profiles',
+      //     'gcash_no' => 'required|unique:profiles',
+      //   ]);
+      // } else {
+      //   $incoming_data += [
+      //     'acct_no' => $request->acct_no,
+      //     'acct_name' => $request->acct_name,
+      //     'gcash_no' => $request->gcash_no,
+      //   ];
+      // }
+
+      $userCreateData = [
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'email' => $request->email,
+        'username' => $request->username,
+        'role' => 'Staff',
+
+      ];
+      if ($request->password) {
+        $userCreateData += [
+          'password' => Hash::make($request->password)
+        ];
+      }
+
+      if ($userId) {
+        $userCreate = $findUser->fill($userCreateData)->save();
+        if ($userCreate) {
+          if ($findUser->profile) {
+            $findUser->profile()->where('id', $findUser->profile->id)->update(
+              $incoming_data,
+            );
+          } else {
+            $findUser->profile()->create(
+              $incoming_data,
+            );
+          }
+        }
+      } else {
+        $userCreate = User::create($userCreateData);
+        if ($userCreate) {
+          $userCreate->profile()->create(
+            $incoming_data,
+          );
+
+          $deduction_type_id = $request->deduction_type_id;
+          foreach (json_decode($deduction_type_id) as $q) {
+            $findProfile = Profile::where('userId', $userCreate->id)->first();
+            $findProfileDeductionTypes = ProfileDeductionTypes::where('profile_id', $findProfile->id)
+              ->where('deduction_type_id', $q)
+              ->first();
+
+            $dataDeductionType = \App\Models\DeductionType::find($q);
+
+            if ($findProfileDeductionTypes) {
+              $findProfileDeductionTypes->fill([
+                'deduction_type_id' => $q,
+                'amount' => $dataDeductionType->deduction_amount,
+                'deduction_type_name' => $dataDeductionType->deduction_name,
+              ])->save();
+            } else {
+              ProfileDeductionTypes::create([
+                'profile_id' => $findProfile->id,
+                'deduction_type_id' => $q,
+                'amount' => $dataDeductionType->deduction_amount,
+                'deduction_type_name' => $dataDeductionType->deduction_name
+              ]);
+            }
+          }
+        }
+      }
+
+      if (!$userId) {
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been added successfully.',
+          'data' => $userCreate,
+        ], 200);
+      } else {
+        return response()->json([
+          'success' => true,
+          'message' => 'Your Profile has been updated successfully.',
+          'data' => $userCreate,
+        ], 200);
+      }
+    }
+  }
 
   // VALIDATE EMAIL ON UPDATE
   public function editValidateEmail(Request $request)
@@ -778,186 +962,7 @@ class ProfileController extends Controller
     }
   }
 
-  public function updateProfile(Request $request)
-  {
-    $error = false;
-    $userId = auth()->user()->id;
-    $findUser = User::with('profile', 'profile.profile_deduction_types')->find($userId);
-    if ($findUser) {
-      if ($findUser->profile) {
 
-        if ($findUser->profile->acct_no != $request->acct_no) {
-          $request->validate([
-            'acct_no' => 'required|unique:profiles',
-          ]);
-        }
-
-        if ($findUser->profile->acct_name != $request->acct_name) {
-          $request->validate([
-            'acct_name' => 'required|unique:profiles',
-          ]);
-        }
-
-        if ($findUser->profile->gcash_no != $request->gcash_no) {
-          $request->validate([
-            'gcash_no' => 'required|unique:profiles',
-          ]);
-        }
-      }
-      if ($findUser->email != $request->email) {
-        $request->validate([
-          'email' => 'required|unique:users',
-        ]);
-      }
-      if ($findUser->username != $request->username) {
-        $request->validate([
-          'username' => 'required|unique:users',
-        ]);
-      }
-      if ($findUser->first_name != $request->first_name) {
-        $request->validate([
-          'first_name' => 'required',
-        ]);
-      }
-      if ($findUser->last_name != $request->last_name) {
-        $request->validate([
-          'last_name' => 'required',
-        ]);
-      }
-    }
-    if ($error === false) {
-      $incoming_data = $request->validate(
-        [
-          'profile_status' => 'required',
-          'position' => 'required',
-          'phone_number' => 'required',
-          'address' => 'required',
-          'province' => 'required',
-          'city' => 'required',
-          'zip_code' => 'required',
-          'bank_name' => 'required',
-          'bank_address' => 'required',
-          'date_hired' => 'required',
-
-        ]
-      );
-
-      // if ($request->file('profile_picture')) {
-      //   $userImageFile = $request->file('profile_picture');
-      //   $userImageFileName = $userImageFile->getClientOriginalName();
-      //   $userImageFilePath = time() . '' . $userImageFile->getClientOriginalName();
-      //   $filename =  $userImageFilePath;
-      //   $userImageFilePath = $userImageFile->storeAs('/images', $userImageFilePath, 'public');
-
-      //   $userImageFileSize = $this->formatSizeUnits($userImageFile->getSize());
-      //   // $path = $userImageFilePath;
-      //   $path = '/storage/' . $userImageFilePath;
-
-      //   $incoming_data += [
-      //     'file_original_name' => $userImageFileName,
-      //     'file_name' => $userImageFilePath,
-      //     'file_path' => $path,
-      //     'file_size' => $userImageFileSize,
-      //   ];
-      // }
-
-      $incoming_data += [
-        'file_original_name' => $request->file_original_name,
-        'file_name' => $request->file_name,
-        'file_path' => $request->file_path,
-        // 'file_size' => $request->userImageFileSize,
-      ];
-
-      if (!$userId) {
-        $incoming_data += $request->validate([
-          'acct_no' => 'required|unique:profiles',
-          'acct_name' => 'required|unique:profiles',
-          'gcash_no' => 'required|unique:profiles',
-        ]);
-      } else {
-        $incoming_data += [
-          'acct_no' => $request->acct_no,
-          'acct_name' => $request->acct_name,
-          'gcash_no' => $request->gcash_no,
-        ];
-      }
-
-      $userCreateData = [
-        'first_name' => $request->first_name,
-        'last_name' => $request->last_name,
-        'email' => $request->email,
-        'username' => $request->username,
-        'role' => 'Staff',
-
-      ];
-      if ($request->password) {
-        $userCreateData += [
-          'password' => Hash::make($request->password)
-        ];
-      }
-
-      if ($userId) {
-        $userCreate = $findUser->fill($userCreateData)->save();
-        if ($userCreate) {
-          if ($findUser->profile) {
-            $findUser->profile()->where('id', $findUser->profile->id)->update(
-              $incoming_data,
-            );
-          } else {
-            $findUser->profile()->create(
-              $incoming_data,
-            );
-          }
-        }
-      } else {
-        $userCreate = User::create($userCreateData);
-        if ($userCreate) {
-          $userCreate->profile()->create(
-            $incoming_data,
-          );
-
-          $deduction_type_id = $request->deduction_type_id;
-          foreach (json_decode($deduction_type_id) as $q) {
-            $findProfile = Profile::where('userId', $userCreate->id)->first();
-            $findProfileDeductionTypes = ProfileDeductionTypes::where('profile_id', $findProfile->id)
-              ->where('deduction_type_id', $q)
-              ->first();
-
-            $dataDeductionType = \App\Models\DeductionType::find($q);
-
-            if ($findProfileDeductionTypes) {
-              $findProfileDeductionTypes->fill([
-                'deduction_type_id' => $q,
-                'amount' => $dataDeductionType->deduction_amount,
-                'deduction_type_name' => $dataDeductionType->deduction_name,
-              ])->save();
-            } else {
-              ProfileDeductionTypes::create([
-                'profile_id' => $findProfile->id,
-                'deduction_type_id' => $q,
-                'amount' => $dataDeductionType->deduction_amount,
-                'deduction_type_name' => $dataDeductionType->deduction_name
-              ]);
-            }
-          }
-        }
-      }
-
-      if (!$userId) {
-        return response()->json([
-          'success' => true,
-          'message' => 'Your Profile has been added successfully.',
-          'data' => $userCreate,
-        ], 200);
-      } else {
-        return response()->json([
-          'success' => true,
-          'message' => 'Your Profile has been updated successfully.',
-          'data' => $userCreate,
-        ], 200);
-      }
-    }
-  }
 
   public function user_data()
   {

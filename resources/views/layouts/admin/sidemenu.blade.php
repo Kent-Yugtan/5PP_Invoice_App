@@ -108,6 +108,7 @@
                         <li><a class="nav-link" href="{{ url('reports/invoice') }}">Invoice Reports</a></li>
                     </ul>
                 </li>
+
                 <hr>
 
                 <li class="nav-item">

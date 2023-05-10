@@ -16,8 +16,8 @@
                             <div class="row pt-3">
                                 @csrf
                                 <span hidden>user id</span>
-                                <input type="text" id="user_id" value="{{ $findid->id }}" hidden>
-                                <input type="text" id="profile_id_show" hidden>
+                                <input type="radio" class="form-check-input" id="user_id" value="{{ $findid->id }}">
+                                <input type="text" id="profile_id_show">
 
                                 <div class="col-md-6 col-lg-6"
                                     style="display:flex;justify-content:center;align-items:center">
@@ -432,7 +432,7 @@
                                                 data-bs-target="#modal-create-deduction"
                                                 style="color:white; background-color: #CF8029;width:100%">
                                                 <i class="fa fa-plus pe-1"></i>
-                                                Create Deduction
+                                                Custom Deduction
                                             </button>
                                         </div>
 
@@ -613,15 +613,17 @@
                                                                 <label class="formGroupExampleInput2"
                                                                     style="color:#A4A6B3">Discount Type</label>
                                                                 <br>
+                                                                {{-- name="discount_type" id="discount_type" --}}
                                                                 <input class="form-check-input" type="radio"
                                                                     name="discount_type" id="discount_type"
                                                                     value="Fixed">
                                                                 <label class="formGroupExampleInput2">
                                                                     Fixed &nbsp;
                                                                 </label>
-                                                                <input class="discount_type form-check-input"
-                                                                    type="radio" name="discount_type"
-                                                                    id="discount_type" value="Percentage">
+                                                                {{-- name="discount_type" id="discount_type" --}}
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="discount_type" id="discount_type"
+                                                                    value="Percentage">
                                                                 <label class="formGroupExampleInput2">
                                                                     Percentage
                                                                 </label>
@@ -629,7 +631,7 @@
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <div id="col_discount_amount" class="d-none">
+                                                            <div id="col_discount_amount" class="">
                                                                 <label for="discount_amount" class="label_discount_amount"
                                                                     style="color:#A4A6B3">Discount
                                                                     Amount ($)</label>
@@ -641,7 +643,7 @@
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <div id="col_discount_total" class="d-none">
+                                                            <div id="col_discount_total" class="">
                                                                 <label for="discount_total" class="label_discount_total"
                                                                     style="color:#A4A6B3">Discount
                                                                     Total ($)</label>
@@ -811,7 +813,7 @@
                                     <div class="col-md-12  w-100">
                                         <div class="row">
                                             <div class="col bottom20">
-                                                <span class="fs-3 fw-bold">Create Deduction</span>
+                                                <span class="fs-3 fw-bold">Add Custom Deduction</span>
                                             </div>
                                         </div>
 
@@ -860,7 +862,8 @@
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
                                             <div class="col bottom20">
-                                                <button type="submit" id="Deduction_button" class="btn w-100"
+                                                {{-- id="Deduction_button" --}}
+                                                <button type="submit" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
                                         </div>
@@ -1019,8 +1022,9 @@
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
                                             <div class="col bottom20">
-                                                <button type="submit" id="Deduction_button" class="btn w-100"
-                                                    style="color:White; background-color:#CF8029;">Add</button>
+                                                {{-- id="Deduction_button" --}}
+                                                <button type="submit" class="btn w-100"
+                                                    style="color:White; background-color:#CF8029;">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -2364,7 +2368,7 @@
                     $("div.spanner").removeClass("show");
                     $('#tbl_pagination_invoice').empty();
                     show_data();
-                }, 1500);
+                }, 500);
             })
 
             $('#search_deduction').on('change', function() {
@@ -4033,8 +4037,6 @@
                         setTimeout(function() {
                             $('div.spanner').removeClass('show');
 
-
-
                             $('#invoice_items').trigger('reset'); // reset the form
                             $('#show_deduction_items').empty();
                             $('textarea').val('');
@@ -4125,7 +4127,6 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
-                            console.log("SAVE");
                             $('#modal-create-deduction').modal('hide');
                             var originalTextTable = $('#dataTable_deduction tbody').html();
                             // Add spinner to the remaining row and set colspan to 5
@@ -4144,7 +4145,6 @@
                                 $('#deduction_Store').trigger('reset');
                                 $('#deduction_Store').removeClass('was-validated');
                                 $('#Deduction_deduction_name').removeClass('is-invalid');
-                                toast1.toast('show');
                                 $('#deductionDropSearch').empty();
                                 show_profileDeductionType_select();
                                 show_Profilededuction_Table_Active();
@@ -4169,9 +4169,9 @@
             })
 
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var deduction_Store = $('#deduction_Store')
+            var deduction_update = $('#deduction_update')
             // Loop over them and prevent submission
-            Array.prototype.slice.call(deduction_Store)
+            Array.prototype.slice.call(deduction_update)
                 .forEach(function(form) {
                     form.addEventListener('submit', function(event) {
                         if (!form.checkValidity()) {

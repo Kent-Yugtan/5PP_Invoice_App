@@ -119,7 +119,7 @@
                                 <div class="row pt-3">
                                     <div class="col-sm-12 table-responsive-sm">
                                         <table class="table" id="table_invoiceItems">
-                                            <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                            <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                                 <tr>
                                                     <th class=""
                                                         style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -793,13 +793,22 @@
         function tableLoader() {
             var originalText = $('#content').html();
             $('#content').html(
-                `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
             );
-            $('#content').addClass('text-center');
+            $('#content').addClass('d-flex');
+            $('#content').addClass('justify-content-center');
             $('#content').css('padding', '117px');
+            $('#contentSpinner').css('width', '150px');
+            $('#contentSpinner').css('height', '150px');
             setTimeout(function() {
-                $('#content').removeClass('text-center');
+                $('#content').removeClass('d-flex');
+                $('#content').removeClass('justify-content-center');
                 $('#content').css('padding', '0px');
+                $('#contentSpinner').css('width', '0px');
+                $('#contentSpinner').css('height', '0px');
                 $('#content').html(originalText);
             }, 1500);
         }
@@ -1610,7 +1619,7 @@
                             <div class="row pt-3">
                                 <div class="col-sm-12 table-responsive-sm">
                                     <table class="table" id="table_invoiceItems">
-                                        <thead style="border-radius: 0.3rem; background-color: #515964; color: white;">
+                                        <thead style="border-radius: 0.3rem; background-color: #3a3a3a; color: white;">
                                             <tr>
                                                 <th class=""
                                                     style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;width:52%;border-right: 0px solid rgb(255,255,255);">
@@ -2121,13 +2130,22 @@
 
                         var originalText = $('#content').html();
                         $('#content').html(
-                            `<span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+                            `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                         );
-                        $('#content').addClass('text-center');
+                        $('#content').addClass('d-flex');
+                        $('#content').addClass('justify-content-center');
                         $('#content').css('padding', '117px');
+                        $('#contentSpinner').css('width', '150px');
+                        $('#contentSpinner').css('height', '150px');
                         setTimeout(function() {
-                            $('#content').removeClass('text-center');
+                            $('#content').removeClass('d-flex');
+                            $('#content').removeClass('justify-content-center');
                             $('#content').css('padding', '0px');
+                            $('#contentSpinner').css('width', '0px');
+                            $('#contentSpinner').css('height', '0px');
                             $('#content').html(originalText);
                         }, 1500);
 

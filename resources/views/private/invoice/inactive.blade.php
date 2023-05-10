@@ -55,6 +55,7 @@
                 <div class="form-check-inline w-100">
                     <select class="form-select form-check-inline" id="filter_invoices">
                         <option value="All">All</option>
+                        <option value="Cancelled">Cancelled</option>
                         <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
                         <option value="Overdue">Overdue</option>
