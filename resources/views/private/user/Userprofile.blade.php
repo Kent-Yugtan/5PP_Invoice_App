@@ -731,7 +731,7 @@
                                                             <div class="input-group" style="width: 290px">
                                                                 <label for="grand_subTotal"
                                                                     class="fw-bold d-flex align-items-center">Grand
-                                                                    Total(Php):</label>
+                                                                    Total($):</label>
                                                                 <input type="text" id="grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"

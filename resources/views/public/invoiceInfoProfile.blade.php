@@ -700,7 +700,7 @@
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
                                                                 <label class="d-flex align-items-center fw-bold"
-                                                                    for="grand_subTotal">Grand Total(Php):</label>
+                                                                    for="grand_subTotal">Grand Total($):</label>
                                                                 <input type="text" id="grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
