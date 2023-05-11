@@ -4784,8 +4784,8 @@
                     })
                     .then(function(response) {
                         let data = response.data;
-                        console.log("show_profileDeductionType_Button", data);
                         if (data.success) {
+                            console.log("show_profileDeductionType_Button", data);
                             if (data.data.profile_deduction_types.length > 0) {
                                 data.data.profile_deduction_types.map((item) => {
                                     let label = '<label>';
