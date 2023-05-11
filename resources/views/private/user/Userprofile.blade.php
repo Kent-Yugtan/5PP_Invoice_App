@@ -731,7 +731,7 @@
                                                             <div class="input-group" style="width: 290px">
                                                                 <label for="grand_subTotal"
                                                                     class="fw-bold d-flex align-items-center">Grand
-                                                                    Total(Php):</label>
+                                                                    Total($):</label>
                                                                 <input type="text" id="grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
@@ -4784,8 +4784,8 @@
                     })
                     .then(function(response) {
                         let data = response.data;
-                        console.log("show_profileDeductionType_Button", data);
                         if (data.success) {
+                            console.log("show_profileDeductionType_Button", data);
                             if (data.data.profile_deduction_types.length > 0) {
                                 data.data.profile_deduction_types.map((item) => {
                                     let label = '<label>';

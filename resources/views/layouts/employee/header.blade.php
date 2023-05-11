@@ -39,8 +39,7 @@
             </span>
 
             <div class="icons mobileLayout d-none">
-                <span style="margin-right:15px">{{ session('data')->first_name }}
-                    {{ session('data')->last_name }}</span>
+                <span style="margin-right:15px" class="full_name"></span>
             </div>
 
             <ul class="navbar-nav ms-auto ms-sm-0 pe-2">
@@ -67,8 +66,7 @@
                         </li>
 
                         <li class="nav-item"><a class="dropdown-item webLayout d-none ">
-                                <span>{{ session('data')->first_name }}
-                                    {{ session('data')->last_name }} </span>
+                                <span class="full_name"></span>
                             </a>
                         </li>
 
@@ -710,7 +708,7 @@
                     $(".rounded-pill").attr("src", data.data.profile.file_path ? data.data.profile
                         .file_path :
                         '/images/default.png');
-                    $('#fullname').html(data.data.first_name + " " + data.data.last_name);
+                    $('.full_name').html(data.data.first_name + " " + data.data.last_name);
                     $('#role').html(data.data.role);
                 }
             }).catch(function(error) {
