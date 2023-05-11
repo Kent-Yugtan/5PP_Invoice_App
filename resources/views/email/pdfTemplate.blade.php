@@ -367,7 +367,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            {{-- <tr>
                                 <td style="font-weight:bold;text-align:left;min-width:130px">
                                     <span style="display:inline-block;">
                                         Converted Amount: P{{ $content['peso_rate'] }}
@@ -378,7 +378,7 @@
                                         P{{ $content['converted_amount'] }}
                                     </span>
                                 </td>
-                            </tr>
+                            </tr> --}}
 
                             @if (!empty($content['deductions']))
                                 <tr>
@@ -433,7 +433,8 @@
                                     <strong>Grand Total:</strong>
                                 </td>
                                 <td style="text-align: right;padding-top:15px">
-                                    <strong>P{{ $content['grand_total_amount'] }}</strong>
+                                    <strong>P{{ $content['converted_amount'] }}</strong>
+                                    {{-- <strong>${{ $content['balance_due'] }}</strong> --}}
                                 </td>
                             </tr>
 

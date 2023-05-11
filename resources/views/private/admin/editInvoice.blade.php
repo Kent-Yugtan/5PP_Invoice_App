@@ -590,7 +590,7 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 bottom20">
                                                     <div class="row justify-content-end">
                                                         <div class="col-sm-4">
                                                             <button class="btn "
@@ -601,7 +601,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col-lg-4 bottom20"
                                                             style="display: flex;align-items: start;">
@@ -671,7 +671,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                {{-- AMOUNT COVERTION DISPLAY - NONE --}}
+                                                <div class="col-12 bottom20 d-none">
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4">
                                                             <div>
@@ -697,13 +698,14 @@
                                                         </div>
                                                         <div class="col-12 col-sm-4">
                                                             <div>
-                                                                <label for="converted_amount"
+                                                                <label for="converted_amount_DISPLAY_NONE"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;border:none; text-align:left;background-color:white"
                                                                     onkeypress="return onlyNumberKey(event)"
-                                                                    id="converted_amount" class="form-control" disabled />
+                                                                    id="converted_amount_DISPLAY_NONE"
+                                                                    class="form-control" disabled />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -724,15 +726,18 @@
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
                                                                 <label class="d-flex align-items-center fw-bold"
-                                                                    for="grand_total">Grand Total(Php):</label>
-                                                                <input type="text" id="grand_total"
+                                                                    for="converted_amount">Grand Total(Php):</label>
+                                                                <input type="text" id="converted_amount"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    {{-- DONT DELETE JUST HIDE KAY MAG ERROR --}}
+                                                    <input type="text" id="grand_total" class="form-control fw-bold"
+                                                        style="text-align:right;border:0;background-color:white;" disabled
+                                                        hidden>
 
                                                     <div class="col-12">
                                                         <div class="row">
@@ -1661,20 +1666,11 @@
 
                                     <div class="row">
                                         <div class="col-7">
-                                            <label class="text-muted"> Total:</label>
+                                            <label class="h6"> Total:</label>
                                         </div>
-                                        <div class="col-5 " id="total" style="text-align:end"></div>
+                                        <div class="col-5 h6 " id="total" style="text-align:end"></div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <label class="text-muted ">Converted Amount: P<label class="text-muted"
-                                                    id="peso_rate"></label></label>
-                                        </div>
-
-                                        <div class="col-4" id="convertedAmount" style="text-align:end">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -1693,7 +1689,7 @@
                                     <label class="fw-bold">Grand Total: </label>
                                 </div>
                                 <div class="col" style="text-align:end">
-                                    <label class="h6 fw-bold" id="grand_total_amount"></label>
+                                    <label class="h6 fw-bold" id="convertedAmount"></label>
                                 </div>
                             </div>
 
@@ -1847,13 +1843,13 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
+                                            div += "<div class='col-8 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
                                                 .discount_type + "</span> </div>";
                                             div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1862,12 +1858,12 @@
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
+                                            div += "<div class='col-8 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
                                                 discount_amount + "%) </span></div>";
                                             div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
