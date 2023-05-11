@@ -65,7 +65,7 @@
                                     </div>
 
                                     <!-- <div class="col-6"></div> -->
-                                    <div class="col-12">
+                                    <div class="col-12 bottom20">
                                         <div class="row justify-content-end">
                                             <div class="col-sm-4">
                                                 <button class="btn "
@@ -143,7 +143,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    {{-- AMOUNT COVERTION DISPLAY - NONE --}}
+                                    <div class="col-12 bottom20 d-none">
                                         <div class="row">
                                             <div class="col-12 col-sm-4">
                                                 <div>
@@ -175,8 +176,9 @@
                                                         Amount (Php)</label>
                                                     <input type="text"
                                                         style="font-weight: bold;border:none; text-align:left;background-color:white"
-                                                        onkeypress="return onlyNumberKey(event)" id="converted_amount"
-                                                        class="form-control converted_amount" disabled />
+                                                        onkeypress="return onlyNumberKey(event)"
+                                                        id="converted_amount_DISPLAY_NONE"
+                                                        class="form-control converted_amount_DISPLAY_NONE" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -198,12 +200,17 @@
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <div class="input-group" style="width: 290px">
                                                     <label class="d-flex align-items-center fw-bold"
-                                                        for="grand_total">Grand Total(Php):</label>
-                                                    <input type="text" id="grand_total" class="form-control fw-bold"
+                                                        for="converted_amount">Grand Total(Php):</label>
+                                                    <input type="text" id="converted_amount"
+                                                        class="form-control fw-bold"
                                                         style="text-align:right;border:0;background-color:white;" disabled>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {{-- DONT DELETE JUST HIDE KAY MAG ERROR --}}
+                                        <input type="text" id="grand_total" class="form-control fw-bold"
+                                            style="text-align:right;border:0;background-color:white;" disabled hidden>
 
 
                                         <div class="col-12">

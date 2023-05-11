@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="row bottom10">
+                            <div class="row bottom10">
                                 <div class="col-6" style="padding-right:5px;">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
                                         class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
@@ -231,7 +231,7 @@
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
                                         class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             {{-- <div class="row bottom10">
                                 <div class="col-12 w-100">
@@ -260,7 +260,7 @@
                                 </div>
                             </div> --}}
 
-                            <div class="row" style="">
+                            <div class="row" style="padding-top:2.5rem">
                                 <div class="col-12 w-100 bottom10">
                                     <button type="button" id="pdfDownload" class="btn  w-100"
                                         style="color: White; background-color: #CF8029;">Download</button>
@@ -345,8 +345,8 @@
     </div>
 
     <!-- Modal FOR Inactive Invoice -->
-    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
@@ -589,7 +589,7 @@
                                                     <!-- FOR TABLE INVOICE DESCRIPTION DISPLAY -->
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 bottom20">
                                                     <div class="row justify-content-end">
                                                         <div class="col-sm-4">
                                                             <button class="btn "
@@ -600,7 +600,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                <div class="col-12 ">
                                                     <div class="row">
                                                         <div class="col-lg-4 bottom20"
                                                             style="display: flex;align-items: start;">
@@ -670,7 +670,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 bottom20">
+                                                {{-- AMOUNT COVERTION DISPLAY - NONE --}}
+                                                <div class="col-12 bottom20 d-none">
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4">
                                                             <div>
@@ -696,13 +697,14 @@
                                                         </div>
                                                         <div class="col-12 col-sm-4">
                                                             <div>
-                                                                <label for="converted_amount"
+                                                                <label for="converted_amount_DISPLAY_NONE"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;border:none; text-align:left;background-color:white"
                                                                     onkeypress="return onlyNumberKey(event)"
-                                                                    id="converted_amount" class="form-control" disabled />
+                                                                    id="converted_amount_DISPLAY_NONE"
+                                                                    class="form-control" disabled />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -723,15 +725,18 @@
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
                                                                 <label class="d-flex align-items-center fw-bold"
-                                                                    for="grand_total">Grand Total(Php):</label>
-                                                                <input type="text" id="grand_total"
+                                                                    for="converted_amount">Grand Total(Php):</label>
+                                                                <input type="text" id="converted_amount"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    {{-- DONT DELETE JUST HIDE KAY MAG ERROR --}}
+                                                    <input type="text" id="grand_total" class="form-control fw-bold"
+                                                        style="text-align:right;border:0;background-color:white;" disabled
+                                                        hidden>
 
                                                     <div class="col-12">
                                                         <div class="row">
@@ -779,6 +784,7 @@
     <script type="text/javascript">
         let total_deduction_amount = 0
         let x = 0;
+        let invoiceNumber = "";
 
         const PHP = value => currency(value, {
             symbol: '',
@@ -799,7 +805,7 @@
             );
             $('#content').addClass('d-flex');
             $('#content').addClass('justify-content-center');
-            $('#content').css('padding', '8px');
+            $('#content').css('padding', '52px');
             $('#contentSpinner').css('width', '150px');
             $('#contentSpinner').css('height', '150px');
             setTimeout(function() {
@@ -811,6 +817,7 @@
                 $('#content').html(originalText);
             }, 1500);
         }
+
 
         $(document).ready(function() {
             tableLoader();
@@ -1506,9 +1513,10 @@
                             let data = response.data;
                             if (data.success) {
                                 console.log("DATA123", data);
-                                $('#content').append(` <div class="row">
-                                 <input type="text" id="user_id" hidden>
+                                $('#content').append(` 
+                                <input type="text" id="user_id" hidden>
                                 <input type="text" id="profileId" hidden>
+                                <div class="row">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-6 fw-bolder">
@@ -1614,7 +1622,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="row pt-3">
                                 <div class="col-sm-12 table-responsive-sm">
                                     <table class="table" id="table_invoiceItems">
@@ -1657,20 +1665,11 @@
 
                                     <div class="row">
                                         <div class="col-7">
-                                            <label class="text-muted"> Total:</label>
+                                            <label class="h6"> Total:</label>
                                         </div>
-                                        <div class="col-5 " id="total" style="text-align:end"></div>
+                                        <div class="col-5 h6 " id="total" style="text-align:end"></div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <label class="text-muted ">Converted Amount: P<label class="text-muted"
-                                                    id="peso_rate"></label></label>
-                                        </div>
-
-                                        <div class="col-4" id="convertedAmount" style="text-align:end">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -1689,7 +1688,7 @@
                                     <label class="fw-bold">Grand Total: </label>
                                 </div>
                                 <div class="col" style="text-align:end">
-                                    <label class="h6 fw-bold" id="grand_total_amount"></label>
+                                    <label class="h6 fw-bold" id="convertedAmount"></label>
                                 </div>
                             </div>
 
@@ -1723,7 +1722,7 @@
                                 var dd3 = date_received.getDate();
                                 var yy3 = date_received.getFullYear();
 
-                                $('#userId').val(data.data.profile.user.id);
+                                $('#user_id').val(data.data.profile.user.id);
                                 $('#profileId').val(data.data.profile.id);
 
                                 $('#full_name').html(data.data.profile.user.first_name + " " + data.data
@@ -1732,6 +1731,7 @@
 
                                 $('#email').html(data.data.profile.user.email);
                                 $('#invoice_no').html("#" + data.data.invoice_no);
+                                invoiceNumber = data.data.invoice_no;
                                 // $('#status').html(data.data.status);
                                 if (data.data.status === "Active") {
                                     $('#active_button').prop('disabled', true);
@@ -1842,13 +1842,13 @@
                                         if (data.data.discount_type === "Fixed") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
+                                            div += "<div class='col-8 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                 data.data
                                                 .discount_type + "</span> </div>";
                                             div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1857,12 +1857,12 @@
                                         } else if (data.data.discount_type === "Percentage") {
                                             let div = "";
                                             div += "<div class='row'>"
-                                            div += "<div class='col-8 h6 discountType'>"
+                                            div += "<div class='col-8 discountType'>"
                                             div +=
                                                 "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
                                                 discount_amount + "%) </span></div>";
                                             div +=
-                                                "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                 PHP(data.data
                                                     .discount_total).format() + "</div>"
                                             div += "</div>";
@@ -1948,7 +1948,7 @@
                                             div_rows +=
                                                 '<div class="col-7" ><label class="text-muted break-long-words">' +
                                                 item2
-                                                .deduction_type_name + '</p></div>';
+                                                .deduction_type_name + '</label></div>';
                                             div_rows +=
                                                 '<div class="col" style="text-align:end;color:#dc3545;"><label class="h6">P' +
                                                 PHP(deduction_amount).format() + '</label></div>';
@@ -2136,7 +2136,7 @@
                         );
                         $('#content').addClass('d-flex');
                         $('#content').addClass('justify-content-center');
-                        $('#content').css('padding', '8px');
+                        $('#content').css('padding', '52px');
                         $('#contentSpinner').css('width', '150px');
                         $('#contentSpinner').css('height', '150px');
                         setTimeout(function() {
@@ -2173,27 +2173,6 @@
                         $('#update').prop("disabled", false);
                     }, 500);
                     console.log("ERROR", error)
-                    // if (error.response.data.errors) {
-                    //     let errors = error.response.data.errors;
-                    //     let fieldnames = Object.keys(errors);
-                    //     Object.values(errors).map((item, index) => {
-                    //         fieldname = fieldnames[0].split('_');
-                    //         fieldname.map((item2, index2) => {
-                    //             fieldname['key'] = capitalize(
-                    //                 item2);
-                    //             return ""
-                    //         });
-                    //         fieldname = fieldname.join(" ");
-                    //         $('#notifyIcon').html(
-                    //             '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
-                    //         $('.toast1 .toast-title').html("Error");
-                    //         $('.toast1 .toast-body').html(Object.values(
-                    //                 errors)[0]
-                    //             .join(
-                    //                 "\n\r"));
-                    //     })
-                    //     toast1.toast('show');
-                    // }
                 })
             })
 
@@ -2218,24 +2197,52 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
+
                             $('#activeModal').modal('hide');
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            toast1.toast('show');
-
-                            // $("div.spanner").addClass("show");
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
+                            $('#content').css('padding', '52px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                // $("div.spanner").removeClass("show");
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
+                                $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
 
-                                // $('#table_invoiceItems tbody').empty();
-                                // $('.row .title_deductions').empty();
-                                // $('.row .total_deductions').empty();
-                                // $('.row .deductions').empty();
-                                // $('#table_invoiceItems tbody').html(show_invoice());
-                                location.reload(true);
+                            $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
+                                $('.toast1 .toast-title').html('Success');
+                                $('.toast1 .toast-body').html(response.data.message);
+
+                                $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
+                                $('.row .title_deductions').empty();
+                                $('.row .total_deductions').empty();
+                                $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
+                                $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
+                                toast1.toast('show');
                             }, 1500);
                         }
                     }).catch(function(error) {
@@ -2287,24 +2294,51 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#inactiveModal').modal('hide');
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                             );
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            toast1.toast('show');
-
-                            // $("div.spanner").addClass("show");
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
+                            $('#content').css('padding', '52px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
                             setTimeout(function() {
-                                // $("div.spanner").removeClass("show");
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
+                                $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
 
-                                // $('#table_invoiceItems tbody').empty();
-                                // $('.row .title_deductions').empty();
-                                // $('.row .total_deductions').empty();
-                                // $('.row .deductions').empty();
-                                // $('#table_invoiceItems tbody').html(show_invoice());
-                                location.reload(true);
+                            $("div.spanner").addClass("show");
+                            setTimeout(function() {
+                                $("div.spanner").removeClass("show");
+                                $('#notifyIcon').html(
+                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+                                );
+                                $('.toast1 .toast-title').html('Success');
+                                $('.toast1 .toast-body').html(response.data.message);
+
+                                $('#table_invoiceItems tbody').empty();
+                                $('#table_invoiceItems tbody').empty();
+                                $('.row .title_deductions').empty();
+                                $('.row .total_deductions').empty();
+                                $('.row .deductions').empty();
+                                $('.row .view_invoice_description').empty();
+                                $('.row #view_invoice_description').empty();
+                                $('.row .discountType').empty();
+                                $('.row #discountAmount').empty();
+                                $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
+                                toast1.toast('show');
                             }, 1500);
 
                         }
@@ -2340,9 +2374,6 @@
             $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
 
-                var start = performance.now(); // get the current stamp
-                // Do your processing here
-
                 let url = window.location.pathname
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {
@@ -2361,7 +2392,30 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#paidModal').modal('hide');
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
+                            );
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
+                            $('#content').css('padding', '52px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
+                            setTimeout(function() {
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
+                                $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
+
                             $("div.spanner").addClass("show");
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
@@ -2381,6 +2435,7 @@
                                 $('.row .discountType').empty();
                                 $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
                                 toast1.toast('show');
                             }, 1500);
 
@@ -2435,7 +2490,30 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#cancelModal').modal('hide');
+
+                            var originalText = $('#content').html();
+                            $('#content').html(
+                                `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
+                            );
+                            $('#content').addClass('d-flex');
+                            $('#content').addClass('justify-content-center');
+                            $('#content').css('padding', '52px');
+                            $('#contentSpinner').css('width', '150px');
+                            $('#contentSpinner').css('height', '150px');
+                            setTimeout(function() {
+                                $('#content').removeClass('d-flex');
+                                $('#content').removeClass('justify-content-center');
+                                $('#content').css('padding', '0px');
+                                $('#contentSpinner').css('width', '0px');
+                                $('#contentSpinner').css('height', '0px');
+                                $('#content').html(originalText);
+                            }, 1500);
+
                             $("div.spanner").addClass("show");
                             setTimeout(function() {
                                 $("div.spanner").removeClass("show");
@@ -2455,6 +2533,7 @@
                                 $('.row .discountType').empty();
                                 $('.row #discountAmount').empty();
                                 $('#table_invoiceItems tbody').html(show_invoice());
+                                show_invoice_config();
                                 toast1.toast('show');
                             }, 1500);
 
@@ -2501,26 +2580,58 @@
                     }).then(function(response) {
                         let data = response.data;
                         if (data.success) {
+                            $('#content').empty();
                             $('#deleteModal').modal('hide');
                             $("div.spanner").addClass("show");
                             setInterval(function() {
                                 $("div.spanner").removeClass("show");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-check" style="color:green"></i>'
+
+                                var originalText = $('#content').html();
+                                $('#content').html(
+                                    `<div id="contentSpinner">
+                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                `
                                 );
-                                $('.toast1 .toast-title').html('Success');
-                                $('.toast1 .toast-body').html(response.data.message);
-                                $('#table_invoiceItems tbody').empty();
-                                $('#table_invoiceItems tbody').empty();
-                                $('.row .title_deductions').empty();
-                                $('.row .total_deductions').empty();
-                                $('.row .deductions').empty();
-                                $('.row .view_invoice_description').empty();
-                                $('.row #view_invoice_description').empty();
-                                $('.row .discountType').empty();
-                                $('.row #discountAmount').empty();
-                                $('#table_invoiceItems tbody').html(show_invoice());
-                                toast1.toast('show');
+                                $('#content').addClass('d-flex');
+                                $('#content').addClass('justify-content-center');
+                                $('#content').css('padding', '52px');
+                                $('#contentSpinner').css('width', '150px');
+                                $('#contentSpinner').css('height', '150px');
+                                setTimeout(function() {
+                                    $('#content').removeClass('d-flex');
+                                    $('#content').removeClass(
+                                        'justify-content-center');
+                                    $('#content').css('padding', '0px');
+                                    $('#contentSpinner').css('width', '0px');
+                                    $('#contentSpinner').css('height', '0px');
+                                    $('#content').html(originalText);
+                                }, 1500);
+
+                                $("div.spanner").addClass("show");
+                                setTimeout(function() {
+                                    $("div.spanner").removeClass("show");
+                                    $('#notifyIcon').html(
+                                        '<i class="fa-solid fa-check" style="color:green"></i>'
+                                    );
+                                    $('.toast1 .toast-title').html('Success');
+                                    $('.toast1 .toast-body').html(response.data
+                                        .message);
+
+                                    $('#table_invoiceItems tbody').empty();
+                                    $('#table_invoiceItems tbody').empty();
+                                    $('.row .title_deductions').empty();
+                                    $('.row .total_deductions').empty();
+                                    $('.row .deductions').empty();
+                                    $('.row .view_invoice_description').empty();
+                                    $('.row #view_invoice_description').empty();
+                                    $('.row .discountType').empty();
+                                    $('.row #discountAmount').empty();
+                                    $('#table_invoiceItems tbody').html(
+                                        show_invoice());
+                                    show_invoice_config();
+                                    toast1.toast('show');
+                                }, 1500);
                             }, 2000)
 
                             setTimeout(function() {
@@ -2563,6 +2674,7 @@
 
             function pdfContent() {
                 // Set the options for html2pdf
+
                 var options = {
                     filename: 'Invoice ' + $('#invoice_no').html() + '.pdf',
                     margin: [10, 10],
@@ -2583,11 +2695,11 @@
                 // Generate the PDF from the HTML content using html2pdf
                 html2pdf().from($('#content')[0]).set(options).save();
             }
+
             $('#pdfDownload').on('click', function(e) {
                 e.preventDefault();
                 pdfContent();
             })
-
         })
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
