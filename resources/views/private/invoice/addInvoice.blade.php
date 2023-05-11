@@ -176,9 +176,8 @@
                                                         Amount (Php)</label>
                                                     <input type="text"
                                                         style="font-weight: bold;border:none; text-align:left;background-color:white"
-                                                        onkeypress="return onlyNumberKey(event)"
-                                                        id="converted_amount_DISPLAY_NONE"
-                                                        class="form-control converted_amount_DISPLAY_NONE" disabled />
+                                                        onkeypress="return onlyNumberKey(event)" id="converted_amount"
+                                                        class="form-control converted_amount" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -200,8 +199,8 @@
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <div class="input-group" style="width: 290px">
                                                     <label class="d-flex align-items-center fw-bold"
-                                                        for="converted_amount">Grand Total(Php):</label>
-                                                    <input type="text" id="converted_amount"
+                                                        for="grand_subTotal">Grand Total(Php):</label>
+                                                    <input type="text" id="grand_subTotal"
                                                         class="form-control fw-bold"
                                                         style="text-align:right;border:0;background-color:white;" disabled>
                                                 </div>
@@ -426,7 +425,8 @@
             function subtotal() {
                 let discount_type = $("input[id='discount_type']:checked").val();
                 let discount_amount = $('#discount_amount').val();
-                let newDiscount_amount = discount_amount.replace(/[^\d.]/g, ''); // Remove non-numeric characters
+                let newDiscount_amount = discount_amount.replace(/[^\d.]/g,
+                    ''); // Remove non-numeric characters
                 let discount_total = $('#discount_total').val();
                 let sub_total = $('#sub_total').val();
                 var sum = 0;
@@ -442,6 +442,7 @@
 
                     let sub_total = (sum - $('#discount_total').val().replace(/[^\d.]/g, ''));
                     $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
                     let dollar_amount = $('#sub_total').val();
                     $('#dollar_amount').val(PHP(dollar_amount).format());
                     DeductionItems_total()
@@ -452,6 +453,7 @@
                     $('#discount_total').val(PHP(percentage).format());
                     let sub_total = (parseFloat(sum) - parseFloat(percentage));
                     $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
                     $('#dollar_amount').val(PHP(sub_total).format());
                     DeductionItems_total()
                 }
@@ -505,7 +507,9 @@
                 });
 
                 $('#sub_total').val(PHP(parseFloat(sum)).format());
+                $('#grand_subTotal').val(PHP(parseFloat(sum)).format());
                 $('#dollar_amount').val(PHP(parseFloat(sum)).format());
+
             }
 
             // FUNCTION FOR CALCUTAION DEDUCTIONS
