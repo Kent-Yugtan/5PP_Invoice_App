@@ -706,7 +706,9 @@
             }).then(function(response) {
                 let data = response.data;
                 if (data.data) {
-                    $(".rounded-pill").attr("src", data.data.file_path ? data.data.file_path :
+                    console.log("show_user_data", data.data);
+                    $(".rounded-pill").attr("src", data.data.profile.file_path ? data.data.profile
+                        .file_path :
                         '/images/default.png');
                     $('#fullname').html(data.data.first_name + " " + data.data.last_name);
                     $('#role').html(data.data.role);
