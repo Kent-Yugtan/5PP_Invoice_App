@@ -1,4 +1,5 @@
 @extends('layouts.private')
+
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
 

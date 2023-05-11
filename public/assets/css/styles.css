@@ -14075,3 +14075,7 @@ nav ul li span{
 .rotateArrow_90{
   transform: rotate(-90deg);
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color:white !important
+}

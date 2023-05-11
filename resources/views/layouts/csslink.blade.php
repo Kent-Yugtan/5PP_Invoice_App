@@ -1,5 +1,3 @@
-<!-- Styles -->
-<link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 <!-- DATATABLE CDN -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" async>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css"
@@ -8,14 +6,12 @@
 
 <!-- JQUERY UI -->
 
+<!-- Styles -->
+<link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com" async>
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" async>
-
-
-
-
 
 <!-- Styles -->
 <link rel="stylesheet"
