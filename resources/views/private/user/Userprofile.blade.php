@@ -31,15 +31,15 @@
                                 </div>
 
                                 <div class="col-md-6 col-lg-6 pt-3 ">
-                                    {{-- <div class="row">
-                                        <div class="col ">
+                                    <div class="row">
+                                        <div class="col d-none ">
                                             <input class="form-check-input" type="checkbox" id="profile_status"
                                                 name="profile_status" disabled="true">
                                             <label class="form-check-label" for="status">
                                                 Active
                                             </label>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <div class="row">
                                         <div class="col">
