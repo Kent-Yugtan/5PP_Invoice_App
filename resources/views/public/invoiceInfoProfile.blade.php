@@ -6,9 +6,9 @@
                 <div class="card-border shadow bg-white h-100">
                     <div class="card-body" id="mainCard">
                         <div style="padding:20px">
+                            <input type="text" id="invoiceId" value="{{ $invoiceId }}" hidden>
+                            <input type="text" id="for" value="{{ $for }}" hidden>
                             <div id="content">
-                                <input type="text" id="invoiceId" value="{{ $invoiceId }}" hidden>
-                                <input type="text" id="for" value="{{ $for }}" hidden>
 
                                 {{-- <div class="row">
                                     <span id="userId" hidden></span>
@@ -700,8 +700,8 @@
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
                                                                 <label class="d-flex align-items-center fw-bold"
-                                                                    for="grand_total">Grand Total(Php):</label>
-                                                                <input type="text" id="grand_total"
+                                                                    for="grand_subTotal">Grand Total(Php):</label>
+                                                                <input type="text" id="grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
@@ -1041,9 +1041,10 @@
             function subtotal() {
                 let discount_type = $("input[id='discount_type']:checked").val();
                 let discount_amount = $('#discount_amount').val();
-                let newDiscount_amount = discount_amount.replace(/[^\d.]/g, ''); // Remove non-numeric characters
+                let newDiscount_amount = discount_amount.replace(/[^\d.]/g,
+                    ''); // Remove non-numeric characters
                 let discount_total = $('#discount_total').val();
-                let subtotal = $('#subtotal').val();
+                let sub_total = $('#sub_total').val();
                 var sum = 0;
 
                 $('#show_items .amount').each(function() {
@@ -1056,8 +1057,9 @@
                         .format());
 
                     let sub_total = (sum - $('#discount_total').val().replace(/[^\d.]/g, ''));
-                    $('#subtotal').val(PHP(sub_total).format());
-                    let dollar_amount = $('#subtotal').val();
+                    $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
+                    let dollar_amount = $('#sub_total').val();
                     $('#dollar_amount').val(PHP(dollar_amount).format());
                     DeductionItems_total()
 
@@ -1066,12 +1068,12 @@
                     let percentage = parseFloat(((newDiscount_amount ? newDiscount_amount : 0) / 100) * sum);
                     $('#discount_total').val(PHP(percentage).format());
                     let sub_total = (parseFloat(sum) - parseFloat(percentage));
-                    $('#subtotal').val(PHP(sub_total).format());
+                    $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
                     $('#dollar_amount').val(PHP(sub_total).format());
                     DeductionItems_total()
                 }
-                // getResults_Converted();
-                displayResults();
+                getResults_Converted();
             }
 
             // FUNCTION FOR DISPLAYING SUBTOTAL AMOUNT AND DOLLAR AMOUNT
@@ -1083,7 +1085,8 @@
                 });
 
 
-                $('#subtotal').val(PHP(parseFloat(sum)).format());
+                $('#sub_total').val(PHP(parseFloat(sum)).format());
+                $('#grand_subTotal').val(PHP(parseFloat(sum)).format());
                 $('#dollar_amount').val(PHP(parseFloat(sum)).format());
 
             }
@@ -1676,8 +1679,8 @@
                                 <div class="col">
                                     <label class="fw-bold">Grand Total: </label>
                                 </div>
-                                <div class="col" style="text-align:end">
-                                    <label class="h6 fw-bold" id="convertedAmount"></label>
+                               <div class="col" style="text-align:end">
+                                    <label class="h6 fw-bold" id="grand_subTotal"></label>
                                 </div>
                             </div>
 
@@ -1831,18 +1834,23 @@
                                                 currency: 'USD'
                                             }));
 
+                                            $('#grand_subTotal').html(balance_due.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD'
+                                            }));
+
 
                                             if (data.data.discount_total > 0) {
                                                 if (data.data.discount_type === "Fixed") {
                                                     let div = "";
                                                     div += "<div class='row'>"
-                                                    div += "<div class='col-8 h6 discountType'>"
+                                                    div += "<div class='col-8 discountType'>"
                                                     div +=
                                                         "<label class='text-muted'> Discount Type: </label><span class='text-muted'>" +
                                                         data.data
                                                         .discount_type + "</span> </div>";
                                                     div +=
-                                                        "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                        "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                         PHP(data.data
                                                             .discount_total).format() + "</div>"
                                                     div += "</div>";
@@ -1851,12 +1859,12 @@
                                                 } else if (data.data.discount_type === "Percentage") {
                                                     let div = "";
                                                     div += "<div class='row'>"
-                                                    div += "<div class='col-8 h6 discountType'>"
+                                                    div += "<div class='col-8 discountType'>"
                                                     div +=
                                                         "<label class='text-muted'> Discount Type: </label><span class='text-muted'> Pct.(" +
                                                         discount_amount + "%) </span></div>";
                                                     div +=
-                                                        "<div class='col  h6' id='discountAmount' style='text-align:end'>$" +
+                                                        "<div class='col ' id='discountAmount' style='text-align:end'>$" +
                                                         PHP(data.data
                                                             .discount_total).format() + "</div>"
                                                     div += "</div>";

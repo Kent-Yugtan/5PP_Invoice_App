@@ -433,12 +433,9 @@
                                     <strong>Grand Total:</strong>
                                 </td>
                                 <td style="text-align: right;padding-top:15px">
-                                    <strong>P{{ $content['converted_amount'] }}</strong>
-                                    {{-- <strong>${{ $content['balance_due'] }}</strong> --}}
+                                    <strong>${{ $content['balance_due'] }}</strong>
                                 </td>
                             </tr>
-
-
                         </tbody>
                     </table>
                 </td>

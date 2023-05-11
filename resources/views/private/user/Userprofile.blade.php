@@ -627,19 +627,19 @@
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <div id="col_discount_amount" class="d-none">
+                                                            <div id="col_discount_amount" class="">
                                                                 <label for="discount_amount" class="label_discount_amount"
                                                                     style="color:#A4A6B3">Discount
                                                                     Amount ($)</label>
                                                                 <input type="text" step="any"
                                                                     style="text-align:right;" name="discount_amount"
-                                                                    id="discount_amount" class="form-check-input"
+                                                                    id="discount_amount" class="form-control"
                                                                     maxlength="6" />
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-4 bottom20">
-                                                            <div id="col_discount_total" class="d-none">
+                                                            <div id="col_discount_total" class="">
                                                                 <label for="discount_total" class="label_discount_total"
                                                                     style="color:#A4A6B3">Discount
                                                                     Total ($)</label>
@@ -700,14 +700,14 @@
                                                         </div>
                                                         <div class="col-12 col-sm-4">
                                                             <div>
-                                                                <label for="converted_amount_DISPLAY_NONE"
+                                                                <label for="converted_amount"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;border:none;background-color:white"
                                                                     onkeypress="return onlyNumberKey(event)"
-                                                                    id="converted_amount_DISPLAY_NONE"
-                                                                    class="text-start form-control converted_amount_DISPLAY_NONE"
+                                                                    id="converted_amount"
+                                                                    class="text-start form-control converted_amount"
                                                                     disabled />
                                                             </div>
                                                         </div>
@@ -729,10 +729,10 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
-                                                                <label for="converted_amount"
+                                                                <label for="grand_subTotal"
                                                                     class="fw-bold d-flex align-items-center">Grand
                                                                     Total(Php):</label>
-                                                                <input type="text" id="converted_amount"
+                                                                <input type="text" id="grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
@@ -3163,7 +3163,8 @@
             function subtotal() {
                 let discount_type = $("input[id='discount_type']:checked").val();
                 let discount_amount = $('#discount_amount').val();
-                let newDiscount_amount = discount_amount.replace(/[^\d.]/g, ''); // Remove non-numeric characters
+                let newDiscount_amount = discount_amount.replace(/[^\d.]/g,
+                    ''); // Remove non-numeric characters
                 let discount_total = $('#discount_total').val();
                 let sub_total = $('#sub_total').val();
                 var sum = 0;
@@ -3174,12 +3175,12 @@
 
                 if (discount_type == 'Fixed') {
                     $('#discount_total').val(PHP(parseFloat(newDiscount_amount * 1) ? parseFloat(
-                            newDiscount_amount *
-                            1) : 0)
+                            newDiscount_amount * 1) : 0)
                         .format());
 
                     let sub_total = (sum - $('#discount_total').val().replace(/[^\d.]/g, ''));
                     $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
                     let dollar_amount = $('#sub_total').val();
                     $('#dollar_amount').val(PHP(dollar_amount).format());
                     DeductionItems_total()
@@ -3190,6 +3191,7 @@
                     $('#discount_total').val(PHP(percentage).format());
                     let sub_total = (parseFloat(sum) - parseFloat(percentage));
                     $('#sub_total').val(PHP(sub_total).format());
+                    $('#grand_subTotal').val(PHP(sub_total).format());
                     $('#dollar_amount').val(PHP(sub_total).format());
                     DeductionItems_total()
                 }
@@ -3355,6 +3357,7 @@
 
 
                 $('#sub_total').val(PHP(parseFloat(sum)).format());
+                $('#grand_subTotal').val(PHP(parseFloat(sum)).format());
                 $('#dollar_amount').val(PHP(parseFloat(sum)).format());
 
             }

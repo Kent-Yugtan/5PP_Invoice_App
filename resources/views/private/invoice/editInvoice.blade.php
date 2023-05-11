@@ -698,14 +698,13 @@
                                                         </div>
                                                         <div class="col-12 col-sm-4">
                                                             <div>
-                                                                <label for="converted_amount_DISPLAY_NONE"
+                                                                <label for="converted_amount"
                                                                     style="color:#A4A6B3">Converted
                                                                     Amount (Php)</label>
                                                                 <input type="text"
                                                                     style="font-weight: bold;border:none; text-align:left;background-color:white"
                                                                     onkeypress="return onlyNumberKey(event)"
-                                                                    id="converted_amount_DISPLAY_NONE"
-                                                                    class="form-control" disabled />
+                                                                    id="converted_amount" class="form-control" disabled />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -726,8 +725,8 @@
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <div class="input-group" style="width: 290px">
                                                                 <label class="d-flex align-items-center fw-bold"
-                                                                    for="converted_amount">Grand Total(Php):</label>
-                                                                <input type="text" id="converted_amount"
+                                                                    for="update_grand_subTotal">Grand Total(Php):</label>
+                                                                <input type="text" id="update_grand_subTotal"
                                                                     class="form-control fw-bold"
                                                                     style="text-align:right;border:0;background-color:white;"
                                                                     disabled>
@@ -882,6 +881,7 @@
                 // console.log(userid + " " + profileId);
                 window.location.href = apiUrl + "/invoice/current";
             })
+
 
             $('.close').on('click', function(e) {
                 e.preventDefault();
@@ -1073,6 +1073,7 @@
 
                     let sub_total = (sum - $('#discount_total').val().replace(/[^\d.]/g, ''));
                     $('#subtotal').val(PHP(sub_total).format());
+                    $('#update_grand_subTotal').val(PHP(sub_total).format());
                     let dollar_amount = $('#subtotal').val();
                     $('#dollar_amount').val(PHP(dollar_amount).format());
                     DeductionItems_total()
@@ -1083,6 +1084,7 @@
                     $('#discount_total').val(PHP(percentage).format());
                     let sub_total = (parseFloat(sum) - parseFloat(percentage));
                     $('#subtotal').val(PHP(sub_total).format());
+                    $('#update_grand_subTotal').val(PHP(sub_total).format());
                     $('#dollar_amount').val(PHP(sub_total).format());
                     DeductionItems_total()
                 }
@@ -1100,6 +1102,7 @@
 
 
                 $('#subtotal').val(PHP(parseFloat(sum)).format());
+                $('#update_grand_subTotal').val(PHP(parseFloat(sum)).format());
                 $('#dollar_amount').val(PHP(parseFloat(sum)).format());
 
             }
@@ -1688,8 +1691,8 @@
                                 <div class="col">
                                     <label class="fw-bold">Grand Total: </label>
                                 </div>
-                                <div class="col" style="text-align:end">
-                                    <label class="h6 fw-bold" id="convertedAmount"></label>
+                               <div class="col" style="text-align:end">
+                                    <label class="h6 fw-bold" id="grand_subTotal"></label>
                                 </div>
                             </div>
 
@@ -1838,6 +1841,15 @@
                                         currency: 'USD'
                                     }));
 
+                                    $('#total').html(balance_due.toLocaleString('en-US', {
+                                        style: 'currency',
+                                        currency: 'USD'
+                                    }));
+
+                                    $('#grand_subTotal').html(balance_due.toLocaleString('en-US', {
+                                        style: 'currency',
+                                        currency: 'USD'
+                                    }));
 
                                     if (data.data.discount_total > 0) {
                                         if (data.data.discount_type === "Fixed") {
@@ -1876,10 +1888,7 @@
                                         $('#displayDiscountType').addClass('d-none');
                                     }
 
-                                    $('#total').html(balance_due.toLocaleString('en-US', {
-                                        style: 'currency',
-                                        currency: 'USD'
-                                    }));
+
 
                                     data.data.invoice_items.map((item) => {
                                         // console.log("tem.item_description", item.item_description);
