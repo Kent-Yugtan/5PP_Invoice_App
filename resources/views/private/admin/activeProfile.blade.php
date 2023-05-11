@@ -16,8 +16,8 @@
                             <div class="row pt-3">
                                 @csrf
                                 <span hidden>user id</span>
-                                <input type="radio" class="form-check-input" id="user_id" value="{{ $findid->id }}">
-                                <input type="text" id="profile_id_show">
+                                <input type="text" id="user_id" value="{{ $findid->id }}" hidden>
+                                <input type="text" id="profile_id_show" hidden>
 
                                 <div class="col-md-6 col-lg-6"
                                     style="display:flex;justify-content:center;align-items:center">
@@ -756,13 +756,13 @@
 
                                                     <div class="col-12">
                                                         <div class="row ">
-                                                            <div class="col-6 bottom20">
+                                                            <div class="col-sm-6 bottom20">
                                                                 <button type="button" id="closeAddDeduction"
                                                                     class="btn w-100"
                                                                     style="color:#CF8029; background-color:#f3f3f3;"
                                                                     data-bs-dismiss="modal">Cancel</button>
                                                             </div>
-                                                            <div class="col-6 bottom20 ">
+                                                            <div class="col-sm-6 bottom20 ">
                                                                 <button type="submit" id="save" class="btn w-100"
                                                                     style="color:White; background-color:#CF8029;">Save</button>
                                                             </div>
@@ -856,14 +856,13 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="button" class="btn w-100"
                                                     style="color:#CF8029; background-color:#f3f3f3; "
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
-                                            <div class="col bottom20">
-                                                {{-- id="Deduction_button" --}}
-                                                <button type="submit" class="btn w-100"
+                                            <div class="col-sm-6 bottom20">
+                                                <button type="submit" id="Deduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
                                         </div>
@@ -938,12 +937,12 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="button" class="btn w-100"
                                                     style="color:#CF8029; background-color:#f3f3f3; "
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="submit" id="createDeduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>

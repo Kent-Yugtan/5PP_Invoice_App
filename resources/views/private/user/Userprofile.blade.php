@@ -483,6 +483,7 @@
                                                         <th class="fit text-end">Deduction Name</th>
                                                         <th class="fit text-end">Amount</th>
                                                         <th class="fit text-end">Date Created</th>
+                                                        <th class="fit text-center">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -750,13 +751,13 @@
 
                                                     <div class="col-12">
                                                         <div class="row ">
-                                                            <div class="col-6 bottom20">
+                                                            <div class="col-sm-6 bottom20">
                                                                 <button type="button" id="closeAddDeduction"
                                                                     class="btn w-100"
                                                                     style="color:#CF8029; background-color:#f3f3f3;"
                                                                     data-bs-dismiss="modal">Cancel</button>
                                                             </div>
-                                                            <div class="col-6 bottom20 ">
+                                                            <div class="col-sm-6 bottom20 ">
                                                                 <button type="submit" id="save" class="btn w-100"
                                                                     style="color:White; background-color:#CF8029;">Save</button>
                                                             </div>
@@ -849,14 +850,13 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="button" class="btn w-100"
                                                     style="color:#CF8029; background-color:#f3f3f3; "
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
-                                            <div class="col bottom20">
-                                                {{-- id="Deduction_button" --}}
-                                                <button type="submit" class="btn w-100"
+                                            <div class="col-sm-6 bottom20">
+                                                <button type="submit" id="Deduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
                                         </div>
@@ -931,12 +931,12 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="button" class="btn w-100"
                                                     style="color:#CF8029; background-color:#f3f3f3; "
                                                     data-bs-dismiss="modal">Cancel</button>
                                             </div>
-                                            <div class="col bottom20">
+                                            <div class="col-sm-6 bottom20">
                                                 <button type="submit" id="createDeduction_button" class="btn w-100"
                                                     style="color:White; background-color:#CF8029;">Add</button>
                                             </div>
@@ -4610,12 +4610,11 @@
                                             tr +=
                                                 '<td class="text-center" style="display:flex;justify-content:space-evenly;"><button value=' +
                                                 item.id +
-                                                ' class="editButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target=""  ><i class="fa-solid fa-pen-to-square" style="color:#CF8029"></i></button><button value=' +
+                                                ' class="editButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#modal-edit-deduction"  ><i class="fa-solid fa-pen-to-square" style="color:#CF8029"></i></button><button value=' +
                                                 item.id +
-                                                ' class="deleteDeductionButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="" ><i class="fa-solid fa-trash" style="color:#dc3545"></i></button></td>';
+                                                ' class="deleteDeductionButton border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#deleteDeductionModal" ><i class="fa-solid fa-trash" style="color:#dc3545"></i></button></td>';
                                         }
                                         tr += '</tr>';
-
 
                                         $("#dataTable_deduction tbody").append(tr);
                                         return ''
