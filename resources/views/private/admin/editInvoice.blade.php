@@ -932,9 +932,14 @@
                     let parent = $(this).closest('.row1');
                     let quantity = parent.find('.quantity').val();
                     let rate = parent.find('.rate').val();
+                    let amount = parent.find('.amount').val();
 
-                    parent.find('.quantity').val(PHP(quantity).format());
+                    // Have Decimals
+                    // parent.find('.quantity').val(PHP(quantity).format());
+                    // Remove Decimals
+                    parent.find('.quantity').val(quantity ? quantity : "0");
                     parent.find('.rate').val(PHP(rate).format());
+                    parent.find('.amount').val(PHP(amount).format());
                 })
                 DeductionItems_total();
             })
@@ -1309,8 +1314,17 @@
                             $('#due_date').val(data.data.due_date);
                             $('#invoice_description').val(data.data.description);
                             $('#edit_peso_rate').val(PHP(data.data.peso_rate).format());
-                            // $('#edit_converted_amount').val(PHP(data.data.converted_amount).format());
-                            $('textarea#notes').val(data.data.notes);
+                            // $('#edit_converted_amount').val(PHP(data.data.converted_amount).format())
+
+                            // Get the text from the database
+                            var text = data.data.notes;
+                            // Perform null check before replacing
+                            if (text !== null && text !== undefined) {
+                                // Replace <br> tags with newline characters
+                                text = text.replace(/<br>/g, "\n");
+                            }
+                            $('textarea#notes').val(text ? text : "");
+
 
                             $("#discount_amount").addClass('d-none');
                             $("#discount_total").addClass('d-none');
@@ -1696,13 +1710,13 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-12 ">Notes:</div>
+                                <div class="col-sm-12">Notes:</div>
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-sm-12">
                                     <label style="word-wrap: break-word; text-align:right" id="notes"></label>
-                                </div>
+                            </div>
 
                             </div>`);
 
@@ -1752,7 +1766,11 @@
                                 $('#invoice_status').html(data.data.invoice_status);
                                 $('#date_created').html(mm + " " + dd + ", " + yy);
                                 $('#show_due_date').html(mm2 + " " + dd2 + ", " + yy2);
+                                // Get the text from the database
+
+                                $('#notes').addClass('text-start');
                                 $('#notes').html(data.data.notes);
+
 
                                 let quick_invoice = data.data.quick_invoice;
                                 if (quick_invoice === '0') {
@@ -1770,7 +1788,6 @@
                                 }
 
 
-                                $('#notes').html(data.data.notes);
 
                                 if (data.data.invoice_status === "Paid") {
                                     $('#text_date_received').html("Date Received");
@@ -2072,6 +2089,7 @@
                 let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
                 let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
                 let invoice_notes = $('textarea#notes').val();
+                invoice_notes = invoice_notes.replace(/\n/g, '<br>');
 
                 let invoiceItem = [];
                 $('#show_items .row').each(function() {

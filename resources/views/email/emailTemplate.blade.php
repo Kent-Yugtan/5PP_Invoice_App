@@ -8,10 +8,34 @@
 
 </head>
 <style>
-    table td {
-        /* padding: 3px 0px 3px 0px; */
-        /* border: 1px solid #006; */
-        /* TABLE TD BORDER */
+    /* Styles for desktop */
+    @media only screen and (min-width: 600px) {
+        .container {
+            width: 600px;
+            margin: 0 auto;
+        }
+    }
+
+    /* Styles for mobile */
+    @media only screen and (max-width: 599px) {
+        .container {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #table0 tr td {
+            min-width: 0px !important;
+        }
+
+        #table1 tr td {
+            min-width: 0px !important;
+        }
+
+        #table2 tr td {
+            min-width: 0px !important;
+        }
+
+
     }
 </style>
 
@@ -57,9 +81,9 @@
             </tr>
         </table>
     @endif --}}
-    <div style="padding:20px">
-        <table
-            style="max-width:500px;margin:10px auto 10px;background-color:#fff;padding:20px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 1px 5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 10px rgba(0,0,0,.24);">
+    <div class="container" style="padding-top:20px">
+        <table id="table0"
+            style="margin:10px auto 10px;padding:20px;background-color:#fff;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 1px 5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 10px rgba(0,0,0,.24);">
             <thead>
                 @if ($content['invoice_logo'])
                     <tr>
@@ -95,10 +119,12 @@
                                 Philippines,{{ $content['zip_code'] }}</span></p>
                     </td>
 
-                    <td colspan="2">
-                        <p style="text-align:right;margin:0 0 22px 0 "><span
-                                style="font-weight:bold;font-size:40px;display:inline-block;min-width:150px">
+                    <td colspan="" style="padding-bottom:20px">
+                        <p style="text-align:right;margin:0">
+                            <span style="font-weight:bold;font-size:40px;display:inline-block;min-width:150px">
                                 INVOICE</span>
+                        </p>
+                        <p style="text-align:right;margin:0">
                             <span style="font-size:20px;display:inline-block;min-width:150px">
                                 #{{ $content['invoice_no'] }}</span>
                         </p>
@@ -108,6 +134,7 @@
                 <tr>
                     <td style="height:5px"></td>
                 </tr>
+
 
                 <tr>
                     <td style="vertical-align:top;padding-top:23px">
@@ -126,7 +153,8 @@
                     </td>
 
                     <td style="vertical-align:top;margin:20px 0 0 0">
-                        <table style="width:100%;font-size:12px;margin:0 0 1px 0;border-collapse:collapse;">
+                        <table id="table1"
+                            style="width:100%;font-size:12px;margin:0 0 1px 0;border-collapse:collapse;">
                             <tbody>
                                 <tr>
                                     <td style="text-align:right;"> <span style="display:inline-block;">
@@ -224,7 +252,8 @@
 
                 <tr>
                     <td colspan="2">
-                        <table style="width:100%;font-size:12px;margin:0 0 1px 0;border-collapse:collapse;">
+                        <table id="table2"
+                            style="width:100%;font-size:12px;margin:0 0 1px 0;border-collapse:collapse;">
                             <tbody style="padding:5px;">
                                 <tr style="background-color:#3a3a3a;color:white;">
                                     <td
@@ -310,7 +339,7 @@
 
                             <p style="font-size:12px;margin:0 0 1px 0;">
                                 <span style="display:inline-block;min-width:150px">
-                                    {{ $content['notes'] }}
+                                    {!! htmlspecialchars_decode($content['notes']) !!}
                                 </span>
                             </p>
                         @endif
@@ -444,6 +473,7 @@
                         </table>
                     </td>
                 </tr>
+
                 @if ($content['for'] == 'Admin')
                     <tr>
                         <td colspan="2">
@@ -471,7 +501,6 @@
                 @endif
             </tbody>
         </table>
-
     </div>
 
 </body>

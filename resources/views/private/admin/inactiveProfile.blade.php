@@ -2146,8 +2146,8 @@
                                     }
 
                                     let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                              <a class="page-link" data-url="${item.url}">${label}</a>
+                            </li>`;
 
                                     $('#tbl_pagination_invoice').append(li);
                                     return "";
@@ -3024,17 +3024,20 @@
             })
 
             $('#show_items').focusout(".multi", function() {
-                let invoiceItems_sum = 0;
-                $('#show_items .row1').each(function() {
-                    let parent = $(this).closest('.row1');
-                    let quantity = parent.find('.quantity').val();
-                    let rate = parent.find('.rate').val();
+                let parent = $(this).closest('.row1');
+                let quantity = parent.find('.quantity').val();
+                let rate = parent.find('.rate').val();
+                let amount = parent.find('.amount').val();
 
-                    parent.find('.quantity').val(PHP(quantity).format());
-                    parent.find('.rate').val(PHP(rate).format());
-                })
-                DeductionItems_total();
+                // Have Decimals
+                // parent.find('.quantity').val(PHP(quantity).format());
+                // Remove Decimals
+                parent.find('.quantity').val(quantity ? quantity : "0");
+                parent.find('.rate').val(PHP(rate).format());
+                parent.find('.amount').val(PHP(amount).format());
             })
+            DeductionItems_total();
+
 
             // FUNCTION FOR KEYUP CLASS MULTI INPUTS FOR ADD ITEMS
             $('#show_items').on("keyup", ".multi", function() {
@@ -3374,6 +3377,7 @@
                 let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
                 let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
                 let invoice_notes = $('#notes').val();
+                invoice_notes = invoice_notes.replace(/\n/g, '<br>');
 
                 // INVOICE ITEMS TABLE
                 let invoiceItem = [];
@@ -3753,8 +3757,8 @@
                                         }
 
                                         let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                                          <a class="page-link" data-url="${item.url}">${label}</a>
+                                        </li>`;
 
                                         $('#tbl_pagination_deduction').append(li);
                                         return "";
@@ -3910,8 +3914,8 @@
                                         }
 
                                         let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                                <a class="page-link" data-url="${item.url}">${label}</a>
+                              </li>`;
 
                                         $('#tbl_pagination_deduction').append(li);
                                         return "";
@@ -4109,6 +4113,6 @@
                 localStorage.removeItem('activeTab');
             });
 
-        });
+        })
     </script>
 @endsection

@@ -104,7 +104,7 @@
                                                         Amount ($)</label>
                                                     <input type="text" step="any" style="text-align:right;"
                                                         name="discount_amount" id="discount_amount" maxlength="6"
-                                                        class="form-control" />
+                                                        class="form-control input_discount_amount" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
@@ -115,7 +115,7 @@
                                                     <input type="text" disabled
                                                         style="text-align:right; border:0px;background-color:white;"
                                                         onkeypress="return onlyNumberKey(event)" name="discount_total"
-                                                        id="discount_total" class="form-control" />
+                                                        id="discount_total" class="form-control input_discount_total" />
                                                 </div>
                                             </div>
                                         </div>
@@ -328,10 +328,7 @@
             $("#error_msg").hide();
             $("#success_msg").hide();
 
-            $("#col_discount_amount").addClass('d-none');
-            $("#col_discount_total").addClass('d-none');
-            $(".label_discount_amount").addClass('d-none');
-            $(".label_discount_total").addClass('d-none');
+
             $('input[type=radio][id=discount_type]').change(function() {
 
                 if (sub_total == 0) {
@@ -339,6 +336,8 @@
                     $("#col_discount_total").addClass('d-none');
                     $(".label_discount_amount").addClass('d-none');
                     $(".label_discount_total").addClass('d-none');
+                    $(".input_discount_amount").addClass('d-none');
+                    $(".input_discount_total").addClass('d-none');
                 } else {
                     if (this.value == 'Fixed') {
                         //write your logic here
@@ -347,6 +346,8 @@
                         $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
+                        $(".input_discount_amount").removeClass('d-none');
+                        $(".input_discount_total").removeClass('d-none');
 
                         $('#discount_amount').val('0.00');
                         $('#discount_total').val('0.00');
@@ -358,6 +359,8 @@
                         $("#col_discount_total").removeClass('d-none');
                         $(".label_discount_amount").removeClass('d-none');
                         $(".label_discount_total").removeClass('d-none');
+                        $(".input_discount_amount").removeClass('d-none');
+                        $(".input_discount_total").removeClass('d-none');
 
                         $('#discount_amount').val('0.00');
                         $('#discount_total').val('0.00');
@@ -413,7 +416,10 @@
                     let rate = parent.find('.rate').val();
                     let amount = parent.find('.amount').val();
 
-                    parent.find('.quantity').val(PHP(quantity).format());
+                    // Have Decimals
+                    // parent.find('.quantity').val(PHP(quantity).format());
+                    // Remove Decimals
+                    parent.find('.quantity').val(quantity ? quantity : "0");
                     parent.find('.rate').val(PHP(rate).format());
                     parent.find('.amount').val(PHP(amount).format());
                 })
@@ -892,6 +898,7 @@
                 let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
                 let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
                 let invoice_notes = $('#notes').val();
+                invoice_notes = invoice_notes.replace(/\n/g, '<br>');
 
                 // INVOICE ITEMS TABLE
                 let invoiceItems = [];
@@ -968,10 +975,14 @@
                             $('#show_deduction_items').empty();
                             $('textarea').val('');
                             $('#dataTable_deduction tbody').empty();
+
+                            $("#col_discount_amount").addClass('d-none');
+                            $("#col_discount_total").addClass('d-none');
                             $(".label_discount_amount").addClass('d-none');
                             $(".label_discount_total").addClass('d-none');
-                            $("#discount_amount").addClass('d-none');
-                            $("#discount_total").addClass('d-none');
+                            $(".input_discount_amount").addClass('d-none');
+                            $(".input_discount_total").addClass('d-none');
+
                             $('input').removeClass('is-invalid');
                             $('input, select').removeClass('is-invalid');
                             $('.invalid-feedback').remove();
