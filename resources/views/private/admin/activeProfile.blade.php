@@ -3962,6 +3962,7 @@
                 let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
                 let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
                 let invoice_notes = $('#notes').val();
+                invoice_notes = invoice_notes.replace(/\n/g, '<br>');
 
                 // INVOICE ITEMS TABLE
                 let invoiceItem = [];

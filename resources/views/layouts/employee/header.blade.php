@@ -48,7 +48,8 @@
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
                             src="/images/default.png"></button>
 
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" style="margin-right:15px"
+                        aria-labelledby="navbarDropdown">
                         <li id="accountSetting">
                             <label for="btn-2" class="first dropdown-item">
                                 <span>Account Setting</span>
@@ -569,6 +570,18 @@
                 }
             }).catch(function(error) {
                 console.log("validation error", error);
+                $('#adminChangePassword').addClass('was-validated');
+                $('#currentPassword').addClass('is-invalid');
+                $('#newPassword').addClass('is-invalid');
+                $('#confirmPassword').addClass('is-invalid');
+
+                $("#error_currentPassword").addClass('invalid-feedback')
+                    .html("This field is required.").show();
+                $("#error_newPassword").addClass('invalid-feedback').html(
+                        "This field is required.")
+                    .show();
+                $("#error_confirmPassword").addClass('invalid-feedback')
+                    .html("This field is required.").show();
                 setTimeout(function() {
                     $('#changePassword_button').prop("disabled", false);
                 }, 500);

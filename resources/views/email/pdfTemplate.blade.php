@@ -308,7 +308,7 @@
 
                         <p style="font-size:12px;margin:0 0 1px 0;">
                             <span style="display:inline-block;min-width:150px">
-                                {{ $content['notes'] }}
+                                {!! htmlspecialchars_decode($content['notes']) !!}
                             </span>
                         </p>
                     @endif

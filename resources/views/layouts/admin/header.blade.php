@@ -44,20 +44,8 @@
                     <button class="rounded-pill border-0" data-bs-toggle="dropdown" id="navbarDropdown" href="#">
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
                             src="/images/default.png"></button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-
-                        {{-- <li class="nav-item ">
-                            <a class="dropdown-item " href="#" data-bs-toggle="collapse"
-                                data-bs-target="#accountSettings" aria-expanded="false" aria-controls="accountSettings">
-                                <span>Account Setting </span>
-                                <i class="fas fa-angle-down"></i>
-                            </a>
-                            <ul class="collapse" id="accountSettings" aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordion">
-                                <li><a class="nav-link" href="{{ url('reports/deduction') }}">Change Password</a></li>
-                            </ul>
-                        </li> --}}
+                    <ul class="dropdown-menu dropdown-menu-end" style="margin-right:15px"
+                        aria-labelledby="navbarDropdown">
 
                         <li id="accountSetting">
                             <label for="btn-2" class="first dropdown-item">
@@ -578,6 +566,18 @@
                 }
             }).catch(function(error) {
                 console.log("validation error", error);
+                $('#adminChangePassword').addClass('was-validated');
+                $('#currentPassword').addClass('is-invalid');
+                $('#newPassword').addClass('is-invalid');
+                $('#confirmPassword').addClass('is-invalid');
+
+                $("#error_currentPassword").addClass('invalid-feedback')
+                    .html("This field is required.").show();
+                $("#error_newPassword").addClass('invalid-feedback').html(
+                        "This field is required.")
+                    .show();
+                $("#error_confirmPassword").addClass('invalid-feedback')
+                    .html("This field is required.").show();
                 setTimeout(function() {
                     $('#changePassword_button').prop("disabled", false);
                 }, 500);

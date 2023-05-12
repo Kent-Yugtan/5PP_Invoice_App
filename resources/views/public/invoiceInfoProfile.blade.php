@@ -1694,7 +1694,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-sm-12">
                                     <label style="word-wrap: break-word; text-align:right" id="notes"></label>
                                 </div>
 
@@ -1746,6 +1746,7 @@
                                         $('#invoice_status').html(data.data.invoice_status);
                                         $('#date_created').html(mm + " " + dd + ", " + yy);
                                         $('#show_due_date').html(mm2 + " " + dd2 + ", " + yy2);
+                                        $('#notes').addClass('text-start');
                                         $('#notes').html(data.data.notes);
 
                                         let quick_invoice = data.data.quick_invoice;
@@ -1766,7 +1767,7 @@
                                         }
 
 
-                                        $('#notes').html(data.data.notes);
+
 
                                         // if (data.data.invoice_status === "Paid") {
                                         //     $('#text_date_received').html("Date Received");
@@ -2096,6 +2097,7 @@
                 let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
                 let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
                 let invoice_notes = $('textarea#notes').val();
+                invoice_notes = invoice_notes.replace(/\n/g, '<br>');
 
                 let invoiceItem = [];
                 $('#show_items .row').each(function() {

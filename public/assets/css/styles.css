@@ -14052,21 +14052,10 @@ nav ul li span{
   line-height: 40px;
   /* transition: 0.5s; */
 }
-/* .button span.rotate{
-  transform: rotate(-180deg);
-} */
 
 [id^=btn]:checked + ul{
   display: block;
 }
-
-/* nav ul li #arrowRotate.rotate{
-  transform: rotate(-90deg);
-} */
-
-/* input{
-  display: none;
-} */
 
 #change_Password {
   display: none;
