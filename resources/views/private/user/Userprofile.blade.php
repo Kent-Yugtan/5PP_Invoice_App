@@ -3323,9 +3323,14 @@
                     let parent = $(this).closest('.row1');
                     let quantity = parent.find('.quantity').val();
                     let rate = parent.find('.rate').val();
+                    let amount = parent.find('.amount').val();
 
-                    parent.find('.quantity').val(PHP(quantity).format());
+                    // Have Decimals
+                    // parent.find('.quantity').val(PHP(quantity).format());
+                    // Remove Decimals
+                    parent.find('.quantity').val(quantity ? quantity : "0");
                     parent.find('.rate').val(PHP(rate).format());
+                    parent.find('.amount').val(PHP(amount).format());
                 })
                 DeductionItems_total();
             })

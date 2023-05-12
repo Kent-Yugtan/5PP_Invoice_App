@@ -3024,1051 +3024,551 @@
             })
 
             $('#show_items').focusout(".multi", function() {
-                let invoiceItems_sum = 0;
-                $('#show_items .row1').each(function() {
-                    let parent = $(this).closest('.row1');
-                    let quantity = parent.find('.quantity').val();
-                    let rate = parent.find('.rate').val();
+                let parent = $(this).closest('.row1');
+                let quantity = parent.find('.quantity').val();
+                let rate = parent.find('.rate').val();
+                let amount = parent.find('.amount').val();
 
-                    parent.find('.quantity').val(PHP(quantity).format());
-                    parent.find('.rate').val(PHP(rate).format());
-                })
-                DeductionItems_total();
+                // Have Decimals
+                // parent.find('.quantity').val(PHP(quantity).format());
+                // Remove Decimals
+                parent.find('.quantity').val(quantity ? quantity : "0");
+                parent.find('.rate').val(PHP(rate).format());
+                parent.find('.amount').val(PHP(amount).format());
+            })
+            DeductionItems_total();
+        })
+
+        // FUNCTION FOR KEYUP CLASS MULTI INPUTS FOR ADD ITEMS
+        $('#show_items').on("keyup", ".multi", function() {
+            let sub_total = 0;
+            let parent = $(this).closest('.row');
+            let quantity = parent.find('.quantity').val().replaceAll(',', '') ? parent.find(
+                    '.quantity')
+                .val().replaceAll(',', '') : 0;
+            let rate = parent.find('.rate').val().replaceAll(',', '') ? parent.find('.rate')
+                .val()
+                .replaceAll(',', '') : 0;
+            sub_total = parseFloat(quantity * rate);
+
+            parent.find('.amount').val(PHP(sub_total).format());
+            getResults_Converted();
+            Additems_total();
+            subtotal();
+        });
+
+        // FUNCTION FOR DISPLAYING SUBTOTAL AMOUNT AND DOLLAR AMOUNT
+        function Additems_total() {
+            var sum = 0;
+            let converted_amount = 0;
+            $('#show_items .amount').each(function() {
+                sum += Number($(this).val().replaceAll(',', ''));
+            });
+            // $('#subtotal').val(parseFloat(sum).toFixed(2));
+            // $('#dollar_amount').val(parseFloat(sum).toFixed(2));
+
+            $('#subtotal').val(PHP(parseFloat(sum)).format());
+            $('#dollar_amount').val(PHP(parseFloat(sum)).format());
+
+        }
+
+        // FUNCTION FOR CALCUTAION DEDUCTIONS
+        function DeductionItems_total() {
+            var deduction_sum = 0;
+            let converted_amount = 0;
+            let dollar_amount = 0;
+            let converted_amount_input = 0;
+            let peso_rate = 0;
+            let grand_total = 0;
+
+            $('#show_deduction_items .deduction_amount').each(function() {
+                deduction_sum += Number($(this).val().replaceAll(',', ''));
             })
 
-            // FUNCTION FOR KEYUP CLASS MULTI INPUTS FOR ADD ITEMS
-            $('#show_items').on("keyup", ".multi", function() {
-                let sub_total = 0;
-                let parent = $(this).closest('.row');
-                let quantity = parent.find('.quantity').val().replaceAll(',', '') ? parent.find(
-                        '.quantity')
-                    .val().replaceAll(',', '') : 0;
-                let rate = parent.find('.rate').val().replaceAll(',', '') ? parent.find('.rate')
-                    .val()
-                    .replaceAll(',', '') : 0;
-                sub_total = parseFloat(quantity * rate);
-
-                parent.find('.amount').val(PHP(sub_total).format());
-                getResults_Converted();
-                Additems_total();
-                subtotal();
+            $('#show_items .amount').each(function() {
+                converted_amount += Number($(this).val().replaceAll(',', ''));
             });
 
-            // FUNCTION FOR DISPLAYING SUBTOTAL AMOUNT AND DOLLAR AMOUNT
-            function Additems_total() {
-                var sum = 0;
-                let converted_amount = 0;
-                $('#show_items .amount').each(function() {
-                    sum += Number($(this).val().replaceAll(',', ''));
-                });
-                // $('#subtotal').val(parseFloat(sum).toFixed(2));
-                // $('#dollar_amount').val(parseFloat(sum).toFixed(2));
+            peso_rate = $('#peso_rate').val().replaceAll(',', '') ? $('#peso_rate').val()
+                .replaceAll(
+                    ',', '') :
+                0;
+            dollar_amount = $('#dollar_amount').val().replaceAll(',', '') ? $('#dollar_amount')
+                .val()
+                .replaceAll(',', '') : 0;
+            converted_amount_input = parseFloat(dollar_amount * peso_rate);
+            grand_total = parseFloat(converted_amount_input - deduction_sum);
+            $('#grand_total').val(PHP(grand_total).format());
+            // console.log("grand_total", grand_total);
+        }
 
-                $('#subtotal').val(PHP(parseFloat(sum)).format());
-                $('#dollar_amount').val(PHP(parseFloat(sum)).format());
+        // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
+        $(document).on('click', '.remove_items', function(e) {
+            e.preventDefault();
+            let parent = $(this).closest('.row');
+            let sub_total = parent.find('.subtotal').val();
+            let row_item = $(this).parent().parent().parent();
+            $(row_item).remove();
 
+
+            if ($('#show_items > .row').length === 1) {
+                $('#show_items > .row').find('.col-remove-item').removeClass('d-none')
+                    .addClass(
+                        'd-none');
             }
+            getResults_Converted();
+            Additems_total();
+            subtotal();
+            DeductionItems_total();
+            x--;
+        });
 
-            // FUNCTION FOR CALCUTAION DEDUCTIONS
-            function DeductionItems_total() {
-                var deduction_sum = 0;
-                let converted_amount = 0;
-                let dollar_amount = 0;
-                let converted_amount_input = 0;
-                let peso_rate = 0;
-                let grand_total = 0;
+        // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
+        $("#add_item").click(function(e) {
+            e.preventDefault();
+            // BUTTON SPINNER
+            var originalText = $('#add_item').html();
+            $('#add_item').html(
+                `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+            );
+            setTimeout(function() {
+                $('#add_item').html(originalText);
+                display_item_rows()
+            }, 500);
+        });
 
-                $('#show_deduction_items .deduction_amount').each(function() {
-                    deduction_sum += Number($(this).val().replaceAll(',', ''));
+        // INITIALIZE DISPLAY ITEM ROWS
+        function display_item_rows() {
+            let max_fields = 10;
+            let wrapper = $('#show_items');
+            add_rows = '';
+            add_rows += '<div class="row row1">';
+
+            add_rows += '<div class="col-md-4 bottom20">';
+            add_rows += '<div class="form-group">';
+            add_rows += '<label class="formGroupExampleInput2">Item Desctiption</label>';
+            add_rows +=
+                '<input type="text" name="item_description" id="item_description" class="form-control item_description multi" />';
+            add_rows += '</div>';
+            add_rows += '</div>';
+
+            add_rows += '<div class="col-md-2 bottom20">';
+            add_rows += '<div class="form-group">';
+            add_rows += '<label class="formGroupExampleInput2">Quantity</label>';
+            add_rows +=
+                '<input type="text" step="any" maxlength="4" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
+            add_rows += '</div>';
+            add_rows += ' </div>';
+
+            add_rows += '<div class="col-md-3 bottom20">';
+            add_rows += '<div class="form-group">';
+            add_rows += '<label class="formGroupExampleInput2" for="form3Example2">Rate</label>';
+            add_rows +=
+                '<input type="text" step="any" name="rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" />';
+            add_rows += '</div>';
+            add_rows += '</div>';
+
+            add_rows += '<div class="col-md-2 bottom20">';
+            add_rows += '<div class="form-group">';
+            add_rows += '<label class="formGroupExampleInput2" for="form3Example2">Amount</label>';
+            // style="text-align:right;border:none;background-color:white"
+            add_rows +=
+                '<input type="text" style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
+            add_rows += '</div>';
+            add_rows += '</div>';
+
+            add_rows += '<div class="col-md-1 col-remove-item d-none">';
+            add_rows += '<div class="form-group">';
+            add_rows += '</br>';
+            add_rows +=
+                '<button class="btn remove_items" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
+            add_rows += '</div>';
+            add_rows += '</div>';
+
+            add_rows += '</div>'
+
+            $(wrapper).append(add_rows);
+
+            if ($('#show_items > .row').length > 1) {
+                $('#show_items > .row').each(function() {
+                    $(this).find('.col-remove-item').removeClass('d-none');
                 })
-
-                $('#show_items .amount').each(function() {
-                    converted_amount += Number($(this).val().replaceAll(',', ''));
-                });
-
-                peso_rate = $('#peso_rate').val().replaceAll(',', '') ? $('#peso_rate').val()
-                    .replaceAll(
-                        ',', '') :
-                    0;
-                dollar_amount = $('#dollar_amount').val().replaceAll(',', '') ? $('#dollar_amount')
-                    .val()
-                    .replaceAll(',', '') : 0;
-                converted_amount_input = parseFloat(dollar_amount * peso_rate);
-                grand_total = parseFloat(converted_amount_input - deduction_sum);
-                $('#grand_total').val(PHP(grand_total).format());
-                // console.log("grand_total", grand_total);
+            } else {
+                $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
+                    'd-none');
             }
+        }
 
-            // FUNCTION CLICK FOR REMOVING INVOICE ITEMS ROWS
-            $(document).on('click', '.remove_items', function(e) {
-                e.preventDefault();
-                let parent = $(this).closest('.row');
-                let sub_total = parent.find('.subtotal').val();
-                let row_item = $(this).parent().parent().parent();
-                $(row_item).remove();
+        // ONLY NUMBERS FOR NUMBER INPUTS
+        function onlyNumberKey(evt) {
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+
+        // CHECK IF THE USER HAVE THE PROFILE
+        $("#exampleModal").on('hide.bs.modal', function() {
+            // window.location.reload();
+            // // show_data();
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
 
 
-                if ($('#show_items > .row').length === 1) {
-                    $('#show_items > .row').find('.col-remove-item').removeClass('d-none')
-                        .addClass(
-                            'd-none');
+                show_data();
+            }, 1500)
+
+            $('#exampleModal input').val('');
+            $('#show_deduction_items').empty();
+            $('textarea').val('');
+        });
+
+        $("#modal-create-deduction").on('hide.bs.modal', function() {
+            $("div.spanner").addClass("show");
+
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+
+
+                $('#deductionButton').empty();
+                $('#deductionButton').html(
+                    show_profileDeductionType_Button());
+            }, 1500)
+        });
+
+        $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
+            $("div.spanner").addClass("show");
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+
+
+            }, 1500)
+        });
+
+        $("#invoice_status").on('hide.bs.modal', function() {
+            // window.location.reload();
+            $("div.spanner").addClass("show");
+
+            setTimeout(function() {
+                $("div.spanner").removeClass("show");
+
+
+                show_data();
+            }, 1500)
+        });
+
+        $("#button-addon2").on('click', function(e) {
+
+            var originalText = $('#button-addon2').html();
+            $('#button-addon2').html(
+                `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+            );
+            setTimeout(function() {
+                $('#button-addon2').html(originalText);
+
+                let toast1 = $('.toast1');
+                let id = $('#user_id').val();
+                axios
+                    .get(apiUrl + '/api/invoice/check_profile/' + id, {
+                        headers: {
+                            Authorization: token,
+                        },
+                    }).then(function(response) {
+                        let data = response.data;
+
+                        if (!data.success) {
+
+                            $('.whole_row').addClass('d-none');
+                            $('.toast1 .toast-title').html('Invoices');
+                            $('.toast1 .toast-body').html(data.message);
+                            toast1.toast('show');
+
+                        } else {
+                            let deduction_count = data.data.profile_deduction_types.length;
+                            console.log("profile_deduction_types", data);
+                            $("#profile_id").val(data.data.id);
+                            if (deduction_count > 0) {
+                                data.data.profile_deduction_types.map((item) => {
+                                    let wrapper = $('#show_deduction_items');
+                                    add_rows = '';
+                                    add_rows += '<div class="row bottom20">';
+                                    add_rows += '<div class="col-8">';
+                                    add_rows += '<div class="form-group w-100">';
+                                    add_rows +=
+                                        '<label class="formGroupExampleInput2">Deduction Type</label>';
+
+                                    add_rows +=
+                                        '<select class="form-control profile_deduction_type" id="profile_deduction_type" name="profile_deduction_type">';
+                                    add_rows += '<option value=' + item.id +
+                                        '>' + item
+                                        .deduction_type
+                                        .deduction_name + '</option> ';
+                                    add_rows += '</select>';
+
+                                    add_rows += '</div>';
+                                    add_rows += '</div>';
+                                    add_rows += '<div class="col-4">';
+                                    add_rows += '<div class="form-group ">';
+                                    add_rows +=
+                                        '<label class="formGroupExampleInput2">Deduction Amount (Php)</label>';
+                                    add_rows +=
+                                        '<input type="text" value="' + PHP(item
+                                            .amount)
+                                        .format() +
+                                        '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6"/>';
+                                    add_rows += '</div>';
+                                    add_rows += '</div>';
+                                    add_rows += '</div>';
+
+                                    $(wrapper).append(add_rows);
+                                    return '';
+                                })
+                                $('.whole_row').removeClass('d-none');
+                                $('#profile_id').val(data.data.id);
+
+                            }
+                        }
+
+                    }).catch(function(error) {
+                        console.log("error", error);
+                    });
+            }, 500);
+        });
+
+        $('#invoice_items').submit(function(e) {
+            e.preventDefault();
+
+            // CONDITION IF THERE IS BLANK ROW
+            $('#show_items .row1').each(function() {
+                let parent = $(this).closest('.row1');
+                let row_item = $(this).parent();
+                let item_rate = $(this).find('.rate').val();
+                let item_qty = $(this).find('.quantity').val();
+
+                if (item_rate == "" && item_qty == "") {
+
+                    // console.log("row_item", parent);
+
+                    if ($('#show_items > .row').length === 1) {
+                        $('#show_items > .row').find('.col-remove-item')
+                            .removeClass(
+                                'd-none')
+                            .addClass(
+                                'd-none');
+                    } else {
+                        $(parent).remove();
+                    }
                 }
-                getResults_Converted();
-                Additems_total();
-                subtotal();
-                DeductionItems_total();
                 x--;
             });
 
-            // FUNCTION CLICK FOR DISPLAY INVOICE ITEM ROWS
-            $("#add_item").click(function(e) {
-                e.preventDefault();
-                // BUTTON SPINNER
-                var originalText = $('#add_item').html();
-                $('#add_item').html(
-                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
-                );
-                setTimeout(function() {
-                    $('#add_item').html(originalText);
-                    display_item_rows()
-                }, 500);
+            let profile_id = $('#profile_id').val();
+            // let invoice_no = $('#invoice_no').val();
+            // INVOICE TABLE
+            let due_date = $('#due_date').val();
+            let invoice_description = $('#invoice_description').val();
+            let invoice_subtotal = $('#subtotal').val().replaceAll(',', '');
+            let peso_rate = $('#peso_rate').val().replaceAll(',', '')
+            let invoice_converted_amount = $('#converted_amount').val().replaceAll(',', '');
+            let invoice_discount_type = $('#discount_type:checked').val();
+            let invoice_discount_amount = $('#discount_amount').val().replaceAll(',', '');
+            let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
+            let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
+            let invoice_notes = $('#notes').val();
+
+            // INVOICE ITEMS TABLE
+            let invoiceItem = [];
+            $('#show_items .row').each(function() {
+                let item_description = $(this).find('.item_description').val() ? $(
+                        this)
+                    .find(
+                        '.item_description').val() : "";
+                let item_rate = $(this).find('.rate').val().replaceAll(',', '') ? $(
+                        this)
+                    .find(
+                        '.rate').val().replaceAll(',', '') : 0;
+                let item_qty = $(this).find('.quantity').val() ? $(this)
+                    .find('.quantity').val() : 0;
+                let item_total_amount = $(this).find('.amount').val().replaceAll(
+                        ',', '') ?
+                    $(
+                        this).find('.amount')
+                    .val().replaceAll(',', '') : 0;
+
+                invoiceItem.push({
+                    item_description,
+                    item_rate,
+                    item_qty,
+                    item_total_amount,
+                })
             });
 
-            // INITIALIZE DISPLAY ITEM ROWS
-            function display_item_rows() {
-                let max_fields = 10;
-                let wrapper = $('#show_items');
-                add_rows = '';
-                add_rows += '<div class="row row1">';
+            // DEDUCTIONS TABLE
+            let Deductions = [];
+            $('#show_deduction_items .row').each(function() {
+                let profile_deduction_type_id = $(this).find(
+                        '.profile_deduction_type')
+                    .val() ?
+                    $(this)
+                    .find(
+                        '.profile_deduction_type').val() : 0;
+                let deduction_amount = $(this).find('.deduction_amount').val()
+                    .replaceAll(
+                        ',',
+                        '') ? $(this).find(
+                        '.deduction_amount').val().replaceAll(',', '') : 0;
 
-                add_rows += '<div class="col-md-4 bottom20">';
-                add_rows += '<div class="form-group">';
-                add_rows += '<label class="formGroupExampleInput2">Item Desctiption</label>';
-                add_rows +=
-                    '<input type="text" name="item_description" id="item_description" class="form-control item_description multi" />';
-                add_rows += '</div>';
-                add_rows += '</div>';
+                Deductions.push({
+                    profile_deduction_type_id,
+                    deduction_amount,
+                })
 
-                add_rows += '<div class="col-md-2 bottom20">';
-                add_rows += '<div class="form-group">';
-                add_rows += '<label class="formGroupExampleInput2">Quantity</label>';
-                add_rows +=
-                    '<input type="text" step="any" maxlength="4" name="quantity" id="quantity" style="text-align:right;" class="form-control multi quantity" />';
-                add_rows += '</div>';
-                add_rows += ' </div>';
+            });
 
-                add_rows += '<div class="col-md-3 bottom20">';
-                add_rows += '<div class="form-group">';
-                add_rows += '<label class="formGroupExampleInput2" for="form3Example2">Rate</label>';
-                add_rows +=
-                    '<input type="text" step="any" name="rate" id="rate" style="text-align:right;" class="form-control multi rate" maxlength="6" />';
-                add_rows += '</div>';
-                add_rows += '</div>';
+            let data = {
+                profile_id: profile_id,
+                // invoice_no: invoice_no,
+                due_date: due_date,
+                description: invoice_description,
+                peso_rate: peso_rate ? peso_rate : 0,
+                sub_total: invoice_subtotal ? invoice_subtotal : 0,
+                converted_amount: invoice_converted_amount ? invoice_converted_amount : 0,
+                discount_type: invoice_discount_type,
+                discount_amount: invoice_discount_amount ? invoice_discount_amount : 0,
+                discount_total: invoice_discount_total ? invoice_discount_total : 0,
+                grand_total_amount: invoice_total_amount ? invoice_total_amount : 0,
+                notes: invoice_notes,
+                invoiceItem,
+                Deductions,
+            }
+            console.log("DATA", data);
 
-                add_rows += '<div class="col-md-2 bottom20">';
-                add_rows += '<div class="form-group">';
-                add_rows += '<label class="formGroupExampleInput2" for="form3Example2">Amount</label>';
-                // style="text-align:right;border:none;background-color:white"
-                add_rows +=
-                    '<input type="text" style="text-align:right;border:none;background-color:white" disabled name="amount" id="amount" class="form-control amount" />';
-                add_rows += '</div>';
-                add_rows += '</div>';
+            axios.post(apiUrl + "/api/createinvoice", data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+                    console.log("SUCCES", data.success);
 
-                add_rows += '<div class="col-md-1 col-remove-item d-none">';
-                add_rows += '<div class="form-group">';
-                add_rows += '</br>';
-                add_rows +=
-                    '<button class="btn remove_items" style="display: flex;justify-content: center;"><i class="fa fa-trash pe-1" style="color:#dc3545"></i></button>';
-                add_rows += '</div>';
-                add_rows += '</div>';
+                    $('#exampleModal').modal('hide');
+                    $("div.spanner").addClass("show");
 
-                add_rows += '</div>'
+                    setTimeout(function() {
+                        $("div.spanner").removeClass("show");
 
-                $(wrapper).append(add_rows);
 
-                if ($('#show_items > .row').length > 1) {
-                    $('#show_items > .row').each(function() {
-                        $(this).find('.col-remove-item').removeClass('d-none');
-                    })
+                        toast1.toast('show');
+                        $('.toast1 .toast-title').html('Create Invoices');
+                        $('.toast1 .toast-body').html(response.data.message);
+
+                        $('#exampleModal input').val('');
+                        $('#show_deduction_items').empty();
+                        $('textarea').val('');
+                        $('#dataTable_deduction tbody').empty();
+                        $('#dataTable_deduction tbody').html(
+                            show_Profilededuction_Table_Active());
+                        $('input').removeClass('is-invalid');
+                        $('input, select').removeClass('is-invalid');
+                        $('.invalid-feedback').remove();
+                        due_date();
+                    }, 1500)
+
+                }
+            }).catch(function(error) {
+                console.log("error.response.data.errors", error.response.data.errors);
+                if (error.response.data.errors) {
+                    $('input').removeClass('is-invalid');
+                    $('input, select').removeClass('is-invalid');
+                    $('.invalid-feedback').remove();
+                    var errors = error.response.data.errors;
+                    var errorContainer = $('#error-container');
+                    errorContainer.empty();
+                    console.log("errors", errors)
+
+                    for (var key in errors) {
+                        var inputName = key.replace('_', ' ');
+                        inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
+                        var errorMsg = errors[key][0];
+                        $('#' + key).addClass('is-invalid');
+                        $('#' + key).parent().append('<span class="invalid-feedback">' +
+                            errorMsg + '</span>');
+                    }
                 } else {
-                    $('#show_items > .row').find('.col-remove-item').removeClass('d-none').addClass(
-                        'd-none');
+                    $('input').removeClass('is-invalid');
+                    $('input, select').removeClass('is-invalid');
+                    $('.invalid-feedback').remove();
                 }
-            }
+                // if (error.response.data.errors) {
+                //   let errors = error.response.data.errors;
+                //   console.log("errors", errors);
+                //   let fieldnames = Object.keys(errors);
 
-            // ONLY NUMBERS FOR NUMBER INPUTS
-            function onlyNumberKey(evt) {
-                // Only ASCII character in that range allowed
-                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                    return false;
-                return true;
-            }
+                //   Object.values(errors).map((item, index) => {
+                //     fieldname = fieldnames[0].split('_');
+                //     fieldname.map((item2, index2) => {
+                //       fieldname['key'] = capitalize(item2);
+                //       return ""
+                //     });
+                //     fieldname = fieldname.join(" ");
 
-            // CHECK IF THE USER HAVE THE PROFILE
-            $("#exampleModal").on('hide.bs.modal', function() {
-                // window.location.reload();
-                // // show_data();
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-
-
-                    show_data();
-                }, 1500)
-
-                $('#exampleModal input').val('');
-                $('#show_deduction_items').empty();
-                $('textarea').val('');
+                //     $('.toast1 .toast-title').html(fieldname);
+                //     $('.toast1 .toast-body').html(Object.values(errors)[
+                //       0].join(
+                //       "\n\r"));
+                //   })
+                //   toast1.toast('show');
+                // }
             });
 
-            $("#modal-create-deduction").on('hide.bs.modal', function() {
-                $("div.spanner").addClass("show");
+        });
 
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
+        function capitalize(s) {
+            if (typeof s !== 'string') return "";
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
 
+        // CREATE DEDUCTION TYPE
+        $('#deductiontype_store').submit(function(e) {
+            e.preventDefault();
 
-                    $('#deductionButton').empty();
-                    $('#deductionButton').html(
-                        show_profileDeductionType_Button());
-                }, 1500)
-            });
+            let profile_id = $("#createDeduction_profile_id").val();
+            let deduction_type_id = $("#createDeduction_deduction_name").val();
+            let amount = $("#createDeduction_deduction_amount").val();
 
-            $("#ProfileDeductioneditModal").on('hide.bs.modal', function() {
-                $("div.spanner").addClass("show");
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-
-
-                }, 1500)
-            });
-
-            $("#invoice_status").on('hide.bs.modal', function() {
-                // window.location.reload();
-                $("div.spanner").addClass("show");
-
-                setTimeout(function() {
-                    $("div.spanner").removeClass("show");
-
-
-                    show_data();
-                }, 1500)
-            });
-
-            $("#button-addon2").on('click', function(e) {
-
-                var originalText = $('#button-addon2').html();
-                $('#button-addon2').html(
-                    `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
-                );
-                setTimeout(function() {
-                    $('#button-addon2').html(originalText);
-
-                    let toast1 = $('.toast1');
-                    let id = $('#user_id').val();
-                    axios
-                        .get(apiUrl + '/api/invoice/check_profile/' + id, {
-                            headers: {
-                                Authorization: token,
-                            },
-                        }).then(function(response) {
-                            let data = response.data;
-
-                            if (!data.success) {
-
-                                $('.whole_row').addClass('d-none');
-                                $('.toast1 .toast-title').html('Invoices');
-                                $('.toast1 .toast-body').html(data.message);
-                                toast1.toast('show');
-
-                            } else {
-                                let deduction_count = data.data.profile_deduction_types.length;
-                                console.log("profile_deduction_types", data);
-                                $("#profile_id").val(data.data.id);
-                                if (deduction_count > 0) {
-                                    data.data.profile_deduction_types.map((item) => {
-                                        let wrapper = $('#show_deduction_items');
-                                        add_rows = '';
-                                        add_rows += '<div class="row bottom20">';
-                                        add_rows += '<div class="col-8">';
-                                        add_rows += '<div class="form-group w-100">';
-                                        add_rows +=
-                                            '<label class="formGroupExampleInput2">Deduction Type</label>';
-
-                                        add_rows +=
-                                            '<select class="form-control profile_deduction_type" id="profile_deduction_type" name="profile_deduction_type">';
-                                        add_rows += '<option value=' + item.id +
-                                            '>' + item
-                                            .deduction_type
-                                            .deduction_name + '</option> ';
-                                        add_rows += '</select>';
-
-                                        add_rows += '</div>';
-                                        add_rows += '</div>';
-                                        add_rows += '<div class="col-4">';
-                                        add_rows += '<div class="form-group ">';
-                                        add_rows +=
-                                            '<label class="formGroupExampleInput2">Deduction Amount (Php)</label>';
-                                        add_rows +=
-                                            '<input type="text" value="' + PHP(item
-                                                .amount)
-                                            .format() +
-                                            '" style="text-align:right;" id="deduction_amount" name="deduction_amount" class="form-control multi2 deduction_amount" maxlength="6"/>';
-                                        add_rows += '</div>';
-                                        add_rows += '</div>';
-                                        add_rows += '</div>';
-
-                                        $(wrapper).append(add_rows);
-                                        return '';
-                                    })
-                                    $('.whole_row').removeClass('d-none');
-                                    $('#profile_id').val(data.data.id);
-
-                                }
-                            }
-
-                        }).catch(function(error) {
-                            console.log("error", error);
-                        });
-                }, 500);
-            });
-
-            $('#invoice_items').submit(function(e) {
-                e.preventDefault();
-
-                // CONDITION IF THERE IS BLANK ROW
-                $('#show_items .row1').each(function() {
-                    let parent = $(this).closest('.row1');
-                    let row_item = $(this).parent();
-                    let item_rate = $(this).find('.rate').val();
-                    let item_qty = $(this).find('.quantity').val();
-
-                    if (item_rate == "" && item_qty == "") {
-
-                        // console.log("row_item", parent);
-
-                        if ($('#show_items > .row').length === 1) {
-                            $('#show_items > .row').find('.col-remove-item')
-                                .removeClass(
-                                    'd-none')
-                                .addClass(
-                                    'd-none');
-                        } else {
-                            $(parent).remove();
-                        }
-                    }
-                    x--;
-                });
-
-                let profile_id = $('#profile_id').val();
-                // let invoice_no = $('#invoice_no').val();
-                // INVOICE TABLE
-                let due_date = $('#due_date').val();
-                let invoice_description = $('#invoice_description').val();
-                let invoice_subtotal = $('#subtotal').val().replaceAll(',', '');
-                let peso_rate = $('#peso_rate').val().replaceAll(',', '')
-                let invoice_converted_amount = $('#converted_amount').val().replaceAll(',', '');
-                let invoice_discount_type = $('#discount_type:checked').val();
-                let invoice_discount_amount = $('#discount_amount').val().replaceAll(',', '');
-                let invoice_discount_total = $('#discount_total').val().replaceAll(',', '');
-                let invoice_total_amount = $('#grand_total').val().replaceAll(',', '');
-                let invoice_notes = $('#notes').val();
-
-                // INVOICE ITEMS TABLE
-                let invoiceItem = [];
-                $('#show_items .row').each(function() {
-                    let item_description = $(this).find('.item_description').val() ? $(
-                            this)
-                        .find(
-                            '.item_description').val() : "";
-                    let item_rate = $(this).find('.rate').val().replaceAll(',', '') ? $(
-                            this)
-                        .find(
-                            '.rate').val().replaceAll(',', '') : 0;
-                    let item_qty = $(this).find('.quantity').val() ? $(this)
-                        .find('.quantity').val() : 0;
-                    let item_total_amount = $(this).find('.amount').val().replaceAll(
-                            ',', '') ?
-                        $(
-                            this).find('.amount')
-                        .val().replaceAll(',', '') : 0;
-
-                    invoiceItem.push({
-                        item_description,
-                        item_rate,
-                        item_qty,
-                        item_total_amount,
-                    })
-                });
-
-                // DEDUCTIONS TABLE
-                let Deductions = [];
-                $('#show_deduction_items .row').each(function() {
-                    let profile_deduction_type_id = $(this).find(
-                            '.profile_deduction_type')
-                        .val() ?
-                        $(this)
-                        .find(
-                            '.profile_deduction_type').val() : 0;
-                    let deduction_amount = $(this).find('.deduction_amount').val()
-                        .replaceAll(
-                            ',',
-                            '') ? $(this).find(
-                            '.deduction_amount').val().replaceAll(',', '') : 0;
-
-                    Deductions.push({
-                        profile_deduction_type_id,
-                        deduction_amount,
-                    })
-
-                });
-
-                let data = {
-                    profile_id: profile_id,
-                    // invoice_no: invoice_no,
-                    due_date: due_date,
-                    description: invoice_description,
-                    peso_rate: peso_rate ? peso_rate : 0,
-                    sub_total: invoice_subtotal ? invoice_subtotal : 0,
-                    converted_amount: invoice_converted_amount ? invoice_converted_amount : 0,
-                    discount_type: invoice_discount_type,
-                    discount_amount: invoice_discount_amount ? invoice_discount_amount : 0,
-                    discount_total: invoice_discount_total ? invoice_discount_total : 0,
-                    grand_total_amount: invoice_total_amount ? invoice_total_amount : 0,
-                    notes: invoice_notes,
-                    invoiceItem,
-                    Deductions,
-                }
-                console.log("DATA", data);
-
-                axios.post(apiUrl + "/api/createinvoice", data, {
+            let data = {
+                profile_id: profile_id,
+                deduction_type_id: deduction_type_id,
+                amount: amount,
+            };
+            axios
+                .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
                     headers: {
                         Authorization: token
                     },
                 }).then(function(response) {
                     let data = response.data;
-                    if (data.success) {
-                        console.log("SUCCES", data.success);
 
-                        $('#exampleModal').modal('hide');
-                        $("div.spanner").addClass("show");
+                    $('#modal-create-deduction').modal('hide');
+                    $("div.spanner").addClass("show");
 
-                        setTimeout(function() {
-                            $("div.spanner").removeClass("show");
+                    setTimeout(function() {
+                        $("div.spanner").removeClass("show");
 
 
-                            toast1.toast('show');
-                            $('.toast1 .toast-title').html('Create Invoices');
-                            $('.toast1 .toast-body').html(response.data.message);
+                        toast1.toast('show');
+                    }, 1500)
+                    $('.toast1 .toast-title').html('Profile Deduction');
+                    $('.toast1 .toast-body').html(data.message);
 
-                            $('#exampleModal input').val('');
-                            $('#show_deduction_items').empty();
-                            $('textarea').val('');
-                            $('#dataTable_deduction tbody').empty();
-                            $('#dataTable_deduction tbody').html(
-                                show_Profilededuction_Table_Active());
-                            $('input').removeClass('is-invalid');
-                            $('input, select').removeClass('is-invalid');
-                            $('.invalid-feedback').remove();
-                            due_date();
-                        }, 1500)
 
-                    }
-                }).catch(function(error) {
-                    console.log("error.response.data.errors", error.response.data.errors);
-                    if (error.response.data.errors) {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                        var errors = error.response.data.errors;
-                        var errorContainer = $('#error-container');
-                        errorContainer.empty();
-                        console.log("errors", errors)
 
-                        for (var key in errors) {
-                            var inputName = key.replace('_', ' ');
-                            inputName = inputName.charAt(0).toUpperCase() + inputName.slice(1);
-                            var errorMsg = errors[key][0];
-                            $('#' + key).addClass('is-invalid');
-                            $('#' + key).parent().append('<span class="invalid-feedback">' +
-                                errorMsg + '</span>');
-                        }
-                    } else {
-                        $('input').removeClass('is-invalid');
-                        $('input, select').removeClass('is-invalid');
-                        $('.invalid-feedback').remove();
-                    }
-                    // if (error.response.data.errors) {
-                    //   let errors = error.response.data.errors;
-                    //   console.log("errors", errors);
-                    //   let fieldnames = Object.keys(errors);
-
-                    //   Object.values(errors).map((item, index) => {
-                    //     fieldname = fieldnames[0].split('_');
-                    //     fieldname.map((item2, index2) => {
-                    //       fieldname['key'] = capitalize(item2);
-                    //       return ""
-                    //     });
-                    //     fieldname = fieldname.join(" ");
-
-                    //     $('.toast1 .toast-title').html(fieldname);
-                    //     $('.toast1 .toast-body').html(Object.values(errors)[
-                    //       0].join(
-                    //       "\n\r"));
-                    //   })
-                    //   toast1.toast('show');
-                    // }
-                });
-
-            });
-
-            function capitalize(s) {
-                if (typeof s !== 'string') return "";
-                return s.charAt(0).toUpperCase() + s.slice(1);
-            }
-
-            // CREATE DEDUCTION TYPE
-            $('#deductiontype_store').submit(function(e) {
-                e.preventDefault();
-
-                let profile_id = $("#createDeduction_profile_id").val();
-                let deduction_type_id = $("#createDeduction_deduction_name").val();
-                let amount = $("#createDeduction_deduction_amount").val();
-
-                let data = {
-                    profile_id: profile_id,
-                    deduction_type_id: deduction_type_id,
-                    amount: amount,
-                };
-                axios
-                    .post(apiUrl + '/api/saveProfileDeductionTypes', data, {
-                        headers: {
-                            Authorization: token
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-
-                        $('#modal-create-deduction').modal('hide');
-                        $("div.spanner").addClass("show");
-
-                        setTimeout(function() {
-                            $("div.spanner").removeClass("show");
-
-
-                            toast1.toast('show');
-                        }, 1500)
-                        $('.toast1 .toast-title').html('Profile Deduction');
-                        $('.toast1 .toast-body').html(data.message);
-
-
-
-                    }).catch(function(error) {
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('.toast1 .toast-title').html(fieldname);
-                                $('.toast1 .toast-body').html(Object.values(errors)[
-                                        0]
-                                    .join(
-                                        "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
-                    });
-            })
-
-
-            function show_profile_deductions_onSelect() {
-                let url = window.location.pathname;
-                let urlSplit = url.split('/');
-                if (urlSplit.length === 5) {
-                    let profile_id = urlSplit[4];
-                    $('#createDeduction_profile_id').val(profile_id);
-                    axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        console.log("show_deduction_data", data);
-                        if (data.success) {
-                            $('#select_deduction_name').empty();
-                            let option = '';
-                            option += '<label>Deduction Name:</label>';
-                            option +=
-                                '<select class="createDeduction_deduction_name form-select" id ="createDeduction_deduction_name">';
-                            option +=
-                                '<option selected disabled value = "" >Please Select Deductions</option>';
-
-                            if (data.data.length > 0) {
-                                data.data.filter(f => f.profile_deduction_types.length === 0)
-                                    .map((item) => {
-                                        option += "<option value=" + item.id + ">" +
-                                            item
-                                            .deduction_name + "</option>";
-                                    })
-                            }
-                            option += '</select>';
-                            $('#select_deduction_name').append(
-                                option);
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error.response.data);
-                    })
-                }
-            }
-
-            $('#submit-create-deduction').on('click', function(e) {
-                e.preventDefault();
-                show_profile_deductions_onSelect();
-                $('#createDeduction_deduction_amount').val('');
-            })
-
-            $(document).on('change', '#createDeduction_deduction_name', function() {
-                let deduction_id = $(this).val();
-                console.log("SELECT", deduction_id);
-                if (deduction_id) {
-                    axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        // console.log("SUCCESS", data);
-                        if (data.success) {
-                            {
-                                $('#createDeduction_deduction_amount').val(data.data
-                                    .deduction_amount);
-                            }
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                    })
-
-                }
-            })
-
-            $('#tbl_showing_deductionTypesPages').on('change', function() {
-                let pages = $(this).val();
-                pageSize = pages; // update page size variable
-                $('#dataTable_deduction tbody').html(
-                    `<tr>
-                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
-                );
-                // Call the pendingInvoices() function with updated filters
-                setTimeout(function() {
-                    show_Profilededuction_Table_Active({
-                        page_size: pages
-                    });
-                }, 500);
-            })
-
-
-            // RESERVE FOR DISPLAY STATUS ON DEDUCTION
-            function show_Profilededuction_Table_Active(filters) {
-                let url = window.location.pathname;
-                let urlSplit = url.split('/');
-                // console.log(urlSplit.length);
-                if (urlSplit.length === 5) {
-                    let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
-
-                    let filter = {
-                        page_size: pageSize,
-                        page: page ? page : 1,
-                        profile_id: urlSplit[4],
-                        search: $('#search_deduction').val(),
-                        ...filters
-                    }
-                    // console.log("filter", filter);
-
-                    $('#dataTable_deduction tbody').empty();
-                    axios.get(
-                            `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
-                                headers: {
-                                    Authorization: token,
-                                },
-                            })
-                        .then(function(response) {
-                            data = response.data;
-                            if (data.success) {
-                                console.log("SUCCESS ", data);
-                                if (data.data.data.length > 0) {
-                                    data.data.data.map((item) => {
-                                        let newdate = new Date(item.created_at);
-                                        var mm = newdate.getMonth() + 1;
-                                        var dd = newdate.getDate();
-                                        var yy = newdate.getFullYear();
-
-                                        let tr = '<tr style="vertical-align: middle;">';
-
-                                        tr += '<td hidden>' + item.invoice.id + '</td>';
-                                        tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
-                                        if (item.invoice.invoice_status == "Cancelled") {
-                                            tr +=
-                                                '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
-                                        } else if (item.invoice.invoice_status ==
-                                            "Paid") {
-
-                                            tr +=
-                                                '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
-                                        } else if (item.invoice.invoice_status ==
-                                            "Pending") {
-
-                                            tr +=
-                                                '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
-                                        } else {
-                                            tr +=
-                                                '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
-                                        }
-
-                                        tr += '<td class="fit text-end">' + item.deduction_type_name +
-                                            '</td>';
-                                        tr += '<td class="fit text-end">' + PHP(item
-                                                .amount)
-                                            .format() + '</td>';
-                                        tr += '<td class="fit" style="text-align:right;">' + moment.utc(
-                                            item
-                                            .created_at).tz(
-                                            'Asia/Manila').format(
-                                            'MM/DD/YYYY') + '</td>';
-
-                                        $("#dataTable_deduction tbody").append(tr);
-                                        return ''
-                                    })
-                                    $('#tbl_pagination_deduction').empty();
-                                    data.data.links.map(item => {
-                                        let label = item.label;
-                                        if (label === "&laquo; Previous") {
-                                            label = "&laquo;";
-                                        } else if (label === "Next &raquo;") {
-                                            label = "&raquo;";
-                                        }
-
-                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
-
-                                        $('#tbl_pagination_deduction').append(li);
-                                        return "";
-                                    });
-
-                                    if (data.data.links.length) {
-                                        let lastPage = data.data.links[data.data.links.length - 1];
-                                        if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
-                                            $('#tbl_pagination_deduction .page-item:last-child').addClass(
-                                                'disabled');
-                                        }
-                                        let PreviousPage = data.data.links[0];
-                                        if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
-                                            null) {
-                                            $('#tbl_pagination_deduction .page-item:first-child').addClass(
-                                                'disabled');
-                                        }
-                                    }
-                                    $("#tbl_pagination_deduction .page-item .page-link").on('click',
-                                        function() {
-                                            $("#tbl_pagination_deduction .page-item")
-                                                .removeClass(
-                                                    'active');
-                                            $(this).closest('.page-item').addClass('active');
-                                            let url = $(this).data('url')
-
-                                            var originalTextTable = $('#dataTable_deduction tbody').html();
-                                            // Add spinner to the remaining row and set colspan to 5
-                                            $('#dataTable_deduction tbody').html(
-                                                `<tr>
-                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
-                                            );
-
-                                            setTimeout(function() {
-
-                                                $.urlParam = function(name) {
-                                                    var results = new RegExp("[?&]" + name +
-                                                            "=([^&#]*)")
-                                                        .exec(
-                                                            url
-                                                        );
-                                                    return results !== null ? results[1] || 0 :
-                                                        0;
-                                                };
-
-                                                show_Profilededuction_Table_Active({
-                                                    search: $('#search_deduction').val(),
-                                                    page: $.urlParam('page')
-                                                })
-                                            }, 500);
-                                        })
-                                    let tbl_showing_deduction =
-                                        `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
-                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
-                                    $('#selectDeductionTypes').removeClass('d-none');
-                                    $('#dataTable_deduction').addClass('table-hover');
-                                } else {
-                                    $("#dataTable_deduction tbody").append(
-                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
-                                        width +
-                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
-                                    );
-                                    let tbl_showing_deduction =
-                                        `Showing 0 to 0 of 0 entries`;
-                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
-                                    $('#selectDeductionTypes').addClass('d-none');
-                                    $('#dataTable_deduction').removeClass('table-hover');
-                                }
-                            }
-                        })
-                        .catch(function(error) {
-                            console.log("catch error", error);
-                        });
-                }
-            }
-
-            function show_Profilededuction_Table_Active_Select(filters) {
-                let url = window.location.pathname;
-                let urlSplit = url.split('/');
-                // console.log(urlSplit.length);
-                if (urlSplit.length === 5) {
-                    let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
-
-                    let filter = {
-                        page_size: 30,
-                        page: page ? page : 1,
-                        profile_id: urlSplit[4],
-                        search: $('#deductionDropSearch').val() ? $('#deductionDropSearch').val() : '',
-                        ...filters
-                    }
-
-                    $('#dataTable_deduction tbody').empty();
-                    axios.get(
-                            `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
-                                headers: {
-                                    Authorization: token,
-                                },
-                            })
-                        .then(function(response) {
-                            data = response.data;
-                            if (data.success) {
-                                console.log("PROFILE DEDUCTION SUCCESS", data);
-                                if (data.data.data.length > 0) {
-                                    data.data.data.map((item) => {
-                                        let newdate = new Date(item.created_at);
-                                        var mm = newdate.getMonth() + 1;
-                                        var dd = newdate.getDate();
-                                        var yy = newdate.getFullYear();
-
-                                        let tr = '<tr style="vertical-align: middle;">';
-
-                                        tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
-                                        if (item.invoice.invoice_status == "Cancelled") {
-                                            tr +=
-                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
-                                        } else if (item.invoice.invoice_status ==
-                                            "Paid") {
-
-                                            tr +=
-                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
-                                        } else if (item.invoice.invoice_status ==
-                                            "Pending") {
-
-                                            tr +=
-                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
-                                        } else {
-                                            tr +=
-                                                '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
-                                        }
-
-                                        tr += '<td class="fit text-end">' + item.deduction_type_name +
-                                            '</td>';
-                                        tr += '<td class="fit text-end">' + PHP(item
-                                                .amount)
-                                            .format() + '</td>';
-                                        tr += '<td class="fit text-end">' + moment.utc(item.created_at)
-                                            .tz(
-                                                'Asia/Manila').format(
-                                                'MM/DD/YYYY') + '</td>';
-
-                                        tr += '</tr>';
-
-                                        $("#dataTable_deduction tbody").append(tr);
-                                        return ''
-                                    })
-                                    $('#tbl_pagination_deduction').empty();
-                                    data.data.links.map(item => {
-                                        let label = item.label;
-                                        if (label === "&laquo; Previous") {
-                                            label = "&laquo;";
-                                        } else if (label === "Next &raquo;") {
-                                            label = "&raquo;";
-                                        }
-
-                                        let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
-
-                                        $('#tbl_pagination_deduction').append(li);
-                                        return "";
-                                    });
-
-                                    if (data.data.links.length) {
-                                        let lastPage = data.data.links[data.data.links.length - 1];
-                                        if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
-                                            $('#tbl_pagination_deduction .page-item:last-child').addClass(
-                                                'disabled');
-                                        }
-                                        let PreviousPage = data.data.links[0];
-                                        if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
-                                            null) {
-                                            $('#tbl_pagination_deduction .page-item:first-child').addClass(
-                                                'disabled');
-                                        }
-                                    }
-                                    $("#tbl_pagination_deduction .page-item .page-link").on('click',
-                                        function() {
-                                            $("#tbl_pagination_deduction .page-item")
-                                                .removeClass(
-                                                    'active');
-                                            $(this).closest('.page-item').addClass('active');
-                                            let url = $(this).data('url')
-
-                                            var originalTextTable = $('#dataTable_deduction tbody').html();
-                                            // Add spinner to the remaining row and set colspan to 5
-                                            $('#dataTable_deduction tbody').html(
-                                                `<tr>
-                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
-                                            );
-
-                                            setTimeout(function() {
-                                                $.urlParam = function(name) {
-                                                    var results = new RegExp("[?&]" + name +
-                                                            "=([^&#]*)")
-                                                        .exec(
-                                                            url
-                                                        );
-                                                    return results !== null ? results[1] || 0 :
-                                                        0;
-                                                };
-                                                let search = $('#deductionDropSearch').val();
-                                                show_Profilededuction_Table_Active_Select({
-                                                    search: search,
-                                                    page: $.urlParam('page')
-                                                })
-                                            }, 500);
-                                        })
-                                    let tbl_showing_deduction =
-                                        `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
-                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
-                                } else {
-                                    $("#dataTable_deduction tbody").append(
-                                        '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
-                                        width +
-                                        'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
-                                    );
-                                    let tbl_showing_deduction =
-                                        `Showing 0 to 0 of 0 entries`;
-                                    $('#tbl_showing_deduction').html(tbl_showing_deduction);
-                                }
-                            }
-                        })
-                        .catch(function(error) {
-                            console.log("catch error", error);
-                        });
-                }
-            }
-
-            // SHOW DEDUCTIONS DATA IN TABLE
-            function show_profileDeductionType_Button() {
-                let url = window.location.pathname;
-                let urlSplit = url.split('/');
-
-                if (urlSplit.length === 5) {
-                    let profile_id = urlSplit[4];
-                    // console.log("profile_id", profile_id);
-                    $("#deductionButton").empty();
-                    axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {
-                            headers: {
-                                Authorization: token,
-                            },
-                        })
-                        .then(function(response) {
-                            let data = response.data;
-                            // console.log("show_profileDeductionType_Button", data);
-                            if (data.success) {
-                                if (data.data.profile_deduction_types.length > 0) {
-                                    data.data.profile_deduction_types.map((item) => {
-                                        let label = '<label>';
-                                        label +=
-                                            "<button type='button' data-bs-toggle='modal'  style='background-color:#CF8029;color:white;' data-bs-target='#ProfileDeductioneditModal' id='editProfileDeduction' class='editProfileDeduction btn btn-sm my-2 mx-2' value=" +
-                                            item.id + ">" + item.deduction_type_name +
-                                            "</button>";
-                                        // <button type='button' data-bs-toggle='modal' data-bs-target='#deleteModal' class='deleteProfileDeduction profile-close' aria-hidden='true'><span style='color:black;' value=" +
-                                        // item.id +
-                                        // ">&times;</span></button>";
-                                        label += '</label>';
-                                        $("#deductionButton")
-                                            .append(
-                                                label);
-                                        return '';
-                                    })
-                                }
-                            }
-                        })
-                        .catch(function(error) {
-                            console.log("catch error", error);
-                        });
-                }
-            }
-
-            // MODAL OF PROFILE DEDUCTION TYPE BUTTON
-            $('#ProfileDeductiontype_update').submit(function(e) {
-                e.preventDefault();
-                console.log("UPDATE");
-                let profileDeductionType_id = $('#profileDeductionType_id').val();
-                let profileDeductionType_name = $('#edit_profileDeductionType_name').val();
-                let profileDeductionType_amount = $('#edit_profileDeductionType_amount').val();
-
-                let data = {
-                    id: profileDeductionType_id,
-                    deduction_type_name: profileDeductionType_name,
-                    amount: parseFloat(profileDeductionType_amount).toFixed(2),
-                };
-                axios.post(apiUrl + '/api/editProfileDeductionTypes', data, {
-                    headers: {
-                        Authorization: token
-                    },
-                }).then(function(response) {
-                    let data = response.data;
-                    if (data.success) {
-
-                        // $('#profileDeductionType_id').val('');
-                        // $('#edit_profileDeductionType_amount').val('');
-
-                        $("div.spanner").addClass("show");
-                        setTimeout(function() {
-                            $("div.spanner").removeClass("show");
-
-
-                            $('.toast1 .toast-title').html('Deduction Types');
-                            $('.toast1 .toast-body').html(response.data.message);
-                            $('#deductionButton').empty();
-                            $('#deductionButton').html(
-                                show_profileDeductionType_Button());
-                            show_Profilededuction_Table_Active();
-                            toast1.toast('show');
-                        }, 1500)
-
-                    }
                 }).catch(function(error) {
                     if (error.response.data.errors) {
                         let errors = error.response.data.errors;
-                        console.log("error", errors);
                         let fieldnames = Object.keys(errors);
                         Object.values(errors).map((item, index) => {
                             fieldname = fieldnames[0].split('_');
@@ -4085,29 +3585,532 @@
                         })
                         toast1.toast('show');
                     }
+                });
+        })
+
+
+        function show_profile_deductions_onSelect() {
+            let url = window.location.pathname;
+            let urlSplit = url.split('/');
+            if (urlSplit.length === 5) {
+                let profile_id = urlSplit[4];
+                $('#createDeduction_profile_id').val(profile_id);
+                axios.get(apiUrl + '/api/settings/show_deduction_data/' + profile_id, {
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data;
+                    console.log("show_deduction_data", data);
+                    if (data.success) {
+                        $('#select_deduction_name').empty();
+                        let option = '';
+                        option += '<label>Deduction Name:</label>';
+                        option +=
+                            '<select class="createDeduction_deduction_name form-select" id ="createDeduction_deduction_name">';
+                        option +=
+                            '<option selected disabled value = "" >Please Select Deductions</option>';
+
+                        if (data.data.length > 0) {
+                            data.data.filter(f => f.profile_deduction_types.length === 0)
+                                .map((item) => {
+                                    option += "<option value=" + item.id + ">" +
+                                        item
+                                        .deduction_name + "</option>";
+                                })
+                        }
+                        option += '</select>';
+                        $('#select_deduction_name').append(
+                            option);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error.response.data);
+                })
+            }
+        }
+
+        $('#submit-create-deduction').on('click', function(e) {
+            e.preventDefault();
+            show_profile_deductions_onSelect();
+            $('#createDeduction_deduction_amount').val('');
+        })
+
+        $(document).on('change', '#createDeduction_deduction_name', function() {
+            let deduction_id = $(this).val();
+            console.log("SELECT", deduction_id);
+            if (deduction_id) {
+                axios.get(apiUrl + '/api/settings/get_deduction/' + deduction_id, {
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data;
+                    // console.log("SUCCESS", data);
+                    if (data.success) {
+                        {
+                            $('#createDeduction_deduction_amount').val(data.data
+                                .deduction_amount);
+                        }
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
                 })
 
+            }
+        })
+
+        $('#tbl_showing_deductionTypesPages').on('change', function() {
+            let pages = $(this).val();
+            pageSize = pages; // update page size variable
+            $('#dataTable_deduction tbody').html(
+                `<tr>
+                    <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+            );
+            // Call the pendingInvoices() function with updated filters
+            setTimeout(function() {
+                show_Profilededuction_Table_Active({
+                    page_size: pages
+                });
+            }, 500);
+        })
+
+
+        // RESERVE FOR DISPLAY STATUS ON DEDUCTION
+        function show_Profilededuction_Table_Active(filters) {
+            let url = window.location.pathname;
+            let urlSplit = url.split('/');
+            // console.log(urlSplit.length);
+            if (urlSplit.length === 5) {
+                let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
+
+                let filter = {
+                    page_size: pageSize,
+                    page: page ? page : 1,
+                    profile_id: urlSplit[4],
+                    search: $('#search_deduction').val(),
+                    ...filters
+                }
+                // console.log("filter", filter);
+
+                $('#dataTable_deduction tbody').empty();
+                axios.get(
+                        `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
+                            headers: {
+                                Authorization: token,
+                            },
+                        })
+                    .then(function(response) {
+                        data = response.data;
+                        if (data.success) {
+                            console.log("SUCCESS ", data);
+                            if (data.data.data.length > 0) {
+                                data.data.data.map((item) => {
+                                    let newdate = new Date(item.created_at);
+                                    var mm = newdate.getMonth() + 1;
+                                    var dd = newdate.getDate();
+                                    var yy = newdate.getFullYear();
+
+                                    let tr = '<tr style="vertical-align: middle;">';
+
+                                    tr += '<td hidden>' + item.invoice.id + '</td>';
+                                    tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
+                                    if (item.invoice.invoice_status == "Cancelled") {
+                                        tr +=
+                                            '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
+                                    } else if (item.invoice.invoice_status ==
+                                        "Paid") {
+
+                                        tr +=
+                                            '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
+                                    } else if (item.invoice.invoice_status ==
+                                        "Pending") {
+
+                                        tr +=
+                                            '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
+                                    } else {
+                                        tr +=
+                                            '<td style="text-align:right;"><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
+                                    }
+
+                                    tr += '<td class="fit text-end">' + item.deduction_type_name +
+                                        '</td>';
+                                    tr += '<td class="fit text-end">' + PHP(item
+                                            .amount)
+                                        .format() + '</td>';
+                                    tr += '<td class="fit" style="text-align:right;">' + moment.utc(
+                                        item
+                                        .created_at).tz(
+                                        'Asia/Manila').format(
+                                        'MM/DD/YYYY') + '</td>';
+
+                                    $("#dataTable_deduction tbody").append(tr);
+                                    return ''
+                                })
+                                $('#tbl_pagination_deduction').empty();
+                                data.data.links.map(item => {
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
+                                    let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                    $('#tbl_pagination_deduction').append(li);
+                                    return "";
+                                });
+
+                                if (data.data.links.length) {
+                                    let lastPage = data.data.links[data.data.links.length - 1];
+                                    if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                        $('#tbl_pagination_deduction .page-item:last-child').addClass(
+                                            'disabled');
+                                    }
+                                    let PreviousPage = data.data.links[0];
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
+                                        $('#tbl_pagination_deduction .page-item:first-child').addClass(
+                                            'disabled');
+                                    }
+                                }
+                                $("#tbl_pagination_deduction .page-item .page-link").on('click',
+                                    function() {
+                                        $("#tbl_pagination_deduction .page-item")
+                                            .removeClass(
+                                                'active');
+                                        $(this).closest('.page-item').addClass('active');
+                                        let url = $(this).data('url')
+
+                                        var originalTextTable = $('#dataTable_deduction tbody').html();
+                                        // Add spinner to the remaining row and set colspan to 5
+                                        $('#dataTable_deduction tbody').html(
+                                            `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                        );
+
+                                        setTimeout(function() {
+
+                                            $.urlParam = function(name) {
+                                                var results = new RegExp("[?&]" + name +
+                                                        "=([^&#]*)")
+                                                    .exec(
+                                                        url
+                                                    );
+                                                return results !== null ? results[1] || 0 :
+                                                    0;
+                                            };
+
+                                            show_Profilededuction_Table_Active({
+                                                search: $('#search_deduction').val(),
+                                                page: $.urlParam('page')
+                                            })
+                                        }, 500);
+                                    })
+                                let tbl_showing_deduction =
+                                    `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
+                                $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                $('#selectDeductionTypes').removeClass('d-none');
+                                $('#dataTable_deduction').addClass('table-hover');
+                            } else {
+                                $("#dataTable_deduction tbody").append(
+                                    '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                );
+                                let tbl_showing_deduction =
+                                    `Showing 0 to 0 of 0 entries`;
+                                $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                                $('#selectDeductionTypes').addClass('d-none');
+                                $('#dataTable_deduction').removeClass('table-hover');
+                            }
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log("catch error", error);
+                    });
+            }
+        }
+
+        function show_Profilededuction_Table_Active_Select(filters) {
+            let url = window.location.pathname;
+            let urlSplit = url.split('/');
+            // console.log(urlSplit.length);
+            if (urlSplit.length === 5) {
+                let page = $("#tbl_pagination_deduction .page-item.active .page-link").html();
+
+                let filter = {
+                    page_size: 30,
+                    page: page ? page : 1,
+                    profile_id: urlSplit[4],
+                    search: $('#deductionDropSearch').val() ? $('#deductionDropSearch').val() : '',
+                    ...filters
+                }
+
+                $('#dataTable_deduction tbody').empty();
+                axios.get(
+                        `${apiUrl}/api/admin/show_Profilededuction_Table_Active?${new URLSearchParams(filter)}`, {
+                            headers: {
+                                Authorization: token,
+                            },
+                        })
+                    .then(function(response) {
+                        data = response.data;
+                        if (data.success) {
+                            console.log("PROFILE DEDUCTION SUCCESS", data);
+                            if (data.data.data.length > 0) {
+                                data.data.data.map((item) => {
+                                    let newdate = new Date(item.created_at);
+                                    var mm = newdate.getMonth() + 1;
+                                    var dd = newdate.getDate();
+                                    var yy = newdate.getFullYear();
+
+                                    let tr = '<tr style="vertical-align: middle;">';
+
+                                    tr += '<td class="fit">' + item.invoice.invoice_no + '</td>';
+                                    if (item.invoice.invoice_status == "Cancelled") {
+                                        tr +=
+                                            '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-info btn-xs" > Cancelled </button></td >';
+                                    } else if (item.invoice.invoice_status ==
+                                        "Paid") {
+
+                                        tr +=
+                                            '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-success">Paid</button></td>';
+                                    } else if (item.invoice.invoice_status ==
+                                        "Pending") {
+
+                                        tr +=
+                                            '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-warning">Pending</button></td>';
+                                    } else {
+                                        tr +=
+                                            '<td><button style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" class="btn btn-danger">Overdue</button></td>';
+                                    }
+
+                                    tr += '<td class="fit text-end">' + item.deduction_type_name +
+                                        '</td>';
+                                    tr += '<td class="fit text-end">' + PHP(item
+                                            .amount)
+                                        .format() + '</td>';
+                                    tr += '<td class="fit text-end">' + moment.utc(item.created_at)
+                                        .tz(
+                                            'Asia/Manila').format(
+                                            'MM/DD/YYYY') + '</td>';
+
+                                    tr += '</tr>';
+
+                                    $("#dataTable_deduction tbody").append(tr);
+                                    return ''
+                                })
+                                $('#tbl_pagination_deduction').empty();
+                                data.data.links.map(item => {
+                                    let label = item.label;
+                                    if (label === "&laquo; Previous") {
+                                        label = "&laquo;";
+                                    } else if (label === "Next &raquo;") {
+                                        label = "&raquo;";
+                                    }
+
+                                    let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
+    <a class="page-link" data-url="${item.url}">${label}</a>
+  </li>`;
+
+                                    $('#tbl_pagination_deduction').append(li);
+                                    return "";
+                                });
+
+                                if (data.data.links.length) {
+                                    let lastPage = data.data.links[data.data.links.length - 1];
+                                    if (lastPage.label == 'Next &raquo;' && lastPage.url == null) {
+                                        $('#tbl_pagination_deduction .page-item:last-child').addClass(
+                                            'disabled');
+                                    }
+                                    let PreviousPage = data.data.links[0];
+                                    if (PreviousPage.label == '&laquo; Previous' && PreviousPage.url ==
+                                        null) {
+                                        $('#tbl_pagination_deduction .page-item:first-child').addClass(
+                                            'disabled');
+                                    }
+                                }
+                                $("#tbl_pagination_deduction .page-item .page-link").on('click',
+                                    function() {
+                                        $("#tbl_pagination_deduction .page-item")
+                                            .removeClass(
+                                                'active');
+                                        $(this).closest('.page-item').addClass('active');
+                                        let url = $(this).data('url')
+
+                                        var originalTextTable = $('#dataTable_deduction tbody').html();
+                                        // Add spinner to the remaining row and set colspan to 5
+                                        $('#dataTable_deduction tbody').html(
+                                            `<tr>
+                                            <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                                        );
+
+                                        setTimeout(function() {
+                                            $.urlParam = function(name) {
+                                                var results = new RegExp("[?&]" + name +
+                                                        "=([^&#]*)")
+                                                    .exec(
+                                                        url
+                                                    );
+                                                return results !== null ? results[1] || 0 :
+                                                    0;
+                                            };
+                                            let search = $('#deductionDropSearch').val();
+                                            show_Profilededuction_Table_Active_Select({
+                                                search: search,
+                                                page: $.urlParam('page')
+                                            })
+                                        }, 500);
+                                    })
+                                let tbl_showing_deduction =
+                                    `Showing ${data.data.from} to ${data.data.to} of ${data.data.total} entries`;
+                                $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                            } else {
+                                $("#dataTable_deduction tbody").append(
+                                    '<tr><td colspan="6" class="text-center pb-2"><div class="noData" style="width:' +
+                                    width +
+                                    'px;position:sticky;overflow:hidden;left: 0px;font-size:25px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div></td></tr>'
+                                );
+                                let tbl_showing_deduction =
+                                    `Showing 0 to 0 of 0 entries`;
+                                $('#tbl_showing_deduction').html(tbl_showing_deduction);
+                            }
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log("catch error", error);
+                    });
+            }
+        }
+
+        // SHOW DEDUCTIONS DATA IN TABLE
+        function show_profileDeductionType_Button() {
+            let url = window.location.pathname;
+            let urlSplit = url.split('/');
+
+            if (urlSplit.length === 5) {
+                let profile_id = urlSplit[4];
+                // console.log("profile_id", profile_id);
+                $("#deductionButton").empty();
+                axios.get(apiUrl + '/api/settings/show_profileDeductionType_Button/' + profile_id, {
+                        headers: {
+                            Authorization: token,
+                        },
+                    })
+                    .then(function(response) {
+                        let data = response.data;
+                        // console.log("show_profileDeductionType_Button", data);
+                        if (data.success) {
+                            if (data.data.profile_deduction_types.length > 0) {
+                                data.data.profile_deduction_types.map((item) => {
+                                    let label = '<label>';
+                                    label +=
+                                        "<button type='button' data-bs-toggle='modal'  style='background-color:#CF8029;color:white;' data-bs-target='#ProfileDeductioneditModal' id='editProfileDeduction' class='editProfileDeduction btn btn-sm my-2 mx-2' value=" +
+                                        item.id + ">" + item.deduction_type_name +
+                                        "</button>";
+                                    // <button type='button' data-bs-toggle='modal' data-bs-target='#deleteModal' class='deleteProfileDeduction profile-close' aria-hidden='true'><span style='color:black;' value=" +
+                                    // item.id +
+                                    // ">&times;</span></button>";
+                                    label += '</label>';
+                                    $("#deductionButton")
+                                        .append(
+                                            label);
+                                    return '';
+                                })
+                            }
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log("catch error", error);
+                    });
+            }
+        }
+
+        // MODAL OF PROFILE DEDUCTION TYPE BUTTON
+        $('#ProfileDeductiontype_update').submit(function(e) {
+            e.preventDefault();
+            console.log("UPDATE");
+            let profileDeductionType_id = $('#profileDeductionType_id').val();
+            let profileDeductionType_name = $('#edit_profileDeductionType_name').val();
+            let profileDeductionType_amount = $('#edit_profileDeductionType_amount').val();
+
+            let data = {
+                id: profileDeductionType_id,
+                deduction_type_name: profileDeductionType_name,
+                amount: parseFloat(profileDeductionType_amount).toFixed(2),
+            };
+            axios.post(apiUrl + '/api/editProfileDeductionTypes', data, {
+                headers: {
+                    Authorization: token
+                },
+            }).then(function(response) {
+                let data = response.data;
+                if (data.success) {
+
+                    // $('#profileDeductionType_id').val('');
+                    // $('#edit_profileDeductionType_amount').val('');
+
+                    $("div.spanner").addClass("show");
+                    setTimeout(function() {
+                        $("div.spanner").removeClass("show");
+
+
+                        $('.toast1 .toast-title').html('Deduction Types');
+                        $('.toast1 .toast-body').html(response.data.message);
+                        $('#deductionButton').empty();
+                        $('#deductionButton').html(
+                            show_profileDeductionType_Button());
+                        show_Profilededuction_Table_Active();
+                        toast1.toast('show');
+                    }, 1500)
+
+                }
+            }).catch(function(error) {
+                if (error.response.data.errors) {
+                    let errors = error.response.data.errors;
+                    console.log("error", errors);
+                    let fieldnames = Object.keys(errors);
+                    Object.values(errors).map((item, index) => {
+                        fieldname = fieldnames[0].split('_');
+                        fieldname.map((item2, index2) => {
+                            fieldname['key'] = capitalize(item2);
+                            return ""
+                        });
+                        fieldname = fieldname.join(" ");
+                        $('.toast1 .toast-title').html(fieldname);
+                        $('.toast1 .toast-body').html(Object.values(errors)[
+                                0]
+                            .join(
+                                "\n\r"));
+                    })
+                    toast1.toast('show');
+                }
             })
 
-            Tabs();
-            // TABS SELECTOR WONT CHANGE IF REFRESH
-            function Tabs() {
-                let url = window.location.pathname
-                let urlSplit = url.split('/');
-                if (urlSplit.length === 5) {
-                    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                        localStorage.setItem('activeTab', $(e.target).attr('href'));
-                    });
-                    var activeTab = localStorage.getItem('activeTab');
-                    if (activeTab) {
-                        $('#pills-tab a[href="' + activeTab + '"]').tab('show');
-                    }
+        })
+
+        Tabs();
+        // TABS SELECTOR WONT CHANGE IF REFRESH
+        function Tabs() {
+            let url = window.location.pathname
+            let urlSplit = url.split('/');
+            if (urlSplit.length === 5) {
+                $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+                    localStorage.setItem('activeTab', $(e.target).attr('href'));
+                });
+                var activeTab = localStorage.getItem('activeTab');
+                if (activeTab) {
+                    $('#pills-tab a[href="' + activeTab + '"]').tab('show');
                 }
             }
-            $(window).on('beforeunload', function() {
-                // Save a timestamp in localStorage to detect page refresh
-                localStorage.removeItem('activeTab');
-            });
+        }
+        $(window).on('beforeunload', function() {
+        // Save a timestamp in localStorage to detect page refresh
+        localStorage.removeItem('activeTab');
+        });
 
         });
     </script>
