@@ -2254,8 +2254,6 @@ class InvoiceController extends Controller
 
   public function userInvoiceReport_click(Request $request)
   {
-
-
     $rules = $request->validate([
       'fromDate' => 'required',
       'toDate' => 'required',
@@ -2293,11 +2291,13 @@ class InvoiceController extends Controller
       $q->select(DB::raw('SUM(amount) as total_deductions'), 'invoice_id')
         ->groupBy('invoice_id');
     }])
+      ->whereHas('deductions')
       ->whereHas('profile', function ($q) use ($userId) {
         $q->where('user_id', $userId);
       })
-      ->orderBy('id', 'Desc')
+      ->orderBy('id', 'desc')
       ->get();
+
 
 
     if ($data) {
@@ -2403,6 +2403,73 @@ class InvoiceController extends Controller
           'success' => true,
           'message' => 'Your Invoice has been updated successfully.',
         ], 200);
+      }
+    }
+  }
+
+  public function analytics_load(Request $request)
+  {
+
+    // $request->validate([
+    //   'fromDate' => 'required',
+    //   'toDate' => 'required',
+    // ]);
+
+    if (isset($request->fromDate) && isset($request->toDate)) {
+      try {
+        $startDate = Carbon::createFromFormat('Y/m/d', $request->fromDate)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y/m/d', $request->toDate)->endOfDay();
+
+        $data = User::join('profiles', 'users.id', '=', 'profiles.user_id')
+          ->with(['profile.invoice' => function ($query) use ($startDate, $endDate) {
+            $query->where('invoices.status', 'Active'); // Specify the table name "invoices" before the field name "status"
+            // $query->whereBetween('invoices.created_at', [$startDate, $endDate]); // filter by date range
+          }])
+          ->select([
+            'users.*',
+            DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
+            DB::raw("(SELECT SUM(converted_amount) FROM invoices WHERE invoices.status='Active' and invoices.profile_id = profiles.id AND invoices.created_at BETWEEN '$startDate' AND '$endDate') AS total_converted_amount")
+          ])
+          ->where('role', 'staff')
+          ->whereHas('profile', function ($query) {
+            $query->where('profile_status', 'Active');
+          })
+          ->orderBy('total_converted_amount', 'desc') // Sort the results by total_converted_amount in descending order
+          ->get();
+
+
+        return response()->json([
+          'success' => true,
+          'data' => $data,
+        ]);
+      } catch (Exception $e) {
+        return 'Error: ' . $e->getMessage();
+      }
+    } else {
+      try {
+        $data = User::join('profiles', 'users.id', '=', 'profiles.user_id')
+          ->with(['profile.invoice' => function ($query) {
+            $query->where('invoices.status', 'Active'); // Specify the table name "invoices" before the field name "status"
+          }])
+          ->select([
+            'users.*',
+            DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
+            DB::raw("(SELECT SUM(converted_amount) FROM invoices WHERE invoices.status='Active' and invoices.profile_id = profiles.id) AS total_converted_amount")
+          ])
+          ->where('role', 'staff')
+          ->whereHas('profile', function ($query) {
+            $query->where('profile_status', 'Active');
+          })
+          ->orderBy('total_converted_amount', 'desc') // Sort the results by total_converted_amount in descending order
+          ->get();
+
+
+        return response()->json([
+          'success' => true,
+          'data' => $data,
+        ]);
+      } catch (Exception $e) {
+        return 'Error: ' . $e->getMessage();
       }
     }
   }

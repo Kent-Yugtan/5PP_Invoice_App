@@ -86,6 +86,13 @@
 
         $(document).ready(function() {
 
+            $('div.spanner').addClass('show');
+            setTimeout(function() {
+                $('div.spanner').removeClass('show');
+                show_data_load()
+            }, 1500);
+
+
             var currentPage = window.location.href;
             $('#collapseLayouts3 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
@@ -349,52 +356,23 @@
 
             });
 
-            $(window).on('load', function() {
-                $('div.spanner').addClass('show');
-                setTimeout(function() {
-                    $('div.spanner').removeClass('show');
-                    show_data_load()
-                    from();
-                    to();
-                }, 1500);
-
-            })
-
-            function from() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#from");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        dateInput.val(dateText);
-                    }
+            $('#from').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
                 });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
-
-            function to() {
-                // START OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-                // Get the input field
-                var dateInput = $("#to");
-                // Set the datepicker options
-                dateInput.datepicker({
-                    dateFormat: "yy/mm/dd",
-                    onSelect: function(dateText, inst) {
-                        // Update the input value with the selected date
-                        dateInput.val(dateText);
-                    }
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
                 });
-                // Set the input value to the current system date in the specified format
-                // var currentDate = $.datepicker.formatDate("yy/mm/dd", new Date());
-                // dateInput.val(currentDate);
-                // END OF THIS CODE FORMAT DATE FROM dd/mm/yyyy to yyyy/mm/dd
-            }
+            });
+
+            $('#to').each(function() {
+                const datepicker = new Datepicker(this, {
+                    'format': 'yyyy/mm/dd',
+                });
+                $(this).on('changeDate', function() {
+                    datepicker.hide();
+                });
+            });
 
             let toast1 = $('.toast1');
             toast1.toast({

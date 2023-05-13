@@ -91,4 +91,9 @@ class DashboardController extends Controller
   {
     return view('private.user.Userdashboard');
   }
+
+  public function adminanalytics()
+  {
+    return view('private.analytics.analytics');
+  }
 }

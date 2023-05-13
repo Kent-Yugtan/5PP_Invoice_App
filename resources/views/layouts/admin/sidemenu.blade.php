@@ -25,6 +25,23 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link collapsed" onmouseover="colorIcon11()" onmouseout="removeColorIcon11()"
+                        id="adminanalytics" href="{{ url('admin/analytics') }}" data-bs-toggle="collapse"
+                        data-bs-target="#analytics" aria-expanded="false" aria-controls="analytics">
+                        <div class="sb-nav-link-icon">
+                            <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="labelText">Analytics </span>
+                    </a>
+
+                    <ul class="collapse d-none" id="analytics" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <li class="nav-item"><a class="nav-link" href="{{ url('admin/analytics') }}">Analytics</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link collapsed" id="profile" onmouseover="colorIcon2()"
                         onmouseout="removeColorIcon2()" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -62,7 +79,8 @@
                     </a>
                     <ul class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('invoice/addInvoice') }}">Add Invoice</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('invoice/addInvoice') }}">Add
+                                Invoice</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('invoice/current') }}">Current
                                 Invoices</a></li>
@@ -250,6 +268,14 @@
         $(".fa-chart-pie").css('color', '#909294');
     }
 
+    function colorIcon11() {
+        $(".fa-chart-bar").css('color', '#CF8029');
+    }
+
+    function removeColorIcon11() {
+        $(".fa-chart-bar").css('color', '#909294');
+    }
+
     function colorIcon2() {
         $(".fa-users").css('color', '#CF8029');
     }
@@ -302,7 +328,12 @@
         $("a#admindashboard").removeAttr(
             "data-bs-toggle data-bs-target"
         );
+
         $("a#settingsdeductiontype").removeAttr(
+            "data-bs-toggle data-bs-target"
+        );
+
+        $("a#adminanalytics").removeAttr(
             "data-bs-toggle data-bs-target"
         );
         var windowWidth = $(window).width();

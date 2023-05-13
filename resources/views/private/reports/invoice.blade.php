@@ -354,8 +354,6 @@
 
             });
 
-
-
             dataTable.buttons().container()
                 .appendTo($('.col-sm-12:eq(0)', dataTable.table().container()));
 
