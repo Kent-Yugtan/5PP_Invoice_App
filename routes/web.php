@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['isPrivateCheck'])->group(function () {
   // PRIVATE FOLDER ADMIN
   Route::get('admin/dashboard', [DashboardController::class, 'index']);
+  Route::get('admin/analytics', [DashboardController::class, 'adminanalytics']);
   Route::get('admin/profile', [ProfileController::class, 'index']);
   Route::get('admin/current', [ProfileController::class, 'current_show']);
   Route::get('admin/inactive', [ProfileController::class, 'inactive']);

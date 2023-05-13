@@ -27,31 +27,33 @@
         <div class="row">
             <div class="col-md-12 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
-                    <div class="card-body">
-                        <div class="table-responsive" style="padding:20px">
-                            <table id="deductionReports" width="100%" style="font-size: 14px;"
-                                class="display table table-hover">
-                                <thead>
-                                </thead>
-                                <tbody>
+                    <div id="tableContent">
+                        <div class="card-body">
+                            <div class="table-responsive" style="padding:20px">
+                                <table id="deductionReports" width="100%" style="font-size: 14px;"
+                                    class="display table table-hover">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                                <tfoot align="right">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tbody>
+                                    <tfoot align="right">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +88,7 @@
         });
 
         $(document).ready(function() {
+
             $('div.spanner').addClass('show');
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
@@ -524,7 +527,7 @@
                     if (data.success) {
                         let table = $('#deductionReports').DataTable();
                         table.clear().draw();
-                        if (data.data1.length > 0 && data.data.length > 0) {
+                        if (data.data1.length > 0 || data.data.length > 0) {
                             console.log("success", data);
                             data.data.map((item) => {
 
@@ -643,7 +646,7 @@
                         let table = $('#deductionReports').DataTable();
                         table.clear().draw();
                         console.log("success", data);
-                        if (data.data1.length > 0 && data.data.length > 0) {
+                        if (data.data1.length > 0 || data.data.length > 0) {
                             data.data.map((item) => {
                                 let total_deductions = 0;
                                 let discountType = item.discount_type ? item.discount_type : "N/A";

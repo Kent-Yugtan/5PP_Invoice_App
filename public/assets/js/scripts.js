@@ -34,6 +34,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 document.querySelector(".nav-link") || null;
             const ulDashboard = document.getElementById("dashboard") || null;
 
+            const ulAdminAnalytics =
+                document.querySelector(".nav-link") || null;
+            const ulAnalytics = document.getElementById("analytics") || null;
+
             const ulsettingsdeductiontype =
                 document.querySelector(".nav-link") || null;
             const ulDeductions = document.getElementById("deductions") || null;
@@ -41,6 +45,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
             const ulUserDashboard = document.querySelector(".nav-link") || null;
             const ulUDashboard =
                 document.getElementById("dashboarduser") || null;
+
+            const ulUserAnalytics = document.querySelector(".nav-link") || null;
+            const ulUAnalytics =
+                document.getElementById("analyticsuser") || null;
 
             const uluseruserdeductiontype =
                 document.querySelector(".nav-link") || null;
@@ -63,6 +71,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         ulAdminDashboard.classList.remove("collapsed");
                         ulDashboard.classList.remove("d-none");
                         $("a#admindashboard").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+
+                    if (ulAnalytics) {
+                        ulAdminAnalytics.classList.remove("collapsed");
+                        ulAnalytics.classList.remove("d-none");
+                        $("a#adminanalytics").removeAttr(
                             "data-bs-toggle data-bs-target"
                         );
                     }
@@ -91,12 +107,21 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         );
                     }
                 } else {
+                    console.log("OPEN");
                     if (ulDashboard) {
                         ulDashboard.classList.add("d-none");
                         $("a#admindashboard").removeAttr(
                             "data-bs-toggle data-bs-target"
                         );
                     }
+
+                    if (ulAnalytics) {
+                        ulAnalytics.classList.add("d-none");
+                        $("a#adminanalytics").removeAttr(
+                            "data-bs-toggle data-bs-target"
+                        );
+                    }
+
                     if (ulDeductions) {
                         ulDeductions.classList.add("d-none");
                         $("a#settingsdeductiontype").removeAttr(
