@@ -33,8 +33,8 @@
         <div class="row">
             <div class="col-md-12 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100">
-                    <div class="card-body">
-                        <div style="padding:20px" id="container1"></div>
+                    <div class="card-body" style="padding:20px !important">
+                        <div id="container1"></div>
                     </div>
                 </div>
             </div>
