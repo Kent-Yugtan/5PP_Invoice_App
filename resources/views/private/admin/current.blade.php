@@ -149,7 +149,7 @@
                     </div>
                     <div class="row ">
                         <div class="col bottom20">
-                            <span id="inactiveProfileId" hidden></span>
+                            <span id="inactiveProfileId"></span>
                             <span class="text-muted"> Do you really want to set this Profile to Deactivate?</span>
                         </div>
                     </div>
@@ -647,67 +647,7 @@
                 e.preventDefault();
                 let profile_id = $('#inactiveProfileId').html();
                 if (profile_id) {
-                    let data = {
-                        profile_id: profile_id
-                    }
-                    console.log("Single", data);
-                    axios.post(apiUrl + "/api/updateInactiveProfile", data, {
-                        headers: {
-                            Authorization: token
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#inactiveModal').modal('hide');
 
-                            $("div.spanner").addClass("show");
-                            $('#notifyIcon').html(
-                                '<i class="fa-solid fa-check" style="color:green"></i>');
-                            $('.toast1 .toast-title').html('Success');
-                            $('.toast1 .toast-body').html(data.message);
-
-                            var originalTextTable = $('#tbl_user tbody').html();
-                            // Add spinner to the remaining row and set colspan to 5
-                            $('#tbl_user tbody').html(
-                                `<tr>
-                              <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
-                            );
-
-                            setTimeout(function() {
-                                console.log('setTimeout function executed single');
-                                $("div.spanner").removeClass("show");
-                                active_profile_count();
-                                inactive_profile_count();;
-                                show_data();
-                                $('#button_inactive').addClass('d-none');
-                            }, 1500)
-                            toast1.toast('show');
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                        if (error.response.data.errors) {
-                            let errors = error.response.data.errors;
-                            let fieldnames = Object.keys(errors);
-                            Object.values(errors).map((item, index) => {
-                                fieldname = fieldnames[0].split('_');
-                                fieldname.map((item2, index2) => {
-                                    fieldname['key'] = capitalize(item2);
-                                    return ""
-                                });
-                                fieldname = fieldname.join(" ");
-                                $('#notifyIcon').html(
-                                    '<i class="fa-solid fa-x" style="color:#dc3545"></i>'
-                                );
-                                $('.toast1 .toast-title').html("Error");
-                                $('.toast1 .toast-body').html(Object.values(errors)[
-                                        0]
-                                    .join(
-                                        "\n\r"));
-                            })
-                            toast1.toast('show');
-                        }
-                    })
-                } else {
                     let data = {
                         multipleId: array_all
                     }
