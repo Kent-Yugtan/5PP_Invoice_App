@@ -12050,6 +12050,7 @@ padding:0;
 
     /* Style for the submenu */
     .sb-sidenav-toggled #dashboard,
+    .sb-sidenav-toggled #analytics,
     .sb-sidenav-toggled #deductions,
     .sb-sidenav-toggled #collapseLayouts,
     .sb-sidenav-toggled #collapseLayouts2,
