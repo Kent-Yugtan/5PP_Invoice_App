@@ -26,6 +26,8 @@
                 </li>
 
 
+
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" id="userprofile" onmouseover="colorIcon2()"
                         onmouseout="removeColorIcon2()" href="#" data-bs-toggle="collapse"
@@ -74,7 +76,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" id="userreport" onmouseover="colorIcon5()"
                         onmouseout="removeColorIcon5()" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
+                        data-bs-target="#collapseLayouts33" aria-expanded="false" aria-controls="collapseLayouts3">
                         <div class="sb-nav-link-icon">
                             <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-table"></i>
                         </div>
@@ -83,10 +85,28 @@
                             <i class="fas fa-angle-down"></i>
                         </div>
                     </a>
-                    <ul class="collapse" id="collapseLayouts3" aria-labelledby="headingOne"
+                    <ul class="collapse" id="collapseLayouts33" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <li><a class="nav-link" href="{{ url('userReports/deduction') }}">Deduction Reports</a></li>
                         <li><a class="nav-link" href="{{ url('userReports/invoice') }}">Invoice Reports</a></li>
+                    </ul>
+                </li>
+
+                {{-- ANALYTICS LINES --}}
+                <li class="nav-item">
+                    <a class="nav-link collapsed" onmouseover="colorIcon11()" onmouseout="removeColorIcon11()"
+                        id="useranalytics" href="{{ url('user/analytics') }}" data-bs-toggle="collapse"
+                        data-bs-target="#analytics" aria-expanded="false" aria-controls="analytics">
+                        <div class="sb-nav-link-icon">
+                            <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="labelText">Analytics </span>
+                    </a>
+
+                    <ul class="collapse d-none" id="analytics" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/analytics') }}">Analytics</a>
+                        </li>
                     </ul>
                 </li>
                 <hr>
@@ -95,6 +115,14 @@
     </nav>
 </div>
 <script>
+    function colorIcon11() {
+        $(".fa-chart-bar").css('color', '#CF8029');
+    }
+
+    function removeColorIcon11() {
+        $(".fa-chart-bar").css('color', '#909294');
+    }
+
     function colorIcon1() {
         $(".fa-chart-pie").css('color', '#CF8029');
     }
@@ -155,6 +183,9 @@
             "data-bs-toggle data-bs-target"
         );
         $("a#useruserdeductiontype").removeAttr(
+            "data-bs-toggle data-bs-target"
+        );
+        $("a#useranalytics").removeAttr(
             "data-bs-toggle data-bs-target"
         );
         var windowWidth = $(window).width();

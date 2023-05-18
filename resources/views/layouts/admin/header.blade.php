@@ -300,7 +300,7 @@
                                         <div class="row">
                                             <div class="col-md-6"
                                                 style="display:flex;justify-content:center;align-items:center">
-                                                <div class="profile-pic-div_superadminProfile-wrapper ">
+                                                <div class="profile-pic-div_superadminProfile-wrapper">
                                                     <div class="profile-pic-div_superadminProfile">
                                                         <img src="/images/default.png" id="admin_photo">
                                                         <!-- id="file" ORIGINAL ID -->
