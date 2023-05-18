@@ -840,46 +840,46 @@
                     let formData = new FormData();
                     formData.append('image', response);
 
-                    axios.post(apiUrl + "/api/imagePreview", formData, {
-                        headers: {
-                            Authorization: token,
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
-                        if (data.success) {
-                            $('#imageCrop').html(originalText);
-                            $('#previewModal').modal('hide');
-                            $('div.spanner').addClass('show');
-                            setTimeout(function() {
-                                $('div.spanner').removeClass('show');
-                                // $('#notifyIcon').html(
-                                //     '<i class="fa-solid fa-check" style="color:green"></i>'
-                                // );
-                                // $('.toast1 .toast-title').html('Success');
-                                // $('.toast1 .toast-body').html(data.message);
-                                $('#photo').attr('src',
-                                    '{{ asset('storage/images') }}/' + data
-                                    .image);
-                                // console.log("data.image", data);
-                                file_original_name = data.image;
-                                file_name = data.image;
-                                file_path = data.path;
-                                file_size = data.size;
-                                document.getElementById("upload_image").value = "";
-                                $('#imageRow').addClass('d-none')
-                                // toast1.toast('show');
-                            }, 1500)
-                        }
-                    }).catch(function(error) {
-                        console.log("ERROR", error);
-                        $('#imageCrop').html(originalText);
-                        $('#notifyIcon').html(
-                            '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
-                        $('.toast1 .toast-title').html('Success');
-                        $('.toast1 .toast-body').html("Something went wrong.");
-                        toast1.toast('show');
-                    });
+                    // axios.post(apiUrl + "/api/imagePreview", formData, {
+                    //     headers: {
+                    //         Authorization: token,
+                    //         "Content-Type": "multipart/form-data",
+                    //     },
+                    // }).then(function(response) {
+                    //     let data = response.data;
+                    //     if (data.success) {
+                    //         $('#imageCrop').html(originalText);
+                    //         $('#previewModal').modal('hide');
+                    //         $('div.spanner').addClass('show');
+                    //         setTimeout(function() {
+                    //             $('div.spanner').removeClass('show');
+                    //             // $('#notifyIcon').html(
+                    //             //     '<i class="fa-solid fa-check" style="color:green"></i>'
+                    //             // );
+                    //             // $('.toast1 .toast-title').html('Success');
+                    //             // $('.toast1 .toast-body').html(data.message);
+                    //             $('#photo').attr('src',
+                    //                 '{{ asset('storage/images') }}/' + data
+                    //                 .image);
+                    //             // console.log("data.image", data);
+                    //             file_original_name = data.image;
+                    //             file_name = data.image;
+                    //             file_path = data.path;
+                    //             file_size = data.size;
+                    //             document.getElementById("upload_image").value = "";
+                    //             $('#imageRow').addClass('d-none')
+                    //             // toast1.toast('show');
+                    //         }, 1500)
+                    //     }
+                    // }).catch(function(error) {
+                    //     console.log("ERROR", error);
+                    //     $('#imageCrop').html(originalText);
+                    //     $('#notifyIcon').html(
+                    //         '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
+                    //     $('.toast1 .toast-title').html('Success');
+                    //     $('.toast1 .toast-body').html("Something went wrong.");
+                    //     toast1.toast('show');
+                    // });
                 })
             });
             // END CODE FOR CROPING IMAGE

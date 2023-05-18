@@ -59,12 +59,12 @@
                                     disabled="true">
                             </div>
                             <!--
-                                            <div class="mb-3">
-                                                <label mb-2 style="color: #A4A6B3;">Password</label>
-                                                <input id="password" name="password" type="text"
-                                                    class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                                >
-                                            </div> -->
+                                                <div class="mb-3">
+                                                    <label mb-2 style="color: #A4A6B3;">Password</label>
+                                                    <input id="password" name="password" type="text"
+                                                        class="form-control @error('password') is-invalid @enderror" placeholder="Password"
+                                                    >
+                                                </div> -->
 
                             <div class="mb-3">
                                 <label mb-2 style="color: #A4A6B3;">Position</label>
@@ -758,10 +758,10 @@
                                         <label for="formGroupExampleInput">Status Name</label>
                                         <select class="form-select" id="select_invoice_status">
                                             <option value="" Selected disabled>Please choose status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Paid">Paid</option>
                                             <option value="Cancelled">Cancelled</option>
                                             <option value="Overdue">Overdue</option>
-                                            <option value="Paid">Paid</option>
-                                            <option value="Pending">Pending</option>
                                         </select>
                                     </div>
 

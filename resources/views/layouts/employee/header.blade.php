@@ -34,8 +34,13 @@
                             class="fa-solid fa-circle" style="color:#CF8029"></i></span>
             </div>
 
-            <span class="icons d-none" style="padding-right:20px">
+            {{-- <span class="icons d-none" style="padding-right:20px">
                 <i style="color:#A4A6B3;" class="fa-solid fa-grip-lines-vertical"></i>
+            </span> --}}
+
+            <span class="icons d-none" style="padding-right:20px;font-size:12px;color:#A4A6B3;">
+                {{-- <i style="color:#A4A6B3;" class="fa-solid fa-grip-lines-vertical"></i> --}}
+                |
             </span>
 
             <div class="icons mobileLayout d-none">
@@ -48,41 +53,85 @@
                         <img class="rounded-pill" style="border:1px solid #CF8029" role="button" aria-expanded="false"
                             src="/images/default.png"></button>
 
-                    <ul class="dropdown-menu dropdown-menu-end" style="margin-right:15px"
+                    <ul class="dropdown-menu dropdown-menu-end" id="userMenu"
+                        style="padding:5px;width: 230px;margin-right:14px;border-radius:1rem"
                         aria-labelledby="navbarDropdown">
-                        <li id="accountSetting">
-                            <label for="btn-2" class="first dropdown-item">
-                                <span>Account Setting</span>
-                                <span><i id="rotateArrow" style="transform: rotate(-90deg);"
-                                        class="fas fa-angle-down"></i></span>
-                            </label>
-                            <ul style="padding-left:1rem" id="change_Password">
-                                <li class="dropdown-item"><a style="cursor: pointer;" data-bs-toggle="modal"
-                                        data-bs-target="#changePassword">Change Password</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="nav-item">
-                            <hr class="dropdown-divider">
-                        </li>
+                        <div class="container" style="padding:10px">
+                            <div class="row">
+                                <div class="col-3 bottom10">
+                                    <img class="rounded-pill"
+                                        style="border:1px solid #CF8029;margin-left:7px;margin-top:4px" role="button"
+                                        aria-expanded="false" src="/images/default.png">
+                                </div>
+                                <div class="col-9 bottom10" style="padding-left:15px">
+                                    <p style="margin-bottom:0px">{{ session('data')->first_name }}
+                                        {{ session('data')->last_name }} </p>
+                                    <p style="margin-bottom:0px;color:#A4A6B3"> {{ session('data')->role }} </p>
+                                </div>
+                            </div>
 
-                        <li class="nav-item"><a class="dropdown-item webLayout d-none ">
-                                <span class="full_name"></span>
-                            </a>
-                        </li>
+                            <div class="row">
+                                <div class="col bottom10">
+                                    <li class="nav-item" style="margin:0 5px">
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                </div>
+                            </div>
 
-                        <li class="nav-item"><a class="dropdown-item">
-                                <span>
-                                    {{ session('data')->role }}
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="nav-item"><a style="cursor: pointer;" class="dropdown-item" id="logout">
-                                <span>{{ __('Logout') }}</span></a>
-                        </li>
+                            <div class="row">
+                                <div class="col-2 bottom10">
+                                    <i class="fa-solid fa-gear" style="padding-left:5px"></i>
+                                </div>
+                                <div class="col-10 bottom10">
+                                    <li id="accountSetting">
+                                        <p style="margin-bottom:0px;cursor: pointer;">
+                                            Account Settings
+                                            <i id="rotateArrow" style="transform: rotate(-90deg);margin-left:20px"
+                                                class="fas fa-angle-down"></i>
+                                        </p>
+                                    </li>
+                                    <ul style="padding-left:0" id="change_Password">
+                                        <p style="margin-bottom:0px;color:#A4A6B3"><a style="cursor: pointer;"
+                                                data-bs-toggle="modal" data-bs-target="#changePassword">Change
+                                                Password</a>
+                                        </p>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            {{-- ACCOUNT SETTING WITH DROPDOWN --}}
+                            {{-- <li id="accountSetting">
+                                <label for="btn-2" class="first dropdown-item">
+                                    <span>Account Setting</span>
+                                    <span><i id="rotateArrow" style="transform: rotate(-90deg)"
+                                            class="fas fa-angle-down"></i></span>
+                                </label>
+                                <ul style="padding-left:1rem" id="change_Password">
+                                    <li class="dropdown-item"><a style="cursor: pointer;" data-bs-toggle="modal"
+                                            data-bs-target="#changePassword">Change Password</a></li>
+                                </ul>
+                                </li> --}}
+
+                            <div class="row">
+                                <div class="col bottom10">
+                                    <li class="nav-item" style="margin:0 5px">
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2 bottom10">
+                                    <i class="fa-solid fa-arrow-right-from-bracket" style="padding-left:5px"></i>
+                                </div>
+                                <div class="col-10 bottom10">
+                                    <a style="cursor: pointer;" id="logout">
+                                        Logout</a>
+                                </div>
+                            </div>
+                        </div>
                     </ul>
                 </li>
             </ul>
@@ -344,6 +393,16 @@
 
         //     }
         // );
+
+        $('#navbarDropdown').on('click', function() {
+            const isVisible = window.getComputedStyle(userMenu).getPropertyValue("display") !== "none";
+            var rotateArrow = $('#rotateArrow');
+            if (isVisible) {
+                rotateArrow.css('transform', 'rotate(-90deg)');
+                console.log("The adminMenu is currently hidden.");
+            }
+        })
+
 
         $('#accountSetting').on('click', function(event) {
             event.stopPropagation();

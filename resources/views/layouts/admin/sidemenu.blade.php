@@ -24,7 +24,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                {{-- ANALYTICS LINES --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link collapsed" onmouseover="colorIcon11()" onmouseout="removeColorIcon11()"
                         id="adminanalytics" href="{{ url('admin/analytics') }}" data-bs-toggle="collapse"
                         data-bs-target="#analytics" aria-expanded="false" aria-controls="analytics">
@@ -39,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url('admin/analytics') }}">Analytics</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" id="profile" onmouseover="colorIcon2()"
@@ -84,8 +85,8 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('invoice/current') }}">Current
                                 Invoices</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('invoice/inactive') }}">Inactive
-                                Invoices</a></li>
+                        {{-- <li class="nav-item"><a class="nav-link" href="{{ url('invoice/inactive') }}">Inactive
+                                Invoices</a></li> --}}
                     </ul>
                 </li>
 

@@ -40,222 +40,227 @@ Route::post('public/delete_invoice/{id}', [InvoiceController::class, 'destroy'])
 
 Route::middleware(['auth:api'])->group(function () {
 
-  Route::resource('admin/dashboard', DashboardController::class);
-  Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
-  Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
-  Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
+    Route::resource('admin/dashboard', DashboardController::class);
+    Route::post('createinvoice', [InvoiceController::class, 'create_invoice']);
+    Route::post('createinvoice2', [InvoiceController::class, 'create_invoice2']);
+    Route::post('add_invoices', [InvoiceController::class, 'add_invoices']);
 
-  Route::post('updateInactiveProfile', [ProfileController::class, 'updateInactiveProfile']);
-  Route::post('updateActiveProfile', [ProfileController::class, 'updateActiveProfile']);
+    Route::post('updateInactiveProfile', [ProfileController::class, 'updateInactiveProfile']);
+    Route::post('updateActiveProfile', [ProfileController::class, 'updateActiveProfile']);
 
-  Route::post('updateInactiveInvoice', [InvoiceController::class, 'updateInactiveInvoice']);
-  Route::post('updateActiveInvoice', [InvoiceController::class, 'updateActiveInvoice']);
+    Route::post('updateInactiveInvoice', [InvoiceController::class, 'updateInactiveInvoice']);
+    Route::post('updateActiveInvoice', [InvoiceController::class, 'updateActiveInvoice']);
 
-  // FOR PROFILE TABLE
-  Route::resource('admin/profile', ProfileController::class);
-  Route::post('saveprofile', [ProfileController::class, 'store']);
-  Route::get('show_profile', [ProfileController::class, 'show_profile']);
+    // FOR PROFILE TABLE
+    Route::resource('admin/profile', ProfileController::class);
+    Route::post('saveprofile', [ProfileController::class, 'store']);
+    Route::get('show_profile', [ProfileController::class, 'show_profile']);
 
-  //  VALIDATION FOR PROFILE
-  Route::post('validateEmail', [ProfileController::class, 'validateEmail']);
-  Route::post('validateUsername', [ProfileController::class, 'validateUsername']);
-  Route::post('vallidateConfirmPassword', [ProfileController::class, 'vallidateConfirmPassword']);
-  Route::post('validateAcctno', [ProfileController::class, 'validateAcctno']);
-  Route::post('validateAcctname', [ProfileController::class, 'validateAcctname']);
-  Route::post('validateGcashno', [ProfileController::class, 'validateGcashno']);
+    //  VALIDATION FOR PROFILE
+    Route::post('validateEmail', [ProfileController::class, 'validateEmail']);
+    Route::post('validateUsername', [ProfileController::class, 'validateUsername']);
+    Route::post('vallidateConfirmPassword', [ProfileController::class, 'vallidateConfirmPassword']);
+    Route::post('validateAcctno', [ProfileController::class, 'validateAcctno']);
+    Route::post('validateAcctname', [ProfileController::class, 'validateAcctname']);
+    Route::post('validateGcashno', [ProfileController::class, 'validateGcashno']);
 
-  //  VALIDATION FOR EDIT PROFILE
-  Route::post('editValidateEmail', [ProfileController::class, 'editValidateEmail']);
-  Route::post('editValidateUsername', [ProfileController::class, 'editValidateUsername']);
-  Route::post('editValidateAcctno', [ProfileController::class, 'editValidateAcctno']);
-  Route::post('editValidateAcctname', [ProfileController::class, 'editValidateAcctname']);
-  Route::post('editValidateGCASHno', [ProfileController::class, 'editValidateGCASHno']);
+    //  VALIDATION FOR EDIT PROFILE
+    Route::post('editValidateEmail', [ProfileController::class, 'editValidateEmail']);
+    Route::post('editValidateUsername', [ProfileController::class, 'editValidateUsername']);
+    Route::post('editValidateFirstname', [ProfileController::class, 'editValidateFirstname']);
+    Route::post('editValidateLastname', [ProfileController::class, 'editValidateLastname']);
+    Route::post('editValidateAcctno', [ProfileController::class, 'editValidateAcctno']);
+    Route::post('editValidateAcctname', [ProfileController::class, 'editValidateAcctname']);
+    Route::post('editValidateGCASHno', [ProfileController::class, 'editValidateGCASHno']);
 
-  //  VALIDATION FOR DEDUCTION TYPE
-  Route::post('validateDeductionname', [DeductionTypeController::class, 'validateDeductionname']);
+    // UDPATE ADMIN DETAILS
+    Route::post('updateAdminDetails', [ProfileController::class, 'updateAdminDetails']);
 
-  //  VALIDATION FOR EDIT DEDUCTION TYPE
-  Route::post('editValidateDeductionname', [DeductionTypeController::class, 'editValidateDeductionname']);
+    //  VALIDATION FOR DEDUCTION TYPE
+    Route::post('validateDeductionname', [DeductionTypeController::class, 'validateDeductionname']);
 
-
-  //  VALIDATION FOR EMAIL CONFIG
-  Route::post('validateFullname', [EmailConfigController::class, 'validateFullname']);
-  Route::post('validateEmailConfig', [EmailConfigController::class, 'validateEmailConfig']);
-
-  //  VALIDATION FOR EDIT EMAIL CONFIG
-  Route::post('editValidateFullname', [EmailConfigController::class, 'editValidateFullname']);
-  Route::post('editValidateEmailConfig', [EmailConfigController::class, 'editValidateEmailConfig']);
-
-  //  VALIDATION FOR INVOICE CONFIG
-  Route::post('validateInvoiceEmail', [InvoiceConfigController::class, 'validateInvoiceEmail']);
-
-  //  VALIDATION FOR EDIT INVOICE CONFIG
-  Route::post('editValidateInvoiceEmail', [InvoiceConfigController::class, 'editValidateInvoiceEmail']);
-
-  //  VALIDATION FOR Profile Deduction Type INPUT
-  Route::post('validateProfileDeduction', [ProfileDeductionTypesController::class, 'validateProfileDeduction']);
-
-  //  VALIDATION FOR Create Deductions
-  Route::post('validateCreateDeduction', [DeductionController::class, 'validateCreateDeduction']);
-  Route::post('editValidateCreateDeduction', [DeductionController::class, 'editValidateCreateDeduction']);
-
-  //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
-  Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
-
-  //  VALIDATION FOR Profile Deduction Type SELECT
-  Route::post('validateSelectProfileDeduction', [ProfileDeductionTypesController::class, 'validateSelectProfileDeduction']);
+    //  VALIDATION FOR EDIT DEDUCTION TYPE
+    Route::post('editValidateDeductionname', [DeductionTypeController::class, 'editValidateDeductionname']);
 
 
-  // SHOW DEDUCTION TYPE IN PROFILE
-  Route::get('show_deduction_type', [ProfileController::class, 'show_deduction_types']);
-  Route::get('show_ProfileDeductionType', [ProfileController::class, 'show_ProfileDeductionType']);
+    //  VALIDATION FOR EMAIL CONFIG
+    Route::post('validateFullname', [EmailConfigController::class, 'validateFullname']);
+    Route::post('validateEmailConfig', [EmailConfigController::class, 'validateEmailConfig']);
 
-  // Route::post('admin/UpdateProfile', [ProfileController::class, 'store'])->name('profile.update');
-  Route::get('admin/show_data_active', [ProfileController::class, 'show_data_active']);
-  Route::get('admin/show_data_inactive', [ProfileController::class, 'show_data_inactive']);
-  Route::get('admin/activeProfile/{id}', [ProfileController::class, 'store']);
-  Route::get('admin/inactiveProfile/{id}', [ProfileController::class, 'store']);
-  Route::get('admin/show_edit/{id}', [ProfileController::class, 'show_edit']);
+    //  VALIDATION FOR EDIT EMAIL CONFIG
+    Route::post('editValidateFullname', [EmailConfigController::class, 'editValidateFullname']);
+    Route::post('editValidateEmailConfig', [EmailConfigController::class, 'editValidateEmailConfig']);
 
-  // POST DEDUCTION TYPES TABLE
-  Route::post('savedeductiontype', [DeductionTypeController::class, 'store']);
-  Route::get('settings/show_data', [DeductionTypeController::class, 'show_data']);
-  Route::get('settings/show_deduction_data', [DeductionTypeCosaveProfileDeductionTypesntroller::class, 'show_deduction_data']);
-  Route::get('settings/show_edit/{id}', [DeductionTypeController::class, 'show_edit']);
+    //  VALIDATION FOR INVOICE CONFIG
+    Route::post('validateInvoiceEmail', [InvoiceConfigController::class, 'validateInvoiceEmail']);
 
-  // POST EMAIL TYPE TABLE
-  Route::post('saveemailtype', [EmailConfigController::class, 'store']);
-  Route::get('settings/show_emaildata', [EmailConfigController::class, 'show_data']);
-  Route::get('settings/show_emailedit/{id}', [EmailConfigController::class, 'show_edit']);
+    //  VALIDATION FOR EDIT INVOICE CONFIG
+    Route::post('editValidateInvoiceEmail', [InvoiceConfigController::class, 'editValidateInvoiceEmail']);
 
-  //  GET INVOICES FUNCTIONS
-  Route::post('update_status_activeOrinactive', [InvoiceController::class, 'update_status_activeOrinactive']);
-  Route::post('update_status', [InvoiceController::class, 'update_status']);
-  Route::post('delete_invoice/{id}', [InvoiceController::class, 'destroy']);
-  Route::get('admin/current_invoice', [InvoiceController::class, 'current_invoice']);
-  Route::get('admin/inactive_invoice', [InvoiceController::class, 'inactive_invoice']);
-  Route::get('invoice/check_profile/{id}', [InvoiceController::class, 'check_profile']);
-  Route::get('invoice/generate_invoice_number', [InvoiceController::class, 'generate_invoice']);
-  Route::get('admin/show_invoice', [InvoiceController::class, 'show_invoice']); // SHOW ACTIVE INVOICES
-  Route::get('admin/show_statusInactiveinvoice', [InvoiceController::class, 'show_statusInactiveinvoice']); // SHOW INACTIVE INVOICES
-  Route::get('admin/search_statusActive_invoice', [InvoiceController::class, 'search_statusActive_invoice']);
-  Route::get('admin/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
-  Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
-  Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
-  Route::get('invoiceConfig', [InvoiceController::class, 'invoiceConfig']); // INVOICE CONFIGS DATA
-  Route::get('getInvoiceStatus/{id}', [InvoiceController::class, 'getInvoiceStatus']);
-  Route::get('admin/show_Profilededuction_Table_Active', [InvoiceController::class, 'show_Profilededuction_Table_Active']);
-  Route::get('active_paid_invoice_count', [InvoiceController::class, 'active_paid_invoice_count']);
-  Route::get('active_pending_invoice_count', [InvoiceController::class, 'active_pending_invoice_count']);
-  Route::get('active_overdue_invoice_count', [InvoiceController::class, 'active_overdue_invoice_count']);
-  Route::get('active_cancelled_invoice_count', [InvoiceController::class, 'active_cancelled_invoice_count']);
+    //  VALIDATION FOR Profile Deduction Type INPUT
+    Route::post('validateProfileDeduction', [ProfileDeductionTypesController::class, 'validateProfileDeduction']);
 
-  Route::get('active_profile_count', [InvoiceController::class, 'active_profile_count']);
-  Route::get('inactive_profile_count', [InvoiceController::class, 'inactive_profile_count']);
+    //  VALIDATION FOR Create Deductions
+    Route::post('validateCreateDeduction', [DeductionController::class, 'validateCreateDeduction']);
+    Route::post('editValidateCreateDeduction', [DeductionController::class, 'editValidateCreateDeduction']);
 
-  Route::get('admin/check_InactiveStatusInvoice', [InvoiceController::class, 'check_InactiveStatusInvoice']); // FOR INVOICE STATUS INACTIVE CHECK AND UPDATE
-  Route::get('admin/check_pendingInvoicesStatus', [InvoiceController::class, 'check_pendingInvoicesStatus']); // FOR INVOICE STATUS ACTIVE CHECK AND UPDATE
+    //  VALIDATION FOR EDIT PROFILE DEDUCTION TYPE
+    Route::post('editValidateProfileDeductionname', [ProfileDeductionTypesController::class, 'editValidateProfileDeductionname']);
 
-  Route::get('admin/check_ActivependingInvoices', [InvoiceController::class, 'check_ActivependingInvoices']); // FOR ACTIVE PROFILE STATUS
-  Route::get('admin/check_InactivependingInvoices', [InvoiceController::class, 'check_InactivependingInvoices']); // FOR INACTIVE PROFILE STATUS
-  Route::get('admin/check_InactivependingInvoicesStatus', [InvoiceController::class, 'check_InactivependingInvoicesStatus']); // FOR INACTIVE PROFILE INVOICE STATUS
-  Route::get('admin/check_ActivependingInvoicesStatus', [InvoiceController::class, 'check_ActivependingInvoicesStatus']); // FOR ACTIVE INVOICE STATUS
-  Route::get('admin/show_overdueInvoices', [InvoiceController::class, 'show_overdueInvoices']);
-  Route::get('admin/show_pendingInvoices', [InvoiceController::class, 'show_pendingInvoices']);
-  Route::get('get_quickInvoice_PDT/{id}', [InvoiceController::class, 'get_quickInvoice_PDT']);
-
-  Route::get('activeInvoiceCount', [InvoiceController::class, 'activeInvoiceCount']);
-  Route::get('inactiveInvoiceCount', [InvoiceController::class, 'inactiveInvoiceCount']);
+    //  VALIDATION FOR Profile Deduction Type SELECT
+    Route::post('validateSelectProfileDeduction', [ProfileDeductionTypesController::class, 'validateSelectProfileDeduction']);
 
 
-  // FOR EMAIL CONFIG TABLE
-  Route::get('get_name', [EmailConfigController::class, 'get_name']);
-  Route::get('emailconfigs/show_data', [EmailConfigController::class, 'show_data']);
-  Route::get('emailconfigs/show_edit/{id}', [EmailConfigController::class, 'show_edit']);
-  Route::post('emailconfigs_store', [EmailConfigController::class, 'emailconfig_store']);
-  Route::post('email_configDelete/{id}', [EmailConfigController::class, 'destroy']);
+    // SHOW DEDUCTION TYPE IN PROFILE
+    Route::get('show_deduction_type', [ProfileController::class, 'show_deduction_types']);
+    Route::get('show_ProfileDeductionType', [ProfileController::class, 'show_ProfileDeductionType']);
 
-  // POST DEDUCTION
-  Route::post('createDeduction', [DeductionController::class, 'store']);
+    // Route::post('admin/UpdateProfile', [ProfileController::class, 'store'])->name('profile.update');
+    Route::get('admin/show_data_active', [ProfileController::class, 'show_data_active']);
+    Route::get('admin/show_data_inactive', [ProfileController::class, 'show_data_inactive']);
+    Route::get('admin/activeProfile/{id}', [ProfileController::class, 'store']);
+    Route::get('admin/inactiveProfile/{id}', [ProfileController::class, 'store']);
+    Route::get('admin/show_edit/{id}', [ProfileController::class, 'show_edit']);
 
-  // POST PROFILE DEDUCTION TYPES TABLE
-  Route::post('saveProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
-  Route::post('editProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
-  Route::get('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
-  Route::get('settings/show_profileDeductionType_Button/{profile_id}', [ProfileDeductionTypesController::class, 'show_profileDeductionType_Button']);
-  Route::get('settings/show_deduction_data/{profile_id}', [ProfileDeductionTypesController::class, 'show_deduction_data']);
-  Route::get('settings/get_deduction/{id}', [ProfileDeductionTypesController::class, 'get_deduction']);
-  Route::post('deleteProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'destroy']);
+    // POST DEDUCTION TYPES TABLE
+    Route::post('savedeductiontype', [DeductionTypeController::class, 'store']);
+    Route::get('settings/show_data', [DeductionTypeController::class, 'show_data']);
+    Route::get('settings/show_deduction_data', [DeductionTypeCosaveProfileDeductionTypesntroller::class, 'show_deduction_data']);
+    Route::get('settings/show_edit/{id}', [DeductionTypeController::class, 'show_edit']);
 
-  // POST FOR DEDUCTION DELETE
-  Route::post('deleteDeduction/{id}', [DeductionController::class, 'destroy']);
+    // POST EMAIL TYPE TABLE
+    Route::post('saveemailtype', [EmailConfigController::class, 'store']);
+    Route::get('settings/show_emaildata', [EmailConfigController::class, 'show_data']);
+    Route::get('settings/show_emailedit/{id}', [EmailConfigController::class, 'show_edit']);
 
-  // POST FOR DEDUCTION TYPE
-  Route::post('deleteDeductionType/{id}', [DeductionTypeController::class, 'destroy']);
+    //  GET INVOICES FUNCTIONS
+    Route::post('update_status_activeOrinactive', [InvoiceController::class, 'update_status_activeOrinactive']);
+    Route::post('update_status', [InvoiceController::class, 'update_status']);
+    Route::post('delete_invoice/{id}', [InvoiceController::class, 'destroy']);
+    Route::get('admin/current_invoice', [InvoiceController::class, 'current_invoice']);
+    Route::get('admin/inactive_invoice', [InvoiceController::class, 'inactive_invoice']);
+    Route::get('invoice/check_profile/{id}', [InvoiceController::class, 'check_profile']);
+    Route::get('invoice/generate_invoice_number', [InvoiceController::class, 'generate_invoice']);
+    Route::get('admin/show_invoice', [InvoiceController::class, 'show_invoice']); // SHOW ACTIVE INVOICES
+    Route::get('admin/show_statusInactiveinvoice', [InvoiceController::class, 'show_statusInactiveinvoice']); // SHOW INACTIVE INVOICES
+    Route::get('admin/search_statusActive_invoice', [InvoiceController::class, 'search_statusActive_invoice']);
+    Route::get('admin/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
+    Route::get('admin/editInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
+    Route::get('admin/editInactiveInvoice/{id}', [InvoiceController::class, 'editInvoice']); // EDIT INVOICE VIEW
+    Route::get('invoiceConfig', [InvoiceController::class, 'invoiceConfig']); // INVOICE CONFIGS DATA
+    Route::get('getInvoiceStatus/{id}', [InvoiceController::class, 'getInvoiceStatus']);
+    Route::get('admin/show_Profilededuction_Table_Active', [InvoiceController::class, 'show_Profilededuction_Table_Active']);
+    Route::get('active_paid_invoice_count', [InvoiceController::class, 'active_paid_invoice_count']);
+    Route::get('active_pending_invoice_count', [InvoiceController::class, 'active_pending_invoice_count']);
+    Route::get('active_overdue_invoice_count', [InvoiceController::class, 'active_overdue_invoice_count']);
+    Route::get('active_cancelled_invoice_count', [InvoiceController::class, 'active_cancelled_invoice_count']);
 
-  // FOR INVOICE CONFIG TABLE
-  Route::post('saveInvoiceConfig', [InvoiceConfigController::class, 'store']);
-  Route::get('show_invoiceConfig_data', [InvoiceConfigController::class, 'show_invoiceConfig_data']);
-  Route::get('invoice_config/show_edit/{id}', [InvoiceConfigController::class, 'show_edit']);
-  Route::get('get_invoice_config', [InvoiceController::class, 'get_invoice_config']);
-  Route::post('invoiceConfig_delete/{id}', [InvoiceConfigController::class, 'destroy']);
+    Route::get('active_profile_count', [InvoiceController::class, 'active_profile_count']);
+    Route::get('inactive_profile_count', [InvoiceController::class, 'inactive_profile_count']);
+
+    Route::get('admin/check_InactiveStatusInvoice', [InvoiceController::class, 'check_InactiveStatusInvoice']); // FOR INVOICE STATUS INACTIVE CHECK AND UPDATE
+    Route::get('admin/check_pendingInvoicesStatus', [InvoiceController::class, 'check_pendingInvoicesStatus']); // FOR INVOICE STATUS ACTIVE CHECK AND UPDATE
+
+    Route::get('admin/check_ActivependingInvoices', [InvoiceController::class, 'check_ActivependingInvoices']); // FOR ACTIVE PROFILE STATUS
+    Route::get('admin/check_InactivependingInvoices', [InvoiceController::class, 'check_InactivependingInvoices']); // FOR INACTIVE PROFILE STATUS
+    Route::get('admin/check_InactivependingInvoicesStatus', [InvoiceController::class, 'check_InactivependingInvoicesStatus']); // FOR INACTIVE PROFILE INVOICE STATUS
+    Route::get('admin/check_ActivependingInvoicesStatus', [InvoiceController::class, 'check_ActivependingInvoicesStatus']); // FOR ACTIVE INVOICE STATUS
+    Route::get('admin/show_overdueInvoices', [InvoiceController::class, 'show_overdueInvoices']);
+    Route::get('admin/show_pendingInvoices', [InvoiceController::class, 'show_pendingInvoices']);
+    Route::get('get_quickInvoice_PDT/{id}', [InvoiceController::class, 'get_quickInvoice_PDT']);
+
+    Route::get('activeInvoiceCount', [InvoiceController::class, 'activeInvoiceCount']);
+    Route::get('inactiveInvoiceCount', [InvoiceController::class, 'inactiveInvoiceCount']);
 
 
-  // CHART ANALITYCS
-  Route::get('reports/analytics_load', [InvoiceController::class, 'analytics_load']);
+    // FOR EMAIL CONFIG TABLE
+    Route::get('get_name', [EmailConfigController::class, 'get_name']);
+    Route::get('emailconfigs/show_data', [EmailConfigController::class, 'show_data']);
+    Route::get('emailconfigs/show_edit/{id}', [EmailConfigController::class, 'show_edit']);
+    Route::post('emailconfigs_store', [EmailConfigController::class, 'emailconfig_store']);
+    Route::post('email_configDelete/{id}', [EmailConfigController::class, 'destroy']);
 
-  // FOR ADMIN REPORT
-  Route::get('reports/invoiceReport_load', [InvoiceController::class, 'invoiceReport_load']);
-  Route::get('reports/invoiceReport_click', [InvoiceController::class, 'invoiceReport_click']);
-  Route::get('reports/deductionReport_load', [InvoiceController::class, 'deductionReport_load']);
-  Route::get('reports/deductionReport_click', [InvoiceController::class, 'deductionReport_click']);
-  Route::get('reports/deductionDetails/{id}/{type}', [InvoiceController::class, 'deductionDetails']);
+    // POST DEDUCTION
+    Route::post('createDeduction', [DeductionController::class, 'store']);
 
-  // THIS LINE IS FOR USER
-  // FOR DASHBOARD PAGE
-  Route::get('show_userProfile', [ProfileController::class, 'show_userProfile']);
-  Route::get('get_quickInvoiceUser_PDT/{id}', [InvoiceController::class, 'get_quickInvoiceUser_PDT']);
-  Route::get('user/check_userActivependingInvoices', [InvoiceController::class, 'check_userActivependingInvoices']); // FOR ACTIVE USER PROFILE STATUS
-  Route::get('user/show_userpendingInvoices', [InvoiceController::class, 'show_userpendingInvoices']);
-  Route::get('user/show_useroverdueInvoices', [InvoiceController::class, 'show_useroverdueInvoices']);
-  Route::get('active_user_paid_invoice_count', [InvoiceController::class, 'active_user_paid_invoice_count']);
-  Route::get('active_user_pending_invoice_count', [InvoiceController::class, 'active_user_pending_invoice_count']);
-  Route::get('active_user_overdue_invoice_count', [InvoiceController::class, 'active_user_overdue_invoice_count']);
-  Route::get('active_user_cancelled_invoice_count', [InvoiceController::class, 'active_user_cancelled_invoice_count']);
+    // POST PROFILE DEDUCTION TYPES TABLE
+    Route::post('saveProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
+    Route::post('editProfileDeductionTypes', [ProfileDeductionTypesController::class, 'store']);
+    Route::get('showProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'show']);
+    Route::get('settings/show_profileDeductionType_Button/{profile_id}', [ProfileDeductionTypesController::class, 'show_profileDeductionType_Button']);
+    Route::get('settings/show_deduction_data/{profile_id}', [ProfileDeductionTypesController::class, 'show_deduction_data']);
+    Route::get('settings/get_deduction/{id}', [ProfileDeductionTypesController::class, 'get_deduction']);
+    Route::post('deleteProfileDeductionTypes/{id}', [ProfileDeductionTypesController::class, 'destroy']);
 
-  //   FOR PROFILE
-  Route::get('getUserInvoiceStatus/{id}', [InvoiceController::class, 'getUserInvoiceStatus']);
-  Route::get('user/show_userInvoice', [InvoiceController::class, 'show_userInvoice']); // SHOW ACTIVE USER INVOICES
-  Route::get('user/show_userEdit', [ProfileController::class, 'show_userEdit']);
-  Route::post('user/updateProfile', [ProfileController::class, 'updateProfile']);
-  Route::get('invoice/check_userProfile', [InvoiceController::class, 'check_userProfile']);
+    // POST FOR DEDUCTION DELETE
+    Route::post('deleteDeduction/{id}', [DeductionController::class, 'destroy']);
 
-  Route::get('userActiveInvoiceCount', [InvoiceController::class, 'userActiveInvoiceCount']);
-  Route::get('userInactiveInvoiceCount', [InvoiceController::class, 'userInactiveInvoiceCount']);
+    // POST FOR DEDUCTION TYPE
+    Route::post('deleteDeductionType/{id}', [DeductionTypeController::class, 'destroy']);
 
-  // EDIT INVOICE
-  Route::get('user/userEditInvoice/{id}', [InvoiceController::class, 'userEditInvoice']); // EDIT INVOICE VIEW
+    // FOR INVOICE CONFIG TABLE
+    Route::post('saveInvoiceConfig', [InvoiceConfigController::class, 'store']);
+    Route::get('show_invoiceConfig_data', [InvoiceConfigController::class, 'show_invoiceConfig_data']);
+    Route::get('invoice_config/show_edit/{id}', [InvoiceConfigController::class, 'show_edit']);
+    Route::get('get_invoice_config', [InvoiceController::class, 'get_invoice_config']);
+    Route::post('invoiceConfig_delete/{id}', [InvoiceConfigController::class, 'destroy']);
 
-  // FOR INVOICE
-  Route::get('user/search_userstatusActive_invoice', [InvoiceController::class, 'search_userstatusActive_invoice']);
-  Route::get('user/search_userstatusInactive_invoice', [InvoiceController::class, 'search_userstatusInactive_invoice']);
-  Route::get('user/show_userstatusInactiveinvoice', [InvoiceController::class, 'show_userstatusInactiveinvoice']); // SHOW INACTIVE INVOICES
-  Route::get('user/check_userInactiveStatusInvoice', [InvoiceController::class, 'check_userInactiveStatusInvoice']); // FOR INVOICE STATUS INACTIVE CHECK AND UPDATE
-  Route::get('user/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
 
-  // FOR USER REPORT
-  Route::get('userReports/userInvoiceReport_load', [InvoiceController::class, 'userInvoiceReport_load']);
-  Route::get('userReports/userInvoiceReport_click', [InvoiceController::class, 'userInvoiceReport_click']);
-  Route::get('userReports/userDeductionReport_load', [InvoiceController::class, 'userDeductionReport_load']);
-  Route::get('userReports/userDeductionReport_click', [InvoiceController::class, 'userDeductionReport_click']);
-  Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
+    // CHART ANALITYCS
+    Route::get('reports/analytics_load', [InvoiceController::class, 'analytics_load']);
 
-  Route::get('user_data', [ProfileController::class, 'user_data']);
+    // FOR ADMIN REPORT
+    Route::get('reports/invoiceReport_load', [InvoiceController::class, 'invoiceReport_load']);
+    Route::get('reports/invoiceReport_click', [InvoiceController::class, 'invoiceReport_click']);
+    Route::get('reports/deductionReport_load', [InvoiceController::class, 'deductionReport_load']);
+    Route::get('reports/deductionReport_click', [InvoiceController::class, 'deductionReport_click']);
+    Route::get('reports/deductionDetails/{id}/{type}', [InvoiceController::class, 'deductionDetails']);
 
-  Route::post('imagePreview', [ProfileController::class, 'imagePreview']);
+    // THIS LINE IS FOR USER
+    // FOR DASHBOARD PAGE
+    Route::get('show_userProfile', [ProfileController::class, 'show_userProfile']);
+    Route::get('get_quickInvoiceUser_PDT/{id}', [InvoiceController::class, 'get_quickInvoiceUser_PDT']);
+    Route::get('user/check_userActivependingInvoices', [InvoiceController::class, 'check_userActivependingInvoices']); // FOR ACTIVE USER PROFILE STATUS
+    Route::get('user/show_userpendingInvoices', [InvoiceController::class, 'show_userpendingInvoices']);
+    Route::get('user/show_useroverdueInvoices', [InvoiceController::class, 'show_useroverdueInvoices']);
+    Route::get('active_user_paid_invoice_count', [InvoiceController::class, 'active_user_paid_invoice_count']);
+    Route::get('active_user_pending_invoice_count', [InvoiceController::class, 'active_user_pending_invoice_count']);
+    Route::get('active_user_overdue_invoice_count', [InvoiceController::class, 'active_user_overdue_invoice_count']);
+    Route::get('active_user_cancelled_invoice_count', [InvoiceController::class, 'active_user_cancelled_invoice_count']);
 
-  Route::post('admin/validateCurrentPassword', [ProfileController::class, 'validateCurrentPassword']);
-  Route::post('admin/changePassword', [ProfileController::class, 'changePassword']);
+    //   FOR PROFILE
+    Route::get('getUserInvoiceStatus/{id}', [InvoiceController::class, 'getUserInvoiceStatus']);
+    Route::get('user/show_userInvoice', [InvoiceController::class, 'show_userInvoice']); // SHOW ACTIVE USER INVOICES
+    Route::get('user/show_userEdit', [ProfileController::class, 'show_userEdit']);
+    Route::post('user/updateProfile', [ProfileController::class, 'updateProfile']);
+    Route::get('invoice/check_userProfile', [InvoiceController::class, 'check_userProfile']);
+
+    Route::get('userActiveInvoiceCount', [InvoiceController::class, 'userActiveInvoiceCount']);
+    Route::get('userInactiveInvoiceCount', [InvoiceController::class, 'userInactiveInvoiceCount']);
+
+    // EDIT INVOICE
+    Route::get('user/userEditInvoice/{id}', [InvoiceController::class, 'userEditInvoice']); // EDIT INVOICE VIEW
+
+    // FOR INVOICE
+    Route::get('user/search_userstatusActive_invoice', [InvoiceController::class, 'search_userstatusActive_invoice']);
+    Route::get('user/search_userstatusInactive_invoice', [InvoiceController::class, 'search_userstatusInactive_invoice']);
+    Route::get('user/show_userstatusInactiveinvoice', [InvoiceController::class, 'show_userstatusInactiveinvoice']); // SHOW INACTIVE INVOICES
+    Route::get('user/check_userInactiveStatusInvoice', [InvoiceController::class, 'check_userInactiveStatusInvoice']); // FOR INVOICE STATUS INACTIVE CHECK AND UPDATE
+    Route::get('user/search_statusInactive_invoice', [InvoiceController::class, 'search_statusInactive_invoice']);
+
+    // FOR USER REPORT
+    Route::get('userReports/userInvoiceReport_load', [InvoiceController::class, 'userInvoiceReport_load']);
+    Route::get('userReports/userInvoiceReport_click', [InvoiceController::class, 'userInvoiceReport_click']);
+    Route::get('userReports/userDeductionReport_load', [InvoiceController::class, 'userDeductionReport_load']);
+    Route::get('userReports/userDeductionReport_click', [InvoiceController::class, 'userDeductionReport_click']);
+    Route::get('userReports/userDeductionDetails/{id}', [InvoiceController::class, 'userDeductionDetails']);
+
+    Route::get('user_data', [ProfileController::class, 'user_data']);
+
+    Route::post('imagePreview', [ProfileController::class, 'imagePreview']);
+
+    Route::post('admin/validateCurrentPassword', [ProfileController::class, 'validateCurrentPassword']);
+    Route::post('admin/changePassword', [ProfileController::class, 'changePassword']);
 });
 
 // // TESTING EMAIL 

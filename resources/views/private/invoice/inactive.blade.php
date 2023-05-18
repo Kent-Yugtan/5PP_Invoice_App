@@ -55,9 +55,9 @@
                 <div class="form-check-inline w-100">
                     <select class="form-select form-check-inline" id="filter_invoices">
                         <option value="All">All</option>
-                        <option value="Cancelled">Cancelled</option>
-                        <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Cancelled">Cancelled</option>
                         <option value="Overdue">Overdue</option>
                     </select>
                 </div>
@@ -165,10 +165,10 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>

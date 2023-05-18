@@ -65,8 +65,9 @@
                         </li>
                         <li><a class="nav-link" href="{{ url('user/currentActiveInvoice') }}">Current
                                 Invoices</a></li>
-                        <li><a class="nav-link" href="{{ url('user/currentInactiveInvoice') }}">Inactive Invoices</a>
-                        </li>
+
+                        {{-- <li><a class="nav-link" href="{{ url('user/currentInactiveInvoice') }}">Inactive Invoices</a>
+                        </li> --}}
                     </ul>
                 </li>
 

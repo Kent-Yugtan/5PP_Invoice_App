@@ -47,7 +47,6 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -136,7 +135,7 @@
                             return intVal(a) + intVal(b);
                         }, 0);
 
-                    var grossAmount = api
+                    var grand_total = api
                         .column(8, {
                             page: 'current'
                         })
@@ -145,20 +144,38 @@
                             return intVal(a) + intVal(b);
                         }, 0);
 
-                    var netAmount = api
-                        .column(9, {
-                            page: 'current'
-                        })
-                        .data()
-                        .reduce(function(a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0);
+                    // var netAmount = api
+                    //     .column(9, {
+                    //         page: 'current'
+                    //     })
+                    //     .data()
+                    //     .reduce(function(a, b) {
+                    //         return intVal(a) + intVal(b);
+                    //     }, 0);
                     // Update the footer with the calculated values
                     $(api.column(1).footer()).html('Total');
-                    $(api.column(6).footer()).html(PHP(discountAmount).format());
-                    $(api.column(7).footer()).html(PHP(deductionAmount).format());
-                    $(api.column(8).footer()).html(PHP(grossAmount).format());
-                    $(api.column(9).footer()).html(PHP(netAmount).format());
+                    $(api.column(6).footer()).html(Number(
+                            parseFloat(discountAmount).toFixed(2))
+                        .toLocaleString(
+                            'en-US', {
+                                style: 'currency',
+                                currency: 'PHP'
+                            }));
+                    $(api.column(7).footer()).html(Number(
+                            parseFloat(deductionAmount).toFixed(2))
+                        .toLocaleString(
+                            'en-US', {
+                                style: 'currency',
+                                currency: 'PHP'
+                            }));
+                    $(api.column(8).footer()).html(Number(
+                            parseFloat(grand_total).toFixed(2))
+                        .toLocaleString(
+                            'en-US', {
+                                style: 'currency',
+                                currency: 'USD'
+                            }));
+                    // $(api.column(9).footer()).html(PHP(netAmount).format());
 
                 },
                 // dom: 'Bfrtip',
@@ -181,7 +198,7 @@
                                 page: 'current',
                                 search: 'applied'
                             },
-                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
+                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10]
                         },
                         footer: true,
                     },
@@ -197,7 +214,7 @@
                                 page: 'current',
                                 search: 'applied'
                             },
-                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
+                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10]
                         },
                         footer: true,
                         customize: function(xlsx) {
@@ -235,14 +252,14 @@
                                 page: 'current',
                                 search: 'applied'
                             },
-                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
+                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10]
                         }, // export only current page
                         customize: function(doc) {
                             //   var col1 = '';
                             doc.content[1].table.body.forEach(function(row, rowIndex) {
                                 if (rowIndex > 0) { // Exclude first row
                                     row.forEach(function(cell, cellIndex) {
-                                        if (cellIndex >= 5 && cellIndex <=
+                                        if (cellIndex >= 1 && cellIndex <=
                                             8) { // Columns 5, 6, 7, 8
                                             cell.alignment = 'right';
                                         }
@@ -265,7 +282,7 @@
                                 page: 'current',
                                 search: 'applied'
                             },
-                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
+                            columns: [1, 2, 3, 5, 6, 7, 8, 9, 10]
                         }, // export only current page
                         autoPrint: false, // disable print dialog
                         customize: function(doc) {
@@ -318,11 +335,7 @@
                         "className": "fit"
                     },
                     {
-                        "title": "Gross Amount",
-                        "className": "fit"
-                    },
-                    {
-                        "title": "Net Amount",
+                        "title": "Grand Total",
                         "className": "fit"
                     },
                     {
@@ -343,11 +356,11 @@
                         searchable: false,
                     },
                     {
-                        targets: [6, 7, 8, 9],
+                        targets: [6, 7, 8, 9, 10],
                         className: 'text-end'
                     },
                     {
-                        targets: [10, 11],
+                        targets: [4],
                         className: 'text-center'
                     },
                 ],
@@ -461,13 +474,18 @@
                                     discountType,
                                     PHP(dollarAmountofDisountTotal).format(),
                                     total_deductions ? total_deductions : "0.00",
-                                    PHP(item.converted_amount).format(),
-                                    PHP(item.grand_total_amount).format(),
-
+                                    // PHP(item.converted_amount).format(),
+                                    Number(parseFloat(item.sub_total).toFixed(2))
+                                    .toLocaleString(
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }),
                                     moment.utc(item.created_at).tz('Asia/Manila').format(
                                         'YYYY/MM/DD'),
                                     moment.utc(item.due_date).tz('Asia/Manila').format(
                                         'YYYY/MM/DD'),
+                                    // moment(item.due_date).format("L"),
                                 ]).draw().node();
                                 // add class to invoice status cell based on its value
                                 let invoiceStatusCell = $(newRow).find("td:eq(2)");
@@ -564,8 +582,13 @@
                                     discountType,
                                     PHP(dollarAmountofDisountTotal).format(),
                                     total_deductions ? total_deductions : "0.00",
-                                    PHP(item.converted_amount).format(),
-                                    PHP(item.grand_total_amount).format(),
+                                    // PHP(item.converted_amount).format(),
+                                    Number(parseFloat(item.sub_total).toFixed(2))
+                                    .toLocaleString(
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }),
                                     moment.utc(item.created_at).tz('Asia/Manila').format(
                                         'YYYY/MM/DD'),
                                     moment.utc(item.due_date).tz('Asia/Manila').format(
