@@ -58,7 +58,7 @@
                         <option value="Pending">Pending</option>
                         <option value="Paid">Paid</option>
                         <option value="Cancelled">Cancelled</option>
-                        <option value="Overdue">Overdue</option>
+                        <option value="Overdue" hidden>Overdue</option>
                     </select>
                 </div>
             </div>
@@ -219,7 +219,7 @@
                                                             <option value="Pending">Pending</option>
                                                             <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
-                                                            <option value="Overdue">Overdue</option>
+                                                            <option value="Overdue" hidden>Overdue</option>
                                                         </select>
                                                     </div>
                                                 </div>

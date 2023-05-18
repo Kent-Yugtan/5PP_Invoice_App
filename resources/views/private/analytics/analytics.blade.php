@@ -1,10 +1,17 @@
 @extends('layouts.private')
 @section('content-dashboard')
-    {{-- CHARTS --}}
+    {{-- BAR CHARTS --}}
+    {{-- <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script> --}}
+
+    {{-- CONTINUOS CHART --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/annotations.js"></script>
     <div class="container-fluid container-header" id="loader_load">
 
         <div class="row" style="padding-top:10px">
@@ -126,90 +133,163 @@
                     let data = response.data;
                     if (data.success) {
                         if (data.data.length > 0) {
+
                             console.log('data-Item', data.data);
                             data.data.map((item, index) => {
+                                // BAR CHART
+                                // Highcharts.chart('container1', {
+                                //     chart: {
+                                //         type: 'bar'
+                                //     },
+                                //     title: {
+                                //         text: 'Invoice Payment Analytics',
+                                //         align: 'left'
+                                //     },
+                                //     subtitle: {
+                                //         text: 'Source: <a ' +
+                                //             'href="https://invoice.5ppsite.com/"' +
+                                //             'target="_blank">invoice.5ppsite.com</a>',
+                                //         align: 'left'
+                                //     },
+                                //     xAxis: {
+                                //         categories: data.data.map(item => item.full_name),
+                                //         title: {
+                                //             text: null
+                                //         },
+                                //         gridLineWidth: 1,
+                                //         lineWidth: 0
+                                //     },
+                                //     yAxis: {
+                                //         min: 0,
+                                //         title: {
+                                //             text: '',
+                                //             align: 'low'
+                                //         },
+                                //         labels: {
+                                //             overflow: 'justify'
+                                //         },
+                                //         gridLineWidth: 0
+                                //     },
+                                //     tooltip: {
+                                //         valueSuffix: '(Php)'
+                                //     },
+                                //     plotOptions: {
+                                //         bar: {
+                                //             borderRadius: '50%',
+                                //             dataLabels: {
+                                //                 enabled: true
+                                //             },
+                                //             groupPadding: 0.3,
+                                //             colorByPoint: true, // Enable color per point
+                                //             colors: [
+                                //                 '#CF8029'
+                                //             ] // Specify the desired colors
+                                //         },
 
+
+                                //     },
+                                //     legend: {
+                                //         layout: 'vertical',
+                                //         align: 'right',
+                                //         verticalAlign: 'top', // Adjust the vertical alignment of the legend
+                                //         x: -40, // Move the legend to the right side
+                                //         y: 5, // Move the legend up or down based on your requirement
+                                //         floating: true,
+                                //         borderWidth: 1,
+                                //         backgroundColor: Highcharts.defaultOptions.legend
+                                //             .backgroundColor || '#FFFFFF',
+                                //         shadow: true,
+                                //         // itemStyle: {
+                                //         //     color: '#CF8029'
+                                //         // },
+
+                                //     },
+                                //     credits: {
+                                //         enabled: false
+                                //     },
+                                //     series: [{
+                                //         name: 'Total Converted Amount',
+                                //         data: data.data.map(item => item
+                                //             .total_converted_amount),
+                                //     }]
+
+
+                                // });
+
+                                // CONTINUOUS TREND CHART
                                 Highcharts.chart('container1', {
                                     chart: {
-                                        type: 'bar'
+                                        type: 'spline',
+                                        zoomType: 'xy'
                                     },
                                     title: {
                                         text: 'Invoice Payment Analytics',
-                                        align: 'left'
                                     },
                                     subtitle: {
-                                        text: 'Source: <a ' +
-                                            'href="https://invoice.5ppsite.com/"' +
-                                            'target="_blank">invoice.5ppsite.com</a>',
-                                        align: 'left'
+                                        text: 'Source: <a href="https://invoice.5ppsite.com/" target="_blank">invoice.5ppsite.com</a>',
                                     },
                                     xAxis: {
-                                        categories: data.data.map(item => item.full_name),
-                                        title: {
-                                            text: null
-                                        },
-                                        gridLineWidth: 1,
-                                        lineWidth: 0
+                                        categories: ['2023', '2024',
+                                            '2025'
+                                        ] // Add the years as categories
                                     },
                                     yAxis: {
-                                        min: 0,
-                                        title: {
-                                            text: '',
-                                            align: 'low'
-                                        },
                                         labels: {
-                                            overflow: 'justify'
+                                            formatter: function() {
+                                                var months = ['January', 'February',
+                                                    'March', 'April', 'May', 'June',
+                                                    'July', 'August', 'September',
+                                                    'October', 'November',
+                                                    'December'
+                                                ];
+                                                var monthIndex = Math.floor(this
+                                                        .value) -
+                                                    1; // Subtract 1 to match the array index
+                                                return months[monthIndex];
+                                            }
                                         },
-                                        gridLineWidth: 0
-                                    },
-                                    tooltip: {
-                                        valueSuffix: '(Php)'
+                                        title: {
+                                            text: 'Calendar Months'
+                                        }
                                     },
                                     plotOptions: {
-                                        bar: {
-                                            borderRadius: '50%',
-                                            dataLabels: {
-                                                enabled: true
-                                            },
-                                            groupPadding: 0.3,
-                                            colorByPoint: true, // Enable color per point
-                                            colors: [
-                                                '#CF8029'
-                                            ] // Specify the desired colors
-                                        },
-
-
-                                    },
-                                    legend: {
-                                        layout: 'vertical',
-                                        align: 'right',
-                                        verticalAlign: 'top', // Adjust the vertical alignment of the legend
-                                        x: -40, // Move the legend to the right side
-                                        y: 5, // Move the legend up or down based on your requirement
-                                        floating: true,
-                                        borderWidth: 1,
-                                        backgroundColor: Highcharts.defaultOptions.legend
-                                            .backgroundColor || '#FFFFFF',
-                                        shadow: true,
-                                        // itemStyle: {
-                                        //     color: '#CF8029'
-                                        // },
-
+                                        series: {
+                                            marker: {
+                                                enabled: false
+                                            }
+                                        }
                                     },
                                     credits: {
                                         enabled: false
                                     },
+                                    legend: {
+                                        enabled: false
+                                    },
                                     series: [{
-                                        name: 'Total Converted Amount',
-                                        data: data.data.map(item => item
-                                            .total_converted_amount),
+                                        name: 'Invoice Payment',
+                                        data: [
+                                            1000,
+                                            2000,
+                                            3000,
+                                            4000,
+                                            5000,
+                                            6000,
+                                            7000,
+                                            8000,
+                                            9000,
+                                            10000,
+                                            11000,
+                                            12000,
+                                        ], // Amounts for each month in 2023
+                                        tooltip: {
+                                            valueSuffix: '(Php)'
+                                        }
                                     }]
-
-
                                 });
-                            });
-                        }
 
+                            });
+
+                        }
                     }
                 }).catch(function(error) {
                     console.log("error", error);
