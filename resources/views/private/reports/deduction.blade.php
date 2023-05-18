@@ -132,7 +132,7 @@
                         }, 0);
 
 
-                    var deductionAmount = api
+                    var totalDeduction = api
                         .column(7, {
                             page: 'current'
                         })
@@ -143,7 +143,13 @@
 
                     // Update the footer with the calculated values
                     $(api.column(3).footer()).html('Total');
-                    $(api.column(7).footer()).html(PHP(deductionAmount).format());
+                    $(api.column(7).footer()).html(Number(
+                            parseFloat(totalDeduction).toFixed(2))
+                        .toLocaleString(
+                            'en-US', {
+                                style: 'currency',
+                                currency: 'PHP'
+                            }));
 
                 },
                 // dom: 'Bfrtip',
@@ -322,7 +328,7 @@
                     }
                 ],
                 "columnDefs": [{
-                        targets: [1, 2, 6, 8, 10],
+                        targets: [1, 2, 6, 8],
                         visible: false,
                         searchable: false,
                     },
@@ -331,7 +337,7 @@
                         className: 'text-end'
                     },
                     {
-                        targets: [9],
+                        targets: [8, 9, 10],
                         className: 'text-end'
                     }
                 ],

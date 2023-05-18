@@ -164,10 +164,10 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>

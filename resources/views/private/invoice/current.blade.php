@@ -55,9 +55,9 @@
                 <div class="w-100 form-check-inline ">
                     <select class="form-select form-check-inline" id="filter_invoices">
                         <option value="All">All</option>
-                        <option value="Cancelled">Cancelled</option>
-                        <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Cancelled">Cancelled</option>
                         <option value="Overdue">Overdue</option>
                     </select>
                 </div>
@@ -85,10 +85,10 @@
                             <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
                                 <thead>
                                     <tr>
-                                        <th class="active fit" style="width: 10px">
+                                        {{-- <th class="active fit" style="width: 10px">
                                             <input type="checkbox" class="d-none select-all form-check-input"
-                                                id="select-all" />
-                                        </th>
+                                                id="select-all"  />
+                                        </th> --}}
                                         <th class="fit">Invoice #</th>
                                         <th class="fit">Profile Name</th>
                                         <th class="fit text-center">Payment Status</th>
@@ -216,10 +216,10 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -691,8 +691,8 @@
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
                                     '</td>'
-                                tr +=
-                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
+                                // This is for checkbox for multiple select
+                                // tr += '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -773,12 +773,14 @@
 
                                 tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
-                                            .grand_total_amount).toFixed(2))
+                                            .sub_total).toFixed(2))
                                     .toLocaleString(
-                                        'en', {
-                                            minimumFractionDigits: 2
-                                        }) +
-                                    '</td>';
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }); +
+                                '</td>';
+
                                 tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
@@ -788,6 +790,8 @@
 
                                 tr +=
                                     '<td  class="text-center">';
+                                // For deactivation
+                                // <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                 tr +=
                                     `<div class="dropdown">
                                                 <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -795,7 +799,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
+                                                  
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInvoice/' +
                                     item.id +
@@ -1015,8 +1019,8 @@
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
                                     '</td>'
-                                tr +=
-                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
+                                // This is for checkbox for multiple select
+                                // tr += '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -1052,14 +1056,17 @@
 
                                 tr += '<td class="fit text-center">' + item.status +
                                     '</td>'
+
                                 tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
-                                            .grand_total_amount).toFixed(2))
+                                            .sub_total).toFixed(2))
                                     .toLocaleString(
-                                        'en', {
-                                            minimumFractionDigits: 2
-                                        }) +
-                                    '</td>';
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }); +
+                                '</td>';
+
                                 tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
@@ -1069,6 +1076,8 @@
 
                                 tr +=
                                     '<td  class="text-center">';
+                                // For deactivation
+                                // <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                 tr +=
                                     `<div class="dropdown">
                                                 <a style="color:#A4A6B3;" class="btn dropdown-toggle border-0 bg-transparent" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -1076,7 +1085,6 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/invoice/editInvoice/' +
                                     item.id +
@@ -1239,8 +1247,6 @@
             $('#update_invoice_status').submit(function(e) {
                 e.preventDefault();
 
-                // Do your processing here
-
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();
 
@@ -1273,6 +1279,8 @@
                             $('.toast1 .toast-title').html('Success');
                             $('.toast1 .toast-body').html(response.data.message);
                             toast1.toast('show');
+                            active_count_paid();
+                            active_count_pending();
                         }, 1500);
 
 

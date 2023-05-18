@@ -55,10 +55,11 @@
                 <div class="w-100 form-check-inline ">
                     <select class="form-select form-check-inline" id="filter_invoices">
                         <option value="All">All</option>
-                        <option value="Cancelled">Cancelled</option>
-                        <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Cancelled">Cancelled</option>
                         <option value="Overdue">Overdue</option>
+
                     </select>
                 </div>
             </div>
@@ -85,10 +86,10 @@
                             <table style="color: #A4A6B3; " class="table table-hover" id="dataTable_invoice">
                                 <thead>
                                     <tr>
-                                        <th class="active fit" style="width: 10px">
+                                        {{-- <th class="active fit" style="width: 10px">
                                             <input type="checkbox" class="d-none select-all form-check-input"
                                                 id="select-all" />
-                                        </th>
+                                        </th> --}}
                                         <th class="fit">Invoice #</th>
                                         <th class="fit">Profile Name</th>
                                         <th class="fit text-center">Payment Status</th>
@@ -215,10 +216,10 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -812,21 +813,21 @@
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -847,7 +848,8 @@
                                 tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
-
+                                // FOR DEACTIVATE
+                                // <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                 tr +=
                                     '<td  class="text-center">';
                                 tr +=
@@ -857,7 +859,6 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/user/activeEditInvoice/' +
                                     item.id +
@@ -1004,8 +1005,7 @@
                                 let tr = '<tr style="vertical-align: middle;">';
                                 tr += '<td id="invoice_id" class="invoice_id" hidden>' + item.id +
                                     '</td>'
-                                tr +=
-                                    '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
+                                // tr += '<td class="active fit">  <input type="checkbox" class="select-item form-check-input" id="select-item" /></td>';
                                 tr += '<td class="fit">' +
                                     item.invoice_no +
                                     '</td>';
@@ -1066,26 +1066,25 @@
                                 // data - bs - target = "#invoice_status"
                                 // data - bs - toggle = "modal"
                                 // data - bs - target = "#invoice_status"
-                                // data - bs - toggle = "modal"
-                                // data - bs - target = "#invoice_status"
+                                // data-bs-toggle="modal" data-bs-target= "#invoice_status"
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button"  data-bs-toggle="modal" data-bs-target= "#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button"  data-bs-toggle="modal" data-bs-target= "#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button"  data-bs-toggle="modal" data-bs-target= "#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button"  data-bs-toggle="modal" data-bs-target= "#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
@@ -1094,19 +1093,22 @@
 
                                 tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
-                                            .grand_total_amount).toFixed(2))
+                                            .sub_total).toFixed(2))
                                     .toLocaleString(
-                                        'en', {
-                                            minimumFractionDigits: 2
-                                        }) +
-                                    '</td>';
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }); +
+                                '</td>';
+
                                 tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
                                 tr += '<td class="text-end">' + moment.utc(item.due_date).tz(
                                     'Asia/Manila').format(
                                     'MM/DD/YYYY') + '</td>';
-
+                                // FOR DEACTIVATE
+                                // <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                 tr +=
                                     '<td  class="text-center">';
                                 tr +=
@@ -1116,7 +1118,6 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <li><a id="inactiveLink" data-bs-toggle="modal" data-bs-target="#inactiveModal" class="dropdown-item" href="#">Deactivate</a></li>
                                                     <li><a class="dropdown-item" href=` + apiUrl +
                                     '/user/activeEditInvoice/' +
                                     item.id +
@@ -1238,8 +1239,6 @@
 
                 setTimeout(function() {
                     $("div.spanner").removeClass("show");
-
-
                     show_data();
                 }, 1500)
             });
@@ -1258,8 +1257,15 @@
                     },
                 }).then(function(response) {
                     let data = response.data;
-                    if (data.success) {
+                    let status = data.data;
+                    if (status == "Paid") {
                         $('#select_invoice_status').val(data.data);
+                        $('#select_invoice_status').prop('disabled', true);
+                        $('#update').prop('disabled', true);
+                    } else {
+                        $('#select_invoice_status').val(data.data);
+                        $('#select_invoice_status').prop('disabled', false);
+                        $('#update').prop('disabled', false);
                     }
                 }).catch(function(error) {
                     console.log("ERROR", error);
@@ -1269,9 +1275,6 @@
             // POST INVOICE STATUS
             $('#update_invoice_status').submit(function(e) {
                 e.preventDefault();
-
-                var start = performance.now(); // Get the current timestamp
-                // Do your processing here
 
                 let invoice_id = $('#updateStatus_invoiceNo').val();
                 let invoice_status = $('#select_invoice_status').val();
@@ -1289,6 +1292,12 @@
                     console.log("DATA", data);
                     if (data.success) {
                         $('#invoice_status').modal('hide');
+                        var originalTextTable = $('#dataTable_invoice tbody').html();
+                        // Add spinner to the remaining row and set colspan to 5
+                        $('#dataTable_invoice tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="8"><div class="text-center" colspan="8"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
                         $("div.spanner").addClass("show");
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");

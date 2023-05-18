@@ -965,10 +965,10 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
 
                                                     </div>
@@ -2110,14 +2110,16 @@
                                             item.invoice_status + '</button></td>';
                                     }
 
-                                    tr += '<td class="fit" style="text-align:right;">' + Number(
+                                    tr += '<td class="fit text-end">' + Number(
                                             parseFloat(item
-                                                .grand_total_amount).toFixed(2))
+                                                .sub_total).toFixed(2))
                                         .toLocaleString(
-                                            'en', {
-                                                minimumFractionDigits: 2
-                                            }) +
-                                        '</td>';
+                                            'en-US', {
+                                                style: 'currency',
+                                                currency: 'USD'
+                                            }); +
+                                    '</td>';
+
                                     tr += '<td class="fit"style="text-align:right;">' + moment.utc(
                                             item.created_at)
                                         .tz('Asia/Manila')

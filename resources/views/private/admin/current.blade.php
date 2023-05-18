@@ -464,6 +464,10 @@
                                         let latest_invoice = item.profile.invoice[item.profile
                                             .invoice
                                             .length - 1]
+                                        let latest_status = item.profile.invoice[item.profile
+                                            .invoice
+                                            .length - 1]
+
                                         var date_1 = new Date(latest_invoice.created_at);
                                         var todate1 = new Date(date_1).getDate();
                                         var tomonth1 = new Date(date_1).getMonth() + 1;
@@ -478,14 +482,20 @@
 
                                         var diff = date_2 - date_1;
                                         diff = diff / (1000 * 3600 * 24);
+                                        console.log("latest_status", latest_status.invoice_status);
 
                                         // console.log("DIFF", Math.round(diff));
-                                        if (Math.round(diff) > 1) {
-                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
-                                                ' Days ago</td>';
+                                        if (latest_status.invoice_status == "Paid") {
+                                            tr += '<td class="fit"> 0 Day ago</td>';
                                         } else {
-                                            tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
-                                                ' Day ago</td>';
+                                            if (Math.round(diff) > 1) {
+                                                tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                    ' Days ago</td>';
+                                            } else {
+                                                tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
+                                                    ' Day ago</td>';
+                                            }
+
                                         }
 
                                         tr +=

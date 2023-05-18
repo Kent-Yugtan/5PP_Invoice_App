@@ -324,7 +324,7 @@
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
                     <div class="card-body">
                         <ul class="nav nav-pills bottom20" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation" style="width:50%" id="pills-invoice-tab">
+                            <li class="nav-item" role="presentation" style="width:50%;" id="pills-invoice-tab">
                                 <a href="#pills-invoice" data-bs-toggle="pill" data-bs-target="#pills-invoice"
                                     class="nav-link active text-center" data-toggle="tab">Invoices</a>
                             </li>
@@ -1156,10 +1156,11 @@
                                                         <select class="form-select" id="select_invoice_status">
                                                             <option value="" Selected disabled>Please choose status
                                                             </option>
+
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -2667,14 +2668,18 @@
                                             item.invoice_status + '</button></td>';
                                     }
 
+
+
                                     tr += '<td class="fit text-end">' + Number(
                                             parseFloat(item
-                                                .grand_total_amount).toFixed(2))
+                                                .sub_total).toFixed(2))
                                         .toLocaleString(
-                                            'en', {
-                                                minimumFractionDigits: 2
-                                            }) +
-                                        '</td>';
+                                            'en-US', {
+                                                style: 'currency',
+                                                currency: 'USD'
+                                            }); +
+                                    '</td>';
+
                                     tr += '<td class="fit text-end">' + moment.utc(item
                                             .created_at)
                                         .tz('Asia/Manila')

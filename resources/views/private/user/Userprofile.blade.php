@@ -987,10 +987,10 @@
                                                             <option value="" Selected disabled>Please choose
                                                                 status
                                                             </option>
+                                                            <option value="Pending">Pending</option>
+                                                            <option value="Paid">Paid</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="Overdue">Overdue</option>
-                                                            <option value="Paid">Paid</option>
-                                                            <option value="Pending">Pending</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -2456,32 +2456,33 @@
 
                                 if (item.invoice_status === "Cancelled") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-info">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Paid") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-success">' +
                                         item.invoice_status + '</button></td>';
 
                                 } else if (item.invoice_status === "Pending") {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-warning" > ' +
                                         item.invoice_status + '</button></td >';
                                 } else {
                                     tr +=
-                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
+                                        '<td><button  style="width:100%; height:20px; font-size:10px; padding: 0px;" type="button" data-bs-toggle="modal" data-bs-target="#invoice_status" id="get_invoiceStatus" class="get_invoiceStatus btn btn-danger">' +
                                         item.invoice_status + '</button></td>';
                                 }
 
                                 tr += '<td class="fit text-end">' + Number(
                                         parseFloat(item
-                                            .grand_total_amount).toFixed(2))
+                                            .sub_total).toFixed(2))
                                     .toLocaleString(
-                                        'en', {
-                                            minimumFractionDigits: 2
-                                        }) +
-                                    '</td>';
+                                        'en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                        }); +
+                                '</td>';
                                 tr += '<td class="fit text-end">' + moment.utc(item.created_at).tz(
                                         'Asia/Manila')
                                     .format('MM/DD/YYYY') +
@@ -2543,6 +2544,7 @@
                                     `<tr>
                                             <td class="text-center" colspan="6"><div class="text-center" colspan="6"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
                                 );
+
                                 setTimeout(function() {
                                     $.urlParam = function(name) {
                                         var results = new RegExp("[?&]" + name +
@@ -2620,11 +2622,19 @@
                     let data = response.data;
                     console.log("DATA", data);
                     if (data.success) {
+                        var invoiceTable = $('#dataTable_invoice tbody').html();
+                        // Add spinner to the remaining row and set colspan to 5
+                        $('#dataTable_invoice tbody').html(
+                            `<tr>
+                              <td class="text-center" colspan="5"><div class="text-center" colspan="5"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                        );
+
                         $('#invoice_status').modal('hide');
                         $("div.spanner").addClass("show");
 
                         setTimeout(function() {
                             $("div.spanner").removeClass("show");
+                            $('#dataTable_invoice tbody').html(invoiceTable);
 
                             $('#notifyIcon').html(
                                 '<i class="fa-solid fa-check" style="color:green"></i>');
@@ -2635,6 +2645,7 @@
                             $('#dataTable_deduction tbody').html(
                                 show_Profilededuction_Table_Active());
                             toast1.toast('show');
+                            show_data();
                             $('#update').prop("disabled", false);
                         }, 1500);
                     }

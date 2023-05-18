@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                            <div class="row bottom10">
+                            {{-- <div class="row bottom10">
                                 <div class="col-6" style="padding-right:5px;">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#activeModal"
                                         class="btn w-100" style="color: White; background-color: #CF8029;">Active</button>
@@ -231,25 +231,25 @@
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#inactiveModal"
                                         class="btn w-100" style="color: White; background-color: #A4A6B3;">Inactive</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            {{-- <div class="row bottom10">
+                            <div class="row bottom10">
                                 <div class="col-12 w-100">
                                     <button type="button" data-bs-toggle="modal" id="paid_button"
                                         data-bs-target="#paidModal" class="btn  w-100"
                                         style="color: White; background-color: #198754;">Paid
                                         Invoice</button>
                                 </div>
-                            </div> --}}
+                            </div>
 
-                            {{-- <div class="row bottom10">
+                            <div class="row bottom10">
                                 <div class="col-12 w-100">
                                     <button type="button" data-bs-toggle="modal" id="cancel_button"
                                         data-bs-target="#cancelModal" class="btn  w-100"
                                         style="color: White; background-color:#A4A6B3;">Cancel
                                         Invoice</button>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             {{-- <div class="row">
                                 <div class="col-12 w-100">

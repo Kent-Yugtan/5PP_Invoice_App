@@ -7,18 +7,18 @@ const img = document.querySelector("#photo")
 const file = document.querySelector("#file")
     ? document.querySelector("#file")
     : "";
-const uploadBtn = document.querySelector("#uploadBtn")
-    ? document.querySelector("#uploadBtn")
+const admin_uploadBtn = document.querySelector("#admin_uploadBtn")
+    ? document.querySelector("#admin_uploadBtn")
     : "";
 
 //if user hover on img div
 imgDiv.addEventListener("mouseenter", function () {
-    uploadBtn.style.display = "block";
+    admin_uploadBtn.style.display = "block";
 });
 
 //if we hover out from img div
 imgDiv.addEventListener("mouseleave", function () {
-    uploadBtn.style.display = "none";
+    admin_uploadBtn.style.display = "none";
 });
 
 //lets work for image showing functionality when we choose an image to upload
