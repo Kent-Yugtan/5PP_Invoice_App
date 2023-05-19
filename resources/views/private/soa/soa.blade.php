@@ -377,6 +377,155 @@
 
             });
 
+            // function show_data_click(filters) {
+            //     let from = $('#from').val();
+            //     let to = $('#to').val();
+
+            //     let filter = {
+            //         fromDate: from ? from : '',
+            //         toDate: to ? to : '',
+            //         ...filters
+            //     }
+            //     axios.get(`${apiUrl}/api/reports/soa_click?${new URLSearchParams(filter)}`, {
+            //         headers: {
+            //             Authorization: token,
+            //         },
+            //     }).then(function(response) {
+            //         let data = response.data;
+            //         if (data.success) {
+            //             let table = $('#invoiceReports').DataTable();
+            //             table.clear().draw();
+            //             if (data.data.length > 0) {
+            //                 console.log("success", data);
+            //                 data.data.map((item) => {
+            //                     let total_deductions = 0;
+            //                     let discountType = item.discount_type ? item.discount_type :
+            //                         "N/A";
+            //                     let dollarAmountofDisountTotal = 0;
+
+            //                     if (item.deductions.length > 0) {
+            //                         total_deductions = PHP(item.deductions[0]
+            //                                 .total_deductions)
+            //                             .format();
+            //                     }
+
+            //                     if (item.discount_type === "Fixed") {
+            //                         discountType = item.discount_type;
+            //                         dollarAmountofDisountTotal = item.discount_total;
+            //                     } else if (item.discount_type === "Percentage") {
+            //                         discountType = item.discount_type + " (" + item
+            //                             .discount_amount + "%)";
+            //                         dollarAmountofDisountTotal = (item.discount_total * item
+            //                             .peso_rate) ? (item
+            //                             .discount_total * item.peso_rate) : "0.00";
+            //                     }
+
+            //                     let paidAmount = 0; // Variable to store the sum of paid amounts
+
+            //                     let newRow = table.row.add([
+            //                         item.id,
+            //                         moment.utc(item.created_at).tz('Asia/Manila')
+            //                         .format(
+            //                             'YYYY/MM/DD'),
+            //                         item.invoice_no,
+            //                         item.description,
+            //                         item.invoice_status,
+            //                         (item.invoice_status !== "Paid") ?
+            //                         // If invoice_status is not "Paid"
+            //                         Number(parseFloat(item.sub_total).toFixed(2))
+            //                         .toLocaleString('en-US', {
+            //                             style: 'currency',
+            //                             currency: 'USD'
+            //                         }) :
+            //                         '0.00',
+            //                         (item.invoice_status === "Paid") ?
+            //                         // If invoice_status is "Paid"
+            //                         Number(parseFloat(item.sub_total).toFixed(2))
+            //                         .toLocaleString('en-US', {
+            //                             style: 'currency',
+            //                             currency: 'USD'
+            //                         }) :
+            //                         '0.00',
+            //                         null
+            //                     ]).draw().node();
+
+            //                     // Update the running balance for each row
+            //                     table.rows().every(function() {
+            //                         let data = this.data();
+            //                         if (data[4] ===
+            //                             "Paid") { // Check the status column
+            //                             paidAmount += parseFloat(data[6].replace(
+            //                                 /[^0-9.-]+/g, ""
+            //                             )); // Add the amount to the running balance
+            //                         }
+            //                         if (data[4] !==
+            //                             "Paid") { // Check the status column
+            //                             data[7] =
+            //                                 '0.00'; // Set the last column to '0.00' for non-paid rows
+            //                         } else {
+            //                             data[7] = Number(paidAmount.toFixed(2))
+            //                                 .toLocaleString('en-US', {
+            //                                     style: 'currency',
+            //                                     currency: 'USD'
+            //                                 }); // Update the last column with the running balance for paid rows
+            //                         }
+            //                         this.data(data); // Update the row data
+            //                     });
+
+            //                     // Redraw the table to reflect the updated running balance
+            //                     table.draw();
+
+
+            //                     // add class to invoice status cell based on its value
+            //                     let invoiceStatusCell = $(newRow).find("td:eq(3)");
+            //                     if (item.invoice_status == "Paid") {
+            //                         invoiceStatusCell.css("background-color", "#198754");
+            //                         // invoiceStatusCell.css("border-color", "#198754");
+            //                         invoiceStatusCell.css("color", "white");
+            //                     } else if (item.invoice_status == "Pending") {
+            //                         invoiceStatusCell.css("background-color", "#ffc107");
+            //                         // invoiceStatusCell.css("border-color", "#ffc107");
+            //                         invoiceStatusCell.css("color", "black");
+            //                     } else if (item.invoice_status == "Cancelled") {
+            //                         invoiceStatusCell.css("background-color", "#A4A6B3");
+            //                         // invoiceStatusCell.css("border-color", "#A4A6B3");
+            //                         invoiceStatusCell.css("color", "white");
+            //                     } else {
+            //                         invoiceStatusCell.css("background-color", "#dc3545");
+            //                         // invoiceStatusCell.css("border-color", "#dc3545");
+            //                         invoiceStatusCell.css("color", "white");
+            //                     }
+            //                 })
+            //             }
+            //         }
+            //     }).catch(function(error) {
+            //         console.log("error", error);
+            //         if (error.response.data.errors) {
+            //             let errors = error.response.data.errors;
+            //             let fieldnames = Object.keys(errors);
+            //             Object.values(errors).map((item, index) => {
+            //                 fieldname = fieldnames[0].split('_');
+            //                 fieldname.map((item2, index2) => {
+            //                     fieldname['key'] = capitalize(item2);
+            //                     return ""
+            //                 });
+            //                 fieldname = fieldname.join(" ");
+            //                 $('#notifyIcon').html(
+            //                     '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
+            //                 $('.toast1 .toast-title').html('Error');
+            //                 $('.toast1 .toast-body').html(Object.values(errors)[
+            //                         0]
+            //                     .join(
+            //                         "\n\r"));
+            //             })
+            //             toast1.toast('show');
+            //             setTimeout(function() {
+            //                 location.reload(true);
+            //             }, 1500);
+            //         }
+            //     });
+            // }
+
             function show_data_click(filters) {
                 let from = $('#from').val();
                 let to = $('#to').val();
@@ -397,6 +546,24 @@
                         table.clear().draw();
                         if (data.data.length > 0) {
                             console.log("success", data);
+
+                            let previousBalance = data.totalSubTotalPaid ? data.totalSubTotalPaid : "0.00";
+
+                            let previousBalanceRow = table.row.add([
+                                '', // Empty cell for ID
+                                '', // Empty cell for created_at
+                                '', // Empty cell for description
+                                'Previous Balance...', // Label for previous balance row
+                                '', // Empty cell for invoice status
+                                '', // Empty cell for sub_total (not needed)
+                                '', // Empty cell for amount paid (not needed)
+                                Number(parseFloat(previousBalance).toFixed(2))
+                                .toLocaleString('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD'
+                                }) // Display the previous balance amount in the last column
+                            ]).draw().node();
+
                             data.data.map((item) => {
                                 let total_deductions = 0;
                                 let discountType = item.discount_type ? item.discount_type :
@@ -419,9 +586,6 @@
                                         .peso_rate) ? (item
                                         .discount_total * item.peso_rate) : "0.00";
                                 }
-
-                                let paidAmount =
-                                    0; // Variable to store the sum of paid amounts
 
                                 let newRow = table.row.add([
                                     item.id,
@@ -451,35 +615,36 @@
                                 ]).draw().node();
 
 
+                                let previousBalanceAmount = parseFloat(table.row(0).data()[7]
+                                    .replace(
+                                        /[^0-9.-]+/g, ""));
+                                console.log("previousBalanceAmount", previousBalanceAmount);
+                                let paidAmount = previousBalanceAmount;
 
-                                // Update the running balance for each row
-                                table.rows().every(function() {
+                                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                                     let data = this.data();
-                                    if (data[4] ===
-                                        "Paid") { // Check the status column
-                                        paidAmount += parseFloat(data[6].replace(
-                                            /[^0-9.-]+/g, ""
-                                        )); // Add the amount to the running balance
+                                    if (rowIdx > 0) { // Skip the first row
+                                        if (data[4] === "Paid") { // Check the status column
+                                            paidAmount += parseFloat(data[6].replace(
+                                                /[^0-9.-]+/g, ""
+                                            )); // Add the amount to the running balance
+                                        }
+                                        if (data[4] !== "Paid") { // Check the status column
+                                            data[7] =
+                                                '0.00'; // Set the last column to '0.00' for non-paid rows
+                                        } else {
+                                            data[7] = Number(paidAmount.toFixed(2))
+                                                .toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD'
+                                                }); // Update the last column with the running balance for paid rows
+                                        }
+                                        this.data(data); // Update the row data
                                     }
-                                    if (data[4] !==
-                                        "Paid") { // Check the status column
-                                        data[7] =
-                                            '0.00'; // Set the last column to '0.00' for non-paid rows
-                                    } else {
-                                        data[7] = Number(paidAmount.toFixed(2))
-                                            .toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'USD'
-                                            }); // Update the last column with the running balance for paid rows
-                                    }
-                                    this.data(data); // Update the row data
                                 });
 
-                                // Redraw the table to reflect the updated running balance
                                 table.draw();
 
-                                // Redraw the table to reflect the updated running balance
-                                table.draw();
 
                                 // add class to invoice status cell based on its value
                                 let invoiceStatusCell = $(newRow).find("td:eq(3)");
@@ -531,6 +696,7 @@
                 });
             }
 
+
             function show_data_load() {
                 axios.get(apiUrl + '/api/reports/soa', {
                     headers: {
@@ -566,9 +732,6 @@
                                         .discount_total * item.peso_rate) : "0.00";
                                 }
 
-                                let paidAmount =
-                                    0; // Variable to store the sum of paid amounts
-
                                 let newRow = table.row.add([
                                     item.id,
                                     moment.utc(item.created_at).tz('Asia/Manila')
@@ -596,8 +759,7 @@
                                     null
                                 ]).draw().node();
 
-
-
+                                let paidAmount = 0;
                                 // Update the running balance for each row
                                 table.rows().every(function() {
                                     let data = this.data();
@@ -620,9 +782,6 @@
                                     }
                                     this.data(data); // Update the row data
                                 });
-
-                                // Redraw the table to reflect the updated running balance
-                                table.draw();
 
                                 // Redraw the table to reflect the updated running balance
                                 table.draw();
