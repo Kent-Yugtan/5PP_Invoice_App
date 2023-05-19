@@ -34,9 +34,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 document.querySelector(".nav-link") || null;
             const ulDashboard = document.getElementById("dashboard") || null;
 
-            const ulAdminAnalytics =
-                document.querySelector(".nav-link") || null;
-            const ulAnalytics = document.getElementById("analytics") || null;
+            const ulUserSOA = document.querySelector(".nav-link") || null;
+            const ulSOA = document.getElementById("statmentOfAcct") || null;
 
             const ulsettingsdeductiontype =
                 document.querySelector(".nav-link") || null;
@@ -45,10 +44,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             const ulUserDashboard = document.querySelector(".nav-link") || null;
             const ulUDashboard =
                 document.getElementById("dashboarduser") || null;
-
-            const ulUserAnalytics = document.querySelector(".nav-link") || null;
-            const ulUAnalytics =
-                document.getElementById("analyticsuser") || null;
 
             const uluseruserdeductiontype =
                 document.querySelector(".nav-link") || null;
@@ -75,10 +70,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         );
                     }
 
-                    if (ulAnalytics) {
-                        ulAdminAnalytics.classList.remove("collapsed");
-                        ulAnalytics.classList.remove("d-none");
-                        $("a#adminanalytics").removeAttr(
+                    if (ulSOA) {
+                        ulUserSOA.classList.remove("collapsed");
+                        ulSOA.classList.remove("d-none");
+                        $("a#usersoa").removeAttr(
                             "data-bs-toggle data-bs-target"
                         );
                     }
@@ -115,9 +110,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         );
                     }
 
-                    if (ulAnalytics) {
-                        ulAnalytics.classList.add("d-none");
-                        $("a#adminanalytics").removeAttr(
+                    if (ulSOA) {
+                        ulSOA.classList.add("d-none");
+                        $("a#usersoa").removeAttr(
                             "data-bs-toggle data-bs-target"
                         );
                     }

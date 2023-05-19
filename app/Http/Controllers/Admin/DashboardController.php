@@ -92,8 +92,8 @@ class DashboardController extends Controller
         return view('private.user.Userdashboard');
     }
 
-    public function useranalytics()
+    public function usersoa()
     {
-        return view('private.analytics.analytics');
+        return view('private.soa.soa');
     }
 }

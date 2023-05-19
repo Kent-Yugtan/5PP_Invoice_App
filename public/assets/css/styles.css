@@ -102,7 +102,7 @@ hr {
     color: inherit;
     background-color: currentColor;
     border: 0;
-    opacity: 0.10;
+    opacity: 0.1;
 }
 
 hr:not([size]) {
@@ -12045,7 +12045,7 @@ body {
 
     /* Style for the submenu */
     .sb-sidenav-toggled #dashboard,
-    .sb-sidenav-toggled #analytics,
+    .sb-sidenav-toggled #statmentOfAcct,
     .sb-sidenav-toggled #deductions,
     .sb-sidenav-toggled #collapseLayouts,
     .sb-sidenav-toggled #collapseLayouts2,
@@ -12081,7 +12081,7 @@ body {
     }
 
     /* Show submenu when parent item is hovered */
-    .sb-sidenav-toggled #sb-sidenav-menu li:hover #analytics {
+    .sb-sidenav-toggled #sb-sidenav-menu li:hover #statmentOfAcct {
         opacity: 1; /* change the opacity to 1 when displayed */
         display: block;
         position: absolute;
