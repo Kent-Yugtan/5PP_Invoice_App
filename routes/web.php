@@ -52,7 +52,7 @@ Route::middleware(['isPrivateCheck'])->group(function () {
 
     // PRIVATE FOLDER USER
     Route::get('user/dashboard', [DashboardController::class, 'userindex']);
-    Route::get('user/analytics', [DashboardController::class, 'useranalytics']);
+    Route::get('user/soa', [DashboardController::class, 'usersoa']);
     Route::get('user/profile', [ProfileController::class, 'userprofile']);
     Route::get('user/activeProfile/{id}/{profile_id}', [ProfileController::class, 'userviewProfile']);
     Route::get('user/inactive', [ProfileController::class, 'userinactive']);

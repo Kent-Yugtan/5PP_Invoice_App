@@ -25,9 +25,6 @@
                     </ul>
                 </li>
 
-
-
-
                 <li class="nav-item">
                     <a class="nav-link collapsed" id="userprofile" onmouseover="colorIcon2()"
                         onmouseout="removeColorIcon2()" href="#" data-bs-toggle="collapse"
@@ -76,7 +73,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" id="userreport" onmouseover="colorIcon5()"
                         onmouseout="removeColorIcon5()" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts33" aria-expanded="false" aria-controls="collapseLayouts3">
+                        data-bs-target="#collapseLayouts33" aria-expanded="false" aria-controls="collapseLayouts33">
                         <div class="sb-nav-link-icon">
                             <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-table"></i>
                         </div>
@@ -92,21 +89,21 @@
                     </ul>
                 </li>
 
-                {{-- ANALYTICS LINES --}}
+                {{-- STATEMENT OF ACCOUNT LINES --}}
                 <li class="nav-item">
                     <a class="nav-link collapsed" onmouseover="colorIcon11()" onmouseout="removeColorIcon11()"
-                        id="useranalytics" href="{{ url('user/analytics') }}" data-bs-toggle="collapse"
-                        data-bs-target="#analytics" aria-expanded="false" aria-controls="analytics">
+                        id="usersoa" href="{{ url('user/soa') }}" data-bs-toggle="collapse"
+                        data-bs-target="#statmentOfAcct" aria-expanded="false" aria-controls="statmentOfAcct">
                         <div class="sb-nav-link-icon">
                             <i style="color:#909294;width:20px;margin-right:5px" class="fas fa-chart-bar"></i>
                         </div>
-                        <span class="labelText">Analytics </span>
+                        <span class="labelText">SOA </span>
                     </a>
 
-                    <ul class="collapse d-none" id="analytics" aria-labelledby="headingOne"
+                    <ul class="collapse d-none" id="statmentOfAcct" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/analytics') }}">Analytics</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/soa') }}">Statement of
+                                Account</a> </li>
                     </ul>
                 </li>
                 <hr>
@@ -182,10 +179,11 @@
         $("a#userdashboard").removeAttr(
             "data-bs-toggle data-bs-target"
         );
+
         $("a#useruserdeductiontype").removeAttr(
             "data-bs-toggle data-bs-target"
         );
-        $("a#useranalytics").removeAttr(
+        $("a#usersoa").removeAttr(
             "data-bs-toggle data-bs-target"
         );
         var windowWidth = $(window).width();

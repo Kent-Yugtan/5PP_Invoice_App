@@ -209,6 +209,11 @@ Route::middleware(['auth:api'])->group(function () {
     // CHART ANALITYCS
     Route::get('reports/analytics_load', [InvoiceController::class, 'analytics_load']);
 
+    // STATEMENT OF ACCOUNT FOR USER
+    Route::get('reports/soa', [InvoiceController::class, 'soa']);
+    Route::get('reports/soa_click', [InvoiceController::class, 'soa_click']);
+
+
     // FOR ADMIN REPORT
     Route::get('reports/invoiceReport_load', [InvoiceController::class, 'invoiceReport_load']);
     Route::get('reports/invoiceReport_click', [InvoiceController::class, 'invoiceReport_click']);

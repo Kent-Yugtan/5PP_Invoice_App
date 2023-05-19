@@ -889,8 +889,8 @@
                                 }
 
                                 let li = `<li class="page-item cursor-pointer ${item.active ? 'active' : ''}">
-    <a class="page-link" data-url="${item.url}">${label}</a>
-  </li>`;
+                                    <a class="page-link" data-url="${item.url}">${label}</a>
+                                </li>`;
 
                                 $('#tbl_pagination_overdueInvoice').append(li);
                                 return "";
