@@ -1719,12 +1719,10 @@ class InvoiceController extends Controller
 
         // your other code here
         $userId = auth()->user()->id;
-        $data = Invoice::with(['profile.user', 'deductions' => function ($q) {
-            $q->select(DB::raw('SUM(amount) as total_deductions'), 'invoice_id')
-                ->groupBy('invoice_id');
-        }])->whereHas('profile', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })
+        $data = Invoice::with(['profile.user', 'deductions'])
+            ->whereHas('profile', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
             ->orderBy('id', 'Desc')
             ->get();
 
@@ -1739,13 +1737,11 @@ class InvoiceController extends Controller
     public function soa_click(Request $request)
     {
         $rules = $request->validate([
-            'fromDate' => 'required',
             'toDate' => 'required',
         ]);
 
         if (isset($request->fromDate) && isset($request->toDate)) {
             $rules = $request->validate([
-                'fromDate' => 'required',
                 'toDate' => 'required',
             ]);
 
@@ -1753,10 +1749,8 @@ class InvoiceController extends Controller
                 try {
                     $startDate = Carbon::createFromFormat('Y/m/d', $request->fromDate)->startOfDay();
                     $endDate = Carbon::createFromFormat('Y/m/d', $request->toDate)->endOfDay();
-                    $invoices = Invoice::with(['profile.user', 'deductions' => function ($q) {
-                        $q->select(DB::raw('SUM(amount) as total_deductions'), 'invoice_id')
-                            ->groupBy('invoice_id');
-                    }, 'profile'])
+
+                    $invoices = Invoice::with(['profile.user', 'deductions', 'profile'])
                         ->whereHas('profile', function ($q) {
                             $userId = auth()->user()->id;
                             $q->where('user_id', $userId);
@@ -1764,9 +1758,24 @@ class InvoiceController extends Controller
                         ->whereBetween('created_at', [$startDate, $endDate]) // filter by date range
                         ->orderBy('id', 'desc')
                         ->get();
+
+                    $totalSubTotalPaid = Invoice::with(['profile.user', 'deductions', 'profile'])
+                        ->whereHas('profile', function ($q) {
+                            $userId = auth()->user()->id;
+                            $q->where('user_id', $userId);
+                        })
+                        ->where('invoice_status', 'Paid')
+                        ->where('created_at', '<', $startDate)
+                        ->sum('sub_total');
+
+                    if ($totalSubTotalPaid === null) {
+                        $totalSubTotalPaid = 0;
+                    }
+
                     return response()->json([
                         'success' => true,
                         'data' => $invoices,
+                        'totalSubTotalPaid' => $totalSubTotalPaid,
                     ], 200);
                 } catch (Exception $e) {
                     echo 'Error: ' . $e->getMessage();

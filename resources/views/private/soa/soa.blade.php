@@ -397,6 +397,24 @@
                         table.clear().draw();
                         if (data.data.length > 0) {
                             console.log("success", data);
+
+                            let previousBalance = data.totalSubTotalPaid ? data.totalSubTotalPaid : "0.00";
+
+                            let previousBalanceRow = table.row.add([
+                                '', // Empty cell for ID
+                                '', // Empty cell for created_at
+                                '', // Empty cell for description
+                                'Previous Balance...', // Label for previous balance row
+                                '', // Empty cell for invoice status
+                                '', // Empty cell for sub_total (not needed)
+                                '', // Empty cell for amount paid (not needed)
+                                Number(parseFloat(previousBalance).toFixed(2))
+                                .toLocaleString('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD'
+                                }) // Display the previous balance amount in the last column
+                            ]).draw().node();
+
                             data.data.map((item) => {
                                 let total_deductions = 0;
                                 let discountType = item.discount_type ? item.discount_type :
@@ -419,9 +437,6 @@
                                         .peso_rate) ? (item
                                         .discount_total * item.peso_rate) : "0.00";
                                 }
-
-                                let paidAmount =
-                                    0; // Variable to store the sum of paid amounts
 
                                 let newRow = table.row.add([
                                     item.id,
@@ -451,35 +466,36 @@
                                 ]).draw().node();
 
 
+                                let previousBalanceAmount = parseFloat(table.row(0).data()[7]
+                                    .replace(
+                                        /[^0-9.-]+/g, ""));
+                                console.log("previousBalanceAmount", previousBalanceAmount);
+                                let paidAmount = previousBalanceAmount;
 
-                                // Update the running balance for each row
-                                table.rows().every(function() {
+                                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                                     let data = this.data();
-                                    if (data[4] ===
-                                        "Paid") { // Check the status column
-                                        paidAmount += parseFloat(data[6].replace(
-                                            /[^0-9.-]+/g, ""
-                                        )); // Add the amount to the running balance
+                                    if (rowIdx > 0) { // Skip the first row
+                                        if (data[4] === "Paid") { // Check the status column
+                                            paidAmount += parseFloat(data[6].replace(
+                                                /[^0-9.-]+/g, ""
+                                            )); // Add the amount to the running balance
+                                        }
+                                        if (data[4] !== "Paid") { // Check the status column
+                                            data[7] =
+                                                '0.00'; // Set the last column to '0.00' for non-paid rows
+                                        } else {
+                                            data[7] = Number(paidAmount.toFixed(2))
+                                                .toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD'
+                                                }); // Update the last column with the running balance for paid rows
+                                        }
+                                        this.data(data); // Update the row data
                                     }
-                                    if (data[4] !==
-                                        "Paid") { // Check the status column
-                                        data[7] =
-                                            '0.00'; // Set the last column to '0.00' for non-paid rows
-                                    } else {
-                                        data[7] = Number(paidAmount.toFixed(2))
-                                            .toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'USD'
-                                            }); // Update the last column with the running balance for paid rows
-                                    }
-                                    this.data(data); // Update the row data
                                 });
 
-                                // Redraw the table to reflect the updated running balance
                                 table.draw();
 
-                                // Redraw the table to reflect the updated running balance
-                                table.draw();
 
                                 // add class to invoice status cell based on its value
                                 let invoiceStatusCell = $(newRow).find("td:eq(3)");
@@ -531,6 +547,7 @@
                 });
             }
 
+
             function show_data_load() {
                 axios.get(apiUrl + '/api/reports/soa', {
                     headers: {
@@ -566,9 +583,6 @@
                                         .discount_total * item.peso_rate) : "0.00";
                                 }
 
-                                let paidAmount =
-                                    0; // Variable to store the sum of paid amounts
-
                                 let newRow = table.row.add([
                                     item.id,
                                     moment.utc(item.created_at).tz('Asia/Manila')
@@ -596,8 +610,7 @@
                                     null
                                 ]).draw().node();
 
-
-
+                                let paidAmount = 0;
                                 // Update the running balance for each row
                                 table.rows().every(function() {
                                     let data = this.data();
@@ -620,9 +633,6 @@
                                     }
                                     this.data(data); // Update the row data
                                 });
-
-                                // Redraw the table to reflect the updated running balance
-                                table.draw();
 
                                 // Redraw the table to reflect the updated running balance
                                 table.draw();
