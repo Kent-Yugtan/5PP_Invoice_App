@@ -1126,6 +1126,7 @@
                     due_date: due_date,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 };
                 console.log("DATA", data);
                 axios.post(apiUrl + "/api/add_invoices", data, {

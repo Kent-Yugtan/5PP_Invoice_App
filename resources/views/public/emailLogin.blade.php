@@ -90,6 +90,7 @@
     <script type="text/javascript">
         $("#error_msg").hide();
         $(document).ready(function() {
+
             $("#show_hide_password a").on('click', function(e) {
                 e.preventDefault();
                 if ($('#show_hide_password input').attr("type") == "text") {
@@ -119,70 +120,124 @@
                     `<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
                 );
                 axios.post(apiUrl + '/api/login', data, {
-                        headers: {
-                            Authorization: token,
-                        },
-                    }).then(function(response) {
-                        let data = response.data;
+                    headers: {
+                        Authorization: token,
+                    },
+                }).then(function(response) {
+                    let data = response.data;
 
-                        if (!data.succcess) {
-                            setTimeout(function() {
-                                $('#button-submit').html(originalText);
-                                $("#error_msg").html(data.message).show();
-                                $("#error_msg").addClass('mt-3');
-                                $('#form_login').trigger('reset');
-                            }, 1000);
-                        } else {
-                            if (data.user.role === "Admin") {
+                    if (!data.succcess) {
+                        setTimeout(function() {
+                            $('#button-submit').html(originalText);
+                            $("#error_msg").html(data.message).show();
+                            $("#error_msg").addClass('mt-3');
+                            $('#form_login').trigger('reset');
+                        }, 1000);
+                    } else {
+                        if (data.user.role === "Admin") {
+                            // Get the current URL
+                            var currentUrl = decodeURIComponent(getQueryVariable("redirect"));
+                            // Extract the value of the 'user_id' parameter using regular expressions
+                            var regex = /[?&]user_id(=([^&#]*)|&|#|$)/;
+                            var match = regex.exec(currentUrl);
+                            var user_id = match && decodeURIComponent(match[2].replace(/\+/g, " "));
+
+                            // console.log('data', data);
+
+                            if (data.user.id == user_id) {
                                 setTimeout(function() {
                                     $('#button-submit').html(originalText);
                                     localStorage.token = data.token;
-                                    window.location.replace(apiUrl + '/admin/dashboard');
+                                    // Redirect to the desired URL
+                                    window.location.href = decodeURIComponent(
+                                        getQueryVariable(
+                                            "redirect"));
                                 }, 1000);
-                                // localStorage.userdata = JSON.parse(data.user);
-                            } else if (data.user.role !== "Admin" && data.profile_status
-                                .profile_status === "Inactive") {
-                                axios.post(apiUrl + '/api/logout', {}, {
-                                        headers: {
-                                            Authorization: token,
-                                        },
-                                    })
-                                    .then(function(response) {
-                                        let data = response.data;
-                                        // console.log('data', data);
-                                        if (data.success) {
-                                            setTimeout(function() {
-                                                $('#button-submit').html(originalText);
-                                                localStorage.removeItem('token');
-                                                $("#error_msg").html(
-                                                        "This profile is inactive. Please contact the system administrator."
-                                                    )
-                                                    .show();
-                                                $('#form_login').trigger('reset');
-                                            }, 1000);
-                                        }
-                                    })
-                                    .catch(function(error) {
-                                        console.log('catch', error);
-                                    });
                             } else {
                                 setTimeout(function() {
                                     $('#button-submit').html(originalText);
-                                    localStorage.token = data.token;
-                                    window.location.replace(apiUrl + '/user/dashboard');
+                                    localStorage.removeItem('token');
+                                    $("#error_msg").html(
+                                        "The profile of this invoice doesn`t match."
+                                ).show();
+                                $('#form_login').trigger('reset');
+                            }, 1000);
+                        }
+                    } else if (data.user.role !== "Admin" && data.profile_status
+                        .profile_status === "Inactive") {
+                        axios.post(apiUrl + '/api/logout', {}, {
+                            headers: {
+                                Authorization: token,
+                            },
+                        }).then(function(response) {
+                            let data = response.data;
+                            if (data.success) {
+                                setTimeout(function() {
+                                    $('#button-submit').html(originalText);
+                                    localStorage.removeItem('token');
+                                    $("#error_msg").html(
+                                        "This profile is inactive. Please contact the system administrator."
+                                    ).show();
+                                    $('#form_login').trigger('reset');
+                                }, 1000);
+                            }
+                        }).catch(function(error) {
+                            console.log('catch', error);
+                        });
+                    } else {
+
+                        // Get the current URL
+                        var currentUrl = decodeURIComponent(getQueryVariable("redirect"));
+                        // Extract the value of the 'user_id' parameter using regular expressions
+                        var regex = /[?&]user_id(=([^&#]*)|&|#|$)/;
+                        var match = regex.exec(currentUrl);
+                        var user_id = match && decodeURIComponent(match[2].replace(/\+/g, " "));
+
+                        // console.log('data', data);
+
+                        if (data.user.id == user_id) {
+                            setTimeout(function() {
+                                $('#button-submit').html(originalText);
+                                localStorage.token = data.token;
+                                // Redirect to the desired URL
+                                window.location.href = decodeURIComponent(
+                                    getQueryVariable(
+                                        "redirect"));
+                            }, 1000);
+                        } else {
+                            setTimeout(function() {
+                                $('#button-submit').html(originalText);
+                                localStorage.removeItem('token');
+                                $("#error_msg").html(
+                                    "The profile of this invoice doesn`t match."
+                                    ).show();
+                                    $('#form_login').trigger('reset');
                                 }, 1000);
                             }
                         }
-                    })
-                    .catch(function(error) {
-                        console.log('catch', error);
-                        setTimeout(function() {
-                            $("#error_msg").html('Unrecognized credentials.').show();
-                            $("#error_msg").addClass('mt-3');
-                            $('#button-submit').html(originalText);
-                        }, 1000);
-                    });
-            })
+                    }
+                }).catch(function(error) {
+                    console.log('catch', error);
+                    setTimeout(function() {
+                        $("#error_msg").html('Unrecognized credentials.').show();
+                        $("#error_msg").addClass('mt-3');
+                        $('#button-submit').html(originalText);
+                    }, 1000);
+                });
+            });
+
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) === variable) {
+                        return decodeURIComponent(pair[1]);
+                    }
+                }
+                return null; // Variable not found
+            }
+
         });
     </script>
 @endsection

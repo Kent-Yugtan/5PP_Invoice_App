@@ -8,6 +8,7 @@
                         <div style="padding:20px">
                             <input type="text" id="invoiceId" value="{{ $invoiceId }}" hidden>
                             <input type="text" id="for" value="{{ $for }}" hidden>
+                            <input type="text" id="urlUser_id" value="{{ $user_id }}" hidden>
                             <div id="content">
 
                                 {{-- <div class="row">
@@ -810,25 +811,25 @@
             $("div.spanner").addClass("show");
             setTimeout(function() {
                 $("div.spanner").removeClass("show");
-                buttonClick();
+                // buttonClick();
                 show_invoice();
                 show_invoice_config();
             }, 1500)
 
-            function buttonClick() {
-                let forInovoice = $('#for').val();
-                if (forInovoice == "Admin") {
-                    console.log("Admin", forInovoice);
-                    $('#paid_button').prop('disabled', false);
-                    $('#cancel_button').prop('disabled', false);
-                    $('#delete_button').prop('disabled', false);
-                } else {
-                    console.log("Profile", forInovoice);
-                    $('#paid_button').prop('disabled', true);
-                    $('#cancel_button').prop('disabled', true);
-                    $('#delete_button').prop('disabled', true)
-                }
-            }
+            // function buttonClick() {
+            //     let forInovoice = $('#for').val();
+            //     if (forInovoice == "Admin") {
+            //         console.log("Admin", forInovoice);
+            //         $('#paid_button').prop('disabled', false);
+            //         $('#cancel_button').prop('disabled', false);
+            //         $('#delete_button').prop('disabled', false);
+            //     } else {
+            //         console.log("Profile", forInovoice);
+            //         $('#paid_button').prop('disabled', true);
+            //         $('#cancel_button').prop('disabled', true);
+            //         $('#delete_button').prop('disabled', true)
+            //     }
+            // }
 
             $('#due_date').each(function() {
                 const datepicker = new Datepicker(this, {
@@ -839,8 +840,8 @@
                 });
             });
 
-            var currentPage = apiUrl + "/admin/current";
-            $('#collapseLayouts a').each(function() {
+            var currentPage = apiUrl + "/user/currentActiveInvoice";
+            $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
                     // If there is a match, add the "active" class to the link
@@ -849,9 +850,10 @@
                     // Trigger a click event on the parent link to expand the collapsed section
                     $(this).parent().parent().addClass("show");
                     $(this).parent().parent().addClass("active");
-                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
+                    $('[data-bs-target="#collapseLayouts2"]').addClass('active');
                 }
             });
+
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -1766,25 +1768,22 @@
                                             $('#quickInvoiceDescription').append(div);
                                         }
 
+                                        if (data.data.invoice_status === "Paid") {
+                                            $('#text_date_received').html("Date Received");
+                                            $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
+                                            $('#paid_button').prop('disabled', true);
+                                            $('#cancel_button').prop('disabled', true);
+                                            $('#delete_button').prop('disabled', false);
+                                            $('#edit_invoice').prop('disabled', true);
 
-
-
-                                        // if (data.data.invoice_status === "Paid") {
-                                        //     $('#text_date_received').html("Date Received");
-                                        //     $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
-                                        //     $('#paid_button').prop('disabled', true);
-                                        //     $('#cancel_button').prop('disabled', true);
-                                        //     $('#delete_button').prop('disabled', false);
-                                        //     $('#edit_invoice').prop('disabled', true);
-
-                                        // } else {
-                                        //     $('#text_date_received').html("");
-                                        //     $('#date_received').html("");
-                                        //     $('#paid_button').prop('disabled', false);
-                                        //     $('#cancel_button').prop('disabled', false);
-                                        //     $('#delete_button').prop('disabled', false);
-                                        //     $('#edit_invoice').prop('disabled', false);
-                                        // }
+                                        } else {
+                                            $('#text_date_received').html("");
+                                            $('#date_received').html("");
+                                            $('#paid_button').prop('disabled', false);
+                                            $('#cancel_button').prop('disabled', false);
+                                            $('#delete_button').prop('disabled', false);
+                                            $('#edit_invoice').prop('disabled', false);
+                                        }
 
                                         let redue_date = data.data.due_date;
                                         let date_now = (new Date()).toISOString().split('T')[0];
@@ -2007,27 +2006,31 @@
                                             );
                                         }
                                     } else if (data.data.invoice_status == "Cancelled") {
-
+                                        $('#paid_button').prop('disabled', true);
+                                        $('#cancel_button').prop('disabled', true);
                                         $('#content').html(
                                             `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-ban"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has been cancelled.</label></div></div>`
                                         );
 
                                     } else if (data.data.invoice_status == "Paid") {
-
+                                        $('#paid_button').prop('disabled', true);
+                                        $('#cancel_button').prop('disabled', true);
                                         $('#content').html(
                                             `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="far fa-check-circle" style="color:#198754"></i><div><label class="d-flex justify-content-center" style="font-size:14px">Invoice has already been paid.</label></div></div>`
                                         );
                                     } else {
-
+                                        $('#paid_button').prop('disabled', false);
+                                        $('#cancel_button').prop('disabled', false);
                                         $('#content').html(
                                             `<div class="noData" style="padding:40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
                                         );
                                     }
-                                } else {
-                                    $('#content').html(
-                                        `<div class="noData" style="padding: 40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
-                                    );
                                 }
+                                //  else {
+                                //     $('#content').html(
+                                //         `<div class="noData" style="padding: 40px;text-align:center;position:sticky;overflow:hidden;left: 0px;font-size:75px"><i class="fas fa-database"></i><div><label class="d-flex justify-content-center" style="font-size:14px">No Data</label></div></div>`
+                                //     );
+                                // }
 
                             }).catch(function(error) {
                                 console.log("ERROR", error);
@@ -2148,6 +2151,7 @@
                     notes: invoice_notes,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 }
                 console.log("DATA", data);
                 axios.post(apiUrl + '/api/createinvoice', data, {
@@ -2353,9 +2357,7 @@
             // PAID BUTTON
             $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
-
                 // Do your processing here
-
                 let url = window.location.pathname
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {
@@ -2376,8 +2378,8 @@
                                     var originalText = $('#content').html();
                                     $('#content').html(
                                         `<div id="contentSpinner">
-                <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                </div>
+                                    <span id="button-spinner" style="color:#CF8029;width:150px;height:150px" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </div>
                 `
                                     );
                                     $('#content').addClass('d-flex');
@@ -2413,12 +2415,14 @@
                                         $('.row .discountType').empty();
                                         $('.row #discountAmount').empty();
 
-                                        // $('#paid_button').prop('disabled', true);
-                                        // $('#cancel_button').prop('disabled', true);
-                                        // $('#delete_button').prop('disabled', true);
+                                        $('#paid_button').prop('disabled', true);
+                                        $('#cancel_button').prop('disabled', true);
+                                        $('#delete_button').prop('disabled', true);
+                                        $('#content').html(show_invoice());
 
                                         toast1.toast('show');
                                     }, 1500);
+
                                 }
                             }).catch(function(error) {
                                 if (error.response.data.errors) {
@@ -2510,10 +2514,10 @@
                                         $('.row #view_invoice_description').empty();
                                         $('.row .discountType').empty();
                                         $('.row #discountAmount').empty();
-                                        // $('#paid_button').prop('disabled', true);
-                                        // $('#cancel_button').prop('disabled', true);
-                                        // $('#delete_button').prop('disabled', true);
-                                        show_invoice_config();
+                                        $('#paid_button').prop('disabled', true);
+                                        $('#cancel_button').prop('disabled', true);
+                                        $('#delete_button').prop('disabled', true);
+                                        $('#content').html(show_invoice());
                                         toast1.toast('show');
                                     }, 1500);
 
@@ -2600,9 +2604,10 @@
                                         $('.row .discountType').empty();
                                         $('.row #discountAmount').empty();
 
-                                        // $('#paid_button').prop('disabled', false);
-                                        // $('#cancel_button').prop('disabled', false);
-                                        // $('#delete_button').prop('disabled', false);
+                                        $('#paid_button').prop('disabled', false);
+                                        $('#cancel_button').prop('disabled', false);
+                                        $('#delete_button').prop('disabled', false);
+                                        $('#content').html(show_invoice());
                                         toast1.toast('show');
                                     }, 1500);
 
@@ -2636,6 +2641,7 @@
                     }
                 }
             })
+
 
             function capitalize(s) {
                 if (typeof s !== 'string') return "";

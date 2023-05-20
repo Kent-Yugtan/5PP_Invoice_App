@@ -1138,8 +1138,9 @@
                     due_date: due_date,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 };
-
+                console.log("DATA", data);
                 axios.post(apiUrl + "/api/add_invoices", data, {
                     headers: {
                         Authorization: token,
@@ -1152,12 +1153,12 @@
 
                         $('#pendingInvoices tbody').html(
                             `<tr>
-                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                          <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
                         );
 
                         $('#overdueInvoices tbody').html(
                             `<tr>
-                              <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
+                          <td class="text-center" colspan="4"><div class="text-center" colspan="4"><span style="color:#CF8029" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div></td></tr>`
                         );
 
                         $("div.spanner").addClass("show");

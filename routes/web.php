@@ -76,7 +76,11 @@ Route::middleware(['isPublicCheck'])->group(function () {
         // return view('welcome');
         return view('public/login');
     });
+    // MAIN LOGIN
     Route::get('login', [MainController::class, 'login']);
+
+    // EMAIL LOGIN
+    Route::get('emailLogin', [MainController::class, 'emailLogin'])->name('emailLogin');
     // RESET PASSWORD
     Route::get('forgotPassword', [MainController::class, 'forgotPassword']);
     Route::get('password/reset/{token}', [MainController::class, 'showResetForm']);

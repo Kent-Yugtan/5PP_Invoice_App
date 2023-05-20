@@ -839,8 +839,8 @@
                 });
             });
 
-            var currentPage = apiUrl + "/admin/current";
-            $('#collapseLayouts a').each(function() {
+            var currentPage = apiUrl + "/invoice/current";
+            $('#collapseLayouts2 a').each(function() {
                 // Compare the href attribute of the link to the current page URL
                 if (currentPage.indexOf($(this).attr('href')) !== -1) {
                     // If there is a match, add the "active" class to the link
@@ -849,9 +849,10 @@
                     // Trigger a click event on the parent link to expand the collapsed section
                     $(this).parent().parent().addClass("show");
                     $(this).parent().parent().addClass("active");
-                    $('[data-bs-target="#collapseLayouts"]').addClass('active');
+                    $('[data-bs-target="#collapseLayouts2"]').addClass('active');
                 }
             });
+
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -1764,9 +1765,6 @@
                                             $('#quickInvoiceDescription').append(div);
                                         }
 
-
-
-
                                         if (data.data.invoice_status === "Paid") {
                                             $('#text_date_received').html("Date Received");
                                             $('#date_received').html(mm3 + " " + dd3 + ", " + yy3);
@@ -2151,6 +2149,7 @@
                     notes: invoice_notes,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 }
                 console.log("DATA", data);
                 axios.post(apiUrl + '/api/createinvoice', data, {
@@ -2356,9 +2355,7 @@
             // PAID BUTTON
             $('#confirm_paid_button').on('click', function(e) {
                 e.preventDefault();
-
                 // Do your processing here
-
                 let url = window.location.pathname
                 let urlSplit = url.split("/");
                 if (urlSplit.length === 4) {

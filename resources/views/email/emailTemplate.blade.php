@@ -479,7 +479,7 @@
                         <td colspan="2">
                             <p style="text-align: right">
                                 <a target="_blank"
-                                    href="{{ $content['action_link'] }}/{{ $content['token'] }}?invoice_id={{ $content['invoice_id'] }}&for={{ $content['for'] }}"
+                                    href="{{ $content['apiUrl'] . '/emailLogin' }}?redirect={{ urlencode($content['action_link'] . '/' . $content['token'] . '?invoice_id=' . $content['invoice_id'] . '&for=' . $content['for'] . '&user_id=1') }}"
                                     style="color: #FFF; border-color: #CF8029; border-style: solid; border-width: 10px 18px; background-color: #CF8029; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">View
                                     Invoice Admin</a>
                             </p>
@@ -492,13 +492,14 @@
                         <td colspan="2">
                             <p style="text-align: right">
                                 <a target="_blank"
-                                    href="{{ $content['action_link'] }}/{{ $content['token'] }}?invoice_id={{ $content['invoice_id'] }}&for={{ $content['for'] }}"
+                                    href="{{ $content['apiUrl'] . '/emailLogin' }}?redirect={{ urlencode($content['action_link'] . '/' . $content['token'] . '?invoice_id=' . $content['invoice_id'] . '&for=' . $content['for'] . '&user_id=' . $content['user_id']) }}"
                                     style="color: #FFF; border-color: #CF8029; border-style: solid; border-width: 10px 18px; background-color: #CF8029; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">View
                                     Invoice Profile</a>
                             </p>
                         </td>
                     </tr>
                 @endif
+
             </tbody>
         </table>
     </div>
