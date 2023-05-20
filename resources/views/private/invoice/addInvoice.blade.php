@@ -850,6 +850,7 @@
                     notes: invoice_notes,
                     invoiceItems,
                     Deductions,
+                    apiUrl: apiUrl,
                 }
 
                 console.log("DATA", data);

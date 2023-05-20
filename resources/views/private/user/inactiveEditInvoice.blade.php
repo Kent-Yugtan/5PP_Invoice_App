@@ -2135,6 +2135,7 @@
                     notes: invoice_notes,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 }
                 console.log("DATA", data);
                 axios.post(apiUrl + '/api/createinvoice', data, {

@@ -345,8 +345,8 @@
     </div>
 
     <!-- Modal FOR Inactive Invoice -->
-    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="inactiveModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="top:30px;">
                 <div class="modal-header">
@@ -2135,6 +2135,7 @@
                     notes: invoice_notes,
                     invoiceItem,
                     Deductions,
+                    apiUrl: apiUrl,
                 }
                 console.log("DATA", data);
                 axios.post(apiUrl + '/api/createinvoice', data, {
