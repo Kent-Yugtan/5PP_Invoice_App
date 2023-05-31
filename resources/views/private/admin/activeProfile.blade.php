@@ -792,7 +792,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div id="notifyIcon"></i></div>
+                <div id="notifyIcon"></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -1283,7 +1283,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
         aria-hidden="true" data-bs-keyboard="false">

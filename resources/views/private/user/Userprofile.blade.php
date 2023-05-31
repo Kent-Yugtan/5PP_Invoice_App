@@ -1,7 +1,6 @@
 @extends('layouts.private')
 @section('content-dashboard')
     <div class="container-fluid container-header" id="loader_load">
-
         <div class="row" style="padding-top:10px">
             <div class="col-md-12 col-lg-12 col-xl-4 bottom10" style="padding-right:5px;padding-left:5px;">
                 <div class="card-border shadow bg-white h-100" style="padding:20px">
@@ -785,7 +784,7 @@
     <div style="position:fixed;top:60px;right:20px;z-index:99999;justify-content:flex-end;display:flex;">
         <div class="toast toast1 toast-bootstrap" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div id="notifyIcon"></i></div>
+                <div id="notifyIcon"></div>
                 <div><strong class="mr-auto m-l-sm toast-title">Notification</strong></div>
                 <div>
                     <button type="button" class="ml-2 mb-1 close float-end" data-dismiss="toast" aria-label="Close">
@@ -1180,7 +1179,6 @@
     </div>
     <!-- MODAL FOR EDITING DEDUCTION -->
 
-
     <!-- Modal FOR DELETE -->
     <div class="modal fade" style="z-index: 999999" id="deleteModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -1228,9 +1226,57 @@
             </div>
         </div>
     </div>
+    <!-- Modal FOR DELETE -->
 
-    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        data-bs-keyboard="false">
+    <!-- Modal FOR DEDUCTION DELETE -->
+    <div class="modal fade" style="z-index: 999999" id="deleteDeductionModal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <img class="" src="{{ URL('images/Delete.png') }}"
+                                    style="width: 50%; padding:10px" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <h3> Are you sure?</h3>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row pt-3 px-3">
+                        <div class="col">
+                            <span id="delete_deduction_id"></span>
+                            <span class="text-muted"> Do you really want to delete this record? This process cannot be
+                                undone.</span>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3 pb-3 px-3">
+                        <div class="col-6">
+                            <button type="button" class="btn  w-100" data-bs-dismiss="modal"
+                                style="color:white; background-color:#A4A6B3;">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" id="deduction_delete" class="btn btn-danger w-100">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="hide-content">
                 <div class="modal-body">
@@ -3273,6 +3319,72 @@
                 })
             });
 
+            $('#deduction_delete').on('click', function(e) {
+                e.preventDefault();
+                let id = $('#delete_deduction_id').html();
+                axios.post(apiUrl + '/api/deleteDeduction/' +
+                    id, {}, {
+                        headers: {
+                            Authorization: token
+                        },
+                    }).then(function(response) {
+                    let data = response.data;
+                    console.log("SUCCCESS", data);
+                    if (data.success) {
+
+                        $('#deleteDeductionModal').modal('hide');
+                        $('div.spanner').addClass("show");
+
+                        setTimeout(function() {
+                            $('div.spanner').removeClass("show");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-check" style="color:green"></i>'
+                            );
+                            $('.toast1 .toast-title').html('Success');
+                            $('.toast1 .toast-body').html(data.message);
+
+                            // PROFILE DEDUCTION BUTTON
+                            $('#deductionButton').empty();
+                            $('#deductionButton').html(
+                                show_profileDeductionType_Button());
+                            // PROFILE DEDUCTION TABLE
+                            $('#dataTable_deduction tbody').empty();
+                            $('#dataTable_deduction tbody').html(
+                                show_Profilededuction_Table_Active());
+                            // PROFILE INVOICES TABLE
+                            $('#dataTable_invoice tbody').empty();
+                            $('#dataTable_invoice tbody').html(
+                                show_data());
+                            show_profileDeductionType_select();
+                            toast1.toast('show');
+                        }, 1500);
+                    }
+                }).catch(function(error) {
+                    console.log("ERROR", error);
+                    if (error.response.data.errors) {
+                        let errors = error.response.data.errors;
+                        let fieldnames = Object.keys(errors);
+                        Object.values(errors).map((item, index) => {
+                            fieldname = fieldnames[0].split('_');
+                            fieldname.map((item2, index2) => {
+                                fieldname['key'] = capitalize(item2);
+                                return ""
+                            });
+                            fieldname = fieldname.join(" ");
+                            $('#notifyIcon').html(
+                                '<i class="fa-solid fa-x" style="color:#dc3545"></i>');
+                            $('.toast1 .toast-title').html("Error");
+                            $('.toast1 .toast-body').html(Object.values(errors)[
+                                    0]
+                                .join(
+                                    "\n\r"));
+                        })
+                        toast1.toast('show');
+                    }
+                })
+            });
+
+
             // FUNCTION FOR DISPLAY RESULTS AND CONVERTED AMOUNT
             function getResults_Converted() {
                 fetch(`${api}`)
@@ -4741,6 +4853,14 @@
                 let deleteProfileDeductionType_id = row.find(".deleteButton").val();
                 $("#deleteProfileDeductionType_id").html(deleteProfileDeductionType_id);
                 console.log("deleteProfileDeductionType_id", deleteProfileDeductionType_id);
+            })
+
+            $(document).on('click', '#dataTable_deduction .deleteDeductionButton', function(
+                e) {
+                e.preventDefault();
+                let row = $(this).closest("td");
+                let deduction_id = row.find(".deleteDeductionButton").val();
+                $("#delete_deduction_id").html(deduction_id);
             })
 
             $('#deleteProfileDeductionTypeButton').on('click', function(e) {
