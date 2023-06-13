@@ -965,7 +965,7 @@ class ProfileController extends Controller
                 'file_size',
                 DB::raw("CONCAT(first_name, ' ', last_name) full_name")
             ],
-        )->where('role', 'Staff')->profile()->where('profile_status', 'Active');
+        )->where('role', 'Staff')->profile()->where('profile_status', 'Inactive');
 
         if ($request->search) {
             $data = $data->where(

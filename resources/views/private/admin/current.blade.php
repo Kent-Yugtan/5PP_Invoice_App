@@ -149,7 +149,7 @@
                     </div>
                     <div class="row ">
                         <div class="col bottom20">
-                            <span id="inactiveProfileId"></span>
+                            <span id="inactiveProfileId" hidden></span>
                             <span class="text-muted"> Do you really want to set this Profile to Deactivate?</span>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
 
                                         // console.log("DIFF", Math.round(diff));
                                         if (latest_status.invoice_status == "Paid") {
-                                            tr += '<td class="fit"> 0 Day ago</td>';
+                                            tr += '<td class="fit"> No Latest Invoice</td>';
                                         } else {
                                             if (Math.round(diff) > 1) {
                                                 tr += '<td class="fit">' + Math.round(diff ? diff : 0) +
@@ -544,7 +544,7 @@
                                         tr += '<td class="fit">' + item
                                             .phone_number + '</td>';
                                         tr += '<td class="fit">' + item.position + '</td>';
-                                        tr += '<td class="fit"> No Latest Invoice</td>';
+                                        tr += '<td class="fit"> No Invoice</td>';
 
                                         tr +=
                                             '<td  class="text-center">';
