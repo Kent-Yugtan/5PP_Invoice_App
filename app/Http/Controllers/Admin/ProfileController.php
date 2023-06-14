@@ -892,30 +892,32 @@ class ProfileController extends Controller
 
     public function show_data_active(Request $request)
     {
-        $data = User::with('profile.invoice')->select(
-            [
-                'users.*',
-                'position',
-                'phone_number',
-                'address',
-                'province',
-                'city',
-                'zip_code',
-                'profile_status',
-                'acct_no',
-                'acct_name',
-                'bank_name',
-                'bank_address',
-                'gcash_no',
-                'date_hired',
-                'file_name',
-                'file_original_name',
-                'file_path',
-                'file_size',
-                DB::raw("CONCAT(first_name, ' ', last_name) full_name")
-            ],
-        )->where('role', 'Staff')->profile()->where('profile_status', 'Active');
-        // ->join('invoices', 'profiles.id', '=', 'invoices.profile_id')->orderBy('invoices.created_at', 'DESC');
+        $data = User::with(['profile.invoice' => function ($query) {
+            $query->where('invoice_status', "!=", 'Paid');
+        }])
+            ->select(
+                [
+                    'users.*',
+                    'position',
+                    'phone_number',
+                    'address',
+                    'province',
+                    'city',
+                    'zip_code',
+                    'profile_status',
+                    'acct_no',
+                    'acct_name',
+                    'bank_name',
+                    'bank_address',
+                    'gcash_no',
+                    'date_hired',
+                    'file_name',
+                    'file_original_name',
+                    'file_path',
+                    'file_size',
+                    DB::raw("CONCAT(first_name, ' ', last_name) full_name")
+                ],
+            )->where('role', 'Staff')->profile()->where('profile_status', 'Active');
 
         if ($request->search) {
             $data = $data
@@ -943,7 +945,9 @@ class ProfileController extends Controller
 
     public function show_data_inactive(Request $request)
     {
-        $data = User::with('profile.invoice')->select(
+        $data = User::with(['profile.invoice' => function ($query) {
+            $query->where('invoice_status', "!=", 'Paid');
+        }])->select(
             [
                 'users.*',
                 'position',
